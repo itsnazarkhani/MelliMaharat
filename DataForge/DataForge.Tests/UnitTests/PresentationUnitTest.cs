@@ -1,0 +1,59 @@
+﻿namespace DataForge.Tests.UnitTests
+{
+    public class PresentationUnitTest : IClassFixture<MyFixture>
+    {
+        PresentationRepo repo = new PresentationRepo();
+
+        [Fact]
+        public void Get()
+        {
+            var presentations = repo.GetAll().ToList();
+            var presentationsCount= presentations.Count();
+            Assert.Equal(1, presentationsCount);
+        }
+        [Fact]
+        public void Add()
+        {
+            Lesson lesson = new Lesson() { Name = "Programming", Unit = 2 };
+            Person person = new Person() { Age = 25, FirstName = "Esmail", LastName = "Jahanbakhsh" };
+            Master master = new Master() { Graduation = "Phd", PersonInformation = person };
+
+            var presentation = new Presentation()
+            {
+                LessonNavigation = lesson,
+                MasterNavigation = master,
+                DayHold = "Saturday",
+                StartTime = new TimeOnly(10, 30),
+                EndTime = new TimeOnly(12, 00)
+            };
+            int result = repo.Add(presentation);
+            Assert.Equal(3, result);
+
+            var presentations = repo.GetAll().ToList();
+            Assert.Equal(2, presentations.Count);
+
+            result = repo.Remove(presentation);
+            Assert.Equal(1, result);
+            result = new LessonRepo().Remove(lesson);
+            Assert.Equal(1, result);
+            result = new MasterRepo().Remove(master);
+            Assert.Equal(1, result);
+        }
+        [Fact]
+        public void Update()
+        {
+            var presentation = repo.GetFirst();
+            presentation.DayHold = "Sunday";
+            int result = repo.Update(presentation);
+            Assert.Equal(1, result);
+        }
+
+        //[Fact]
+        //public void Audit()
+        //{
+        //    var tempList = repo.GetAllHistory().ToList();
+        //    int count = tempList.Count;
+        //    Assert.Equal(2, count);
+        //}
+    }
+}

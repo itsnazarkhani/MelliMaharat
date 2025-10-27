@@ -1,0 +1,16 @@
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\bin\Debug\net9.0\DataForge.Models.deps.json
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\bin\Debug\net9.0\DataForge.Models.runtimeconfig.json
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\bin\Debug\net9.0\DataForge.Models.dll
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\bin\Debug\net9.0\DataForge.Models.pdb
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.csproj.AssemblyReference.cache
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.GeneratedMSBuildEditorConfig.editorconfig
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.AssemblyInfoInputs.cache
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.AssemblyInfo.cs
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.csproj.CoreCompileInputs.cache
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\EFCoreSqlServerDateOnlyTimeOnly.cs
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.sourcelink.json
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.dll
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\refint\DataForge.Models.dll
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.pdb
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\DataForge.Models.genruntimeconfig.cache
+E:\Projects\C#\GithubWorks\MeliMaharatDB\DataForge\DataForge.Models\obj\Debug\net9.0\ref\DataForge.Models.dll

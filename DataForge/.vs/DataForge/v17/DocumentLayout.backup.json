@@ -1,0 +1,228 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\unittests\\lessoninformationviewtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\unittests\\lessoninformationviewtest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\globalusings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\unittests\\myfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\unittests\\myfixture.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\unittests\\presentationunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\unittests\\presentationunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\unittests\\masterunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\unittests\\masterunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.tests\\unittests\\lessonunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CA4DED9D-1B68-4D83-ACA3-B1AF448B3091}|DataForge.Tests\\DataForge.Tests.csproj|solutionrelative:dataforge.tests\\unittests\\lessonunittest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\lessoninformationviewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\lessoninformationviewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\base\\viewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\base\\viewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\base\\repo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\base\\repo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\interfaces\\irepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\interfaces\\irepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\base\\baserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\base\\baserepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|e:\\projects\\c#\\githubworks\\melimaharatdb\\dataforge\\dataforge.dal\\repos\\interfaces\\iviewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B6145379-F1E5-48C1-BB58-DA634998C026}|DataForge.Dal\\DataForge.Dal.csproj|solutionrelative:dataforge.dal\\repos\\interfaces\\iviewrepo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LessonUnitTest.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\LessonUnitTest.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\UnitTests\\LessonUnitTest.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\LessonUnitTest.cs",
+              "RelativeToolTip": "DataForge.Tests\\UnitTests\\LessonUnitTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:36:04.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GlobalUsings.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\GlobalUsings.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\GlobalUsings.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\GlobalUsings.cs",
+              "RelativeToolTip": "DataForge.Tests\\GlobalUsings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:11:08.072Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PresentationUnitTest.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\PresentationUnitTest.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\UnitTests\\PresentationUnitTest.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\PresentationUnitTest.cs",
+              "RelativeToolTip": "DataForge.Tests\\UnitTests\\PresentationUnitTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:07:34.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MyFixture.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\MyFixture.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\UnitTests\\MyFixture.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\MyFixture.cs",
+              "RelativeToolTip": "DataForge.Tests\\UnitTests\\MyFixture.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:06:44.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MasterUnitTest.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\MasterUnitTest.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\UnitTests\\MasterUnitTest.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\MasterUnitTest.cs",
+              "RelativeToolTip": "DataForge.Tests\\UnitTests\\MasterUnitTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T07:04:40.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LessonInformationViewTest.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\LessonInformationViewTest.cs",
+              "RelativeDocumentMoniker": "DataForge.Tests\\UnitTests\\LessonInformationViewTest.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Tests\\UnitTests\\LessonInformationViewTest.cs",
+              "RelativeToolTip": "DataForge.Tests\\UnitTests\\LessonInformationViewTest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:52:57.742Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "LessonInformationViewRepo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\LessonInformationViewRepo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\LessonInformationViewRepo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\LessonInformationViewRepo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\LessonInformationViewRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:53:29.886Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Repo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\Repo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\Base\\Repo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\Repo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\Base\\Repo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:49:15.954Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BaseRepo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\BaseRepo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\Base\\BaseRepo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\BaseRepo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\Base\\BaseRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:57:23.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IRepo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Interfaces\\IRepo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\Interfaces\\IRepo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Interfaces\\IRepo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\Interfaces\\IRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:48:27.177Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ViewRepo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\ViewRepo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\Base\\ViewRepo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Base\\ViewRepo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\Base\\ViewRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:35:11.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "IViewRepo.cs",
+              "DocumentMoniker": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Interfaces\\IViewRepo.cs",
+              "RelativeDocumentMoniker": "DataForge.Dal\\Repos\\Interfaces\\IViewRepo.cs",
+              "ToolTip": "E:\\Projects\\C#\\GithubWorks\\MeliMaharatDB\\DataForge\\DataForge.Dal\\Repos\\Interfaces\\IViewRepo.cs",
+              "RelativeToolTip": "DataForge.Dal\\Repos\\Interfaces\\IViewRepo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T06:35:01.525Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

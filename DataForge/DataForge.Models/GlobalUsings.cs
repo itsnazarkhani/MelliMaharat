@@ -1,0 +1,9 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using DataForge.Models.Base;
+global using DataForge.Models.Owned;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using DataForge.Models.Configurations;
+global using DataForge.Models.Views;
+global using DataForge.Models.Interfaces;

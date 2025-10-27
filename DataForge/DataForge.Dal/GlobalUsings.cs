@@ -1,0 +1,14 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.SqlServer;
+global using Microsoft.EntityFrameworkCore.Design;
+global using Microsoft.Data.SqlClient;
+global using DataForge.Models;
+global using DataForge.Models.Configurations;
+global using DataForge.Models.Interfaces;
+global using DataForge.Models.Views;
+global using DataForge.Models.Base;
+global using DataForge.Dal.DbContexts;
+global using DataForge.Dal.Repos.Interfaces;
+global using DataForge.Dal.Repos.Base;
+global using static System.TimeZoneInfo;
+global using Microsoft.Extensions.Configuration;
