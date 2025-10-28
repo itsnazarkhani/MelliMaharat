@@ -55,3 +55,6 @@ nunit-*.xml
 
 # Visual Studio Files
 .vs/
+
+# Visual Studio Code
+.vscode/
