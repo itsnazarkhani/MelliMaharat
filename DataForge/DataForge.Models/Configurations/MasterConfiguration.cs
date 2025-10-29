@@ -21,15 +21,16 @@ public class MasterConfiguration : IEntityTypeConfiguration<Master>
                     y.Property(x => x.Age)
                      .HasColumnName(nameof(Person.Age))
                      .HasColumnType("int");
-                    
+
                     y.Property(x => x.NationalCode)
                      .HasColumnName(nameof(Person.NationalCode))
-                     .HasColumnType("nvarchar(50)");
-                    
+                     .HasMaxLength(20);
+
                     y.Property(x => x.PhoneNumber)
                      .HasColumnName(nameof(Person.PhoneNumber))
-                     .HasColumnType("nvarchar(50)");
-                    
+                     .HasMaxLength(20);
+
+
                     y.Property(x => x.Email)
                      .HasColumnName(nameof(Person.Email))
                      .HasColumnType("nvarchar(50)");

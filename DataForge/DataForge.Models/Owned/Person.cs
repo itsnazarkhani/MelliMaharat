@@ -12,10 +12,8 @@ public class Person
     [Required]
     public int Age { get; set; }
     
-    [StringLength(20)]
     public string NationalCode { get; set; }
     
-    [StringLength(20)]
     public string PhoneNumber { get; set; }
     
     public string Email { get; set; }
