@@ -1,14 +1,13 @@
-﻿namespace DataForge.Tests.UnitTests
+﻿namespace DataForge.Tests.UnitTests;
+
+public class LessonInformationViewTest : BaseTest 
 {
-    public class LessonInformationViewTest : IClassFixture<MyFixture>
+    LessonInformationViewRepo repo => new(_context);
+    [Fact]
+    public void GetAll()
     {
-        LessonInformationViewRepo repo = new LessonInformationViewRepo();
-        [Fact]
-        public void GetAll()
-        {
-            var list = repo.GetAll().ToList();
-            var listCount = list.Count;
-            Assert.Equal(1, listCount);
-        }
+        var list = repo.GetAll().ToList();
+        var listCount = list.Count;
+        Assert.Equal(1, listCount);
     }
 }

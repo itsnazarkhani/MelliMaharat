@@ -1,7 +1,7 @@
-﻿namespace DataForge.Dal.Repos
+﻿namespace DataForge.Dal.Repos;
+
+public class LessonInformationViewRepo : ViewRepo<LessonInformationView> 
 {
-    public class LessonInformationViewRepo : ViewRepo<LessonInformationView>
-    {
-        
-    }
+    public LessonInformationViewRepo() : base() { }
+    public LessonInformationViewRepo(ApplicationDbContext context) : base(context) { }
 }

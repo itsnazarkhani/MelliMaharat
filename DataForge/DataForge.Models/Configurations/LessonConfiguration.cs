@@ -1,22 +1,21 @@
-﻿namespace DataForge.Models.Configurations
+﻿namespace DataForge.Models.Configurations;
+
+public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
 {
-    public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
+    public void Configure(EntityTypeBuilder<Lesson> builder)
     {
-        public void Configure(EntityTypeBuilder<Lesson> builder)
-        {
-            builder
-                .ToTable
+        builder
+            .ToTable
+            (
+                x => x.IsTemporal
                 (
-                    x => x.IsTemporal
-                    (
-                        x =>
-                        {
-                            x.UseHistoryTable("LessonAudit", "audit");
-                            x.HasPeriodStart("ValidFrom");
-                            x.HasPeriodEnd("ValidTo");
-                        }
-                    )
-                );
-        }
+                    x =>
+                    {
+                        x.UseHistoryTable("LessonAudit", "audit");
+                        x.HasPeriodStart("ValidFrom");
+                        x.HasPeriodEnd("ValidTo");
+                    }
+                )
+            );
     }
 }

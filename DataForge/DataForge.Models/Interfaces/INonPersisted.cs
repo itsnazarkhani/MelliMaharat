@@ -1,6 +1,3 @@
-﻿namespace DataForge.Models.Interfaces
-{
-    public interface INonPersisted
-    {
-    }
-}
+﻿namespace DataForge.Models.Interfaces;
+
+public interface INonPersisted { }

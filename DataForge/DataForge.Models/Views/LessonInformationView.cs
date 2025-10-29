@@ -1,20 +1,16 @@
-﻿namespace DataForge.Models.Views
+﻿namespace DataForge.Models.Views;
+
+[Keyless]
+[EntityTypeConfiguration(typeof(LessonInformationViewConfiguration))]
+public class LessonInformationView : INonPersisted
 {
-    [Keyless]
-    [EntityTypeConfiguration(typeof(LessonInformationViewConfiguration))]
-    public class LessonInformationView : INonPersisted
-    {
-        [StringLength(50)]
-        public string Lesson {  get; set; }
+    public string Lesson {  get; set; }
 
-        [StringLength(50)]
-        public string Master { get; set; }
+    public string Master { get; set; }
 
-        [StringLength(50)]
-        public string DayHold { get; set; } 
-        
-        public TimeOnly StartTime { get; set; }
-        
-        public TimeOnly EndTime { get; set; }
-    }
+    public string DayHold { get; set; } 
+    
+    public TimeOnly StartTime { get; set; }
+    
+    public TimeOnly EndTime { get; set; }
 }

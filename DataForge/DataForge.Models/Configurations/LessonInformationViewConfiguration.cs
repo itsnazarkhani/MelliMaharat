@@ -1,15 +1,11 @@
-﻿namespace DataForge.Models.Configurations
+﻿namespace DataForge.Models.Configurations;
+
+public class LessonInformationViewConfiguration : IEntityTypeConfiguration<LessonInformationView>
 {
-    public class LessonInformationViewConfiguration : IEntityTypeConfiguration<LessonInformationView>
+    public void Configure(EntityTypeBuilder<LessonInformationView> builder)
     {
-        public void Configure(EntityTypeBuilder<LessonInformationView> builder)
-        {
-            builder
-                .HasNoKey()
-                .ToView("View_LessonInformation");
-                
-                
-                    
-        }
+        builder
+            .HasNoKey()
+            .ToView("View_LessonInformation");
     }
 }
