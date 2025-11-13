@@ -1,20 +1,27 @@
-﻿namespace DataForge.Tests.UnitTests
+﻿namespace DataForge.Tests.UnitTests;
+
+public class InitializeDatabase : IClassFixture<MyFixture>
 {
-    public class InitializeDatabase : IClassFixture<MyFixture>
+    [Fact]
+    public async Task IsDatabaseCreated()
     {
-        [Fact]
-        public void IsDatabaseCreated()
-        {
-            ApplicationDbContext context = new ApplicationDbContextFactory().CreateDbContext();
+        ApplicationDbContext context = new ApplicationDbContextFactory().CreateDbContext();
+        
+        await SeedAsync(context);
 
-            var lessonsCount = context.Lessons.ToList().Count;
-            Assert.Equal(2, lessonsCount);
+        var selectionsCount = context.Selections.Count();
+        Assert.NotEqual(0, selectionsCount);
 
-            var mastersCount = context.Masters.ToList().Count;
-            Assert.Equal(1, mastersCount);
+        var studentsCount = context.Students.Count();
+        Assert.NotEqual(0, studentsCount);
 
-            var presentationCount = context.Presentations.ToList().Count;
-            Assert.Equal(1, presentationCount);
-        }
+        var lessonsCount = context.Lessons.Count();
+        Assert.NotEqual(0, lessonsCount);
+
+        var mastersCount = context.Masters.Count();
+        Assert.NotEqual(0, mastersCount);
+
+        var presentationCount = context.Presentations.Count();
+        Assert.NotEqual(0, presentationCount);
     }
 }

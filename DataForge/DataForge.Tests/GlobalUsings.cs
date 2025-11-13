@@ -4,3 +4,4 @@ global using DataForge.Dal.DbContexts;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using DataForge.Models.Owned;
+global using static DataForge.Seeding.DataSeeder;

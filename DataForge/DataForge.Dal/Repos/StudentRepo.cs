@@ -14,7 +14,9 @@ public class StudentRepo : Repo<Student>
     /// <exception cref="ArgumentException"></exception>
     public decimal GetAverageGrade(int id)
     {
-        var student = _table.Where(x => x.Id == id).Include(x => x.Selections).First();
+        var studentQuery = _table.Where(x => x.Id == id).Include(x => x.Selections);
+        var studentQueryString = studentQuery.ToQueryString();
+        var student = studentQuery.SingleOrDefault();
 
         var selectionsCount = student.Selections.Count();
  
@@ -24,7 +26,7 @@ public class StudentRepo : Repo<Student>
         var grades = student.Selections.Select(x => (decimal)x.Score);
         var gradesSum = grades.Sum();
         var gradesCount = grades.Count();
-
-        return gradesSum / gradesCount;
+        var result = gradesSum / gradesCount;
+        return result;
     }
 }

@@ -9,16 +9,16 @@ public class LessonUnitTest : BaseTest
         Lesson lesson = new Lesson() { Name = "bar", Unit = 2 };
         int result = repo.Add(lesson);
         Assert.Equal(1, result);
-        Assert.Equal(3, repo.GetAll().Count());
+        Assert.Equal(6, repo.GetAll().Count());
     }
     [Fact]
     public void Remove()
     {
-        Lesson lesson = repo.GetWhere(x => x.Name.Equals("x")).First();
+        Lesson lesson = repo.GetWhere(x => x.Name.Equals("Electric")).First();
         int result = repo.Remove(lesson);
         int count = repo.GetAll().Count();
         Assert.Equal(1, result);
-        Assert.Equal(1, count);
+        Assert.Equal(4, count);
     }
     [Fact]
     public void GetNotPresentedLessons()
@@ -27,7 +27,7 @@ public class LessonUnitTest : BaseTest
         repo.Add(lesson);
         var lessons = repo.GetNotPresentedLessons();
         var lessonsCount = lessons.ToList().Count;
-        Assert.Equal(2, lessonsCount);
+        Assert.Equal(1, lessonsCount);
     }
     [Fact]
     public void GetNotPresentedLessonsQuery()

@@ -8,6 +8,6 @@ public class LessonInformationViewTest : BaseTest
     {
         var list = repo.GetAll().ToList();
         var listCount = list.Count;
-        Assert.Equal(1, listCount);
+        Assert.Equal(50, listCount);
     }
 }

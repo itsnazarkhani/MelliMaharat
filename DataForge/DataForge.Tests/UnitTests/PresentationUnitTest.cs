@@ -9,7 +9,7 @@ public class PresentationUnitTest : BaseTest
     {
         var presentations = repo.GetAll().ToList();
         var presentationsCount= presentations.Count();
-        Assert.Equal(1, presentationsCount);
+        Assert.Equal(50, presentationsCount);
     }
     [Fact]
     public void Add()
@@ -30,14 +30,7 @@ public class PresentationUnitTest : BaseTest
         Assert.Equal(3, result);
 
         var presentations = repo.GetAll().ToList();
-        Assert.Equal(2, presentations.Count);
-
-        //result = repo.Remove(presentation);
-        //Assert.Equal(1, result);
-        //result = new LessonRepo().Remove(lesson);
-        //Assert.Equal(1, result);
-        //result = new MasterRepo().Remove(master);
-        //Assert.Equal(1, result);
+        Assert.Equal(51, presentations.Count);
     }
     [Fact]
     public void Update()
