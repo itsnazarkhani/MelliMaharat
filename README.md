@@ -131,15 +131,3 @@ cd "c:/Github/MelliMaharat/DataForge/DataForge.Dal"; dotnet ef dbcontext scaffol
 ## Contributing
 
 Feel free to create issues and pull requests. Keep database changes explicit and include migration files when modifying schema. Document any changes to the seeding or connection setup.
-
-## License
-
-This repository does not include a license file. Add a `LICENSE` if you want to specify terms.
-
----
-
-If you'd like, I can also:
-- create a starter ASP.NET Core project in `Website/` wired to `DataForge.Dal`, or
-- scaffold a basic WPF project in `Desktop/` that references the DAL and shows a simple list of students.
-
-Tell me which you'd prefer and I'll add it.
