@@ -37,14 +37,14 @@ Key points:
 
 Prerequisites:
 
-- .NET SDK (recommended latest stable 7+ or the version targeted by the solution (10))
-- Visual Studio 2022+ or VS Code with C# DEV extensions
+- .NET SDK 10
+- Visual Studio 2026 or VS Code with C# DEV Kit extension
 - SQL Server or SQL Server Express / LocalDB / Azure Data Studio to attach the `.mdf` file
 
 1. Open the solution
 
    - Using Visual Studio: double-click `DataForge/DataForge.slnx`.
-   - Using the CLI (PowerShell or Bash/zsh):
+   - Using the CLI (PowerShell, for Bash/zsh replace `;` with `&&`):
 
 ```powershell
 cd "c:/Github/MelliMaharat/DataForge";
