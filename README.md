@@ -5,7 +5,7 @@ University database project (MelliMaharat). This repository contains a database 
 - `DataForge.WebApi` — an ASP.NET Core Web API project (server-side API for the university application)
 - `DataForge.Wpf` — a WPF desktop application (client) that consumes the DAL via the shared projects
 
-Both applications follow a Database-First approach using the provided database. This README explains the repository layout, how to open and build the `DataForge` solution, how to connect to the provided database files, run tests, and next steps for the WebApi and WPF projects.
+Both applications follow a Database-First or Code-First approaches using the provided database. This README explains the repository layout, how to open and build the `DataForge` solution, how to connect to the provided database files, run tests, and next steps for the WebApi and WPF projects.
 
 ## Repository layout
 
@@ -13,7 +13,7 @@ Both applications follow a Database-First approach using the provided database. 
   - `MelliMaharatDB.mdf`
   - `MelliMaharatDB_log.ldf`
 - `DataForge/` - Main .NET solution and projects that model the database and data access
-  - `DataForge.sln` - Visual Studio / dotnet solution
+  - `DataForge.slnx` - Visual Studio / dotnet solution
   - `DataForge.Dal/` - EF Core DbContext, migrations, repository code and data access layer
     - `appsettings.configuration.json` - contains (or is expected to contain) the connection string used by the DAL and design-time factory
     - `DbContexts/ApplicationDbContext.cs` - the EF Core DbContext
@@ -37,14 +37,14 @@ Key points:
 
 Prerequisites:
 
-- .NET SDK (recommended latest stable 7+ or the version targeted by the solution)
-- Visual Studio 2022+ or VS Code with C# extensions
-- SQL Server or SQL Server Express / LocalDB to attach the `.mdf` file
+- .NET SDK (recommended latest stable 7+ or the version targeted by the solution (10))
+- Visual Studio 2022+ or VS Code with C# DEV extensions
+- SQL Server or SQL Server Express / LocalDB / Azure Data Studio to attach the `.mdf` file
 
 1. Open the solution
 
-   - Using Visual Studio: double-click `DataForge/DataForge.sln`.
-   - Using the CLI (PowerShell):
+   - Using Visual Studio: double-click `DataForge/DataForge.slnx`.
+   - Using the CLI (PowerShell or Bash/zsh):
 
 ```powershell
 cd "c:/Github/MelliMaharat/DataForge";
@@ -87,7 +87,7 @@ cd "c:/Github/MelliMaharat/DataForge/DataForge.Dal";
 dotnet ef dbcontext scaffold "Server=(localdb)\\mssqllocaldb;Database=MelliMaharatDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o ..\\DataForge.Models\\Scaffolded -f
 ```
 
-Note: change the connection string to match how you attached the MDF.
+Note: change the connection string to match how you attached the MDF or use Code-First Approach using `Database=DataForge` or any other name you prefer.
 
 ## Migrations
 
