@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="DataForge.Dal/DataForge.Dal.csproj" />
+  <Project Path="DataForge.Models/DataForge.Models.csproj" />
+  <Project Path="DataForge.Seeding/DataForge.Seeding.csproj" />
+  <Project Path="DataForge.Tests/DataForge.Tests.csproj" />
+</Solution>
