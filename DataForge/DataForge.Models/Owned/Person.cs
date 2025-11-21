@@ -18,6 +18,15 @@ public class Person
 
     public string Email { get; set; }
 
+    [Required]
+    [StringLength(500)]
+    public string Password { get; set; }
+
+    public bool IsAdmin { get; set; }
+
+    [Required]
+    public string Username { get; set; }
+
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public string FullName;
 }

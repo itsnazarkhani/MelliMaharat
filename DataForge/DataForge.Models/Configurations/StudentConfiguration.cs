@@ -34,6 +34,19 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                     .HasColumnName(nameof(Person.PhoneNumber))
                     .HasMaxLength(20);
 
+                    y.Property(x => x.Password)
+                     .HasColumnName(nameof(Person.Password))
+                     .HasMaxLength(500);
+
+                    y.Property(x => x.IsAdmin)
+                    .HasColumnName(nameof(Person.IsAdmin));
+
+                    y.Property(x => x.Username)
+                     .HasColumnName(nameof(Person.Username));
+
+                    y.HasIndex(x => x.Username)
+                     .IsUnique();
+
                     y.Property(x => x.FullName)
                     .HasColumnName(nameof(Person.FullName))
                     .HasComputedColumnSql("[FirstName] + ', ' + [LastName]", stored: true)

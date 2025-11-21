@@ -3,4 +3,5 @@
   <Project Path="DataForge.Models/DataForge.Models.csproj" />
   <Project Path="DataForge.Seeding/DataForge.Seeding.csproj" />
   <Project Path="DataForge.Tests/DataForge.Tests.csproj" />
+  <Project Path="DataForge.Wpf/DataForge.Wpf.csproj" />
 </Solution>

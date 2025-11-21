@@ -15,7 +15,7 @@ public class PresentationUnitTest : BaseTest
     public void Add()
     {
         Lesson lesson = new Lesson() { Name = "Programming", Unit = 2 };
-        Person person = new Person() { Age = 25, FirstName = "Esmail", LastName = "Jahanbakhsh" };
+        Person person = new Person() { Age = 25, FirstName = "Esmail", LastName = "Jahanbakhsh", Password = "1111111111", Username = "Somethingdo"};
         Master master = new Master() { Graduation = "Phd", PersonInformation = person };
 
         var presentation = new Presentation()

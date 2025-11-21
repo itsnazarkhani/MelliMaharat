@@ -8,18 +8,21 @@ public static class DataSeeder
             return 0; // database already seeded!
 
         string[] lessonNames = ["Computer", "Electric", "Finance", "Religion", "Marketing"];
+        string[] graduations = ["Diploma", "Advanced Diploma", "Bachelor", "Master", "Doctorate", "Post-Doctorate"];
 
-        var fakePerson = new Faker<DataForge.Models.Owned.Person>(locale)
+        var fakePerson = new Faker<Models.Owned.Person>(locale)
                                 .RuleFor(x => x.FirstName, f => f.Name.FirstName())
                                 .RuleFor(x => x.LastName, f => f.Name.LastName())
                                 .RuleFor(x => x.Age, f => f.Random.Int(18, 60))
                                 .RuleFor(x => x.NationalCode, f => f.Random.Replace("##########"))
                                 .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+98##########"))
-                                .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.FirstName, x.LastName));
+                                .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.FirstName, x.LastName))
+                                .RuleFor(x => x.Password, (f, x) => f.Internet.Password())
+                                .RuleFor(x => x.Username, (f, x) => f.Internet.UserNameUnicode(x.FirstName, x.LastName));
 
         var fakeMaster = new Faker<Master>(locale)
                                 .RuleFor(x => x.PersonInformation, f => fakePerson.Generate())
-                                .RuleFor(x => x.Graduation, f => f.PickRandomParam("Diploma", "Advanced Diploma", "Bachelor", "Master", "Doctorate", "Post-Doctorate"));
+                                .RuleFor(x => x.Graduation, f => f.PickRandomParam(graduations));
 
         var fakeStudent = new Faker<Student>(locale)
                                 .RuleFor(x => x.PersonInformation, f => fakePerson.Generate());
@@ -71,6 +74,9 @@ public static class DataSeeder
             }
         }
 
+        Models.Owned.Person adminInfo = new() { FirstName = "admin", LastName = "admin", Password = "admin", Username = "admin", IsAdmin = true };
+        students.Add(new() { PersonInformation = adminInfo });
+        masters.Add(new() { PersonInformation = adminInfo, Graduation = graduations[new Random().Next(graduations.Length + 1)] });
 
         await context.Masters.AddRangeAsync(masters);
         await context.Lessons.AddRangeAsync(lessons);

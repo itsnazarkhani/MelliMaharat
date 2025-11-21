@@ -9,7 +9,7 @@ public class MasterUnitTest : BaseTest
     {
         var masters = masterRepo.GetAll().ToList();
         var mastersCount = masters.Count();
-        Assert.Equal(10, mastersCount);
+        Assert.Equal(11, mastersCount);
     }
 
     [Fact]
@@ -19,7 +19,9 @@ public class MasterUnitTest : BaseTest
         {
             Age = 21,
             FirstName = "Michelle",
-            LastName = "Jorjany"
+            LastName = "Jorjany",
+            Password = "1111111111",
+            Username = "Something.sdsf"
         };
         var master = new Master()
         {
@@ -29,17 +31,17 @@ public class MasterUnitTest : BaseTest
         int result = masterRepo.Add(master);
         Assert.Equal(1, result);
         var mastersCount = masterRepo.GetAll().ToList().Count();
-        Assert.Equal(11, mastersCount);
+        Assert.Equal(12, mastersCount);
         masterRepo.Remove(master);
         mastersCount = masterRepo.GetAll().ToList().Count();
-        Assert.Equal(10, mastersCount);
+        Assert.Equal(11, mastersCount);
     }
 
     [Fact]
     public void GetList()
     {
         int actualCount = masterRepo.GetAll().Count();
-        Assert.Equal(10, actualCount);
+        Assert.Equal(11, actualCount);
     }
 
     [Fact]
@@ -48,5 +50,21 @@ public class MasterUnitTest : BaseTest
         var master = masterRepo.GetFirst();
         int result = masterRepo.Remove(master);
         Assert.Equal(1, result);
+    }
+
+
+    [Fact]
+    public void IsMasterExist()
+    {
+        var result = masterRepo.IsUserExist(masterRepo.GetFirst().PersonInformation.Username);
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void IsMasterAdmin()
+    {
+        var userInfo = masterRepo.GetFirst().PersonInformation;
+        bool result = masterRepo.IsAdmin(userInfo.Username, userInfo.Password);
+        Assert.False(result);
     }
 }

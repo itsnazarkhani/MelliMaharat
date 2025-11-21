@@ -4,6 +4,7 @@ using DataForge.Dal.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataForge.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251121035623_Add Username Column and Make it Unique")]
+    partial class AddUsernameColumnandMakeitUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,7 +59,7 @@ namespace DataForge.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons", (string)null);
+                    b.ToTable("Lessons");
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -91,7 +94,7 @@ namespace DataForge.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Masters", (string)null);
+                    b.ToTable("Masters");
                 });
 
             modelBuilder.Entity("DataForge.Models.Presentation", b =>
@@ -141,7 +144,7 @@ namespace DataForge.Dal.Migrations
 
                     b.HasIndex("MasterId");
 
-                    b.ToTable("Presentations", (string)null);
+                    b.ToTable("Presentations");
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -197,7 +200,7 @@ namespace DataForge.Dal.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Selections", (string)null);
+                    b.ToTable("Selections");
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -227,7 +230,7 @@ namespace DataForge.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students", (string)null);
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("DataForge.Models.Views.LessonInformationView", b =>
@@ -321,7 +324,7 @@ namespace DataForge.Dal.Migrations
                             b1.HasIndex("Username")
                                 .IsUnique();
 
-                            b1.ToTable("Masters", (string)null);
+                            b1.ToTable("Masters");
 
                             b1.WithOwner()
                                 .HasForeignKey("MasterId");
@@ -435,7 +438,7 @@ namespace DataForge.Dal.Migrations
                             b1.HasIndex("Username")
                                 .IsUnique();
 
-                            b1.ToTable("Students", (string)null);
+                            b1.ToTable("Students");
 
                             b1.WithOwner()
                                 .HasForeignKey("StudentId");

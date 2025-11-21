@@ -1,6 +1,6 @@
 ﻿namespace DataForge.Dal.Repos;
 
-public class StudentRepo : Repo<Student>
+public class StudentRepo : Repo<Student>, IUser
 {
     public StudentRepo() : base() { }
     public StudentRepo(ApplicationDbContext context) : base(context) { }
@@ -14,9 +14,12 @@ public class StudentRepo : Repo<Student>
     /// <exception cref="ArgumentException"></exception>
     public decimal GetAverageGrade(int id)
     {
-        var studentQuery = _table.Where(x => x.Id == id).Include(x => x.Selections);
-        var studentQueryString = studentQuery.ToQueryString();
-        var student = studentQuery.SingleOrDefault();
+        var student = _table
+                          .Where(x => x.Id == id)
+                          .Include(x => x.Selections)
+                          .SingleOrDefault();
+        
+        //var studentQueryString = studentQuery.ToQueryString();
 
         var selectionsCount = student.Selections.Count();
  
@@ -29,4 +32,21 @@ public class StudentRepo : Repo<Student>
         var result = gradesSum / gradesCount;
         return result;
     }
+
+    public bool IsAdmin(string username, string password) =>
+        _table
+            .FirstOrDefault(x => x.PersonInformation.Username == username && x.PersonInformation.Password == password)
+            .PersonInformation
+            .IsAdmin;
+    
+    public bool IsPasswordMatch(string username, string password)
+    {
+        var user = _table.FirstOrDefault(x => x.PersonInformation.Username == username);
+        return user.PersonInformation.Password == password;
+    }
+
+    public bool IsUserExist(string username) =>
+        _table
+            .Where(x => x.PersonInformation.Username == username)
+            .Any();
 }
