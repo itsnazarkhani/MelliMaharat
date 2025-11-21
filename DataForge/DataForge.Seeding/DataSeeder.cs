@@ -28,7 +28,7 @@ public static class DataSeeder
                                 .RuleFor(x => x.PersonInformation, f => fakePerson.Generate());
 
         var fakeSelection = new Faker<Selection>(locale)
-                                .RuleFor(x => x.Score, f => (ushort)f.Random.UInt(0, 20))
+                                .RuleFor(x => x.Score, f => (decimal)f.Random.Float(0, 20))
                                 .RuleFor(x => x.EducationYear, f => f.Date.BetweenDateOnly(new DateOnly(2020, 1, 1), new DateOnly(2026, 1, 1)));
 
         var fakePresentation = new Faker<Presentation>(locale)

@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<LessonInformationView> LessonInformationViews { get; set; }
     public virtual DbSet<Student> Students { get; set; }
     public virtual DbSet<Selection> Selections { get; set; }
+    public virtual DbSet<SelectedLessonsInformationView> SelectedLessonsInformationViews { get; set; }
     #endregion
 
     #region Constructors
@@ -25,6 +26,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new LessonInformationViewConfiguration());
         modelBuilder.ApplyConfiguration(new SelectionConfiguration());
         modelBuilder.ApplyConfiguration(new StudentConfiguration());
+        modelBuilder.ApplyConfiguration(new SelectedLessonInformationViewConfiguration());
     }
     #endregion
 

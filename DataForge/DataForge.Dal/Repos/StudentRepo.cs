@@ -26,18 +26,19 @@ public class StudentRepo : Repo<Student>, IUser
         if (selectionsCount == 0)
             throw new ArgumentException($"Selections of this Entity is empty!");
 
-        var grades = student.Selections.Select(x => (decimal)x.Score);
+        var grades = student.Selections.Select(x => x.Score);
         var gradesSum = grades.Sum();
         var gradesCount = grades.Count();
         var result = gradesSum / gradesCount;
         return result;
     }
 
-    public bool IsAdmin(string username, string password) =>
-        _table
-            .FirstOrDefault(x => x.PersonInformation.Username == username && x.PersonInformation.Password == password)
-            .PersonInformation
-            .IsAdmin;
+    public bool IsAdmin(string username, string password)
+    {
+        return _table.FirstOrDefault(x => x.PersonInformation.Username == username && x.PersonInformation.Password == password)
+                     .PersonInformation
+                     .IsAdmin;
+    }
     
     public bool IsPasswordMatch(string username, string password)
     {
@@ -45,8 +46,9 @@ public class StudentRepo : Repo<Student>, IUser
         return user.PersonInformation.Password == password;
     }
 
-    public bool IsUserExist(string username) =>
-        _table
-            .Where(x => x.PersonInformation.Username == username)
-            .Any();
+    public bool IsUserExist(string username)
+    {
+        return _table.Where(x => x.PersonInformation.Username == username)
+                     .Any();
+    }
 }
