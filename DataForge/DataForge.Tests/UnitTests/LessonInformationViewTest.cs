@@ -2,12 +2,12 @@
 
 public class LessonInformationViewTest : BaseTest 
 {
-    LessonInformationViewRepo _repo => new(_context);
+    LessonInformationViewRepo Repo => new(_context);
     [Fact]
     public void GetAll()
     {
-        var list = _repo.GetAll().ToList();
-        var listCount = list.Count;
+        var list = Repo.GetAll();
+        var listCount = list.Count();
         Assert.Equal(50, listCount);
     }
 }

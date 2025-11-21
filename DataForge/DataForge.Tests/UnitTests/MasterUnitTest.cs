@@ -2,12 +2,12 @@
 
 public class MasterUnitTest : BaseTest
 {
-    MasterRepo _repo => new MasterRepo(_context);
+    MasterRepo Repo => new(_context);
 
     [Fact]
     public void Get()
     {
-        var masters = _repo.GetAll().ToList();
+        var masters = Repo.GetAll().ToList();
         var mastersCount = masters.Count();
         Assert.Equal(11, mastersCount);
     }
@@ -28,27 +28,27 @@ public class MasterUnitTest : BaseTest
             Graduation = "Phd",
             PersonInformation = person
         };
-        int result = _repo.Add(master);
+        int result = Repo.Add(master);
         Assert.Equal(1, result);
-        var mastersCount = _repo.GetAll().ToList().Count();
+        var mastersCount = Repo.GetAll().ToList().Count();
         Assert.Equal(12, mastersCount);
-        _repo.Remove(master);
-        mastersCount = _repo.GetAll().ToList().Count();
+        Repo.Remove(master);
+        mastersCount = Repo.GetAll().ToList().Count();
         Assert.Equal(11, mastersCount);
     }
 
     [Fact]
     public void GetList()
     {
-        int actualCount = _repo.GetAll().Count();
+        int actualCount = Repo.GetAll().Count();
         Assert.Equal(11, actualCount);
     }
 
     [Fact]
     public void Remove()
     {
-        var master = _repo.GetFirst();
-        int result = _repo.Remove(master);
+        var master = Repo.GetFirst();
+        int result = Repo.Remove(master);
         Assert.Equal(1, result);
     }
 
@@ -56,15 +56,15 @@ public class MasterUnitTest : BaseTest
     [Fact]
     public void IsMasterExist()
     {
-        var result = _repo.IsUserExist(_repo.GetFirst().PersonInformation.Username);
+        var result = Repo.IsUserExist(Repo.GetFirst().PersonInformation.Username);
         Assert.True(result);
     }
 
     [Fact]
     public void IsMasterAdmin()
     {
-        var userInfo = _repo.GetFirst().PersonInformation;
-        bool result = _repo.IsAdmin(userInfo.Username, userInfo.Password);
+        var userInfo = Repo.GetFirst().PersonInformation;
+        bool result = Repo.IsAdmin(userInfo.Username, userInfo.Password);
         Assert.False(result);
     }
 }

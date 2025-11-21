@@ -2,12 +2,12 @@
 
 public class PresentationUnitTest : BaseTest
 {
-    PresentationRepo _repo => new PresentationRepo(_context);
+    PresentationRepo Repo => new(_context);
 
     [Fact]
     public void Get()
     {
-        var presentations = _repo.GetAll().ToList();
+        var presentations = Repo.GetAll().ToList();
         var presentationsCount= presentations.Count();
         Assert.Equal(50, presentationsCount);
     }
@@ -26,18 +26,18 @@ public class PresentationUnitTest : BaseTest
             StartTime = new TimeOnly(10, 30),
             EndTime = new TimeOnly(12, 00)
         };
-        int result = _repo.Add(presentation);
+        int result = Repo.Add(presentation);
         Assert.Equal(3, result);
 
-        var presentations = _repo.GetAll().ToList();
+        var presentations = Repo.GetAll().ToList();
         Assert.Equal(51, presentations.Count);
     }
     [Fact]
     public void Update()
     {
-        var presentation = _repo.GetFirst();
+        var presentation = Repo.GetFirst();
         presentation.DayHold = "Sunday";
-        int result = _repo.Update(presentation);
+        int result = Repo.Update(presentation);
         Assert.Equal(1, result);
     }
 }
