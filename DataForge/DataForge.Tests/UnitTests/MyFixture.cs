@@ -2,9 +2,5 @@
 
 public class MyFixture
 {
-    public MyFixture()
-    {
-        var context = new ApplicationDbContextFactory().CreateDbContext();
-        context.Database.Migrate();
-    }
+    public MyFixture() => new ApplicationDbContextFactory().CreateDbContext().Migrate();
 }

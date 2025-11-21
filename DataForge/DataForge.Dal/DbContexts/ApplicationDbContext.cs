@@ -35,4 +35,10 @@ public class ApplicationDbContext : DbContext
         configurationBuilder.Properties<string>().HaveMaxLength(50);
     }
     #endregion
+
+    #region CustomMethods
+    public bool Create() => Database.EnsureCreated();
+    public void Migrate() => Database.Migrate();
+    public bool Delete() => Database.EnsureDeleted();
+    #endregion
 }

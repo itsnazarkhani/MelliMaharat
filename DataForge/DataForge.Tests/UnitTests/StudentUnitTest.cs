@@ -2,34 +2,34 @@
 
 public class StudentUnitTest : BaseTest
 {
-    StudentRepo repo = new StudentRepo();
+    StudentRepo _repo = new StudentRepo();
 
     [Fact]
     public void StudentAvgSum()
     {
-        decimal result = repo.GetAverageGrade(2);
+        decimal result = _repo.GetAverageGrade(2);
         Assert.True(result >= 0);
     }
 
     [Fact]
     public void IsStudentExist()
     {
-        string username = repo.GetFirst().PersonInformation.Username;
-        bool result = repo.IsUserExist(username);
+        string username = _repo.GetFirst().PersonInformation.Username;
+        bool result = _repo.IsUserExist(username);
         Assert.True(result);
 
-        result = repo.IsUserExist(string.Empty);
+        result = _repo.IsUserExist(string.Empty);
         Assert.False(result);
     }
 
     [Fact]
     public void IsStudentAdmin()
     {
-        Person personInfo = repo.GetFirst().PersonInformation;
-        bool result = repo.IsAdmin(personInfo.Username, personInfo.Password);
+        Person personInfo = _repo.GetFirst().PersonInformation;
+        bool result = _repo.IsAdmin(personInfo.Username, personInfo.Password);
         Assert.False(result);
 
-        result = repo.IsAdmin("admin", "admin");
+        result = _repo.IsAdmin("admin", "admin");
         Assert.True(result);
     }
 }
