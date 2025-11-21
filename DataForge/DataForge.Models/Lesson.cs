@@ -3,10 +3,10 @@
 [EntityTypeConfiguration(typeof(LessonConfiguration))]
 public class Lesson : BaseEntity
 {
-    [Required]
+    [Required, StringLength(50)]
     public string Name { get; set; }
     
-    [Required]
+    [Required, StringLength(50)]
     public int Unit { get; set; }
 
     [InverseProperty(nameof(Presentation.LessonNavigation))]

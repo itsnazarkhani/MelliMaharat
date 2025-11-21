@@ -11,6 +11,7 @@ public class Selection : BaseEntity
     public Presentation PresentationNavigation { get; set; }
     public int PresentationId { get; set; }
 
-    public ushort Score { get; set; }
+    [Range(0, 20)]
+    public int Score { get; set; }
     public DateOnly EducationYear { get; set; }
 }

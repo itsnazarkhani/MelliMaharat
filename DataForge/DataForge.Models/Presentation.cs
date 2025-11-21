@@ -14,7 +14,7 @@ public class Presentation : BaseEntity
     public Lesson LessonNavigation { get; set; }
     public int LessonId { get; set; }
 
-    [Required]
+    [Required, StringLength(50)]
     public string DayHold { get; set; }
     
     [Required]
