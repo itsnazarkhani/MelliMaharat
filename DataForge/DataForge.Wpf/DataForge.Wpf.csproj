@@ -11,7 +11,6 @@
     <Folder Include="Resources\Fonts\" />
     <Folder Include="Resources\UserControls\" />
     <Folder Include="Pages\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
 
   <PropertyGroup>
