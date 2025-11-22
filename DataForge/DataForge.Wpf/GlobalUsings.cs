@@ -18,9 +18,12 @@ global using System.Windows.Shapes;
 global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
 
+global using System.Globalization;
+
 global using System.Runtime.CompilerServices;
 
 global using System.Collections;
+global using System.Collections.ObjectModel;
 
 global using System.Text;
 

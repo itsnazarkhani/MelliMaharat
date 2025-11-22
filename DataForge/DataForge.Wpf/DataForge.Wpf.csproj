@@ -9,7 +9,6 @@
     <Folder Include="Commands\" />
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\Fonts\" />
-    <Folder Include="Resources\UserControls\" />
     <Folder Include="Pages\" />
   </ItemGroup>
 
