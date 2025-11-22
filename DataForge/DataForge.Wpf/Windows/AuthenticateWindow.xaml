@@ -12,7 +12,7 @@
         Title="AuthenticateWindow" Height="450" Width="800">
 
     <Window.Resources>
-        <converters:ValidationErrorsToTextConverter x:Key="MyConverter"/>
+        <converters:ValidationErrorsToTextConverter x:Key="ValidationResultsToStringConverter"/>
     </Window.Resources>
     
     <Window.DataContext>

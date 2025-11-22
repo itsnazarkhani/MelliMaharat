@@ -14,8 +14,8 @@ public class ValidationErrorsToTextConverter : IValueConverter
         var messages = errors
             .Select(e => e.ErrorContent?.ToString())
             .Where(msg => !string.IsNullOrWhiteSpace(msg));
-
-        return string.Join("\n* ", messages);
+        
+        return "*" + string.Join("\n*", messages);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

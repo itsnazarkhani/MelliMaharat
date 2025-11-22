@@ -46,7 +46,7 @@
                    Foreground="Red"
                    Visibility="Hidden"
                    Margin="5"
-                   Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource VToText}}">
+                   Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource ValidationResultsToStringConverter}}">
         </TextBlock>
 
     </Grid>
