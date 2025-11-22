@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataForge.Wpf.Windows"
         mc:Ignorable="d"
+        xmlns:mv="clr-namespace:DataForge.Wpf.ViewModels"
         Title="AuthenticateWindow" Height="450" Width="800">
+
+    <Window.DataContext>
+        <mv:AuthenticateWindowVM/>
+    </Window.DataContext>
+
     <Grid>
-        <TextBlock Text="Hello World" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"/>
+        <StackPanel VerticalAlignment="Center">
+            <TextBox Margin="10"
+                     ToolTip="Username TextBox"
+                     Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"/>
+            <TextBox Margin="10"
+                     ToolTip="Password Textbox"
+                     Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnNotifyDataErrors=True}"/>
+        </StackPanel>
     </Grid>
 </Window>

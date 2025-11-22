@@ -1,4 +1,5 @@
-﻿global using DataForge;
+﻿global using DataForge.Models.Owned;
+global using DataForge;
 global using DataForge.Dal;
 global using DataForge.Models;
 global using DataForge.Wpf;
@@ -22,3 +23,4 @@ global using System.Runtime.CompilerServices;
 global using System.Collections;
 
 global using System.Text;
+

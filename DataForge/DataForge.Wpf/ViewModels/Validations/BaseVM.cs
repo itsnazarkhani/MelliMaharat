@@ -1,6 +1,6 @@
-﻿namespace DataForge.Wpf.ViewModels.Validations;
+﻿namespace DataForge.Wpf.ViewModels;
 
-public partial class BaseVM<T> : INotifyDataErrorInfo
+public partial class BaseVM<TModel> : INotifyDataErrorInfo where TModel : notnull , new()
 {
     protected readonly Dictionary<string, List<string>> _errors = [];
     public bool HasErrors => _errors.Count > 0;
@@ -16,16 +16,19 @@ public partial class BaseVM<T> : INotifyDataErrorInfo
         return _errors.ContainsKey(propertyName)? _errors[propertyName] : [];
     }
 
-    protected void ValidateProperty(object? value, [CallerMemberName] string? propertyName = null)
+    protected void ValidateProperty(TModel? instance = default, [CallerMemberName] string? propertyName = null)
     {
+        if (instance is null)
+            return;
+
         if (string.IsNullOrEmpty(propertyName))
             return;
 
         _errors.Remove(propertyName);
 
-        var context = new ValidationContext(this) { MemberName = propertyName };
+        var context = new ValidationContext(instance) { MemberName = propertyName };
         var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
-
+        var value = instance.GetType().GetProperty(propertyName)?.GetValue(instance);
         bool isValid = Validator.TryValidateProperty(value, context, results);
 
         if (!isValid)
@@ -39,11 +42,10 @@ public partial class BaseVM<T> : INotifyDataErrorInfo
     public bool ValidateAllProperties()
     {
         _errors.Clear();
-
-        var context = new ValidationContext(this);
+        var context = new ValidationContext(Model);
         var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
 
-        bool isValid = Validator.TryValidateObject(this, context, results, true);
+        bool isValid = Validator.TryValidateObject(Model, context, results, true);
 
         foreach (var result in results)
         {
