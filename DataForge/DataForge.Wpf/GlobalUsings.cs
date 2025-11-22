@@ -2,6 +2,7 @@
 global using DataForge.Dal;
 global using DataForge.Models;
 global using DataForge.Wpf;
+global using DataForge.Dal.DbContexts;
 
 global using System.Windows;
 global using System.Text;
