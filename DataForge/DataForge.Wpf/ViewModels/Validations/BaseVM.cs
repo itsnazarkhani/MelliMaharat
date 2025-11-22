@@ -1,10 +1,9 @@
 ﻿namespace DataForge.Wpf.ViewModels;
 
-public partial class BaseVM<TModel> : INotifyDataErrorInfo where TModel : notnull , new()
+public partial class BaseVM<TModel> : INotifyDataErrorInfo
 {
     protected readonly Dictionary<string, List<string>> _errors = [];
     public bool HasErrors => _errors.Count > 0;
-
 
     public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
 

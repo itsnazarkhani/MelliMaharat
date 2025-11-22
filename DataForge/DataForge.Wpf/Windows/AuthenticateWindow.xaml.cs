@@ -1,15 +1,9 @@
-﻿using DataForge.Wpf.ViewModels;
-
-namespace DataForge.Wpf.Windows;
+﻿namespace DataForge.Wpf.Windows;
 
 /// <summary>
 /// Interaction logic for AuthenticateWindow.xaml
 /// </summary>
 public partial class AuthenticateWindow : Window
 {
-    public AuthenticateWindowVM? _context { get; }
-    public AuthenticateWindow()
-    {
-        InitializeComponent();
-    }
+    public AuthenticateWindow() => InitializeComponent();
 }

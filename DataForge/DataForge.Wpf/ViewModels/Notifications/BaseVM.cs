@@ -2,7 +2,6 @@
 
 public partial class BaseVM<TModel> : INotifyPropertyChanged
 {
-    public int MyProperty { get; set; }
     public event PropertyChangedEventHandler? PropertyChanged;
 
     protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
