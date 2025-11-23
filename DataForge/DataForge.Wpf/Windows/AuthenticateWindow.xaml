@@ -12,14 +12,20 @@
         Background="White"
         Title="AuthenticateWindow"
         Height="450"
-        Width="800">
+        Width="800"
+        FontFamily="{StaticResource SFProRounded}"
+        FontWeight="Regular">
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <uc:CustomTextBox InputText="{Binding Username}"
+            <uc:CustomTextBox InputText="{Binding   Username}"
                               Tag="Username"
-                              Width="200"
-                              Height="50"/>
+                              />
+
+            <uc:CustomTextBox InputText="{Binding Password}"
+                              Tag="Password"/>
+            
         </StackPanel>
+            
     </Grid>
 </Window>

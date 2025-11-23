@@ -3,5 +3,9 @@
                     xmlns:converters="clr-namespace:DataForge.Wpf.Converters">
 
     <converters:ValidationErrorsToTextConverter x:Key="ValidationResultsToStringConverter"/>
+    <converters:VisibilityToColorConverter x:Key="VisibilityToColorConverter"/>
+    <converters:BoolToSolidColorBrushConverter x:Key="BoolToSolidColorBrushConverter"/>
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
 
 </ResourceDictionary>

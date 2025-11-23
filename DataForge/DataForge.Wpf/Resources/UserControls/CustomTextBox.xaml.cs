@@ -13,10 +13,29 @@ public partial class CustomTextBox : UserControl
         set { SetValue(InputTextProperty, value); }
     }
 
-    public CustomTextBox() =>InitializeComponent();
+    public CustomTextBox() => InitializeComponent();
+
     static CustomTextBox() =>
         InputTextProperty = DependencyProperty.Register(nameof(InputText), typeof(string), typeof(CustomTextBox), new FrameworkPropertyMetadata(defaultValue: "", FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-    //private void txtInput_TextChanged(object sender, TextChangedEventArgs e) =>
-    //    lblError.Visibility = string.IsNullOrWhiteSpace(lblError.Text) ? Visibility.Hidden : Visibility.Visible;
+    private void Root_GotFocus(object sender, RoutedEventArgs e) =>
+        SetTargetForStoryBoard("lblTagFadeOut", lblTag);
+
+    private void Root_LostFocus(object sender, RoutedEventArgs e) =>
+        _ = string.IsNullOrEmpty(txtInput.Text) && SetTargetForStoryBoard("lblTagFadeIn", lblTag);
+
+    
+    bool SetTargetForStoryBoard(string storyboardName, DependencyObject value)
+    {
+        Storyboard storyboard = (Storyboard)FindResource(storyboardName);
+        Storyboard clone = storyboard.Clone();
+
+        foreach (var item in clone.Children)
+            Storyboard.SetTarget(item, value);
+
+        clone.Begin();
+        return true;
+    }
+
+    private void mainBorder_MouseDown(object sender, MouseButtonEventArgs e) => txtInput.Focus();
 }

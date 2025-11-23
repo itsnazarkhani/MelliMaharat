@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Bold.ttf" />
+    <None Remove="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DataForge.Models\DataForge.Models.csproj" />
     <ProjectReference Include="..\DataForge.Dal\DataForge.Dal.csproj" />
   </ItemGroup>
@@ -8,8 +13,12 @@
   <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Resources\Images\" />
-    <Folder Include="Resources\Fonts\" />
     <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Bold.ttf" />
+    <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
   </ItemGroup>
 
   <PropertyGroup>

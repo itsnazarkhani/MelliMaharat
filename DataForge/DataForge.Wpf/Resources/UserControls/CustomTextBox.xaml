@@ -6,39 +6,98 @@
              xmlns:local="clr-namespace:DataForge.Wpf.Resources.UserControls"
              xmlns:cd="clr-namespace:DataForge.Wpf.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="400"
-             Background="Transparent"
+             d:DesignHeight="70" d:DesignWidth="200"
+             Background="White"
              x:Name="Root"
-             Validation.ErrorTemplate="{x:Null}">
-    
-    <Grid>
+             Validation.ErrorTemplate="{x:Null}"
+             GotFocus="Root_GotFocus"
+             LostFocus="Root_LostFocus"
+             FontSize="20"
+             FontFamily="{StaticResource SFProRounded}">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+    <StackPanel Margin="10">
 
-        <TextBlock x:Name="lblTag"
-                   Grid.Row="0"
-                   Style="{StaticResource TagTextBlockStyle}"
-                   Text="{Binding ElementName=Root, Path=Tag}"/>
+        <Border x:Name="mainBorder"
+                Style="{StaticResource CustomBorderStyle}"
+                BorderBrush="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToSolidColorBrushConverter}}"
+                MouseDown="mainBorder_MouseDown">
 
-        <TextBox x:Name="txtInput"
-                 Grid.Row="1"
-                 Style="{StaticResource MainTextBoxStyle}"
-                 FontSize="{Binding ElementName=Root, Path=FontSize}"
-                 Text="{Binding ElementName=Root, Path=InputText, UpdateSourceTrigger=PropertyChanged}"/>
+            <Border.Effect>
+                <DropShadowEffect x:Name="borderShadow" Color="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToColorConverter}}"
+                                  BlurRadius="15"
+                                  Opacity="0"
+                                  ShadowDepth="0"/>
+            </Border.Effect>
+
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="GotFocus">
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.TargetName="borderShadow">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             Duration="0:0:0.2">
+                                
+                            </DoubleAnimation>
+                        </Storyboard>
+
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="LostFocus">
+                    <BeginStoryboard>
+                        <Storyboard Storyboard.TargetName="borderShadow">
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         To="0"
+                         Duration="0:0:0.2">
+
+                            </DoubleAnimation>
+                        </Storyboard>
+
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+
+
+            <Grid Margin="5" MinHeight="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                
+                <TextBlock x:Name="lblTag"
+                           Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Style="{StaticResource TagTextBlockStyle}"
+                           Text="{Binding ElementName=Root, Path=Tag}"
+                           FontSize="{Binding ElementName=Root, Path=FontSize}">
+                    
+                    <TextBlock.RenderTransform> 
+                        <TransformGroup>
+                            <TranslateTransform/>
+                            <ScaleTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+
+                </TextBlock>
+
+                <TextBox x:Name="txtInput"
+                         Grid.Row="1"
+                         FontSize="{Binding ElementName=Root, Path=FontSize}"
+                         Style="{StaticResource MainTextBoxStyle}"
+                         Text="{Binding ElementName=Root, Path=InputText, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+        </Border>
 
 
         <TextBlock x:Name="lblError"
-                   Grid.Row="2"
                    Style="{StaticResource ErrorTextBlockStyle}"
-                   Visibility="{Binding ElementName=Root, Path=(Validation.HasError)}"
+                   Visibility="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToVisibilityConverter}}"
                    Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource ValidationResultsToStringConverter}}"
                    ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
 
-    </Grid>
+    </StackPanel>
+
 
 
 </UserControl>

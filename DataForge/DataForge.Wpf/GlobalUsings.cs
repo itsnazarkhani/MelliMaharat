@@ -1,4 +1,5 @@
-﻿global using DataForge.Models.Owned;
+﻿
+global using DataForge.Models.Owned;
 global using DataForge;
 global using DataForge.Dal;
 global using DataForge.Models;
@@ -8,6 +9,9 @@ global using DataForge.Dal.DbContexts;
 global using System.Windows;
 global using System.Windows.Controls;
 global using System.Windows.Data;
+global using System.Windows.Media;
+global using System.Windows.Media.Animation;
+global using System.Windows.Input;
 
 global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
