@@ -8,24 +8,15 @@
         xmlns:uc="clr-namespace:DataForge.Wpf.Resources.UserControls"
         xmlns:converters="clr-namespace:DataForge.Wpf.Converters"
         mc:Ignorable="d"
+        DataContext="{StaticResource AuthenticationViewModel}"
         Background="White"
-        Title="AuthenticateWindow" Height="450" Width="800">
-
-    <Window.Resources>
-        <converters:ValidationErrorsToTextConverter x:Key="ValidationResultsToStringConverter"/>
-    </Window.Resources>
-    
-    <Window.DataContext>
-        <mv:AuthenticateWindowVM/>
-    </Window.DataContext>
+        Title="AuthenticateWindow"
+        Height="450"
+        Width="800">
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <uc:CustomTextBox Margin="10"
-                              x:Name="txtUsername"
-                              InputText="{Binding Username}"
-                              ToolTip="Username TextBox"/>
-           
+            <uc:CustomTextBox InputText="{Binding Username}"/>
         </StackPanel>
     </Grid>
 </Window>

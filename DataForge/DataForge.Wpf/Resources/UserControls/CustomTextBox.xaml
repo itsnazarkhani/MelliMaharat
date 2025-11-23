@@ -11,9 +11,6 @@
              x:Name="Root"
              Validation.ErrorTemplate="{x:Null}">
     
-    <UserControl.Resources>
-        <cd:ValidationErrorsToTextConverter x:Key="VToText"/>
-    </UserControl.Resources>
     
     <Grid HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
