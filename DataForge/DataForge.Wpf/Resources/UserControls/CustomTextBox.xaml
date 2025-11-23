@@ -6,45 +6,37 @@
              xmlns:local="clr-namespace:DataForge.Wpf.Resources.UserControls"
              xmlns:cd="clr-namespace:DataForge.Wpf.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="60" d:DesignWidth="400"
+             d:DesignHeight="70" d:DesignWidth="400"
              Background="Transparent"
              x:Name="Root"
              Validation.ErrorTemplate="{x:Null}">
     
-    
-    <Grid HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Height="Auto"
-                Width="Auto">
-        
+    <Grid>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" MinHeight="30"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="txtInput"
-                 Grid.Row="0"
-                 HorizontalAlignment="Stretch"
-                 VerticalAlignment="Stretch"
-                 Width="auto"
-                 Height="auto"
-                 Background="Beige"
-                 HorizontalContentAlignment="Left"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding ElementName=Root, Path=InputText, UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="20"
-                 TextChanged="txtInput_TextChanged">
+        <TextBlock x:Name="lblTag"
+                   Grid.Row="0"
+                   Style="{StaticResource TagTextBlockStyle}"
+                   Text="{Binding ElementName=Root, Path=Tag}"/>
 
-        </TextBox>
+        <TextBox x:Name="txtInput"
+                 Grid.Row="1"
+                 Style="{StaticResource MainTextBoxStyle}"
+                 FontSize="{Binding ElementName=Root, Path=FontSize}"
+                 Text="{Binding ElementName=Root, Path=InputText, UpdateSourceTrigger=PropertyChanged}"/>
 
 
         <TextBlock x:Name="lblError"
-                   Grid.Row="1"
-                   Foreground="Red"
-                   Visibility="Hidden"
-                   Margin="5"
-                   Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource ValidationResultsToStringConverter}}">
-        </TextBlock>
+                   Grid.Row="2"
+                   Style="{StaticResource ErrorTextBlockStyle}"
+                   Visibility="{Binding ElementName=Root, Path=(Validation.HasError)}"
+                   Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource ValidationResultsToStringConverter}}"
+                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
 
     </Grid>
 

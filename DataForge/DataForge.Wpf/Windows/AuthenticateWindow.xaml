@@ -16,7 +16,10 @@
 
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            <uc:CustomTextBox InputText="{Binding Username}"/>
+            <uc:CustomTextBox InputText="{Binding Username}"
+                              Tag="Username"
+                              Width="200"
+                              Height="50"/>
         </StackPanel>
     </Grid>
 </Window>
