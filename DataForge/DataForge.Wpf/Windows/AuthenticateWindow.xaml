@@ -9,10 +9,10 @@
         xmlns:converters="clr-namespace:DataForge.Wpf.Converters"
         mc:Ignorable="d"
         DataContext="{StaticResource AuthenticationViewModel}"
-        Background="White"
         Title="AuthenticateWindow"
         Height="450"
         Width="800"
+        WindowStartupLocation="CenterScreen"
         FontFamily="{StaticResource SFProRounded}"
         FontWeight="Regular">
 
