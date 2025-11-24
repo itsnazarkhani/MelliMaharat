@@ -1,13 +1,11 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace DataForge.Wpf.Converters;
+﻿namespace DataForge.Wpf.Converters;
 
 public class ValidationErrorsToTextConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         // WPF can pass null, UnsetValue, or wrong types
-        if (value == null || value == DependencyProperty.UnsetValue)
+        if (value is null || value == DependencyProperty.UnsetValue)
             return "";
         if (value is not ReadOnlyObservableCollection<ValidationError> errors)
             return "";
@@ -15,10 +13,10 @@ public class ValidationErrorsToTextConverter : IValueConverter
             return "";
         else
         {
-            var messages = errors
-                .Select(e => e.ErrorContent?.ToString())
-                .Where(msg => !string.IsNullOrWhiteSpace(msg));
-            return "*" + string.Join("\n*", messages);
+            var messages = errors.Select(e => e.ErrorContent?.ToString())
+                                 .Where(msg => !IsNullOrWhiteSpace(msg));
+
+            return "*" + Join("\n*", messages);
         }
     }
 

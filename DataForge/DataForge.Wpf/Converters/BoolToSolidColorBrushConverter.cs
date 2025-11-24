@@ -5,13 +5,11 @@
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is not bool hasError)
-                return new SolidColorBrush(Colors.Transparent);
-            return hasError ? new SolidColorBrush(Colors.Red) : new SolidColorBrush(Colors.MediumAquamarine);
+                return new SolidColorBrush(Transparent);
+            else
+                return hasError ? new SolidColorBrush(Red) : new SolidColorBrush(MediumAquamarine);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotImplementedException();
     }
 }

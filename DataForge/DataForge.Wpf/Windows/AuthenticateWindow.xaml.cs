@@ -1,4 +1,4 @@
-﻿namespace DataForge.Wpf.Windows;
+﻿ namespace DataForge.Wpf.Windows;
 
 /// <summary>
 /// Interaction logic for AuthenticateWindow.xaml
@@ -6,4 +6,8 @@
 public partial class AuthenticateWindow : Window
 {
     public AuthenticateWindow() => InitializeComponent();
+
+    private void LoginFooter_Hyperlink_Click(object sender, RoutedEventArgs e)
+    {
+    }
 }

@@ -1,3 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <LinearGradientBrush x:Key="LoginWindowBackground">
+        <GradientStop Color="MediumBlue" Offset="-1"/>
+        <GradientStop Color="MediumTurquoise" Offset="1"/>
+    </LinearGradientBrush>
+
+
 </ResourceDictionary>

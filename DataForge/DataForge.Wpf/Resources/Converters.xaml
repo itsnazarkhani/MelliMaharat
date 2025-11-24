@@ -7,5 +7,6 @@
     <converters:BoolToSolidColorBrushConverter x:Key="BoolToSolidColorBrushConverter"/>
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
+    <converters:BrushToColorConverter x:Key="BrushToColorConverter"/>
 
 </ResourceDictionary>

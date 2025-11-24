@@ -3,20 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:DataForge.Wpf"
              StartupUri="./Windows/AuthenticateWindow.xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
 
+                
                 <ResourceDictionary Source="/Resources/Converters.xaml"/>
-                <ResourceDictionary Source="/Resources/UserControls.xaml"/>
                 <ResourceDictionary Source="/Resources/DataContexts.xaml"/>
                 <ResourceDictionary Source="/Resources/CustomTextBoxStyles.xaml"/>
                 <ResourceDictionary Source="/Resources/UserControlAnimations.xaml"/>
                 <ResourceDictionary Source="/Resources/Colors.xaml"/>
                 <ResourceDictionary Source="/Resources/Fonts.xaml"/>
                 <ResourceDictionary Source="/Resources/GlobalResources.xaml"/>
+
                 
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+
 </Application>

@@ -5,19 +5,18 @@
 /// </summary>
 public partial class App : Application
 {
-    // this construction establishes connection with database before the program totally executes
-    // if you want to ensure database is also Update With Latest Changes use .Migrate() instead of .Create()
+    // here we are establishing connection with database before the program fully executes
     public App() { }
     
     protected override void OnStartup(StartupEventArgs e)
     {
         try
         {
-            new ApplicationDbContextFactory().CreateDbContext().Migrate();
+            FactoryMigrate();
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Database Initialization Failed:\n{ex.Message}");
+            Show($"An Error Occured While We Trying to Establish Connection With Database:\n{ex.Message}");
             Shutdown();
             return;
         }

@@ -2,34 +2,37 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Storyboard x:Key="lblTagFadeOut">
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].Y"
-                         To="-8"
-                         Duration="0:0:0.2"/>
+
         <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].X"
-                         To="6"
+                         To="-10"
                          Duration="0:0:0.2"/>
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[1].ScaleX"
-                         To="0.65"
-                         Duration="0:0:0.2"/>
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[1].ScaleY"
-                         To="0.65"
+
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                         To="0"
                          Duration="0:0:0.2"/>
     </Storyboard>
-
-    
     <Storyboard x:Key="lblTagFadeIn">
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].Y"
-                         To="0"
-                         Duration="0:0:0.2"/>
         <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[0].X"
                          To="0"
                          Duration="0:0:0.2"/>
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[1].ScaleX"
-                         To="1"
-                         Duration="0:0:0.2"/>
-        <DoubleAnimation Storyboard.TargetProperty="RenderTransform.Children[1].ScaleY"
-                         To="1"
-                         Duration="0:0:0.2"/>
+        
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                 To="1"
+                 Duration="0:0:0.2"/>
+    </Storyboard>
+    <Storyboard x:Key="UserControlBorderGotFocusStoryboard"
+                Storyboard.TargetName="borderShadow">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                 To="1"
+                 Duration="0:0:0.2">
+        </DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="UserControlBorderLostFocusStoryboard"
+                Storyboard.TargetName="borderShadow">
+        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                 To="0"
+                 Duration="0:0:0.2">
+        </DoubleAnimation>
     </Storyboard>
 
     

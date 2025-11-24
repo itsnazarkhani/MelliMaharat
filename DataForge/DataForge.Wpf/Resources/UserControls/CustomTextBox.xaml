@@ -7,15 +7,18 @@
              xmlns:cd="clr-namespace:DataForge.Wpf.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="70" d:DesignWidth="200"
-             Background="White"
-             x:Name="Root"
              Validation.ErrorTemplate="{x:Null}"
+             x:Name="Root"
              GotFocus="Root_GotFocus"
              LostFocus="Root_LostFocus"
-             FontSize="20"
+             Style="{StaticResource CustomTextBoxStyle}"
              FontFamily="{StaticResource SFProRounded}">
 
-    <StackPanel Margin="10">
+    <StackPanel>
+
+        <TextBlock x:Name="lblTag"
+                   Style="{StaticResource TagTextBlockStyle}"
+                   Text="{Binding ElementName=Root, Path=Tag}"/>
 
         <Border x:Name="mainBorder"
                 Style="{StaticResource CustomBorderStyle}"
@@ -23,52 +26,34 @@
                 MouseDown="mainBorder_MouseDown">
 
             <Border.Effect>
-                <DropShadowEffect x:Name="borderShadow" Color="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToColorConverter}}"
+                <DropShadowEffect x:Name="borderShadow"
+                                  Color="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToColorConverter}}"
                                   BlurRadius="15"
                                   Opacity="0"
                                   ShadowDepth="0"/>
             </Border.Effect>
-
             <Border.Triggers>
                 <EventTrigger RoutedEvent="GotFocus">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetName="borderShadow">
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             To="1"
-                                             Duration="0:0:0.2">
-                                
-                            </DoubleAnimation>
-                        </Storyboard>
-
-                    </BeginStoryboard>
+                    <BeginStoryboard Storyboard="{StaticResource UserControlBorderGotFocusStoryboard}"/>
                 </EventTrigger>
                 <EventTrigger RoutedEvent="LostFocus">
-                    <BeginStoryboard>
-                        <Storyboard Storyboard.TargetName="borderShadow">
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                         To="0"
-                         Duration="0:0:0.2">
-
-                            </DoubleAnimation>
-                        </Storyboard>
-
-                    </BeginStoryboard>
+                    <BeginStoryboard Storyboard="{StaticResource UserControlBorderLostFocusStoryboard}"/>
                 </EventTrigger>
             </Border.Triggers>
 
 
-            <Grid Margin="5" MinHeight="20">
+            <Grid Style="{StaticResource CustomCTextBoxGridStyle}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 
                 
-                <TextBlock x:Name="lblTag"
+                <TextBlock x:Name="lblHint"
                            Grid.Row="0"
                            Grid.RowSpan="2"
-                           Style="{StaticResource TagTextBlockStyle}"
-                           Text="{Binding ElementName=Root, Path=Tag}"
+                           Style="{StaticResource HintTextBlockStyle}"
+                           Text="{Binding ElementName=Root, Path=Hint}"
                            FontSize="{Binding ElementName=Root, Path=FontSize}">
                     
                     <TextBlock.RenderTransform> 

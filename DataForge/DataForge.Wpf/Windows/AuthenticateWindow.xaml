@@ -8,24 +8,80 @@
         xmlns:uc="clr-namespace:DataForge.Wpf.Resources.UserControls"
         xmlns:converters="clr-namespace:DataForge.Wpf.Converters"
         mc:Ignorable="d"
-        DataContext="{StaticResource AuthenticationViewModel}"
-        Title="AuthenticateWindow"
-        Height="450"
-        Width="800"
-        WindowStartupLocation="CenterScreen"
-        FontFamily="{StaticResource SFProRounded}"
-        FontWeight="Regular">
-
+        Style="{StaticResource LoginWindowStyle}"
+        WindowStartupLocation="CenterScreen">
+    
+    
     <Grid>
-        <StackPanel VerticalAlignment="Center">
-            <uc:CustomTextBox InputText="{Binding   Username}"
-                              Tag="Username"
-                              />
+        <Border Grid.Column="1"
+                Grid.Row="1"
+                Style="{StaticResource LoginWindowMainBorder}">
 
-            <uc:CustomTextBox InputText="{Binding Password}"
-                              Tag="Password"/>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"
+                            HorizontalAlignment="Center">
+                    
+                    <TextBlock Style="{StaticResource LoginWindowFirstHeader}"
+                               Text="Welcome Back!"/>
+
+                    <TextBlock Style="{StaticResource LoginWindowSecondHeader}"
+                               Text="We missed you! Please enter your details."/>  
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="1"
+                            Style="{StaticResource LoginWindowBodyStackPanel}">
+
+                    <uc:CustomTextBox Tag="Username"
+                                      Hint="Enter Your Username"
+                                      InputText="{Binding Username}"/>
+
+                    <uc:CustomTextBox Tag="Password"
+                                      Hint="Enter Password"
+                                      InputText="{Binding Password}"/>
+
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                            Style="{StaticResource LoginWindowFooterStackPanel}">
+                    
+                    <Button x:Name="btnSignIn"
+                            Content="Sign In"
+                            Style="{StaticResource SignInButton}">
+                        <Button.Effect>
+                            <DropShadowEffect x:Name="btnSignInGlowAnimation"
+                                              BlurRadius="15"
+                                              ShadowDepth="0"
+                                              Opacity="0"
+                                              Color="{Binding ElementName=btnSignIn, Path=Background, Converter={StaticResource BrushToColorConverter}}"/>
+                        </Button.Effect>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource btnSignInMouseEnterStoryBoard}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource btnSignInMouseLeaveStoryBoard}"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+                    
+                    <TextBlock x:Name="LoginFooter"
+                               Style="{StaticResource LoginWindowFooterTextBlock}">
+                        Don't Have An Account?
+                        <Hyperlink Click="LoginFooter_Hyperlink_Click">Sign Up</Hyperlink>
+                    </TextBlock>
+
+                </StackPanel>
+
+            </Grid>
             
-        </StackPanel>
-            
+        </Border>
+        
     </Grid>
 </Window>
