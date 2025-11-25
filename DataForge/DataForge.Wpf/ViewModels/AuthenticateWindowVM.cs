@@ -1,6 +1,4 @@
-﻿using System.DirectoryServices.ActiveDirectory;
-
-namespace DataForge.Wpf.ViewModels;
+﻿namespace DataForge.Wpf.ViewModels;
 
 public class AuthenticateWindowVM : BaseVM<Person>
 {
@@ -38,7 +36,35 @@ public class AuthenticateWindowVM : BaseVM<Person>
     private CommandRelay? signInCommand = null;
     public CommandRelay SignInCommand => signInCommand ??= new CommandRelay(SignIn, CanSignIn);
     bool CanSignIn() => !HasErrors && !IsNullOrEmpty(Password) && !IsNullOrEmpty(Username);
-    readonly Action SignIn = () => Show("This is Demo", "Sign In Completed!");
+    void SignIn()
+    {
+        const string roleKey = "user_role";
+        Application.Current.Properties[roleKey] = null;
+
+        var masterRepo = new MasterRepo();
+        var studentRepo = new StudentRepo();
+
+        bool isStudent = studentRepo.IsUserExist(Username);
+        bool isMaster = masterRepo.IsUserExist(Username);
+
+        if (!isStudent && !isMaster)
+        {
+            Show("No account exists with this username.");
+            return;
+        }
+
+        if (isStudent && studentRepo.IsPasswordMatch(Username, Password))
+            Application.Current.Properties[roleKey] = "student";
+        else if (isMaster && masterRepo.IsPasswordMatch(Username, Password))
+            Application.Current.Properties[roleKey] = "master";
+
+        if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master"))
+            Show("This is Demo", $"Sign-In completed as {role}!");        
+        else
+            Show("Password doesn't match.", "Try again!");
+    }
+
+
 
     private CommandRelay? signUpCommand;
     public CommandRelay SignUpCommand => signUpCommand ??= new CommandRelay(SignUp);

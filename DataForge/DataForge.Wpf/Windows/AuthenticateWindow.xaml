@@ -11,11 +11,41 @@
         Style="{StaticResource LoginWindowStyle}"
         WindowStartupLocation="CenterScreen"
         Name="Root">
-    
-    
+
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0"
+                   LastChildFill="True">
+            <Button Style="{DynamicResource ExitButton}" Height="30"
+                    DockPanel.Dock="Right"
+                    Click="Button_Exit_Click"
+                    Content="{StaticResource ExitImage}">
+                
+            </Button>
+
+
+            <Button Style="{StaticResource MinimizeButton}"
+                    DockPanel.Dock="Right"
+                    Click="Button_Minimize_Click"
+                    Content="{StaticResource MinimizeImage}">
+                
+            </Button>
+            
+            <Rectangle MouseDown="Rectangle_MouseDown"
+                       Fill="Transparent">
+            
+            </Rectangle>
+        
+        </DockPanel>
+        
         <Border Grid.Column="1"
-                Grid.Row="1"
+                Grid.Row="0"
+                Grid.RowSpan="2"
                 Style="{StaticResource LoginWindowMainBorder}">
 
             <Grid>
@@ -55,7 +85,7 @@
                     <Button x:Name="btnSignIn"
                             Content="Sign In"
                             Style="{StaticResource SignInButton}"
-                            Command="{Binding Path=DataContext.SignInCommand}">
+                            Command="{Binding ElementName=Root, Path=DataContext.SignInCommand}">
                         <Button.Effect>
                             <DropShadowEffect x:Name="btnSignInGlowAnimation"
                                               BlurRadius="15"

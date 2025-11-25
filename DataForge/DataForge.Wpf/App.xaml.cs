@@ -26,6 +26,6 @@ public partial class App : Application
                               ? "admin" 
                               : "guest";
 
-        Current.Properties["usermode"] = userMode;
+        Current.Properties["user_mode"] = userMode;
     }
 }
