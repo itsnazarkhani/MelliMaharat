@@ -3,6 +3,7 @@ global using DataForge.Dal;
 global using static DataForge.Dal.DbContexts.ApplicationDbContext;
 global using DataForge.Models;
 global using DataForge.Dal.DbContexts;
+global using DataForge.Wpf.Commands;
 
 global using static System.String;
 global using System.Windows;

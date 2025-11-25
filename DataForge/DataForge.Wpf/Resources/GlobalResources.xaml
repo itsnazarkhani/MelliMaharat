@@ -87,6 +87,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
     <Style TargetType="TextBlock" x:Key="LoginWindowFooterTextBlock">
         <Setter Property="FontSize" Value="12.5"/>

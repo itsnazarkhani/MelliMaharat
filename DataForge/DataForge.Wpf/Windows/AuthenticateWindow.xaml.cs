@@ -6,8 +6,4 @@
 public partial class AuthenticateWindow : Window
 {
     public AuthenticateWindow() => InitializeComponent();
-
-    private void LoginFooter_Hyperlink_Click(object sender, RoutedEventArgs e)
-    {
-    }
 }
