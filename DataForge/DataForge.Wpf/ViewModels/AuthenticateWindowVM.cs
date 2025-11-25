@@ -2,8 +2,11 @@
 
 public class AuthenticateWindowVM : BaseVM<Person>
 {
+    #region Constructor
     public AuthenticateWindowVM() : base() { }
+    #endregion
 
+    #region Properties
     public string Username
     {
         get => Model.Username;
@@ -32,11 +35,13 @@ public class AuthenticateWindowVM : BaseVM<Person>
             }
         }
     }
+    #endregion
 
-    private CommandRelay? signInCommand = null;
-    public CommandRelay SignInCommand => signInCommand ??= new CommandRelay(SignIn, CanSignIn);
-    bool CanSignIn() => !HasErrors && !IsNullOrEmpty(Password) && !IsNullOrEmpty(Username);
-    void SignIn()
+    #region Commands
+    private CommandRelay<Window>? signInCommand = null;
+    public CommandRelay<Window> SignInCommand => signInCommand ??= new CommandRelay<Window>(SignIn, CanSignIn);
+    bool CanSignIn(Window? parameter) => !HasErrors && !IsNullOrEmpty(Password) && !IsNullOrEmpty(Username);
+    void SignIn(Window parameter)
     {
         const string roleKey = "user_role";
         Application.Current.Properties[roleKey] = null;
@@ -59,14 +64,18 @@ public class AuthenticateWindowVM : BaseVM<Person>
             Application.Current.Properties[roleKey] = "master";
 
         if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master"))
-            Show("This is Demo", $"Sign-In completed as {role}!");        
+        {
+            Show("This is Demo", $"Sign-In completed as {role}!");
+            new MainWindow().Show();
+            parameter.Close();
+        }
+
         else
             Show("Password doesn't match.", "Try again!");
     }
 
-
-
     private CommandRelay? signUpCommand;
     public CommandRelay SignUpCommand => signUpCommand ??= new CommandRelay(SignUp);
     readonly Action SignUp = () => Show("SignUp Completed");
+    #endregion
 }

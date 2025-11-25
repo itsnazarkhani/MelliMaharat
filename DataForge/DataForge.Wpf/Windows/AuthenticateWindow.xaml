@@ -81,11 +81,12 @@
 
                 <StackPanel Grid.Row="2"
                             Style="{StaticResource LoginWindowFooterStackPanel}">
-                    
+
                     <Button x:Name="btnSignIn"
                             Content="Sign In"
                             Style="{StaticResource SignInButton}"
-                            Command="{Binding ElementName=Root, Path=DataContext.SignInCommand}">
+                            Command="{Binding ElementName=Root, Path=DataContext.SignInCommand}"
+                            CommandParameter="{Binding ElementName=Root}">
                         <Button.Effect>
                             <DropShadowEffect x:Name="btnSignInGlowAnimation"
                                               BlurRadius="15"

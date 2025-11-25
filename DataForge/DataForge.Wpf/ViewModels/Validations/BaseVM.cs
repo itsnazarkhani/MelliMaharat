@@ -1,5 +1,4 @@
-﻿global using static System.ComponentModel.DataAnnotations.Validator;
-namespace DataForge.Wpf.ViewModels;
+﻿namespace DataForge.Wpf.ViewModels;
 
 public partial class BaseVM<TModel> : INotifyDataErrorInfo
 {
@@ -32,7 +31,7 @@ public partial class BaseVM<TModel> : INotifyDataErrorInfo
 
         if (!isValid)
         {
-            _errors[propertyName] = results.Select(x => x.ErrorMessage ?? Empty).ToList();
+            _errors[propertyName] = [.. results.Select(x => x.ErrorMessage ?? Empty)];
 
             ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }

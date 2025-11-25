@@ -1,9 +1,11 @@
 ﻿global using DataForge.Models.Owned;
+global using DataForge.Models;
 
 global using DataForge.Dal.Repos;
 global using static DataForge.Dal.DbContexts.ApplicationDbContext;
 
 global using DataForge.Wpf.Commands;
+global using DataForge.Wpf.Windows;
 
 global using static System.String;
 global using System.Windows;
@@ -20,6 +22,7 @@ global using static System.Windows.MessageBox;
 
 global using System.ComponentModel;
 global using System.ComponentModel.DataAnnotations;
+global using static System.ComponentModel.DataAnnotations.Validator;
 
 global using System.Globalization;
 
