@@ -37,4 +37,6 @@ public class Person
     public UserRoles? Role { get; set; }
 
     public bool IsDeleted { get; set; } = false;
+
+    public Guid AvatarId { get; set; } = Guid.Empty;
 }
