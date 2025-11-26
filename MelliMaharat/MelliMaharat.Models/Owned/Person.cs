@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Models.Owned;
+﻿using MelliMaharat.Models.Enums;
+
+namespace MelliMaharat.Models.Owned;
 
 [Owned]
 public class Person
@@ -31,4 +33,6 @@ public class Person
 
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public string FullName;
+
+    public UserRoles? Role { get; set; } 
 }
