@@ -26,7 +26,7 @@ public class Person
     [Required, StringLength(500)]
     public string Password { get; set; }
 
-    public bool IsAdmin { get; set; }
+    public bool IsAdmin { get; set; } = false;
 
     [Required, StringLength(50)]
     public string Username { get; set; }
@@ -34,9 +34,9 @@ public class Person
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public string FullName;
 
-    public UserRoles? Role { get; set; }
+    //public UserRoles? Role { get; set; }
 
-    public bool IsDeleted { get; set; } = false;
+    //public bool IsDeleted { get; set; } = false;
 
     public Guid AvatarId { get; set; } = Guid.Empty;
 }

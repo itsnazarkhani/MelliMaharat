@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace MelliMaharat.Models.Enums;
 
-namespace MelliMaharat.Models.Enums
+public enum UserRoles : byte
 {
-    public enum UserRoles
-    {
-        Student,
-        Master,
-        Admin
-    }
+    Student,
+    Master,
+    Admin
 }

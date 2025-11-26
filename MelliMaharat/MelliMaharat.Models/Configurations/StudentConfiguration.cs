@@ -47,6 +47,10 @@ public class StudentConfiguration : IEntityTypeConfiguration<Student>
                     y.HasIndex(x => x.Username)
                      .IsUnique();
 
+                    //y.Property(x => x.Role)
+                    // .HasConversion<string>()
+                    // .HasColumnName(nameof(Person.Role));
+
                     y.Property(x => x.FullName)
                     .HasColumnName(nameof(Person.FullName))
                     .HasComputedColumnSql("[FirstName] + ', ' + [LastName]", stored: true)

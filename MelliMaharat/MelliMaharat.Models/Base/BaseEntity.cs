@@ -8,4 +8,7 @@ public class BaseEntity
     [Timestamp]
     [Required]
     public byte[] TimeStamp { get; set; }
+
+    [Required]
+    public bool IsDeleted { get; set; } = false;
 }
