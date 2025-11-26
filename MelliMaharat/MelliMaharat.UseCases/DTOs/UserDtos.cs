@@ -6,6 +6,8 @@ namespace MelliMaharat.UseCases.DTOs
 {
     public record class LoginDto (string Username, string Password);
 
+    public record class LoginResponseDto(string Role);
+
     public record class UserDto
     (
         Guid Id,
@@ -16,7 +18,6 @@ namespace MelliMaharat.UseCases.DTOs
         string PhoneNumber,
         string Email,
         string Username,
-        bool IsAdmin,
         string Role
     );
 }
