@@ -1,4 +1,6 @@
-﻿namespace DataForge.Wpf.ViewModels;
+﻿using DataForge.Wpf.Windows.Dialogs;
+
+namespace DataForge.Wpf.ViewModels;
 
 public class AuthenticateWindowVM : BaseVM<Person>
 {
@@ -76,6 +78,6 @@ public class AuthenticateWindowVM : BaseVM<Person>
 
     private CommandRelay? signUpCommand;
     public CommandRelay SignUpCommand => signUpCommand ??= new CommandRelay(SignUp);
-    readonly Action SignUp = () => Show("SignUp Completed");
+    readonly Action SignUp = () => new RoleSelectionDialog().ShowDialog();
     #endregion
 }

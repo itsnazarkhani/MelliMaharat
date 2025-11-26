@@ -14,6 +14,9 @@
     <Compile Update="Windows\Dialogs\PresentationDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Dialogs\RoleSelectionDialog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Dialogs\SelectionDialog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

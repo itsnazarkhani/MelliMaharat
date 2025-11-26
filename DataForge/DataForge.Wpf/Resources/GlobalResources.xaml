@@ -197,6 +197,10 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+    <Style BasedOn="{StaticResource SignInButton}" TargetType="Button" x:Key="DialogBoxButton">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="100" />
+    </Style>
     
     <!-- Storyboards -->
     <Storyboard x:Key="btnSignInMouseEnterStoryBoard"
@@ -213,6 +217,42 @@
                          Duration="0:0:0.2">
         </DoubleAnimation>
     </Storyboard>
+
+    <Storyboard x:Key="RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowBegin"
+                Storyboard.TargetName="RoleSelectionDialogBoxButtonStudentDropShadowEffect"
+                Storyboard.TargetProperty="Opacity">
+        <DoubleAnimation To="1"
+                         Duration="0:0:0.2">
+
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowEnd"
+                Storyboard.TargetName="RoleSelectionDialogBoxButtonStudentDropShadowEffect"
+                Storyboard.TargetProperty="Opacity">
+        <DoubleAnimation To="0"
+                         Duration="0:0:0.2">
+
+        </DoubleAnimation>
+    </Storyboard>
+    <Storyboard x:Key="RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowBegin"
+                Storyboard.TargetName="RoleSelectionDialogBoxButtonMasterDropShadowEffect"
+                Storyboard.TargetProperty="Opacity">
+        <DoubleAnimation To="1"
+                         Duration="0:0:0.2">
+
+        </DoubleAnimation>
+    </Storyboard>
+
+    <Storyboard x:Key="RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowEnd"
+                Storyboard.TargetName="RoleSelectionDialogBoxButtonMasterDropShadowEffect"
+                Storyboard.TargetProperty="Opacity">
+        <DoubleAnimation To="0"
+                         Duration="0:0:0.2">
+
+        </DoubleAnimation>
+    </Storyboard>
+
 
     <!-- Images -->
     <Image x:Key="ExitImage"
