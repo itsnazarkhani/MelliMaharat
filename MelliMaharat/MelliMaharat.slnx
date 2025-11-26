@@ -1,7 +1,10 @@
 <Solution>
+  <Project Path="MelliMaharat.Api/MelliMaharat.Api.csproj" Id="b03965fa-2688-4dbc-a9dc-f8edf6b5bb5f" />
   <Project Path="MelliMaharat.Dal/MelliMaharat.Dal.csproj" />
+  <Project Path="MelliMaharat.Infrastructure/MelliMaharat.Infrastructure.csproj" Id="c9493af6-775c-457b-9957-896e1cf06a23" />
   <Project Path="MelliMaharat.Models/MelliMaharat.Models.csproj" />
   <Project Path="MelliMaharat.Seeding/MelliMaharat.Seeding.csproj" />
   <Project Path="MelliMaharat.Tests/MelliMaharat.Tests.csproj" />
+  <Project Path="MelliMaharat.UseCases/MelliMaharat.UseCases.csproj" Id="0bb01bf1-4b16-41e9-bf46-c610a5de6f00" />
   <Project Path="MelliMaharat.Wpf/MelliMaharat.Wpf.csproj" />
 </Solution>
