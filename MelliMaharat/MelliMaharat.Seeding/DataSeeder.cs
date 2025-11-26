@@ -22,10 +22,12 @@ public static class DataSeeder
 
         var fakeMaster = new Faker<Master>(locale)
                                 .RuleFor(x => x.PersonInformation, f => fakePerson.Generate())
-                                .RuleFor(x => x.Graduation, f => f.PickRandomParam(graduations));
+                                .RuleFor(x => x.Graduation, f => f.PickRandomParam(graduations))
+                                .RuleFor(x => x.PersonInformation.Role, Models.Enums.UserRoles.Master);
 
         var fakeStudent = new Faker<Student>(locale)
-                                .RuleFor(x => x.PersonInformation, f => fakePerson.Generate());
+                                .RuleFor(x => x.PersonInformation, f => fakePerson.Generate())
+                                .RuleFor(x => x.PersonInformation.Role, Models.Enums.UserRoles.Student);
 
         var fakeSelection = new Faker<Selection>(locale)
                                 .RuleFor(x => x.Score, f => (decimal)f.Random.Float(0, 20))
@@ -74,7 +76,7 @@ public static class DataSeeder
             }
         }
 
-        Models.Owned.Person adminInfo = new() { FirstName = "admin", LastName = "admin", Password = "admin", Username = "admin", IsAdmin = true };
+        Models.Owned.Person adminInfo = new() { FirstName = "admin", LastName = "admin", Password = "admin", Username = "admin", IsAdmin = true, Role = Models.Enums.UserRoles.Admin };
         students.Add(new() { PersonInformation = adminInfo });
         masters.Add(new() { PersonInformation = adminInfo, Graduation = graduations[new Random().Next(graduations.Length + 1)] });
 
