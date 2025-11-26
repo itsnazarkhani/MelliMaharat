@@ -34,5 +34,7 @@ public class Person
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public string FullName;
 
-    public UserRoles? Role { get; set; } 
+    public UserRoles? Role { get; set; }
+
+    public bool IsDeleted { get; set; } = false;
 }
