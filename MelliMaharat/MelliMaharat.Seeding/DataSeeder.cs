@@ -17,8 +17,8 @@ public static class DataSeeder
                                 .RuleFor(x => x.NationalCode, f => f.Random.Replace("##########"))
                                 .RuleFor(x => x.PhoneNumber, f => f.Phone.PhoneNumber("+98##########"))
                                 .RuleFor(x => x.Email, (f, x) => f.Internet.Email(x.FirstName, x.LastName))
-                                .RuleFor(x => x.Password, (f, x) => f.Internet.Password())
-                                .RuleFor(x => x.Username, (f, x) => f.Internet.UserNameUnicode(x.FirstName, x.LastName));
+                                .RuleFor(x => x.Password, (f, x) => x.PhoneNumber)
+                                .RuleFor(x => x.Username, (f, x) => x.NationalCode);
 
         var fakeMaster = new Faker<Master>(locale)
                                 .RuleFor(x => x.PersonInformation, f => fakePerson.Generate())
