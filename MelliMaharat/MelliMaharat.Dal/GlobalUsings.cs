@@ -1,0 +1,17 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Design;
+global using MelliMaharat.Models;
+global using MelliMaharat.Models.Configurations;
+global using MelliMaharat.Models.Interfaces;
+global using MelliMaharat.Models.Views;
+global using MelliMaharat.Models.Base;
+global using MelliMaharat.Dal.DbContexts;
+global using MelliMaharat.Dal.Repos.Interfaces;
+global using MelliMaharat.Dal.Repos.Base;
+global using static System.TimeZoneInfo;
+global using Microsoft.Extensions.Configuration;
+global using static System.Console;
+global using static System.IO.Directory;
+global using Microsoft.EntityFrameworkCore.Migrations;
+global using System;
+global using Microsoft.EntityFrameworkCore.Infrastructure;

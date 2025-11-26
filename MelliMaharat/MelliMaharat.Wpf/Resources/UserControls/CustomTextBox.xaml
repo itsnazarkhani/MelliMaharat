@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="MelliMaharat.Wpf.Resources.UserControls.CustomTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
+             xmlns:cd="clr-namespace:MelliMaharat.Wpf.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="70" d:DesignWidth="200"
+             Validation.ErrorTemplate="{x:Null}"
+             x:Name="Root"
+             GotFocus="Root_GotFocus"
+             LostFocus="Root_LostFocus"
+             Style="{StaticResource CustomTextBoxStyle}"
+             FontFamily="{StaticResource SFProRounded}">
+
+    <StackPanel>
+
+        <TextBlock x:Name="lblTag"
+                   Style="{StaticResource TagTextBlockStyle}"
+                   Text="{Binding ElementName=Root, Path=Tag}"/>
+
+        <Border x:Name="mainBorder"
+                Style="{StaticResource CustomBorderStyle}"
+                BorderBrush="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToSolidColorBrushConverter}}"
+                MouseDown="mainBorder_MouseDown">
+
+            <Border.Effect>
+                <DropShadowEffect x:Name="borderShadow"
+                                  Color="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToColorConverter}}"
+                                  BlurRadius="15"
+                                  Opacity="0"
+                                  ShadowDepth="0"/>
+            </Border.Effect>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="GotFocus">
+                    <BeginStoryboard Storyboard="{StaticResource UserControlBorderGotFocusStoryboard}"/>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="LostFocus">
+                    <BeginStoryboard Storyboard="{StaticResource UserControlBorderLostFocusStoryboard}"/>
+                </EventTrigger>
+            </Border.Triggers>
+
+
+            <Grid Style="{StaticResource CustomCTextBoxGridStyle}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                
+                
+                <TextBlock x:Name="lblHint"
+                           Grid.Row="0"
+                           Grid.RowSpan="2"
+                           Style="{StaticResource HintTextBlockStyle}"
+                           Text="{Binding ElementName=Root, Path=Hint}"
+                           FontSize="{Binding ElementName=Root, Path=FontSize}">
+                    
+                    <TextBlock.RenderTransform> 
+                        <TransformGroup>
+                            <TranslateTransform/>
+                            <ScaleTransform/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+
+                </TextBlock>
+
+                <TextBox x:Name="txtInput"
+                         Grid.Row="1"
+                         FontSize="{Binding ElementName=Root, Path=FontSize}"
+                         Style="{StaticResource MainTextBoxStyle}"
+                         Text="{Binding ElementName=Root, Path=InputText, UpdateSourceTrigger=PropertyChanged}"/>
+
+            </Grid>
+        </Border>
+
+
+        <TextBlock x:Name="lblError"
+                   Style="{StaticResource ErrorTextBlockStyle}"
+                   Visibility="{Binding ElementName=Root, Path=(Validation.HasError), Converter={StaticResource BoolToVisibilityConverter}}"
+                   Text="{Binding ElementName=Root, Path=(Validation.Errors), Converter={StaticResource ValidationResultsToStringConverter}}"
+                   ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
+
+    </StackPanel>
+
+
+
+</UserControl>

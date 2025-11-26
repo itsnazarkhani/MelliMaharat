@@ -1,0 +1,133 @@
+﻿<Window x:Class="MelliMaharat.Wpf.Windows.Dialogs.RoleSelectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Dialogs"
+        mc:Ignorable="d"
+        Title="RoleSelectionDialog"
+        Height="200"
+        Width="350"
+        Background="Transparent"
+        FontFamily="{StaticResource SFProRounded}"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        WindowStyle="None">
+    
+    <Border HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                MinHeight="150"
+                MinWidth="260"
+                Background="White"
+                CornerRadius="20">
+
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0"
+                              BlurRadius="30"/>
+        </Border.Effect>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Border Background="Transparent"
+                    MouseDown="Border_MouseDown">
+                
+            </Border>
+            <TextBlock Grid.Column="0"
+                       Panel.ZIndex="1"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       FontSize="16"
+                       Margin="17 10 0 0"
+                       FontWeight="Bold">
+                <Hyperlink TextDecorations="None" Click="Cancel_Hyperlink_Click">Cancel</Hyperlink>
+            </TextBlock>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.5*"/>
+                    <RowDefinition Height="1.5*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <TextBlock FontSize="20" Text="Select Your Role"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock FontSize="15"
+                               Opacity="0.75"
+                               Margin="0 5 0 0"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Text="Are You Student or Master?"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="2"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0 0 0 10">
+
+                    <Button Style="{StaticResource DialogBoxButton}"
+                            Name="btnStudent"
+                            Click="btnStudent_Click"
+                            Margin="0 0 10 0"
+                            Content="Student">
+                        <Button.Effect>
+                            <DropShadowEffect x:Name="RoleSelectionDialogBoxButtonStudentDropShadowEffect"
+                                              ShadowDepth="0"
+                                              Opacity="0"
+                                              BlurRadius="20"
+                                              Color="MediumAquamarine"/>
+                        </Button.Effect>
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowBegin}">
+
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowEnd}">
+
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Button Style="{StaticResource DialogBoxButton}"
+                            Name="btnMaster"
+                            Click="btnMaster_Click"
+                            Margin="10 0 0 0"
+                            Content="Master">
+                        <Button.Effect>
+                            <DropShadowEffect x:Name="RoleSelectionDialogBoxButtonMasterDropShadowEffect"
+                                              ShadowDepth="0"
+                                              Opacity="0"
+                                              BlurRadius="15"
+                                              Color="MediumAquamarine"/>
+                        </Button.Effect>
+
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowBegin}">
+                        
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowEnd}">
+                        
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+
+                </StackPanel>
+                
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

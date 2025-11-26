@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dx="clr-namespace:MelliMaharat.Wpf.ViewModels">
+    
+    <dx:AuthenticateWindowVM x:Key="AuthenticationViewModel"/>
+    <dx:MasterDialogVM x:Key="MasterDialogViewModel"/>
+    <dx:StudentDialogVM x:Key="StudentDialogViewModel"/>
+    <dx:PresentationDialogVM x:Key="PresentationDialogViewModel"/>
+    <dx:SelectionDialogVM x:Key="SelectionDialogViewModel"/>
+    
+</ResourceDictionary>
