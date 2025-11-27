@@ -6,9 +6,13 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Master> Masters { get; set; }
     public virtual DbSet<Lesson> Lessons { get; set; }
     public virtual DbSet<Presentation> Presentations { get; set; }
-    public virtual DbSet<LessonInformationView> LessonInformationViews { get; set; }
     public virtual DbSet<Student> Students { get; set; }
     public virtual DbSet<Selection> Selections { get; set; }
+    public virtual DbSet<Department> Departments { get; set; }
+    public virtual DbSet<Attendance> Attendances { get; set; }
+    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<SelectionFeedback> SelectionFeedbacks { get; set; }
+    public virtual DbSet<LessonInformationView> LessonInformationViews { get; set; }
     public virtual DbSet<SelectedLessonsInformationView> SelectedLessonsInformationViews { get; set; }
     #endregion
 
@@ -20,13 +24,9 @@ public class ApplicationDbContext : DbContext
     #region ApplyConfigurations
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new MasterConfiguration());
-        modelBuilder.ApplyConfiguration(new LessonConfiguration());
-        modelBuilder.ApplyConfiguration(new PresentationConfiguration());
-        modelBuilder.ApplyConfiguration(new LessonInformationViewConfiguration());
-        modelBuilder.ApplyConfiguration(new SelectionConfiguration());
-        modelBuilder.ApplyConfiguration(new StudentConfiguration());
-        modelBuilder.ApplyConfiguration(new SelectedLessonInformationViewConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
+
+        base.OnModelCreating(modelBuilder);
     }
     #endregion
 
