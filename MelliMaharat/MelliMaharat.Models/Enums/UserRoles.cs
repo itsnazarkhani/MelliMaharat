@@ -8,6 +8,7 @@ namespace MelliMaharat.Models.Enums
     {
         Student,
         Master,
-        Admin
+        Admin,
+        None
     }
 }
