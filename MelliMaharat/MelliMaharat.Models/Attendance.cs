@@ -6,10 +6,10 @@ namespace MelliMaharat.Models
 {
     public class Attendance : BaseEntity
     {
-        public Selection Selection { get; set; }
-        public Guid SelectionId { get; set; }
-
-        public DateTime DateAttended { get; set; }
         public bool HasAttended { get; set; }
+
+        [ForeignKey(nameof(SessionId))]
+        public Session Session { get; set; }
+        public Guid SessionId { get; set; }
     }
 }

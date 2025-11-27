@@ -9,12 +9,12 @@ public class Selection : BaseEntity
 
     [ForeignKey(nameof(StudentId))]
     public Student StudentNavigation { get; set; }
-    public int StudentId { get; set; }
+    public Guid StudentId { get; set; }
 
     [ForeignKey(nameof(PresentationId))]
     public Presentation PresentationNavigation { get; set; }
-    public int PresentationId { get; set; }
+    public Guid PresentationId { get; set; }
 
-    public Attendance Attendance { get; set; }
+    public Session Attendance { get; set; }
     public SelectionFeedback SelectionFeedback { get; set; }
 }

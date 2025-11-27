@@ -4,10 +4,9 @@ using System.Text;
 
 namespace MelliMaharat.Models
 {
-    public class SelectionFeedback : BaseEntity
+    public class Session : BaseEntity
     {
-        [Range(1, 5)]
-        public int Rating { get; set; }
+        public DateTime SessionDate { get; set; }
 
         [ForeignKey(nameof(SelectionId))]
         public Selection Selection { get; set; }

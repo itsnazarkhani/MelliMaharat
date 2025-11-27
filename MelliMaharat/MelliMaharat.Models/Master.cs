@@ -8,9 +8,11 @@ public class Master : BaseEntity
     [InverseProperty(nameof(Presentation.MasterNavigation))]
     public IEnumerable<Presentation> Presentations { get; set; } = new List<Presentation>();
 
-    public Guid UserId { get; set; }
+    [ForeignKey(nameof(UserId))]
     public User User { get; set; }
+    public Guid UserId { get; set; }
 
-    public Guid DepartmentId { get; set; }
+    [ForeignKey(nameof(DepartmentId))]
     public Department Department { get; set; }
+    public Guid DepartmentId { get; set; }
 }
