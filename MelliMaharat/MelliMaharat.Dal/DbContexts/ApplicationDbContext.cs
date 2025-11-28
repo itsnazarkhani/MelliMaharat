@@ -9,6 +9,7 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Student> Students { get; set; }
     public virtual DbSet<Selection> Selections { get; set; }
     public virtual DbSet<Department> Departments { get; set; }
+    public virtual DbSet<Session> Sessions { get; set; }
     public virtual DbSet<Attendance> Attendances { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<SelectionFeedback> SelectionFeedbacks { get; set; }
