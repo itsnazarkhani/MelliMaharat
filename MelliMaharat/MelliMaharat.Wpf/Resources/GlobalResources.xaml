@@ -179,9 +179,12 @@
                     Width="{TemplateBinding Width}"
                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                    CornerRadius="12.5">
-                        <ContentPresenter HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"/>
+                    CornerRadius="12.5"
+                            MinWidth="{TemplateBinding MinWidth}"
+                            MinHeight="{TemplateBinding MinHeight}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -192,6 +195,24 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource SignInButton}" x:Key="MenuItemButton">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0 10" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="MinWidth" Value="130" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                                  BlurRadius="20"
+                                  Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <Style TargetType="TextBlock" x:Key="LoginWindowFooterTextBlock">
         <Setter Property="FontSize" Value="12.5"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -200,6 +221,25 @@
     <Style BasedOn="{StaticResource SignInButton}" TargetType="Button" x:Key="DialogBoxButton">
         <Setter Property="Height" Value="30"/>
         <Setter Property="Width" Value="100" />
+    </Style>
+    <Style TargetType="Border"
+           x:Key="MenuBorder">
+        <Setter Property="Margin" Value="15" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                                  BlurRadius="30"
+                                  Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Label" x:Key="LogoLabel">
+        <Setter Property="Content" Value="Melli Maharat" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
     
     <!-- Storyboards -->

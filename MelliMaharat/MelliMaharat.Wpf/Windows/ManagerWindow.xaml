@@ -5,8 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows"
         mc:Ignorable="d"
-        Title="ManagerWindow" Height="450" Width="800">
+        Title="ManagerWindow"
+        Height="500"
+        Width="800"
+        Background="MediumSeaGreen"
+        FontFamily="{StaticResource SFProRounded}"
+        FontWeight="Bold">
+    
+    
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0"
+                   Margin="15 30">
+
+            
+            <Label Style="{StaticResource LogoLabel}"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Profile"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Masters"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Students"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Lessons"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Presentations"/>
+
+            <Button Style="{StaticResource MenuItemButton}"
+                    Content="Selections"/>
+            
+        </StackPanel>
+
+        <Border Grid.Column="1"
+                Style="{StaticResource MenuBorder}">
+
+            <Frame Name="MainFrame"
+                   Source="Pages/Manager/SelectionsPage.xaml"/>
+
+        </Border>
+
     </Grid>
+
+
 </Window>
