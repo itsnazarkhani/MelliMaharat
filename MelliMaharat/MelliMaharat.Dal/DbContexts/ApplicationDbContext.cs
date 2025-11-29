@@ -11,6 +11,8 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<Department> Departments { get; set; }
     public virtual DbSet<Session> Sessions { get; set; }
     public virtual DbSet<Attendance> Attendances { get; set; }
+    public virtual DbSet<Term> Terms { get; set; }
+    public virtual DbSet<SelectionTime> SelectionTimes { get; set; }
     public virtual DbSet<User> Users { get; set; }
     public virtual DbSet<SelectionFeedback> SelectionFeedbacks { get; set; }
     public virtual DbSet<LessonInformationView> LessonInformationViews { get; set; }
