@@ -4,15 +4,14 @@ using System.Text;
 
 namespace MelliMaharat.UseCases.DTOs
 {
-    public record class PresentationDto(
+    public record class SelectionDetailsDto (
             Guid Id,
-            Guid MasterId,
-            string MasterName,
-            Guid LessonId,
             string LessonName,
+            string MasterFullName,
             int Unit,
             string DayHold,
             TimeOnly StartTime,
-            TimeOnly EndTime
+            TimeOnly EndTime,
+            decimal Score
         );
 }
