@@ -14,7 +14,8 @@ public class Selection : BaseEntity
     public Presentation Presentation{ get; set; }
     public Guid PresentationId { get; set; }
 
-    public Session Attendance { get; set; }
+    [InverseProperty(nameof(Session.Selection))]
+    public IEnumerable<Session> Sessions { get; set; } = new List<Session>();   
     public SelectionFeedback SelectionFeedback { get; set; }
 
     [ForeignKey(nameof(TermId))]

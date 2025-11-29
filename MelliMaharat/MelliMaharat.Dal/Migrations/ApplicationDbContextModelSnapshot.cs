@@ -42,7 +42,8 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SessionId");
+                    b.HasIndex("SessionId")
+                        .IsUnique();
 
                     b.ToTable("Attendances");
                 });
@@ -340,8 +341,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SelectionId")
-                        .IsUnique();
+                    b.HasIndex("SelectionId");
 
                     b.ToTable("Sessions");
                 });
@@ -504,8 +504,8 @@ namespace MelliMaharat.Dal.Migrations
             modelBuilder.Entity("MelliMaharat.Models.Attendance", b =>
                 {
                     b.HasOne("MelliMaharat.Models.Session", "Session")
-                        .WithMany()
-                        .HasForeignKey("SessionId")
+                        .WithOne("Attendance")
+                        .HasForeignKey("MelliMaharat.Models.Attendance", "SessionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -555,19 +555,19 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasOne("MelliMaharat.Models.Presentation", "Presentation")
                         .WithMany("Selections")
                         .HasForeignKey("PresentationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MelliMaharat.Models.Student", "Student")
                         .WithMany("Selections")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MelliMaharat.Models.Term", "Term")
                         .WithMany("Selections")
                         .HasForeignKey("TermId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Presentation");
@@ -591,9 +591,9 @@ namespace MelliMaharat.Dal.Migrations
             modelBuilder.Entity("MelliMaharat.Models.Session", b =>
                 {
                     b.HasOne("MelliMaharat.Models.Selection", "Selection")
-                        .WithOne("Attendance")
-                        .HasForeignKey("MelliMaharat.Models.Session", "SelectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Sessions")
+                        .HasForeignKey("SelectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Selection");
@@ -667,9 +667,14 @@ namespace MelliMaharat.Dal.Migrations
 
             modelBuilder.Entity("MelliMaharat.Models.Selection", b =>
                 {
-                    b.Navigation("Attendance");
-
                     b.Navigation("SelectionFeedback");
+
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Session", b =>
+                {
+                    b.Navigation("Attendance");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Student", b =>

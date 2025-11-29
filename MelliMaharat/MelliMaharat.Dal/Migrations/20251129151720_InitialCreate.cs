@@ -207,20 +207,17 @@ namespace MelliMaharat.Dal.Migrations
                         name: "FK_Selections_Presentations_PresentationId",
                         column: x => x.PresentationId,
                         principalTable: "Presentations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Selections_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Selections_Terms_TermId",
                         column: x => x.TermId,
                         principalTable: "Terms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("SqlServer:IsTemporal", true)
                 .Annotation("SqlServer:TemporalHistoryTableName", "SelectionAudit")
@@ -264,8 +261,7 @@ namespace MelliMaharat.Dal.Migrations
                         name: "FK_Sessions_Selections_SelectionId",
                         column: x => x.SelectionId,
                         principalTable: "Selections",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -291,7 +287,8 @@ namespace MelliMaharat.Dal.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Attendances_SessionId",
                 table: "Attendances",
-                column: "SessionId");
+                column: "SessionId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Masters_DepartmentId",
@@ -338,8 +335,7 @@ namespace MelliMaharat.Dal.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_SelectionId",
                 table: "Sessions",
-                column: "SelectionId",
-                unique: true);
+                column: "SelectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Students_UserId",

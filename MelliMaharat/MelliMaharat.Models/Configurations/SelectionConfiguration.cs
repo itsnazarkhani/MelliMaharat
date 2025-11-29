@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Reflection.Emit;
 
 namespace MelliMaharat.Models.Configurations;
 
@@ -23,20 +24,19 @@ public class SelectionConfiguration : IEntityTypeConfiguration<Selection>
             .HasOne(s => s.Student)
             .WithMany(st => st.Selections)
             .HasForeignKey(s => s.StudentId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasOne(s => s.Presentation)
             .WithMany(p => p.Selections)
             .HasForeignKey(s => s.PresentationId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .HasOne(s => s.Term)
             .WithMany(t => t.Selections)
             .HasForeignKey(s => s.TermId)
-            .OnDelete(DeleteBehavior.Restrict);
-
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .ToTable

@@ -11,5 +11,8 @@ namespace MelliMaharat.Models
         [ForeignKey(nameof(SelectionId))]
         public Selection Selection { get; set; }
         public Guid SelectionId { get; set; }
+
+        [InverseProperty(nameof(Attendance.Session))]
+        public Attendance Attendance { get; set; }
     }
 }
