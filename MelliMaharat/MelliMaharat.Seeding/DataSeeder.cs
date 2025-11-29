@@ -86,6 +86,14 @@ public static class DataSeeder
         //await context.Presentations.AddRangeAsync(presentations);
         //await context.Selections.AddRangeAsync(selections);
 
+        User admin = new User()
+        {
+            Username = "admin",
+            Password = "admin",
+            Role = Models.Enums.UserRoles.Admin,
+        };
+        await context.Users.AddAsync(admin);
+
         return await context.SaveChangesAsync();
     }
 }
