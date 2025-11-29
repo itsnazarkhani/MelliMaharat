@@ -5,12 +5,12 @@ public class PresentationConfiguration : IEntityTypeConfiguration<Presentation>
     public void Configure(EntityTypeBuilder<Presentation> builder)
     {
         builder
-            .HasOne(x => x.LessonNavigation)
+            .HasOne(x => x.Lesson)
             .WithMany(y => y.Presentations)
             .HasForeignKey(x => x.LessonId);
 
         builder
-            .HasOne(x => x.MasterNavigation)
+            .HasOne(x => x.Master)
             .WithMany(y => y.Presentations)
             .HasForeignKey(x => x.MasterId);
 

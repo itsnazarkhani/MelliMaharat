@@ -19,12 +19,12 @@ public class SelectionConfiguration : IEntityTypeConfiguration<Selection>
             .HasConversion(gradeConverter);
 
         builder
-            .HasOne(x => x.StudentNavigation)
+            .HasOne(x => x.Student)
             .WithMany(y => y.Selections)
             .HasForeignKey(x => x.StudentId);
 
         builder
-            .HasOne(x => x.PresentationNavigation)
+            .HasOne(x => x.Presentation)
             .WithMany(y => y.Selections)
             .HasForeignKey(x => x.PresentationId);
 
