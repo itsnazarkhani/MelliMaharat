@@ -2,7 +2,7 @@
 
 public class Student : BaseEntity
 {
-    [InverseProperty(nameof(Selection.StudentNavigation))]
+    [InverseProperty(nameof(Selection.Student))]
     public IEnumerable<Selection> Selections { get; set; } = new List<Selection>();
 
     [ForeignKey(nameof(UserId))]

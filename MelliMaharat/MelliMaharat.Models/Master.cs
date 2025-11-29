@@ -5,7 +5,7 @@ public class Master : BaseEntity
     [Required, StringLength(50)]
     public string Graduation { get; set; }
 
-    [InverseProperty(nameof(Presentation.MasterNavigation))]
+    [InverseProperty(nameof(Presentation.Master))]
     public IEnumerable<Presentation> Presentations { get; set; } = new List<Presentation>();
 
     [ForeignKey(nameof(UserId))]
