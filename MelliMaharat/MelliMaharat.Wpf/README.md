@@ -34,3 +34,14 @@
 			* Lessons presented by this master
 		3. *Presentations-Page*
 			* Full Info About Presentations by this master
+
+**Application Wide Properties:**
+  -	user_mode
+	1. admin
+	1. guest
+  - user_role
+	1. student
+	1. master
+	1. manager
+  - current_user
+	- Person()

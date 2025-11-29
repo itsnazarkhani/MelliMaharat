@@ -6,6 +6,7 @@ global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;
 
 global using MelliMaharat.Wpf.Commands;
 global using MelliMaharat.Wpf.Windows;
+global using MelliMaharat.Wpf.Windows.Dialogs;
 
 global using static System.String;
 global using System.Windows;

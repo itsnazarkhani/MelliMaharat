@@ -1,11 +1,10 @@
-﻿using MelliMaharat.Wpf.Windows.Dialogs;
-
-namespace MelliMaharat.Wpf.ViewModels;
+﻿namespace MelliMaharat.Wpf.ViewModels;
 
 public class AuthenticateWindowVM : BaseVM<Person>
 {
     #region Constructor
     public AuthenticateWindowVM() : base() { }
+    
     #endregion
 
     #region Properties
