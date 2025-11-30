@@ -1,4 +1,10 @@
-﻿namespace MelliMaharat.Wpf.ViewModels;
+﻿using MelliMaharat.Dal.DbContexts;
+using MelliMaharat.Dal.UnitOfWork;
+using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
+using MelliMaharat.Infrastructure.Services;
+using MelliMaharat.Models.Enums;
+
+namespace MelliMaharat.Wpf.ViewModels;
 
 public class AuthenticateWindowVM : BaseVM<User>
 {
@@ -47,32 +53,51 @@ public class AuthenticateWindowVM : BaseVM<User>
         const string roleKey = "user_role";
         Application.Current.Properties[roleKey] = null;
 
-        var masterRepo = new MasterRepo();
-        var studentRepo = new StudentRepo();
+        //var masterRepo = new MasterRepo();
+        //var studentRepo = new StudentRepo();
+        //bool isStudent = studentRepo.IsUserExist(Username);
+        //bool isMaster = masterRepo.IsUserExist(Username);
 
-        bool isStudent = studentRepo.IsUserExist(Username);
-        bool isMaster = masterRepo.IsUserExist(Username);
+        IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        AuthService authService = new AuthService(unitOfWork);
 
-        if (!isStudent && !isMaster)
+
+        var authResult = authService.LoginAsync(Username, Password).GetAwaiter().GetResult();
+
+        // if user credentials wrong
+        if (!authResult.IsSuccess)
         {
-            Show("No account exists with this username.");
+            Show(authResult.Message);
             return;
         }
 
-        if (isStudent && studentRepo.IsPasswordMatch(Username, Password))
-            Application.Current.Properties[roleKey] = "student";
-        else if (isMaster && masterRepo.IsPasswordMatch(Username, Password))
-            Application.Current.Properties[roleKey] = "master";
-
-        if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master"))
+        switch(authResult.User!.Role)
         {
-            Show("This is Demo", $"Sign-In completed as {role}!");
-            new MainWindow().Show();
-            parameter.Close();
+            case UserRoles.Student:
+                Application.Current.Properties[roleKey] = "student";
+                break;
+            case UserRoles.Master:
+                Application.Current.Properties[roleKey] = "master";
+                break;
         }
+        Show("This is Demo", $"Sign-In completed as {authResult.User!.Role.ToString()}!");
+        new MainWindow().Show();
+        parameter.Close();
 
-        else
-            Show("Password doesn't match.", "Try again!");
+        //if (isStudent && studentRepo.IsPasswordMatch(Username, Password))
+        //    Application.Current.Properties[roleKey] = "student";
+        //else if (isMaster && masterRepo.IsPasswordMatch(Username, Password))
+        //    Application.Current.Properties[roleKey] = "master";
+
+        //if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master"))
+        //{
+        //    Show("This is Demo", $"Sign-In completed as {role}!");
+        //    new MainWindow().Show();
+        //    parameter.Close();
+        //}
+
+        //else
+        //    Show("Password doesn't match.", "Try again!");
     }
 
     private CommandRelay? signUpCommand;
