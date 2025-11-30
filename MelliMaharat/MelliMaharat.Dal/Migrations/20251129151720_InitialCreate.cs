@@ -17,8 +17,7 @@ namespace MelliMaharat.Dal.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,8 +35,7 @@ namespace MelliMaharat.Dal.Migrations
                         .Annotation("SqlServer:TemporalIsPeriodStartColumn", true),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)
                         .Annotation("SqlServer:TemporalIsPeriodEndColumn", true),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,8 +54,7 @@ namespace MelliMaharat.Dal.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SelectionStart = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SelectionEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -73,8 +70,7 @@ namespace MelliMaharat.Dal.Migrations
                     Type = table.Column<int>(type: "int", nullable: false),
                     StartTime = table.Column<DateOnly>(type: "date", nullable: false),
                     EndTime = table.Column<DateOnly>(type: "date", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,8 +92,7 @@ namespace MelliMaharat.Dal.Migrations
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     AvatarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,8 +107,7 @@ namespace MelliMaharat.Dal.Migrations
                     Graduation = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -138,8 +132,7 @@ namespace MelliMaharat.Dal.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -168,8 +161,7 @@ namespace MelliMaharat.Dal.Migrations
                         .Annotation("SqlServer:TemporalIsPeriodStartColumn", true),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)
                         .Annotation("SqlServer:TemporalIsPeriodEndColumn", true),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,8 +198,7 @@ namespace MelliMaharat.Dal.Migrations
                         .Annotation("SqlServer:TemporalIsPeriodStartColumn", true),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)
                         .Annotation("SqlServer:TemporalIsPeriodEndColumn", true),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -241,8 +232,7 @@ namespace MelliMaharat.Dal.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rating = table.Column<int>(type: "int", nullable: false),
                     SelectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -262,8 +252,7 @@ namespace MelliMaharat.Dal.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     SessionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     SelectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -282,8 +271,7 @@ namespace MelliMaharat.Dal.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HasAttended = table.Column<bool>(type: "bit", nullable: false),
                     SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
                 {

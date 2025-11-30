@@ -1,20 +1,10 @@
-using MelliMaharat.Dal.DbContexts;
-using MelliMaharat.Dal.Repository;
-using MelliMaharat.Dal.UnitOfWork;
-using MelliMaharat.Seeding;
-using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MelliMaharat")));
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Add authentication
@@ -32,13 +22,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     });
 
 var app = builder.Build();
-
-// Seed the database at startup
-using (var scope = app.Services.CreateScope())
-{
-    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    await DataSeeder.SeedAsync(dbContext);
-}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
