@@ -36,7 +36,7 @@ namespace MelliMaharat.Web.Controllers
             if (result.IsSuccess)
             {
                 await SignInUser(result?.User!);
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Dashboard", "User");
             }
 
             ModelState.AddModelError("", result.Message);
