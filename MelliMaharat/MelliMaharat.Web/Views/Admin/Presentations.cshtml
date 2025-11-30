@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<MelliMaharat.Models.Presentation>
+
 @{
+    ViewData["Title"] = "لیست ارائه‌ها";
 }
+
+<h3 class="mb-3">لیست ارائه‌ها</h3>
+
+<div class="mb-3 text-end">
+    <a asp-action="AddPresentation" class="btn btn-success">افزودن ارائه</a>
+</div>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>درس</th>
+            <th>استاد</th>
+            <th>روز برگزاری</th>
+            <th>ساعت شروع</th>
+            <th>ساعت پایان</th>
+            <th>تاریخ امتحان</th>
+            <th>ساعت شروع امتحان</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var pres in Model)
+        {
+            <tr>
+                <td>@pres.Lesson.Name</td>
+                <td>@pres.Master.User.PersonInformation.FirstName @pres.Master.User.PersonInformation.LastName</td>
+                <td>@pres.DayHold</td>
+                <td>@pres.StartTime.ToString("HH:mm")</td>
+                <td>@pres.EndTime.ToString("HH:mm")</td>
+                <td>@(pres.ExamDate == default ? "-" : pres.ExamDate.ToString("yyyy/MM/dd"))</td>
+                <td>@(pres.ExamStartTime == default ? "-" : pres.ExamStartTime.ToString("HH:mm"))</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -196,7 +196,55 @@ namespace MelliMaharat.Web.Controllers
         }
         #endregion
 
-        public IActionResult Presentations() => View();
+        #region Presentations
+        public async Task<IActionResult> Presentations()
+        {
+            var presentations = await _unitOfWork.Presentations
+                .GetAll()
+                .Include(p => p.Lesson)
+                .Include(p => p.Master)
+                .ThenInclude(m => m.User)
+                .OrderBy(p => p.DayHold)
+                .ToListAsync();
+
+            return View(presentations);
+        }
+
+        public async Task<IActionResult> AddPresentation()
+        {
+            ViewBag.Lessons = await _unitOfWork.Lessons.GetAll().OrderBy(l => l.Name).ToListAsync();
+            ViewBag.Masters = await _unitOfWork.Masters
+                .GetAll()
+                .Include(m => m.User)
+                .ThenInclude(u => u.PersonInformation)
+                .OrderBy(m => m.User.PersonInformation.LastName)
+                .ToListAsync();
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPresentation(Presentation presentation)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Lessons = await _unitOfWork.Lessons.GetAll().OrderBy(l => l.Name).ToListAsync();
+                ViewBag.Masters = await _unitOfWork.Masters
+                    .GetAll()
+                    .Include(m => m.User)
+                    .ThenInclude(u => u.PersonInformation)
+                    .OrderBy(m => m.User.PersonInformation.LastName)
+                    .ToListAsync();
+
+                return View(presentation);
+            }
+
+            await _unitOfWork.Presentations.AddAsync(presentation);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction("Presentations");
+        }
+        #endregion
         public IActionResult CreateEvent() => View();
     }
 

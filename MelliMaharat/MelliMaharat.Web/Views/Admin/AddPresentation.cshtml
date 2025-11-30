@@ -1,0 +1,57 @@
+﻿@model MelliMaharat.Models.Presentation
+
+@{
+    ViewData["Title"] = "افزودن ارائه";
+}
+
+<h3 class="mb-3">افزودن ارائه جدید</h3>
+
+<form method="post" asp-controller="Admin" asp-action="AddPresentation" class="card p-4">
+
+    <div class="mb-3">
+        <label class="form-label">درس</label>
+        <select asp-for="LessonId" class="form-select" asp-items="@(new SelectList(ViewBag.Lessons, "Id", "Name"))"></select>
+        <span asp-validation-for="LessonId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">استاد</label>
+        <select asp-for="MasterId" class="form-select"
+                asp-items="@(new SelectList(ViewBag.Masters, "Id", "User.PersonInformation.FirstName"))">
+        </select>
+        <span asp-validation-for="MasterId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">روز برگزاری</label>
+        <input asp-for="DayHold" class="form-control" />
+        <span asp-validation-for="DayHold" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">ساعت شروع</label>
+        <input asp-for="StartTime" class="form-control" type="time" />
+        <span asp-validation-for="StartTime" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">ساعت پایان</label>
+        <input asp-for="EndTime" class="form-control" type="time" />
+        <span asp-validation-for="EndTime" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تاریخ امتحان</label>
+        <input asp-for="ExamDate" class="form-control" type="date" />
+        <span asp-validation-for="ExamDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">ساعت شروع امتحان</label>
+        <input asp-for="ExamStartTime" class="form-control" type="time" />
+        <span asp-validation-for="ExamStartTime" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <a class="btn btn-secondary" asp-action="Presentations">بازگشت</a>
+</form>
