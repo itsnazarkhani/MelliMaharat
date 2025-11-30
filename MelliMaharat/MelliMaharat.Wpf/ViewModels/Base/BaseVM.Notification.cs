@@ -1,6 +1,6 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels;
 
-public partial class BaseVM<TModel> : INotifyPropertyChanged
+public partial class BaseVM : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
