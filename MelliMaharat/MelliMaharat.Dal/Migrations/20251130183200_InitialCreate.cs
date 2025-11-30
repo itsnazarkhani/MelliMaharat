@@ -32,6 +32,7 @@ namespace MelliMaharat.Dal.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Unit = table.Column<int>(type: "int", maxLength: 50, nullable: false),
+                    Code = table.Column<int>(type: "int", nullable: false),
                     ValidFrom = table.Column<DateTime>(type: "datetime2", nullable: false)
                         .Annotation("SqlServer:TemporalIsPeriodStartColumn", true),
                     ValidTo = table.Column<DateTime>(type: "datetime2", nullable: false)

@@ -9,6 +9,9 @@ public class Lesson : BaseEntity
     [Required, StringLength(50)]
     public int Unit { get; set; }
 
+    [Required]
+    public int Code { get; set; }
+
     [InverseProperty(nameof(Presentation.Lesson))]
     public IEnumerable<Presentation> Presentations { get; set; } = new List<Presentation>();
 }
