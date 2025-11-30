@@ -31,6 +31,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<bool>("HasAttended")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("SessionId")
                         .HasColumnType("uniqueidentifier");
 
@@ -58,6 +61,9 @@ namespace MelliMaharat.Dal.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -176,6 +182,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<TimeOnly>("ExamStartTime")
                         .HasColumnType("time");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<Guid>("LessonId")
                         .HasColumnType("uniqueidentifier");
 
@@ -226,6 +235,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("PresentationId")
                         .HasColumnType("uniqueidentifier");
@@ -284,14 +296,14 @@ namespace MelliMaharat.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
                     b.Property<Guid>("SelectionId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -312,6 +324,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("SelectionEnd")
                         .HasColumnType("datetime2");
@@ -335,6 +350,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("SelectionId")
                         .HasColumnType("uniqueidentifier");
@@ -361,6 +379,9 @@ namespace MelliMaharat.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -386,6 +407,9 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.Property<DateOnly>("EndTime")
                         .HasColumnType("date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateOnly>("StartTime")
                         .HasColumnType("date");
@@ -419,6 +443,9 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
