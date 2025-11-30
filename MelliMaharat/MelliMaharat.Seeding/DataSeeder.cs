@@ -4,7 +4,7 @@ public static class DataSeeder
 {
     public static async Task<int> SeedAsync(ApplicationDbContext context, string locale = "en", int mastersCount = 10, int studentsCount = 100) // change DbContext with ApplicationDbContext
     {
-        if (await context.Lessons.AnyAsync())
+        if (await context.Users.AnyAsync())
             return 0; // database already seeded!
 
         string[] lessonNames = ["Computer", "Electric", "Finance", "Religion", "Marketing"];
@@ -90,6 +90,7 @@ public static class DataSeeder
         {
             Username = "admin",
             Password = "admin",
+            Email = "admin@example.com",
             Role = Models.Enums.UserRoles.Admin,
         };
         await context.Users.AddAsync(admin);
