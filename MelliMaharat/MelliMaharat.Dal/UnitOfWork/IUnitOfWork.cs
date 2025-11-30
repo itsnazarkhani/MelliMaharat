@@ -27,6 +27,7 @@ namespace MelliMaharat.Dal.UnitOfWork
         IRepository<Department> Departments { get; }
         IRepository<Lesson> Lessons { get; }
         IRepository<Master> Masters { get; }
+        IRepository<Student> Students { get; }
         IRepository<Presentation> Presentations { get; }
         IRepository<Selection> Selections { get; }
         IRepository<SelectionFeedback> SelectionFeedbacks { get; }

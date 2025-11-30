@@ -28,6 +28,7 @@ namespace MelliMaharat.Dal.UnitOfWork
             private IRepository<Session> _sessions;
             private IRepository<Term> _terms;
             private IRepository<User> _users;
+            private IRepository<Student> _students;
 
             public UnitOfWork(ApplicationDbContext dbContext)
             {
@@ -66,6 +67,9 @@ namespace MelliMaharat.Dal.UnitOfWork
 
             public IRepository<User> Users =>
                 _users ??= new Repository<User>(_dbContext);
+
+            public IRepository<Student> Students =>
+                _students ??= new Repository<Student>(_dbContext);
 
             public async Task CommitChangesAsync()
             {
