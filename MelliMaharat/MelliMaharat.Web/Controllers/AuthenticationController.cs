@@ -31,7 +31,7 @@ namespace MelliMaharat.Web.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            var result = await _authService.LoginAsync(model.Username, model.Password);
+            var result = await _authService.LoginAsync(model?.Username ?? "", model?.Password ?? "");
 
             if (result.IsSuccess)
             {
