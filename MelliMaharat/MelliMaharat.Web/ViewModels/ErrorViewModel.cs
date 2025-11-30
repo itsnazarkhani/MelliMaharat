@@ -1,4 +1,4 @@
-namespace MelliMaharat.Web.Models
+namespace MelliMaharat.Web.ViewModels
 {
     public class ErrorViewModel
     {

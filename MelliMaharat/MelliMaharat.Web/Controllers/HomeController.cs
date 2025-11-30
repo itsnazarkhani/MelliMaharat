@@ -1,4 +1,4 @@
-using MelliMaharat.Web.Models;
+using MelliMaharat.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
