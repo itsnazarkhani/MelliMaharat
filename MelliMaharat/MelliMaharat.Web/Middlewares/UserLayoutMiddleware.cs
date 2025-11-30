@@ -74,7 +74,7 @@ namespace MelliMaharat.Web.Middlewares
                                     new LayoutNavItem { Title="اساتید", Controller="admin", Action="Masters" },
                                     new LayoutNavItem { Title="دانشجویان", Controller="admin", Action="Students" },
                                     new LayoutNavItem { Title="دروس ارائه شده", Controller="admin", Action="Presentations" },
-                                    new LayoutNavItem { Title="ثبت رویداد", Controller="admin", Action="CreateEvent" }
+                                    new LayoutNavItem { Title="زمان انتخاب واحد", Controller="admin", Action="SelectionEvents" }
                                 });
                                 break;
                         }

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MelliMaharat.Models.SelectionTime>
+
+@{
+    ViewData["Title"] = "لیست رویدادها";
+}
+
+<h3 class="mb-3">لیست رویدادهای انتخاب واحد</h3>
+
+<div class="mb-3 text-end">
+    <a asp-action="AddSelectionEvent" class="btn btn-success">افزودن رویداد</a>
+</div>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>شروع انتخاب واحد</th>
+            <th>پایان انتخاب واحد</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var evt in Model)
+        {
+            <tr>
+                <td>@evt.SelectionStart.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>@evt.SelectionEnd.ToString("yyyy/MM/dd HH:mm")</td>
+                <td>
+                    <form asp-action="DeleteSelectionEvent" asp-route-id="@evt.Id" method="post" onsubmit="return confirm('آیا از حذف این رویداد مطمئن هستید؟');">
+                        <button type="submit" class="btn btn-sm btn-danger">حذف</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

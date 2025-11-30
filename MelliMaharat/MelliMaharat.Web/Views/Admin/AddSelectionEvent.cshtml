@@ -1,0 +1,25 @@
+﻿@model MelliMaharat.Models.SelectionTime
+
+@{
+    ViewData["Title"] = "افزودن رویداد انتخاب واحد";
+}
+
+<h3 class="mb-3">افزودن رویداد جدید</h3>
+
+<form method="post" asp-controller="Admin" asp-action="AddSelectionEvent" class="card p-4">
+
+    <div class="mb-3">
+        <label class="form-label">شروع انتخاب واحد</label>
+        <input asp-for="SelectionStart" type="datetime-local" class="form-control" />
+        <span asp-validation-for="SelectionStart" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">پایان انتخاب واحد</label>
+        <input asp-for="SelectionEnd" type="datetime-local" class="form-control" />
+        <span asp-validation-for="SelectionEnd" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <a class="btn btn-secondary" asp-action="SelectionEvents">بازگشت</a>
+</form>

@@ -245,7 +245,49 @@ namespace MelliMaharat.Web.Controllers
             return RedirectToAction("Presentations");
         }
         #endregion
-        public IActionResult CreateEvent() => View();
+
+        #region SelectionTime
+        public async Task<IActionResult> SelectionEvents()
+        {
+            var events = await _unitOfWork.SelectionTimes
+                .GetAll()
+                .OrderBy(e => e.SelectionStart)
+                .ToListAsync();
+
+            return View(events);
+        }
+
+        public IActionResult AddSelectionEvent()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSelectionEvent(SelectionTime selectionEvent)
+        {
+            if (!ModelState.IsValid)
+                return View(selectionEvent);
+
+            await _unitOfWork.SelectionTimes.AddAsync(selectionEvent);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction("SelectionEvents");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSelectionEvent(Guid id)
+        {
+            var selectionEvent = await _unitOfWork.SelectionTimes.GetAsync(id);
+            if (selectionEvent == null)
+                return NotFound();
+
+            _unitOfWork.SelectionTimes.Delete(selectionEvent);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction("SelectionEvents");
+        }
+
+        #endregion
     }
 
 }
