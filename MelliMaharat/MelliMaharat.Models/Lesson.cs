@@ -6,7 +6,8 @@ public class Lesson : BaseEntity
     [Required, StringLength(50)]
     public string Name { get; set; }
     
-    [Required, StringLength(50)]
+    [Required]
+    [Range(1, 10, ErrorMessage = "تعداد واحد باید بین 1 تا 10 باشد")]
     public int Unit { get; set; }
 
     [Required]

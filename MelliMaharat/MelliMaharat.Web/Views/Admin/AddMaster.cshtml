@@ -1,0 +1,59 @@
+﻿@model MelliMaharat.Models.Master
+
+@{
+    ViewData["Title"] = "افزودن استاد";
+}
+
+<h3 class="mb-3">افزودن استاد جدید</h3>
+
+<form method="post" asp-controller="Admin" asp-action="AddMaster" class="card p-4">
+
+    <h5>اطلاعات شخصی</h5>
+
+    <div class="mb-3">
+        <label class="form-label">نام</label>
+        <input name="person.FirstName" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">نام خانوادگی</label>
+        <input name="person.LastName" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تاریخ تولد</label>
+        <input name="person.BirthDate" type="date" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">کد ملی</label>
+        <input name="person.NationalCode" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">شماره تماس</label>
+        <input name="person.PhoneNumber" class="form-control" required />
+    </div>
+
+    <h5>اطلاعات استاد</h5>
+
+    <div class="mb-3">
+        <label class="form-label">رشته تحصیلی</label>
+        <input asp-for="Graduation" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">دانشکده</label>
+        <select asp-for="DepartmentId" class="form-select" required>
+            <option value="">انتخاب دانشکده</option>
+            @foreach (var dep in ViewBag.Departments)
+            {
+                <option value="@dep.Id">@dep.Name</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <a class="btn btn-secondary" asp-action="Masters">بازگشت</a>
+
+</form>

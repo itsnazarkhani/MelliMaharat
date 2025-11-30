@@ -13,9 +13,6 @@ namespace MelliMaharat.Models
         [Required, StringLength(50)]
         public string Username { get; set; }
 
-        [StringLength(20, MinimumLength = 7)]
-        public string PhoneNumber { get; set; }
-
         [EmailAddress]
         public string Email { get; set; }
 

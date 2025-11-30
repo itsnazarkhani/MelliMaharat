@@ -14,6 +14,8 @@ public class Person
     [Required]
     public DateOnly BirthDate{ get; set; }
 
-    [StringLength(20)]
+    [StringLength(10)]
     public string NationalCode { get; set; }
+    [StringLength(11)]
+    public string PhoneNumber { get; set; }
 }

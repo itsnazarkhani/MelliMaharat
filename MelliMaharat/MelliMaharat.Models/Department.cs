@@ -8,7 +8,7 @@ namespace MelliMaharat.Models
     {
         [Required]
         [StringLength(100)]
-        public string DepartmentName { get; set; }
+        public string Name { get; set; }
 
         public ICollection<Master> Masters { get; set; } = new List<Master>();
     }

@@ -4,10 +4,9 @@ public class BaseEntity
 {
     [Key]
     public Guid Id { get; set; }
-    
+
     [Timestamp]
-    [Required]
-    public byte[] TimeStamp { get; set; }
+    public byte[] TimeStamp { get; set; } = Array.Empty<byte>();
 
     [Required]
     public bool IsDeleted { get; set; } = false;
