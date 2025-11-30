@@ -1,9 +1,10 @@
 using MelliMaharat.Dal.DbContexts;
 using MelliMaharat.Dal.Repository;
 using MelliMaharat.Dal.UnitOfWork;
-using MelliMaharat.Seeding;
 using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services;
+using MelliMaharat.Middlewares;
+using MelliMaharat.Seeding;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -51,6 +52,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
+app.UseUserLayoutMiddleware();
+
 
 app.MapControllerRoute(
     name: "default",

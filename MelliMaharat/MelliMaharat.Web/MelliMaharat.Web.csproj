@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Student\SelectUnits.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Views\Student\SelectUnits.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MelliMaharat.Infrastructure\MelliMaharat.Infrastructure.csproj" />
   </ItemGroup>
 
