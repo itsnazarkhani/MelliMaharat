@@ -1,0 +1,32 @@
+﻿@model MelliMaharat.Models.Lesson
+
+@{
+    ViewData["Title"] = "افزودن درس";
+}
+
+<h3 class="mb-3">افزودن درس جدید</h3>
+
+<form method="post" asp-controller="Admin" asp-action="AddLesson" class="card p-4">
+
+    <div class="mb-3">
+        <label class="form-label">نام درس</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">کد درس</label>
+        <input asp-for="Code" class="form-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تعداد واحد</label>
+        <input asp-for="Unit" class="form-control" type="number" />
+        <span asp-validation-for="Unit" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <a class="btn btn-secondary" asp-action="Lessons">بازگشت</a>
+
+</form>
