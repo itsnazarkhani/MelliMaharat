@@ -1,6 +1,27 @@
-﻿@{
+﻿@model MelliMaharat.Web.ViewModels.UserDashboardViewModel
+
+@{
     ViewData["Title"] = "داشبورد";
 }
 
-<h2 class="mt-4">داشبورد کاربری</h2>
-<p>به پنل کاربری خود خوش آمدید.</p>
+<h3>داشبورد</h3>
+
+<div class="card p-4" style="max-width: 400px;">
+    <div class="text-center mb-3">
+        <img src="@(
+             Model.AvatarId == Guid.Empty
+                 ? "/images/default-avatar.jpg"
+                 : $"/images/uploads/avatars/{Model.AvatarId}.jpg"
+                     )" class="rounded-circle" alt="Avatar" style="width:100px;height:100px;" />
+    </div>
+
+    <ul class="list-group mb-3">
+        <li class="list-group-item"><strong>نام کامل:</strong> @Model.FullName</li>
+        <li class="list-group-item"><strong>شماره تماس:</strong> @Model.PhoneNumber</li>
+        <li class="list-group-item"><strong>نقش:</strong> @Model.Role</li>
+    </ul>
+
+    <form asp-controller="Authentication" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-danger w-100">خروج</button>
+    </form>
+</div>
