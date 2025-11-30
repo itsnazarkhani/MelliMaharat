@@ -1,87 +1,98 @@
-﻿using MelliMaharat.Dal.DbContexts;
-using MelliMaharat.Models.Enums;
+﻿using System.Security.Claims;
 using MelliMaharat.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
+using MelliMaharat.Dal.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using MelliMaharat.Models.Enums;
 
-namespace MelliMaharat.Middlewares
+namespace MelliMaharat.Web.Middlewares
 {
-    public class UserLayoutMiddleware
+    public class LayoutUserMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public UserLayoutMiddleware(RequestDelegate next)
+        public LayoutUserMiddleware(RequestDelegate next)
         {
             _next = next;
         }
 
-        public async Task InvokeAsync(HttpContext context, ApplicationDbContext db)
+        public async Task InvokeAsync(HttpContext context, IUnitOfWork unitOfWork)
         {
-            var vm = new LayoutUserViewModel
+            var model = new LayoutUserViewModel
             {
                 FullName = "فلانی",
                 ProfileImagePath = "/images/default-avatar.jpg",
                 Role = UserRoles.None
             };
 
-            // Check if user logged in
-            if (context.User.Identity?.IsAuthenticated == true)
+            var principal = context.User;
+
+            if (principal.Identity?.IsAuthenticated == true)
             {
-                var username = context.User.Identity.Name;
+                var userIdStr = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-                var user = await db.Users
-                    .Include(x => x.PersonInformation)
-                    .FirstOrDefaultAsync(x => x.Username == username);
-
-                if (user != null)
+                if (Guid.TryParse(userIdStr, out var userId))
                 {
-                    // Name
-                    vm.FullName = $"{user.PersonInformation.FirstName} {user.PersonInformation.LastName}";
+                    var user = await unitOfWork.Users
+                        .GetAll()
+                        .Include(u => u.PersonInformation)
+                        .FirstOrDefaultAsync(u => u.Id == userId);
 
-                    // Avatar
-                    vm.ProfileImagePath = user.AvatarId == Guid.Empty
-                        ? "/images/default-avatar.jpg"
-                        : $"/avatars/{user.AvatarId}.jpg";
-
-                    vm.Role = user.Role;
-
-                    // Add role-based navbar items
-                    switch (user.Role)
+                    if (user != null)
                     {
-                        case UserRoles.Student:
-                            vm.NavItems.Add(new NavItem { Title = "دروس ترم", Controller = "Student", Action = "TermLessons" });
-                            vm.NavItems.Add(new NavItem { Title = "انتخاب واحد", Controller = "Student", Action = "SelectUnits" });
-                            vm.NavItems.Add(new NavItem { Title = "نمرات", Controller = "Student", Action = "Scores" });
-                            vm.NavItems.Add(new NavItem { Title = "حضور و غیاب", Controller = "Student", Action = "Attendance" });
-                            break;
+                        model.Role = user.Role;
+                        model.FullName = $"{user.PersonInformation.FirstName} {user.PersonInformation.LastName}";
+                        model.ProfileImagePath = user.AvatarId == Guid.Empty
+                            ? "/images/default-avatar.jpg"
+                            : $"/uploads/avatars/{user.AvatarId}.jpg";
 
-                        case UserRoles.Master:
-                            vm.NavItems.Add(new NavItem { Title = "دروس ارائه", Controller = "Master", Action = "PresentedLessons" });
-                            break;
+                        switch (user.Role)
+                        {
+                            case UserRoles.Student:
+                                model.NavItems.AddRange(new[]
+                                {
+                                    new LayoutNavItem { Title="دروس ترم", Controller="Student", Action="TermLessons" },
+                                    new LayoutNavItem { Title="انتخاب واحد", Controller="Student", Action="SelectUnits" },
+                                    new LayoutNavItem { Title="نمرات", Controller="Student", Action="Grades" },
+                                    new LayoutNavItem { Title="حضور و غیاب", Controller="Student", Action="Attendance" },
+                                });
+                                break;
 
-                        case UserRoles.Admin:
-                            vm.NavItems.Add(new NavItem { Title = "دروس", Controller = "Admin", Action = "Lessons" });
-                            vm.NavItems.Add(new NavItem { Title = "اساتید", Controller = "Admin", Action = "Masters" });
-                            vm.NavItems.Add(new NavItem { Title = "دانشجویان", Controller = "Admin", Action = "Students" });
-                            vm.NavItems.Add(new NavItem { Title = "دروس ارائه شده", Controller = "Admin", Action = "Presentations" });
-                            vm.NavItems.Add(new NavItem { Title = "ثبت رویداد", Controller = "Admin", Action = "CreateEvent" });
-                            break;
+                            case UserRoles.Master:
+                                model.NavItems.Add(new LayoutNavItem
+                                {
+                                    Title = "دروس ارائه",
+                                    Controller = "Master",
+                                    Action = "PresentedLessons"
+                                });
+                                break;
+
+                            case UserRoles.Admin:
+                                model.NavItems.AddRange(new[]
+                                {
+                                    new LayoutNavItem { Title="دروس", Controller="admin", Action="Lessons" },
+                                    new LayoutNavItem { Title="اساتید", Controller="admin", Action="Masters" },
+                                    new LayoutNavItem { Title="دانشجویان", Controller="admin", Action="Students" },
+                                    new LayoutNavItem { Title="دروس ارائه شده", Controller="admin", Action="Presentations" },
+                                    new LayoutNavItem { Title="ثبت رویداد", Controller="admin", Action="CreateEvent" }
+                                });
+                                break;
+                        }
                     }
                 }
             }
 
-            context.Items["LayoutUser"] = vm;
+            context.Items["LayoutUser"] = model;
 
             await _next(context);
         }
     }
 
-    public static class UserLayoutMiddlewareExtensions
+    public static class LayoutUserMiddlewareExtensions
     {
-        public static IApplicationBuilder UseUserLayoutMiddleware(this IApplicationBuilder app)
+        public static IApplicationBuilder UseLayoutUser(this IApplicationBuilder app)
         {
-            return app.UseMiddleware<UserLayoutMiddleware>();
+            return app.UseMiddleware<LayoutUserMiddleware>();
         }
     }
 }

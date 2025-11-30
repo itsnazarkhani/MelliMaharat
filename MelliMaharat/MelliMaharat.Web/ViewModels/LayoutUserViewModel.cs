@@ -6,12 +6,12 @@ namespace MelliMaharat.Web.ViewModels
     {
         public string? FullName { get; set; }
         public string? ProfileImagePath { get; set; }
-        public UserRoles Role { get; set; }
+        public UserRoles Role { get; set; } = UserRoles.None;
 
-        public List<NavItem> NavItems { get; set; } = new();
+        public List<LayoutNavItem> NavItems { get; set; } = new();
     }
 
-    public class NavItem
+    public class LayoutNavItem
     {
         public string Title { get; set; }
         public string Controller { get; set; }
