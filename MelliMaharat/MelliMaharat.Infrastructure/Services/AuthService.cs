@@ -1,60 +1,41 @@
-﻿using MelliMaharat.Dal.Repos;
+﻿using MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services.Base;
-using MelliMaharat.Models.Enums;
+using MelliMaharat.Models;
+using MelliMaharat.UseCases.ViewResult;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace MelliMaharat.Infrastructure.Services
 {
-    public class AuthService : ServiceBase
+    public class AuthService : ServiceBase, IAuthService
     {
-        public AuthService(
-            StudentRepo studentRepo,
-            PresentationRepo presentationRepo,
-            SelectionRepo selectionRepo,
-            MasterRepo masterRepo,
-            LessonRepo lessonRepo) : base(
-                studentRepo,
-                presentationRepo,
-                selectionRepo,
-                masterRepo,
-                lessonRepo)
-        { }
-
-        public (bool, UserRoles) SignIn(string username, string password)
+        public AuthService(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            if (Masters.IsUserExist(username))
+        }
+
+        public User? GetUserByUsername(string username) => 
+                       unitOfWork.Users.GetAll().FirstOrDefault(u => u.Username == username);
+
+        public AuthResult Login(string username, string password)
+        {
+            try
             {
-                if (Masters.IsPasswordMatch(username, password))
+                var user = unitOfWork.Users.GetAll().FirstOrDefault(u => u.Username == username);
+                if (user == null)
                 {
-                    if (Masters.IsAdmin(username, password))
-                        return (true, UserRoles.Admin);
-                    else
-                        return (true, UserRoles.Master);
+                    return AuthResult.Failure("Invalid username or password");
                 }
-                else
+                if (user.Password != password)
                 {
-                    return (false, UserRoles.None);
+                    return AuthResult.Failure("Invalid username or password");
                 }
+                return AuthResult.Success(user);
+
             }
-            else if (Students.IsUserExist(username))
+            catch (Exception ex)
             {
-                if (Students.IsPasswordMatch(username, password))
-                {
-                    if (Students.IsAdmin(username, password))
-                        return (true, UserRoles.Admin);
-                    else
-                        return (true, UserRoles.Student);
-                }
-                else
-                {
-                    return (false, UserRoles.None);
-                }
-            }
-            else
-            {
-                return (false, UserRoles.None);
+                return AuthResult.Failure($"An error occurred during login: {ex.Message}");
             }
         }
     }
