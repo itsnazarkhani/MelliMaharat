@@ -44,7 +44,7 @@ namespace MelliMaharat.Web.Middlewares
                         model.FullName = $"{user.PersonInformation.FirstName} {user.PersonInformation.LastName}";
                         model.ProfileImagePath = user.AvatarId == Guid.Empty
                             ? "/images/default-avatar.jpg"
-                            : $"/uploads/avatars/{user.AvatarId}.jpg";
+                            : $"/images/uploads/avatars/{user.AvatarId}.jpg";
 
                         switch (user.Role)
                         {

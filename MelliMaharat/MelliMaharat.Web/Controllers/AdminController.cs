@@ -3,8 +3,13 @@ using MelliMaharat.Models;
 using MelliMaharat.Models.Enums;
 using MelliMaharat.Models.Owned;
 using MelliMaharat.Web.Filters;
+using MelliMaharat.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.Processing;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MelliMaharat.Web.Controllers
 {
@@ -18,6 +23,7 @@ namespace MelliMaharat.Web.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        #region Lessons
         public async Task<IActionResult> Lessons()
         {
             var lessons = await _unitOfWork.Lessons
@@ -28,10 +34,7 @@ namespace MelliMaharat.Web.Controllers
             return View(lessons);
         }
 
-        public IActionResult AddLesson()
-        {
-            return View();
-        }
+        public IActionResult AddLesson() => View();
 
         [HttpPost]
         public async Task<IActionResult> AddLesson(Lesson lesson)
@@ -44,7 +47,9 @@ namespace MelliMaharat.Web.Controllers
 
             return RedirectToAction("Lessons");
         }
+        #endregion
 
+        #region Masters
         public async Task<IActionResult> Masters()
         {
             var masters = await _unitOfWork.Masters
@@ -73,7 +78,6 @@ namespace MelliMaharat.Web.Controllers
                 return View(master);
             }
 
-            // Create User
             var user = new User
             {
                 PersonInformation = person,
@@ -83,19 +87,117 @@ namespace MelliMaharat.Web.Controllers
             };
 
             await _unitOfWork.Users.AddAsync(user);
-            await _unitOfWork.CommitChangesAsync(); // Save user first to get Id
+            await _unitOfWork.CommitChangesAsync(); // Save user first
 
-            // Assign UserId to Master
             master.UserId = user.Id;
-
             await _unitOfWork.Masters.AddAsync(master);
             await _unitOfWork.CommitChangesAsync();
 
             return RedirectToAction("Masters");
         }
+        #endregion
 
-        public IActionResult Students() => View();
+        #region Students
+        public async Task<IActionResult> Students()
+        {
+            var students = await _unitOfWork.Students
+                .GetAll()
+                .Include(s => s.User)
+                .ThenInclude(u => u.PersonInformation)
+                .OrderBy(s => s.User.PersonInformation.LastName)
+                .ToListAsync();
+
+            return View(students);
+        }
+
+        public IActionResult AddStudent() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> AddStudent(AddStudentViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // Create User
+            var user = new User
+            {
+                PersonInformation = new Models.Owned.Person
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthDate = DateOnly.FromDateTime(model.BirthDate),
+                    NationalCode = model.NationalCode,
+                    PhoneNumber = model.PhoneNumber
+                },
+                Username = model.NationalCode,
+                Password = model.PhoneNumber,
+                Role = UserRoles.Student,
+                AvatarId = Guid.NewGuid()
+            };
+
+            // Handle Avatar File Upload
+            if (model.AvatarFile != null && model.AvatarFile.Length > 0)
+            {
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".bmp" };
+                var ext = Path.GetExtension(model.AvatarFile.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(ext))
+                {
+                    ModelState.AddModelError("AvatarFile", "فرمت تصویر معتبر نیست.");
+                    return View(model);
+                }
+
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/uploads/avatars");
+                if (!Directory.Exists(folderPath))
+                    Directory.CreateDirectory(folderPath);
+
+                var filePath = Path.Combine(folderPath, user.AvatarId + ".jpg");
+
+                using var image = SixLabors.ImageSharp.Image.Load(model.AvatarFile.OpenReadStream());
+                image.Mutate(x => x.AutoOrient());
+                await image.SaveAsync(filePath, new JpegEncoder());
+            }
+
+            await _unitOfWork.Users.AddAsync(user);
+            await _unitOfWork.CommitChangesAsync();
+
+            var student = new Student { UserId = user.Id };
+            await _unitOfWork.Students.AddAsync(student);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction("Students");
+        }
+
+        public async Task<IActionResult> StudentDetails(Guid id)
+        {
+            // Include User and PersonInformation for the student
+            var student = await _unitOfWork.Students
+                .GetAll()
+                .Include(s => s.User)
+                .ThenInclude(u => u.PersonInformation)
+                .FirstOrDefaultAsync(s => s.Id == id);
+
+            if (student == null)
+                return NotFound();
+
+            var model = new StudentDetailsViewModel
+            {
+                FirstName = student.User.PersonInformation.FirstName,
+                LastName = student.User.PersonInformation.LastName,
+                NationalCode = student.User.PersonInformation.NationalCode,
+                BirthDate = student.User.PersonInformation.BirthDate,
+                PhoneNumber = student.User.PersonInformation.PhoneNumber,
+                AvatarPath = student.User.AvatarId == Guid.Empty
+                    ? "/images/default-avatar.jpg"
+                    : $"/images/uploads/avatars/{student.User.AvatarId}.jpg"
+            };
+
+            return View(model);
+        }
+        #endregion
+
         public IActionResult Presentations() => View();
         public IActionResult CreateEvent() => View();
     }
+
 }

@@ -1,0 +1,49 @@
+﻿@model MelliMaharat.Web.ViewModels.AddStudentViewModel
+
+@{
+    ViewData["Title"] = "افزودن دانشجو";
+}
+
+<h3 class="mb-3">افزودن دانشجوی جدید</h3>
+
+<form method="post" asp-controller="Admin" asp-action="AddStudent" enctype="multipart/form-data" class="card p-4">
+
+    <div class="mb-3">
+        <label class="form-label">نام</label>
+        <input asp-for="FirstName" class="form-control" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">نام خانوادگی</label>
+        <input asp-for="LastName" class="form-control" />
+        <span asp-validation-for="LastName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">کد ملی</label>
+        <input asp-for="NationalCode" class="form-control" />
+        <span asp-validation-for="NationalCode" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تاریخ تولد</label>
+        <input asp-for="BirthDate" class="form-control" type="date" />
+        <span asp-validation-for="BirthDate" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">شماره تماس</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تصویر پروفایل (اختیاری)</label>
+        <input asp-for="AvatarFile" type="file" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">ذخیره</button>
+    <a class="btn btn-secondary" asp-action="Students">بازگشت</a>
+
+</form>

@@ -8,6 +8,6 @@ public class StudentController : Controller
     public IActionResult TermLessons() => View();
 
     public IActionResult SelectUnits() => View();
-    public IActionResult Scores() => View();
+    public IActionResult Grades() => View();
     public IActionResult Attendance() => View();
 }

@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<MelliMaharat.Models.Student>
+
 @{
+    ViewData["Title"] = "دانشجویان";
 }
+
+<h3 class="mb-3">لیست دانشجویان</h3>
+
+<div class="mb-3 text-end">
+    <a asp-action="AddStudent" class="btn btn-success">افزودن دانشجو</a>
+</div>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کد ملی</th>
+            <th>تاریخ تولد</th>
+            <th>شماره تماس</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.User.PersonInformation.FirstName</td>
+                <td>@student.User.PersonInformation.LastName</td>
+                <td>@student.User.PersonInformation.NationalCode</td>
+                <td>@student.User.PersonInformation.BirthDate.ToString("yyyy/MM/dd")</td>
+                <td>@student.User.PersonInformation.PhoneNumber</td>
+                <td>
+                    <!-- Optional: link to view student profile -->
+                    <a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="StudentDetails" asp-route-id="@student.Id">مشاهده</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
