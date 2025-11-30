@@ -2,6 +2,7 @@
 using MelliMaharat.Infrastructure.Services.Base;
 using MelliMaharat.Models;
 using MelliMaharat.UseCases.ViewResult;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,14 +15,14 @@ namespace MelliMaharat.Infrastructure.Services
         {
         }
 
-        public User? GetUserByUsername(string username) => 
-                       unitOfWork.Users.GetAll().FirstOrDefault(u => u.Username == username);
+        public async Task<User?> GetUserByUsernameAsync(string username) => 
+                       await unitOfWork.Users.GetAll().FirstOrDefaultAsync(u => u.Username == username);
 
-        public AuthResult Login(string username, string password)
+        public async Task<AuthResult> LoginAsync(string username, string password)
         {
             try
             {
-                var user = unitOfWork.Users.GetAll().FirstOrDefault(u => u.Username == username);
+                var user = await unitOfWork.Users.GetAll().FirstOrDefaultAsync(u => u.Username == username);
                 if (user == null)
                 {
                     return AuthResult.Failure("Invalid username or password");

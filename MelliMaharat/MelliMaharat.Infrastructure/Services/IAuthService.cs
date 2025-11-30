@@ -8,7 +8,7 @@ namespace MelliMaharat.Infrastructure.Services
 {
     public interface IAuthService
     {
-        AuthResult Login(string username, string password);
-        User? GetUserByUsername(string username);
+        Task<AuthResult> LoginAsync(string username, string password);
+        Task<User?> GetUserByUsernameAsync(string username);
     }
 }

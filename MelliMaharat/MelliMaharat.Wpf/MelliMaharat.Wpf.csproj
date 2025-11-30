@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Bold.ttf" />
     <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
     <Resource Include="Resources\Images\icons8-close-48.png" />
