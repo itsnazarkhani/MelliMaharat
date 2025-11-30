@@ -35,7 +35,7 @@ namespace MelliMaharat.Web.Controllers
 
             if (result.IsSuccess)
             {
-                await SignInUser(result.User);
+                await SignInUser(result?.User!);
                 return RedirectToAction("Index", "Dashboard");
             }
 
@@ -75,4 +75,4 @@ namespace MelliMaharat.Web.Controllers
         }
     }
 }
-}
+
