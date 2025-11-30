@@ -2,7 +2,11 @@
 
 public enum UserRoles : byte
 {
-    Student,
-    Master,
-    Admin
+    public enum UserRoles
+    {
+        Student,
+        Master,
+        Admin,
+        None
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace MelliMaharat.Wpf.ViewModels;
 
-public class AuthenticateWindowVM : BaseVM<Person>
+public class AuthenticateWindowVM : BaseVM<User>
 {
     #region Constructor
     public AuthenticateWindowVM() : base() { }

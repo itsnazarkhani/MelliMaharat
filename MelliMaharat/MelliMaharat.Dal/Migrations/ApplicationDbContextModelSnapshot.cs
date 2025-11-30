@@ -22,13 +22,59 @@ namespace MelliMaharat.Dal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MelliMaharat.Models.Attendance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("HasAttended")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("SessionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId")
+                        .IsUnique();
+
+                    b.ToTable("Attendances");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
             modelBuilder.Entity("MelliMaharat.Models.Lesson", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -76,11 +122,12 @@ namespace MelliMaharat.Dal.Migrations
 
             modelBuilder.Entity("MelliMaharat.Models.Master", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Graduation")
                         .IsRequired()
@@ -96,18 +143,24 @@ namespace MelliMaharat.Dal.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Masters");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Presentation", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DayHold")
                         .IsRequired()
@@ -117,14 +170,17 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("time");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                    b.Property<DateOnly>("ExamDate")
+                        .HasColumnType("date");
 
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
+                    b.Property<TimeOnly>("ExamStartTime")
+                        .HasColumnType("time");
 
-                    b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("LessonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MasterId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<TimeOnly>("StartTime")
                         .HasColumnType("time");
@@ -167,27 +223,22 @@ namespace MelliMaharat.Dal.Migrations
 
             modelBuilder.Entity("MelliMaharat.Models.Selection", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateOnly>("EducationYear")
-                        .HasColumnType("date");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("PresentationId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PresentationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Score")
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TermId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
@@ -211,6 +262,8 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasIndex("StudentId");
 
+                    b.HasIndex("TermId");
+
                     b.ToTable("Selections");
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
@@ -225,13 +278,17 @@ namespace MelliMaharat.Dal.Migrations
                             }));
                 });
 
-            modelBuilder.Entity("MelliMaharat.Models.Student", b =>
+            modelBuilder.Entity("MelliMaharat.Models.SelectionFeedback", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("SelectionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -244,7 +301,154 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("SelectionId")
+                        .IsUnique();
+
+                    b.ToTable("SelectionFeedbacks");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.SelectionTime", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SelectionEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("SelectionStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SelectionTimes");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Session", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SelectionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("SessionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SelectionId");
+
+                    b.ToTable("Sessions");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Student", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Term", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("EndTime")
+                        .HasColumnType("date");
+
+                    b.Property<DateOnly>("StartTime")
+                        .HasColumnType("date");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Year")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Terms");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AvatarId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Views.LessonInformationView", b =>
@@ -306,200 +510,153 @@ namespace MelliMaharat.Dal.Migrations
                     b.ToView("View_SelectedLessonsInformation", (string)null);
                 });
 
+            modelBuilder.Entity("MelliMaharat.Models.Attendance", b =>
+                {
+                    b.HasOne("MelliMaharat.Models.Session", "Session")
+                        .WithOne("Attendance")
+                        .HasForeignKey("MelliMaharat.Models.Attendance", "SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
+                });
+
             modelBuilder.Entity("MelliMaharat.Models.Master", b =>
                 {
-                    b.OwnsOne("MelliMaharat.Models.Owned.Person", "PersonInformation", b1 =>
-                        {
-                            b1.Property<int>("MasterId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Age")
-                                .HasColumnType("int")
-                                .HasColumnName("Age");
-
-                            b1.Property<Guid>("AvatarId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("Email")
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("Email");
-
-                            b1.Property<string>("FirstName")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("FirstName");
-
-                            b1.Property<string>("FullName")
-                                .ValueGeneratedOnAddOrUpdate()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("FullName")
-                                .HasComputedColumnSql("[FirstName] + ', ' + [LastName]", true);
-
-                            b1.Property<bool>("IsAdmin")
-                                .HasColumnType("bit")
-                                .HasColumnName("IsAdmin");
-
-                            b1.Property<string>("LastName")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("LastName");
-
-                            b1.Property<string>("NationalCode")
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("NationalCode");
-
-                            b1.Property<string>("Password")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("nvarchar(500)")
-                                .HasColumnName("Password");
-
-                            b1.Property<string>("PhoneNumber")
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("PhoneNumber");
-
-                            b1.Property<string>("Username")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("Username");
-
-                            b1.HasKey("MasterId");
-
-                            b1.HasIndex("Username")
-                                .IsUnique();
-
-                            b1.ToTable("Masters");
-
-                            b1.WithOwner()
-                                .HasForeignKey("MasterId");
-                        });
-
-                    b.Navigation("PersonInformation")
+                    b.HasOne("MelliMaharat.Models.Department", "Department")
+                        .WithMany("Masters")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MelliMaharat.Models.User", "User")
+                        .WithOne("Master")
+                        .HasForeignKey("MelliMaharat.Models.Master", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Presentation", b =>
                 {
-                    b.HasOne("MelliMaharat.Models.Lesson", "LessonNavigation")
+                    b.HasOne("MelliMaharat.Models.Lesson", "Lesson")
                         .WithMany("Presentations")
                         .HasForeignKey("LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MelliMaharat.Models.Master", "MasterNavigation")
+                    b.HasOne("MelliMaharat.Models.Master", "Master")
                         .WithMany("Presentations")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("LessonNavigation");
+                    b.Navigation("Lesson");
 
-                    b.Navigation("MasterNavigation");
+                    b.Navigation("Master");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Selection", b =>
                 {
-                    b.HasOne("MelliMaharat.Models.Presentation", "PresentationNavigation")
+                    b.HasOne("MelliMaharat.Models.Presentation", "Presentation")
                         .WithMany("Selections")
                         .HasForeignKey("PresentationId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("MelliMaharat.Models.Student", "StudentNavigation")
+                    b.HasOne("MelliMaharat.Models.Student", "Student")
                         .WithMany("Selections")
                         .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("MelliMaharat.Models.Term", "Term")
+                        .WithMany("Selections")
+                        .HasForeignKey("TermId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Presentation");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Term");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.SelectionFeedback", b =>
+                {
+                    b.HasOne("MelliMaharat.Models.Selection", "Selection")
+                        .WithOne("SelectionFeedback")
+                        .HasForeignKey("MelliMaharat.Models.SelectionFeedback", "SelectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PresentationNavigation");
+                    b.Navigation("Selection");
+                });
 
-                    b.Navigation("StudentNavigation");
+            modelBuilder.Entity("MelliMaharat.Models.Session", b =>
+                {
+                    b.HasOne("MelliMaharat.Models.Selection", "Selection")
+                        .WithMany("Sessions")
+                        .HasForeignKey("SelectionId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Selection");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Student", b =>
                 {
+                    b.HasOne("MelliMaharat.Models.User", "User")
+                        .WithOne("Student")
+                        .HasForeignKey("MelliMaharat.Models.Student", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.User", b =>
+                {
                     b.OwnsOne("MelliMaharat.Models.Owned.Person", "PersonInformation", b1 =>
                         {
-                            b1.Property<int>("StudentId")
-                                .HasColumnType("int");
-
-                            b1.Property<int>("Age")
-                                .HasColumnType("int")
-                                .HasColumnName("Age");
-
-                            b1.Property<Guid>("AvatarId")
+                            b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
 
-                            b1.Property<string>("Email")
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("Email");
+                            b1.Property<DateOnly>("BirthDate")
+                                .HasColumnType("date");
 
                             b1.Property<string>("FirstName")
                                 .IsRequired()
                                 .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("FirstName");
-
-                            b1.Property<string>("FullName")
-                                .ValueGeneratedOnAddOrUpdate()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("FullName")
-                                .HasComputedColumnSql("[FirstName] + ', ' + [LastName]", true);
-
-                            b1.Property<bool>("IsAdmin")
-                                .HasColumnType("bit")
-                                .HasColumnName("IsAdmin");
+                                .HasColumnType("nvarchar(50)");
 
                             b1.Property<string>("LastName")
                                 .IsRequired()
                                 .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("LastName");
+                                .HasColumnType("nvarchar(50)");
 
                             b1.Property<string>("NationalCode")
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("NationalCode");
-
-                            b1.Property<string>("Password")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("nvarchar(500)")
-                                .HasColumnName("Password");
-
-                            b1.Property<string>("PhoneNumber")
-                                .HasMaxLength(20)
-                                .HasColumnType("nvarchar(20)")
-                                .HasColumnName("PhoneNumber");
-
-                            b1.Property<string>("Username")
-                                .IsRequired()
                                 .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
-                                .HasColumnName("Username");
+                                .HasColumnType("nvarchar(50)");
 
-                            b1.HasKey("StudentId");
+                            b1.HasKey("UserId");
 
-                            b1.HasIndex("Username")
-                                .IsUnique();
-
-                            b1.ToTable("Students");
+                            b1.ToTable("Users");
 
                             b1.WithOwner()
-                                .HasForeignKey("StudentId");
+                                .HasForeignKey("UserId");
                         });
 
-                    b.Navigation("PersonInformation")
-                        .IsRequired();
+                    b.Navigation("PersonInformation");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Department", b =>
+                {
+                    b.Navigation("Masters");
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Lesson", b =>
@@ -517,9 +674,33 @@ namespace MelliMaharat.Dal.Migrations
                     b.Navigation("Selections");
                 });
 
+            modelBuilder.Entity("MelliMaharat.Models.Selection", b =>
+                {
+                    b.Navigation("SelectionFeedback");
+
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Session", b =>
+                {
+                    b.Navigation("Attendance");
+                });
+
             modelBuilder.Entity("MelliMaharat.Models.Student", b =>
                 {
                     b.Navigation("Selections");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.Term", b =>
+                {
+                    b.Navigation("Selections");
+                });
+
+            modelBuilder.Entity("MelliMaharat.Models.User", b =>
+                {
+                    b.Navigation("Master");
+
+                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }

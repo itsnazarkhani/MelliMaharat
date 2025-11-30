@@ -1,13 +1,18 @@
 ﻿namespace MelliMaharat.Models;
 
-[EntityTypeConfiguration(typeof(MasterConfiguration))]
 public class Master : BaseEntity
 {
-    public Person PersonInformation { get; set; } = new Person();
-    
     [Required, StringLength(50)]
     public string Graduation { get; set; }
 
-    [InverseProperty(nameof(Presentation.MasterNavigation))]
+    [InverseProperty(nameof(Presentation.Master))]
     public IEnumerable<Presentation> Presentations { get; set; } = new List<Presentation>();
+
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; }
+    public Guid UserId { get; set; }
+
+    [ForeignKey(nameof(DepartmentId))]
+    public Department Department { get; set; }
+    public Guid DepartmentId { get; set; }
 }
