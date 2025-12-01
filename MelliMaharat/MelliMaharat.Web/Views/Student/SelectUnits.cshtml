@@ -1,23 +1,45 @@
-﻿@{
+﻿@model IEnumerable<MelliMaharat.Web.ViewModels.SelectUnitsViewModel>
+
+@{
     ViewData["Title"] = "انتخاب واحد";
 }
 
-<h3>انتخاب واحد</h3>
+<h2>انتخاب واحد</h2>
 
-<form method="post">
+@if (!Model.Any())
+{
+    <div class="alert alert-warning">در حال حاضر زمانی برای انتخاب واحد تعیین نشده است.</div>
+}
+else
+{
     <table class="table table-bordered">
         <thead>
             <tr>
-                <th>انتخاب</th>
-                <th>کد درس</th>
-                <th>نام درس</th>
-                <th>تعداد واحد</th>
+                <th>شروع</th>
+                <th>پایان</th>
+                <th>وضعیت</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            <!-- Loop through lessons and put checkboxes here -->
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Start.ToString("yyyy/MM/dd HH:mm")</td>
+                    <td>@item.End.ToString("yyyy/MM/dd HH:mm")</td>
+                    <td>
+                        @(item.IsOpen ? "باز" : "بسته")
+                    </td>
+                    <td>
+                        @if (item.IsOpen)
+                        {
+                            <a asp-action="ChoosePresentations"
+                               asp-route-termId="@item.TermId"
+                               class="btn btn-success">انتخاب واحد</a>
+                        }
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
-
-    <button type="submit" class="btn btn-primary">ثبت انتخاب واحد</button>
-</form>
+}
