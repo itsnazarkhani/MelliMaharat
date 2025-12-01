@@ -49,7 +49,7 @@
                 Style="{StaticResource MenuBorder}">
 
             <Frame Name="MainFrame"
-                   Source="Pages/Manager/SelectionsPage.xaml"/>
+                   Source="Pages/ProfilePage.xaml"/>
 
         </Border>
 

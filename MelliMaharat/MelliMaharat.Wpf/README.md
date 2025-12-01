@@ -44,4 +44,6 @@
 	1. master
 	1. manager
   - current_user
-	- Person()
+	- for Manager: Person() 
+	- for Student: Student()
+	- for Master: Master()

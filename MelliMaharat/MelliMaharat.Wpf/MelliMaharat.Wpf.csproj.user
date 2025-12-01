@@ -11,6 +11,9 @@
     <Compile Update="Windows\Pages\Manager\PresentationsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Windows\Pages\Manager\ProfilePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Pages\Manager\SelectionsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -23,10 +26,10 @@
     <Compile Update="Windows\Pages\Master\PresentationsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Pages\Master\StudentsPage.xaml.cs">
+    <Compile Update="Windows\Pages\Master\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Windows\Pages\ProfilePage.xaml.cs">
+    <Compile Update="Windows\Pages\Master\StudentsPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Resources\UserControls\CustomTextBox.xaml.cs">
@@ -60,6 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Pages\Student\PresentationsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Pages\Student\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\Pages\Student\SelectionsPage.xaml.cs">

@@ -10,11 +10,44 @@
       Foreground="Black"
       Background="WhiteSmoke">
 
-    <Grid>
-        <TextBlock Text="Students Page"
-       HorizontalAlignment="Center"
-       VerticalAlignment="Center"
-       FontSize="50"
-       FontFamily="{StaticResource SFProRounded}"/>
+    <Grid ShowGridLines="True">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <TextBlock Text="Entity Information"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="25"
+                   FontFamily="{StaticResource SFProRounded}"/>
+        </Grid>
+
+        <Grid Grid.Column="1"
+          ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <TextBlock Text="Entities List Info"
+                   Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   FontFamily="{StaticResource SFProRounded}"/>
+
+            <TextBlock Text="Entities List"
+                   Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="50"
+                   FontFamily="{StaticResource SFProRounded}"/>
+
+        </Grid>
+
     </Grid>
 </Page>

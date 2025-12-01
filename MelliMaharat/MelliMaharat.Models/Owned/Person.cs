@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Models.Enums;
-
-namespace MelliMaharat.Models.Owned;
+﻿namespace MelliMaharat.Models.Owned;
 
 [Owned]
 public class Person
