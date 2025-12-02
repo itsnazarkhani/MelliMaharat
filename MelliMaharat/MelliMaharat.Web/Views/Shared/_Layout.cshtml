@@ -76,9 +76,12 @@
                                     <li><hr class="dropdown-divider" /></li>
 
                                     <li>
-                                        <a class="dropdown-item text-danger" asp-controller="Authentication" asp-action="Logout">
-                                            خروج
-                                        </a>
+                                    <li>
+                                        <form asp-controller="Authentication" asp-action="Logout" method="post" class="d-inline">
+                                            <button type="submit" class="dropdown-item text-danger">
+                                                خروج
+                                            </button>
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
