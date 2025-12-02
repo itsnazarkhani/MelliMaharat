@@ -260,34 +260,53 @@ namespace MelliMaharat.Web.Controllers
 
         public IActionResult AddSelectionEvent()
         {
-            return View();
+            var vm = new SelectionEventViewModel
+            {
+                Terms = _unitOfWork.Terms.GetAll()
+                          .OrderByDescending(t => t.Year)
+                          .ThenByDescending(t => t.Type)
+                          .ToList()
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSelectionEvent(SelectionTime selectionEvent)
+        public async Task<IActionResult> AddSelectionEvent(SelectionEventViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(selectionEvent);
+            {
+                // Reload terms for dropdown if validation fails
+                model.Terms = _unitOfWork.Terms.GetAll()
+                                .OrderByDescending(t => t.Year)
+                                .ThenByDescending(t => t.Type)
+                                .ToList();
+                return View(model);
+            }
+
+            // Optional: validate SelectionStart < SelectionEnd
+            if (model.SelectionStart >= model.SelectionEnd)
+            {
+                ModelState.AddModelError("", "زمان شروع باید قبل از زمان پایان باشد.");
+                model.Terms = _unitOfWork.Terms.GetAll()
+                                .OrderByDescending(t => t.Year)
+                                .ThenByDescending(t => t.Type)
+                                .ToList();
+                return View(model);
+            }
+
+            var selectionEvent = new SelectionTime
+            {
+                SelectionStart = model.SelectionStart,
+                SelectionEnd = model.SelectionEnd,
+                TermId = model.TermId
+            };
 
             await _unitOfWork.SelectionTimes.AddAsync(selectionEvent);
             await _unitOfWork.CommitChangesAsync();
 
-            return RedirectToAction("SelectionEvents");
+            return RedirectToAction(nameof(SelectionEvents));
         }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteSelectionEvent(Guid id)
-        {
-            var selectionEvent = await _unitOfWork.SelectionTimes.GetAsync(id);
-            if (selectionEvent == null)
-                return NotFound();
-
-            _unitOfWork.SelectionTimes.Delete(selectionEvent);
-            await _unitOfWork.CommitChangesAsync();
-
-            return RedirectToAction("SelectionEvents");
-        }
-
         #endregion
 
         #region Terms

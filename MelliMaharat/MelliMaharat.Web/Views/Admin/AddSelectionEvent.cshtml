@@ -1,4 +1,4 @@
-﻿@model MelliMaharat.Models.SelectionTime
+﻿@model MelliMaharat.Web.ViewModels.Admin.SelectionEventViewModel
 
 @{
     ViewData["Title"] = "افزودن رویداد انتخاب واحد";
@@ -7,6 +7,20 @@
 <h3 class="mb-3">افزودن رویداد جدید</h3>
 
 <form method="post" asp-controller="Admin" asp-action="AddSelectionEvent" class="card p-4">
+
+    <div class="mb-3">
+        <label class="form-label">ترم</label>
+        <select asp-for="TermId" class="form-select">
+            <option value="">انتخاب ترم</option>
+            @foreach (var term in Model.Terms)
+            {
+                <option value="@term.Id" selected="@(Model.TermId == term.Id ? "selected" : null)">
+                    @term.Year - @term.Type.GetDescription()
+                </option>
+            }
+        </select>
+        <span asp-validation-for="TermId" class="text-danger"></span>
+    </div>
 
     <div class="mb-3">
         <label class="form-label">شروع انتخاب واحد</label>
@@ -20,6 +34,12 @@
         <span asp-validation-for="SelectionEnd" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">ذخیره</button>
-    <a class="btn btn-secondary" asp-action="SelectionEvents">بازگشت</a>
+    <div class="d-flex justify-content-between">
+        <a class="btn btn-secondary" asp-action="SelectionEvents">بازگشت</a>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
+    </div>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
