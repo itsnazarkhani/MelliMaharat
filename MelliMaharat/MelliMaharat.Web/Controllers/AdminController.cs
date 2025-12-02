@@ -290,6 +290,7 @@ namespace MelliMaharat.Web.Controllers
 
         #endregion
 
+        #region Terms
         public async Task<IActionResult> AddNewTerm()
         {
             return View(new TermViewModel());
@@ -348,5 +349,5 @@ namespace MelliMaharat.Web.Controllers
         }
 
     }
-
+    #endregion
 }
