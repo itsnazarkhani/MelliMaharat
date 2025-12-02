@@ -9,7 +9,7 @@ namespace MelliMaharat.Web.ViewModels.Admin
         public DateTime SelectionStart { get; set; }
 
         [Required(ErrorMessage = "زمان پایان الزامی است")]
-        public DateTime SelectionEnd { get; set; }
+        public DateTime? SelectionEnd { get; set; }
 
         [Required(ErrorMessage = "لطفاً ترم را انتخاب کنید")]
         public Guid TermId { get; set; }

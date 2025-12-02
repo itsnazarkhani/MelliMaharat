@@ -265,7 +265,9 @@ namespace MelliMaharat.Web.Controllers
                 Terms = _unitOfWork.Terms.GetAll()
                           .OrderByDescending(t => t.Year)
                           .ThenByDescending(t => t.Type)
-                          .ToList()
+                          .ToList(),
+                SelectionStart = DateTime.Now,
+                SelectionEnd = null
             };
 
             return View(vm);
@@ -298,7 +300,7 @@ namespace MelliMaharat.Web.Controllers
             var selectionEvent = new SelectionTime
             {
                 SelectionStart = model.SelectionStart,
-                SelectionEnd = model.SelectionEnd,
+                SelectionEnd = model.SelectionEnd ?? DateTime.Now,
                 TermId = model.TermId
             };
 
@@ -306,6 +308,19 @@ namespace MelliMaharat.Web.Controllers
             await _unitOfWork.CommitChangesAsync();
 
             return RedirectToAction(nameof(SelectionEvents));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteSelectionEvent(Guid id)
+        {
+            var selectionEvent = await _unitOfWork.SelectionTimes.GetAsync(id);
+            if (selectionEvent == null)
+                return NotFound();
+
+            _unitOfWork.SelectionTimes.Delete(selectionEvent);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction("SelectionEvents");
         }
         #endregion
 
