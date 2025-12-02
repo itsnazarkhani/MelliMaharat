@@ -1,0 +1,53 @@
+﻿@model MelliMaharat.Web.ViewModels.User.EditProfileViewModel
+
+@{
+    ViewData["Title"] = "ویرایش پروفایل";
+}
+
+<h3 class="mb-3">ویرایش پروفایل</h3>
+
+@if (TempData["EditProfileSuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["EditProfileSuccessMessage"]
+    </div>
+}
+
+<form method="post" class="card p-4" style="max-width: 500px;">
+    <div class="mb-3">
+        <label class="form-label">نام</label>
+        <input class="form-control" value="@Model.FirstName" readonly style="background-color: #e9ecef;" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">نام خانوادگی</label>
+        <input class="form-control" value="@Model.LastName" readonly style="background-color: #e9ecef;" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">تاریخ تولد</label>
+        <input class="form-control" value="@Model.BirthDate" readonly style="background-color: #e9ecef;" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">کد ملی</label>
+        <input class="form-control" value="@Model.NationalCode" readonly style="background-color: #e9ecef;" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">شماره تماس</label>
+        <input class="form-control" value="@Model.PhoneNumber" readonly style="background-color: #e9ecef;" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">ایمیل</label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">به‌روزرسانی</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -80,5 +80,57 @@ namespace MelliMaharat.Web.Controllers
             TempData["SuccessMessage"] = "رمز عبور با موفقیت تغییر یافت.";
             return RedirectToAction(nameof(Dashboard)); 
         }
+
+        public async Task<IActionResult> EditProfile()
+        {
+            var username = User.Identity?.Name;
+            if (string.IsNullOrEmpty(username))
+                return Unauthorized();
+
+            var user = await _unitOfWork.Users.GetAll()
+                .Include(u => u.PersonInformation) 
+                .FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+                return NotFound();
+
+            var model = new EditProfileViewModel
+            {
+                FirstName = user.PersonInformation.FirstName,
+                LastName = user.PersonInformation.LastName,
+                BirthDate = user.PersonInformation.BirthDate.ToString("yyyy/MM/dd"),
+                NationalCode = user.PersonInformation.NationalCode,
+                PhoneNumber = user.PersonInformation.PhoneNumber,
+                Email = user.Email
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var username = User.Identity?.Name;
+            if (string.IsNullOrEmpty(username))
+                return Unauthorized();
+
+            var user = await _unitOfWork.Users.GetAll()
+                .FirstOrDefaultAsync(u => u.Username == username);
+
+            if (user == null)
+                return NotFound();
+
+            // Update only the email
+            user.Email = model.Email;
+
+            await _unitOfWork.CommitChangesAsync();
+
+            TempData["EditProfileSuccessMessage"] = "ایمیل با موفقیت به‌روزرسانی شد.";
+
+            return RedirectToAction("EditProfile");
+        }
     }
 }
