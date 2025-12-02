@@ -288,6 +288,33 @@ namespace MelliMaharat.Web.Controllers
         }
 
         #endregion
+
+        public async Task<IActionResult> AddNewTerm() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewTerm(Term model)
+        {
+            if (!ModelState.IsValid || model == null)
+                return View(model);
+
+            await _unitOfWork.Terms.AddAsync(model);
+            await _unitOfWork.CommitChangesAsync();
+
+            return RedirectToAction($"{nameof(TermsList)}");
+        }
+
+        public IActionResult TermsList()
+        {
+            var terms = _unitOfWork.Terms
+                .GetAll()
+                .OrderByDescending(t => t.Year)
+                .ThenByDescending(t => t.Type)
+                .AsNoTracking()
+                .ToList();
+
+            return View(terms);
+        }
+
     }
 
 }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<MelliMaharat.Models.Term>
+
+@{
+    ViewData["Title"] = "ترم‌های تحصیلی";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>لیست ترم‌ها</h2>
+        <a class="btn btn-primary" asp-action="AddNewTerm">
+            افزودن ترم جدید
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">
+            هیچ ترمی تعریف نشده است.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-striped table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>نوع ترم</th>
+                    <th>سال</th>
+                    <th>زمان شروع</th>
+                    <th>زمان اتمام</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Type.GetDescription()</td>
+                        <td>@item.Year</td>
+                        <td>@item.StartTime.ToString("yyyy/MM/dd")</td>
+                        <td>@item.EndTime.ToString("yyyy/MM/dd")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

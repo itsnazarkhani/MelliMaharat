@@ -10,5 +10,9 @@ namespace MelliMaharat.Models
         public DateTime SelectionStart { get; set; }
         [Required]
         public DateTime SelectionEnd { get; set; }
+
+        [ForeignKey(nameof(TermId))]
+        public Term Term { get; set; }
+        public Guid TermId { get; set; }
     }
 }
