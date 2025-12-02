@@ -16,8 +16,8 @@ namespace MelliMaharat.Web.Controllers
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAuthService _authService;
 
-        public UserController(IUnitOfWork unitOfWork,
-                              IAuthService authService)
+        public UserController(
+            IUnitOfWork unitOfWork, IAuthService authService)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
@@ -73,7 +73,7 @@ namespace MelliMaharat.Web.Controllers
 
             if (!result.IsSuccess)
             {
-                ModelState.AddModelError("", result.Message);
+                TempData["IncorrectCurrentPassword"] = result.Message;
                 return View(model);
             }
 

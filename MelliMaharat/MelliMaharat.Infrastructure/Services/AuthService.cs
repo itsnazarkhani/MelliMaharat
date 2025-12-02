@@ -46,11 +46,11 @@ namespace MelliMaharat.Infrastructure.Services
             {
                 var user = await unitOfWork.Users.GetAll().FirstOrDefaultAsync(u => u.Username == username);
                 if (user == null)
-                    return AuthResult.Failure("User not found.");
+                    return AuthResult.Failure("کاربر یافت نشد.");
 
                 // Check current password
                 if (user.Password != currentPassword)
-                    return AuthResult.Failure("Current password is incorrect.");
+                    return AuthResult.Failure("رمز عبور فعلی را اشتباه وارد کرده‌اید.");
 
                 // Update password
                 user.Password = newPassword;
