@@ -3,6 +3,7 @@ using MelliMaharat.Models;
 using MelliMaharat.Models.Enums;
 using MelliMaharat.Models.Owned;
 using MelliMaharat.Web.Filters;
+using MelliMaharat.Web.ViewModels.Admin;
 using MelliMaharat.Web.ViewModels.Student;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -289,19 +290,50 @@ namespace MelliMaharat.Web.Controllers
 
         #endregion
 
-        public async Task<IActionResult> AddNewTerm() => View();
+        public async Task<IActionResult> AddNewTerm()
+        {
+            return View(new TermViewModel());
+        }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewTerm(Term model)
+        public async Task<IActionResult> AddNewTerm(TermViewModel model)
         {
-            if (!ModelState.IsValid || model == null)
+            if (!ModelState.IsValid)
                 return View(model);
 
-            await _unitOfWork.Terms.AddAsync(model);
+            // Validation: Start < End
+            if (model.StartTime >= model.EndTime)
+            {
+                ModelState.AddModelError("", "تاریخ شروع باید قبل از تاریخ پایان باشد.");
+                return View(model);
+            }
+
+            // Validation: Prevent duplicate terms
+            var exists = await _unitOfWork.Terms
+                .GetAll()
+                .AnyAsync(t => t.Year == model.Year && t.Type == model.Type);
+
+            if (exists)
+            {
+                ModelState.AddModelError("", "این ترم قبلاً تعریف شده است.");
+                return View(model);
+            }
+
+            // Map ViewModel → Domain Model
+            var term = new Term
+            {
+                Year = model.Year,
+                Type = model.Type,
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+            };
+
+            await _unitOfWork.Terms.AddAsync(term);
             await _unitOfWork.CommitChangesAsync();
 
-            return RedirectToAction($"{nameof(TermsList)}");
+            return RedirectToAction(nameof(TermsList));
         }
+
 
         public IActionResult TermsList()
         {

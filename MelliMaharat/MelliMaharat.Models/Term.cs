@@ -15,6 +15,7 @@ namespace MelliMaharat.Models
         [InverseProperty(nameof(Selection.Term))]
         public IEnumerable<Selection> Selections { get; set; } = new List<Selection>();
 
-        public SelectionTime SelectionTime { get; set; }
+        [InverseProperty(nameof(SelectionTime.Term))]
+        public IEnumerable<SelectionTime> SelectionTimes { get; set; } = new List<SelectionTime>();
     }
 }
