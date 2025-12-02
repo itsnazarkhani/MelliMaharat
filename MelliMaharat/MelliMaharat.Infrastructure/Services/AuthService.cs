@@ -39,5 +39,30 @@ namespace MelliMaharat.Infrastructure.Services
                 return AuthResult.Failure($"An error occurred during login: {ex.Message}");
             }
         }
+
+        public async Task<AuthResult> ChangePasswordAsync(string username, string currentPassword, string newPassword)
+        {
+            try
+            {
+                var user = await unitOfWork.Users.GetAll().FirstOrDefaultAsync(u => u.Username == username);
+                if (user == null)
+                    return AuthResult.Failure("User not found.");
+
+                // Check current password
+                if (user.Password != currentPassword)
+                    return AuthResult.Failure("Current password is incorrect.");
+
+                // Update password
+                user.Password = newPassword;
+                unitOfWork.Users.Update(user);
+                await unitOfWork.CommitChangesAsync();
+
+                return AuthResult.Success(user);
+            }
+            catch (Exception ex)
+            {
+                return AuthResult.Failure($"An error occurred while changing password: {ex.Message}");
+            }
+        }
     }
 }

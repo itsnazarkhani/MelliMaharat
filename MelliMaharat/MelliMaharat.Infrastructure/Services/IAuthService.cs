@@ -10,5 +10,6 @@ namespace MelliMaharat.Infrastructure.Services
     {
         Task<AuthResult> LoginAsync(string username, string password);
         Task<User?> GetUserByUsernameAsync(string username);
+        Task<AuthResult> ChangePasswordAsync(string username, string currentPassword, string newPassword);
     }
 }
