@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MelliMaharat.Dal.UnitOfWork;
-using MelliMaharat.Web.Filters;
+﻿using MelliMaharat.Dal.UnitOfWork;
+using MelliMaharat.Infrastructure.Services;
 using MelliMaharat.Models.Enums;
+using MelliMaharat.Web.Filters;
 using MelliMaharat.Web.ViewModels;
+using MelliMaharat.Web.ViewModels.User;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -12,10 +14,13 @@ namespace MelliMaharat.Web.Controllers
     public class UserController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthService _authService;
 
-        public UserController(IUnitOfWork unitOfWork)
+        public UserController(IUnitOfWork unitOfWork,
+                              IAuthService authService)
         {
-            _unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
         }
 
         public async Task<IActionResult> Dashboard()
@@ -46,6 +51,34 @@ namespace MelliMaharat.Web.Controllers
             };
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var username = User.Identity?.Name;
+            if (username == null)
+                return Unauthorized();
+
+            var result = await _authService.ChangePasswordAsync(username, model.CurrentPassword, model.NewPassword);
+
+            if (!result.IsSuccess)
+            {
+                ModelState.AddModelError("", result.Message);
+                return View(model);
+            }
+
+            TempData["SuccessMessage"] = "رمز عبور با موفقیت تغییر یافت.";
+            return RedirectToAction(nameof(Dashboard)); 
         }
     }
 }
