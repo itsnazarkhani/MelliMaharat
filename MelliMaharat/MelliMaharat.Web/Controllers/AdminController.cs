@@ -6,6 +6,7 @@ using MelliMaharat.Web.Filters;
 using MelliMaharat.Web.ViewModels.Admin;
 using MelliMaharat.Web.ViewModels.Student;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
@@ -221,6 +222,20 @@ namespace MelliMaharat.Web.Controllers
                 .OrderBy(m => m.User.PersonInformation.LastName)
                 .ToListAsync();
 
+            var persianWeekDays = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "0", Text = "شنبه" },
+                new SelectListItem { Value = "1", Text = "یکشنبه" },
+                new SelectListItem { Value = "2", Text = "دوشنبه" },
+                new SelectListItem { Value = "3", Text = "سه‌شنبه" },
+                new SelectListItem { Value = "4", Text = "چهارشنبه" },
+                new SelectListItem { Value = "5", Text = "پنج‌شنبه" },
+                new SelectListItem { Value = "6", Text = "جمعه" },
+            };
+
+            ViewBag.PersianWeekDays = new SelectList(persianWeekDays, "Value", "Text");
+
+
             return View();
         }
 
@@ -286,7 +301,6 @@ namespace MelliMaharat.Web.Controllers
                 return View(model);
             }
 
-            // Optional: validate SelectionStart < SelectionEnd
             if (model.SelectionStart >= model.SelectionEnd)
             {
                 ModelState.AddModelError("", "زمان شروع باید قبل از زمان پایان باشد.");
