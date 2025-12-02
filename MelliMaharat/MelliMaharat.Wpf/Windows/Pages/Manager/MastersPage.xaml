@@ -4,12 +4,16 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Manager"
+      xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Foreground="Black"
       Background="WhiteSmoke"
-      Title="MastersPage">
-    <Grid ShowGridLines="True">
+      Title="MastersPage"
+      FontFamily="{StaticResource ResourceKey=SFProRounded}"
+      Loaded="Page_Loaded"
+      Name="Root">
+    <Grid ShowGridLines="False">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -17,35 +21,182 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <TextBlock Text="Entity Information"
+            <!--<TextBlock Text="Entity Information"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="25"
-                   FontFamily="{StaticResource SFProRounded}"/>
+                   FontFamily="{StaticResource SFProRounded}"/>-->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" DataContext="{Binding Master}">
+                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+                    <Grid DockPanel.Dock="Top">
+                        <Ellipse Height="110" Width="110" Margin="0 0 0 10" Fill="{StaticResource Deep Space Blue}"/>
+
+                        <Ellipse Height="100" Width="100" Margin="0 0 0 10" Fill="{StaticResource MasterIconBrush}"/>
+                    </Grid>
+                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Age}" Tag="Age:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding IsAdmin}" Tag="Is Admin:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
+                    <DockPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Save Changes"/>
+                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Change Picture"/>
+                    </DockPanel>
+                </DockPanel>
+            </ScrollViewer>
         </Grid>
 
         <Grid Grid.Column="1"
-          ShowGridLines="True">
+          ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <DockPanel Grid.Row="0">
+                <TextBlock Text="Masters"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="25 0 0 0"
+                           FontFamily="{StaticResource SFProRounded}"
+                           DockPanel.Dock="Left"/>
+                <ComboBox Width="auto"
+                          BorderThickness="0"
+                          VerticalAlignment="Center"
+                          Margin="0 0 5 0"
+                          DockPanel.Dock="Right"
+                          HorizontalAlignment="Right"
+                          Height="30"
+                          SelectedIndex="2"
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center"
+                          FontSize="17.5">
+                    <ComboBoxItem Content="First Name"/>
+                    <ComboBoxItem Content="Last Name"/>
+                    <ComboBoxItem Content="Phone Number"/>
+                    <ComboBoxItem Content="Age"/>
+                </ComboBox>
+                <TextBlock DockPanel.Dock="Right" Text="Order by:" Opacity="0.6" HorizontalAlignment="Right" FontWeight="Bold" VerticalAlignment="Center" Margin="0 0 10 0" FontSize="17.5"/>
+            </DockPanel>
 
-            <TextBlock Text="Entities List Info"
-                   Grid.Row="0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"
-                   FontFamily="{StaticResource SFProRounded}"/>
-
-            <TextBlock Text="Entities List"
+            <!--<TextBlock Text="Entities List"
                    Grid.Row="1"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="50"
-                   FontFamily="{StaticResource SFProRounded}"/>
+                   FontFamily="{StaticResource SFProRounded}"/>-->
 
+            <ListBox Grid.Row="1" Name="listbox"
+                     Background="Transparent"
+                     BorderBrush="Transparent"
+                     HorizontalContentAlignment="Stretch"
+                     VerticalContentAlignment="Stretch">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="5" />
+                        <!-- Remove default highlight -->
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+
+                        <!-- Remove selection blue color -->
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Background="Transparent"
+                                            BorderBrush="Gray"
+                                            BorderThickness="5"
+                                            CornerRadius="10"
+                                            Padding="5"
+                                            x:Name="border">
+                                        <ContentPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="border"  Property="BorderBrush" Value="{StaticResource Deep Space Blue}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+
+
+                        <!--<Border>-->
+                            <Grid ShowGridLines="False"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="5*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Left">
+                                    <Ellipse VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="10"
+                                         Height="80"
+                                         Width="80"
+                                             Fill="{StaticResource Deep Space Blue}"/>
+                                <Ellipse VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Margin="10"
+                                         Height="70"
+                                         Width="70"
+                                         Fill="{StaticResource MasterIconBrush}">
+                                </Ellipse>
+
+                                </Grid>
+                                <StackPanel Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <TextBlock FontWeight="Bold" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="FirstName"/>
+                                                <Binding Path="LastName"/>
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <TextBlock FontWeight="Bold" FontSize="15" Margin="0 10 0 0" Text="{Binding Age, StringFormat=Age: {0}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+
+                        <!--</Border>-->
+
+                        <!--<DataTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Deep Space Blue}" />
+                            </Trigger>
+                        </DataTemplate.Triggers>-->
+                        
+                        <!--<TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="FirstName"/>
+                                    <Binding Path="LastName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>-->
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+            
         </Grid>
 
     </Grid>

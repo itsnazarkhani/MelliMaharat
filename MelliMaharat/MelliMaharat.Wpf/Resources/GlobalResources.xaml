@@ -14,6 +14,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
     <Color x:Key="Button.Pressed.Border.Color">#FF3C7FB1</Color>
+    <SolidColorBrush x:Key="Deep Space Blue" Color="#1B263B"/>
 
     <!-- Styles -->
     <Style TargetType="{x:Type CustomControls:CustomTextBox}">
@@ -159,7 +160,7 @@
         <Setter Property="VerticalAlignment" Value="Bottom"/>
         <Setter Property="Margin" Value="0 0 0 25"/>
     </Style>
-    <Style TargetType="Button" x:Key="SignInButton">
+    <!--<Style TargetType="Button" x:Key="SignInButton">
         <Setter Property="Width" Value="175"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Margin" Value="0 0 0 15"/>
@@ -169,21 +170,21 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Padding" Value="10"/>
         <Setter Property="FontSize" Value="17.5"/>
-        <Setter Property="Background" Value="MediumAquamarine"/>
+        <Setter Property="Background" Value="{StaticResource Deep Space Blue}"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}"
-                    Height="{TemplateBinding Height}"
-                    Width="{TemplateBinding Width}"
-                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
-                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
-                    CornerRadius="12.5"
+                            Height="{TemplateBinding Height}"
+                            Width="{TemplateBinding Width}"
+                            HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                            CornerRadius="12.5"
                             MinWidth="{TemplateBinding MinWidth}"
                             MinHeight="{TemplateBinding MinHeight}">
                         <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           Margin="{TemplateBinding Padding}"/>
                     </Border>
                 </ControlTemplate>
@@ -194,24 +195,137 @@
                 <Setter Property="Opacity" Value="0.5"/>
             </Trigger>
         </Style.Triggers>
+    </Style>-->
+    <Style TargetType="Button" x:Key="SignInButton">
+        <Setter Property="Width" Value="175"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="0 0 0 15"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="FontSize" Value="17.5"/>
+        <Setter Property="Background" Value="{StaticResource Deep Space Blue}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        Height="{TemplateBinding Height}"
+                        Width="{TemplateBinding Width}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        CornerRadius="12.5"
+                        MinWidth="{TemplateBinding MinWidth}"
+                        MinHeight="{TemplateBinding MinHeight}">
+                        <Border.Effect>
+                            <DropShadowEffect x:Name="shadowEffect"
+                                              ShadowDepth="0"
+                                              BlurRadius="20"
+                                              Opacity="0"
+                                              Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={StaticResource BrushToColorConverter}}"/>
+                        </Border.Effect>
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-    <Style TargetType="Button" BasedOn="{StaticResource SignInButton}" x:Key="MenuItemButton">
+
+    <Style TargetType="RadioButton" x:Key="MenuItemRadioButton">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Margin" Value="0 10" />
         <Setter Property="Height" Value="40" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Background" Value="WhiteSmoke" />
-        <Setter Property="MinWidth" Value="130" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinWidth" Value="140" />
         <Setter Property="Width" Value="auto" />
         <Setter Property="Foreground" Value="Black" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Effect">
             <Setter.Value>
                 <DropShadowEffect ShadowDepth="0"
+                          BlurRadius="20"
+                          Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="FontSize" Value="17.5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border CornerRadius="15"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}">
+
+
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="{StaticResource Deep Space Blue}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource SignInButton}" x:Key="MenuItemButton">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0 10" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <!--<Setter Property="Background" Value="WhiteSmoke" />-->
+        <Setter Property="MinWidth" Value="130" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <!--<Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
                                   BlurRadius="20"
                                   Opacity="0.3"/>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
     <Style TargetType="TextBlock" x:Key="LoginWindowFooterTextBlock">
         <Setter Property="FontSize" Value="12.5"/>
@@ -237,9 +351,11 @@
         </Setter>
     </Style>
     <Style TargetType="Label" x:Key="LogoLabel">
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Content" Value="Melli Maharat" />
         <Setter Property="FontSize" Value="22" />
         <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0 0 0 20" />
     </Style>
     
     <!-- Storyboards -->
@@ -305,10 +421,36 @@
     <Image x:Key="MinimizeImage"
            Source="/Resources/Images/icons8-minus-48.png"
            RenderTransformOrigin="0.5 0.5"
-           SnapsToDevicePixels="True">
+           SnapsToDevicePixels="False">
         <Image.RenderTransform>
             <ScaleTransform ScaleX="0.6" ScaleY="0.48"/>
         </Image.RenderTransform>
     </Image>
+    <Image x:Key="ManagerIcon"
+           Source="/Resources/Images/Manager.jpg"
+           SnapsToDevicePixels="False"
+           RenderTransformOrigin="0.5 0.5">
+
+    </Image>
+    <Image x:Key="MasterIcon"
+           Source="/Resources/Images/Master.jpg"
+           SnapsToDevicePixels="False"
+           RenderTransformOrigin="0.5 0.5">
+
+    </Image>
+    <Image x:Key="StudentIcon"
+           Source="/Resources/Images/Student.jpg"
+           SnapsToDevicePixels="True"
+           RenderTransformOrigin="0.5 0.5">
+
+    </Image>
+
+    <ImageBrush x:Key="MasterIconBrush" ImageSource="/Resources/Images/Master.jpg">
+        <ImageBrush.Transform>
+            <TranslateTransform X="-1" Y="-1">
+                
+            </TranslateTransform>
+        </ImageBrush.Transform>
+    </ImageBrush>
 
 </ResourceDictionary>

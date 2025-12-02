@@ -5,6 +5,9 @@
     <None Remove="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
     <None Remove="Resources\Images\icons8-close-48.png" />
     <None Remove="Resources\Images\icons8-minus-48.png" />
+    <None Remove="Resources\Images\Manager.jpg" />
+    <None Remove="Resources\Images\Master.jpg" />
+    <None Remove="Resources\Images\Student.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,6 +20,9 @@
     <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
     <Resource Include="Resources\Images\icons8-close-48.png" />
     <Resource Include="Resources\Images\icons8-minus-48.png" />
+    <Resource Include="Resources\Images\Manager.jpg" />
+    <Resource Include="Resources\Images\Master.jpg" />
+    <Resource Include="Resources\Images\Student.jpg" />
   </ItemGroup>
 
   <PropertyGroup>

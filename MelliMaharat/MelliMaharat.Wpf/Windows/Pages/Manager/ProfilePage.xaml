@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Manager"
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="500" d:DesignWidth="580"
+      d:DesignHeight="795" d:DesignWidth="593"
       Title="ProfilePage"
       Background="WhiteSmoke"
       FontFamily="{StaticResource SFProRounded}"
@@ -20,119 +20,42 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Profile" FontSize="30" FontWeight="Bold"/>
 
-            <Grid Grid.Row="1">
-                <DockPanel>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+
+                <DockPanel Margin="15">
                     <Grid DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                        <Ellipse Height="110" Width="110" Margin="0 0 0 10" Fill="{StaticResource Deep Space Blue}"/>
 
-
-                        <Ellipse Grid.Column="0" Height="70" Width="70" Fill="Gray" Margin="10 10 10 10"/>
-
-                        <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <TextBlock Text="Johnny Cash" FontWeight="Bold" FontSize="30"/>
-                            <TextBlock Text="@johhnybaby" FontWeight="Bold" FontSize="20" Opacity="0.65"/>
-                        </StackPanel>
-
+                        <Ellipse Height="100" Width="100" Margin="0 0 0 10">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Resources/Images/Manager.jpg"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
                     </Grid>
+                    <custom:CustomTextBox Tag="First Name:" Hint="Arthur" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Last Name:" Hint="Nancy" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Password:" Hint="********" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Email:" Hint="bradely.oniz@gmail.com" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Age:" Hint="21" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="National Code:" Hint="2172585466" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Phone Number:" Hint="+98 946 254 4687" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Username:" Hint="@somefhtis" DockPanel.Dock="Top"/>
 
-                    <Button DockPanel.Dock="Bottom" Height="25" Width="90" HorizontalAlignment="Left" Margin="5 0 5 0" Content="Change Profile"/>
+                    <DockPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Save Changes"/>
+                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Update Picture"/>
+                    </DockPanel>
                 </DockPanel>
-            </Grid>
-            <Grid Grid.Row="2" Name="G2" Margin="0 5 0 0">
-                <StackPanel>
-                    <Separator Margin="5 0 5 0"/>
-                    <TextBlock FontWeight="Bold" Text="Personal Information" FontSize="20"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Full Name:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Age:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="National Code:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Phone Number:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                    <!--<custom:CustomTextBox Tag="First Name:" Hint="johnny cash"/>
-                    <custom:CustomTextBox Tag="Age:" Hint="25"/>
-                    <custom:CustomTextBox Tag="National Code:" Hint="20394848398"/>
-                    <custom:CustomTextBox Tag="Phone Number:" Hint="+98 9192245214"/>-->
-                </StackPanel>
-            </Grid>
-
-
-            <Grid Grid.Row="3">
-                <StackPanel>
-                    <Separator Margin="0 10 0 0" />
-                    <TextBlock FontWeight="Bold" FontSize="20" Text="Account Information"/>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Username:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Column="0" Text="Password:"/>
-                        <TextBox Grid.Column="1" Background="Wheat" Margin="5 0 5 0"/>
-                    </Grid>
-                </StackPanel>                
-            </Grid>
-            <Grid Grid.Row="4">
-                <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
-                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                        <Button Height="25" Width="100" Content="Cancel"/>
-                        <Button Height="25" Width="100" Content="Save Changes"/>
-                    </StackPanel>
-                </DockPanel>
-            </Grid>
+            </ScrollViewer>
 
         </Grid>
 
-        
+
     </Grid>
 
 
