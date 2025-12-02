@@ -1,4 +1,4 @@
-﻿namespace MelliMaharat.Web.ViewModels
+﻿namespace MelliMaharat.Web.ViewModels.Student
 {
     public class StudentDetailsViewModel
     {

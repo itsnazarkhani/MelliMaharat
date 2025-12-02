@@ -1,18 +1,151 @@
-﻿@{
-    ViewData["Title"] = "نمرات";
+﻿@model StudentGradesViewModel
+
+@{
+    ViewData["Title"] = "نمرات و معدل";
 }
 
-<h3>نمرات</h3>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>
+                <i class="fas fa-graduation-cap"></i>
+                نمرات و معدل
+            </h2>
+        </div>
+    </div>
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>نام درس</th>
-            <th>نمره</th>
-            <th>واحد</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Loop through grades here -->
-    </tbody>
-</table>
+    <!-- Overall GPA Card -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card bg-primary text-white">
+                <div class="card-body text-center">
+                    <h6 class="card-title mb-3">معدل کل</h6>
+                    <h1 class="display-4">@Model.OverallGPA.ToString("F2")</h1>
+                    <p class="card-text">از 4.00</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.TermGrades.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle"></i>
+            هنوز نمره‌ای برای شما ثبت نشده است.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var termGrade in Model.TermGrades)
+            {
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-info text-white">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">
+                                    ترم @termGrade.Year - @(termGrade.Type == TermType.Fall ? "پاییز" : "بهار")
+                                </h5>
+                                <span class="badge bg-light text-dark">@termGrade.Selections.Count() درس</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-6 text-center">
+                                    <p class="mb-1"><strong>معدل ترم</strong></p>
+                                    <h4 class="text-primary">@termGrade.GPA.ToString("F2")</h4>
+                                </div>
+                                <div class="col-6 text-center">
+                                    <p class="mb-1"><strong>تعداد واحد</strong></p>
+                                    <h4 class="text-success">@termGrade.TotalUnits</h4>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <h6 class="mb-3">نمرات درس‌ها:</h6>
+                            <ul class="list-unstyled">
+                                @foreach (var selection in termGrade.Selections.OrderByDescending(s => s.Score))
+                                {
+                                    var gradeColor = selection.Score >= 18 ? "success" :
+                                    selection.Score >= 16 ? "info" :
+                                    selection.Score >= 14 ? "warning" : "danger";
+
+                                    <li class="d-flex justify-content-between align-items-center mb-2">
+                                        <span>
+                                            @selection.Presentation.Lesson.Name
+                                            <small class="text-muted">(@selection.Presentation.Lesson.Unit واحد)</small>
+                                        </span>
+                                        <span class="badge bg-@gradeColor">@selection.Score.ToString("F2")</span>
+                                    </li>
+                                }
+                            </ul>
+
+                            <div class="mt-3">
+                                <a href="@Url.Action("TermGrades", new { termId = termGrade.TermId })"
+                                   class="btn btn-sm btn-outline-primary w-100">
+                                    <i class="fas fa-eye"></i>
+                                    مشاهده جزئیات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Sortable Statistics -->
+        <div class="card mt-4">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">آمار نمرات</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <p class="mb-1"><strong>تعداد درس‌ها</strong></p>
+                        <h4>@Model.AllSelections.Count()</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-1"><strong>بالاترین نمره</strong></p>
+                        <h4 class="text-success">@(Model.AllSelections.Any() ? Model.AllSelections.Max(s => s.Score).ToString("F2") : "N/A")</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-1"><strong>پایین‌ترین نمره</strong></p>
+                        <h4 class="text-danger">@(Model.AllSelections.Any() ? Model.AllSelections.Min(s => s.Score).ToString("F2") : "N/A")</h4>
+                    </div>
+                    <div class="col-md-3">
+                        <p class="mb-1"><strong>میانگین نمره</strong></p>
+                        <h4 class="text-info">@(Model.AllSelections.Any() ? Model.AllSelections.Average(s => s.Score).ToString("F2") : "N/A")</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="mt-4">
+        <a href="@Url.Action("Selections")" class="btn btn-secondary">
+            <i class="fas fa-arrow-right"></i>
+            بازگشت
+        </a>
+    </div>
+</div>
+
+<style>
+    body {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .card {
+        border-right: 4px solid #0d6efd;
+        transition: all 0.3s ease;
+    }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+    .display-4 {
+        font-weight: bold;
+    }
+</style>

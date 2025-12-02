@@ -3,7 +3,7 @@ using MelliMaharat.Models;
 using MelliMaharat.Models.Enums;
 using MelliMaharat.Models.Owned;
 using MelliMaharat.Web.Filters;
-using MelliMaharat.Web.ViewModels;
+using MelliMaharat.Web.ViewModels.Student;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;

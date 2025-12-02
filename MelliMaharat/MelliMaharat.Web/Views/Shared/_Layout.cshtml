@@ -3,8 +3,6 @@
     var userModel = Context.Items["LayoutUser"] as LayoutUserViewModel;
 }
 
-
-
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -13,8 +11,8 @@
     <title>@ViewData["Title"] - چمران</title>
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MelliMaharat.Web.styles.css" asp-append-version="true" />
 </head>
 
 <body>
@@ -22,7 +20,6 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
 
-                <!-- Left side -->
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                     دانشکده ملی مهارت چمران
                 </a>
@@ -33,66 +30,85 @@
 
                 <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
 
-                    <!-- Navigation links -->
+                    <!-- Auto-generated Navigation -->
                     <ul class="navbar-nav">
-                        @if (userModel?.NavItems != null)
+                        @foreach (var item in userModel?.NavItems ?? new List<LayoutNavItem>())
                         {
-                            foreach (var item in userModel.NavItems)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark"
-                                       asp-controller="@item.Controller"
-                                       asp-action="@item.Action">
-                                        @item.Title
-                                    </a>
-                                </li>
-                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="@item.Controller" asp-action="@item.Action">
+                                    @item.Title
+                                </a>
+                            </li>
                         }
                     </ul>
 
-
-                    <!-- Profile Section (right side) -->
+                    <!-- Profile Section -->
                     <div class="d-flex align-items-center">
 
                         @if (userModel != null && userModel.Role != UserRoles.None)
                         {
                             <span class="me-2 fw-semibold">@userModel.FullName</span>
 
-                            <a asp-controller="User" asp-action="Dashboard">
-                                <img src="@userModel.ProfileImagePath"
-                                     class="rounded-circle"
-                                     style="width:40px; height:40px; object-fit:cover; cursor:pointer;" />
-                            </a>
+                            <div class="nav-item dropdown">
+                                <a class="nav-link p-0" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+                                    <img src="@userModel.ProfileImagePath"
+                                         class="rounded-circle"
+                                         style="width:40px; height:40px; object-fit:cover;" />
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-start">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="User" asp-action="Dashboard">
+                                            پروفایل
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="User" asp-action="EditProfile">
+                                            ویرایش پروفایل
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="User" asp-action="ChangePassword">
+                                            تغییر رمز عبور
+                                        </a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider" /></li>
+
+                                    <li>
+                                        <a class="dropdown-item text-danger" asp-controller="Authentication" asp-action="Logout">
+                                            خروج
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         }
                         else
                         {
-                            <a class="btn btn-primary" asp-controller="Authentication" asp-action="Login">
+                            <a class="btn btn-primary btn-sm" asp-controller="Authentication" asp-action="Login">
                                 ورود
                             </a>
                         }
                     </div>
-
 
                 </div>
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 1404 ملی مهارت
+        <div class="container-fluid">
+            &copy; 1404 ملی مهارت چمران
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace MelliMaharat.Web.ViewModels
+namespace MelliMaharat.Web.ViewModels.Student
 {
     public class AddStudentViewModel
     {

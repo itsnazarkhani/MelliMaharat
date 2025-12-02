@@ -1,0 +1,127 @@
+﻿@model TermGradesViewModel
+
+@{
+    ViewData["Title"] = $"نمرات ترم {Model.Year}";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <h2>
+                <i class="fas fa-book-reader"></i>
+                نمرات ترم @Model.Year - @(Model.Type == TermType.Fall ? "پاییز" : "بهار")
+            </h2>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="mb-2"><strong>معدل ترم</strong></p>
+                    <h3 class="text-primary">@Model.GPA.ToString("F2")</h3>
+                    <small class="text-muted">از 4.00</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="mb-2"><strong>تعداد درس‌ها</strong></p>
+                    <h3 class="text-info">@Model.Selections.Count()</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="mb-2"><strong>کل واحد‌ها</strong></p>
+                    <h3 class="text-success">@Model.TotalUnits</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <p class="mb-2"><strong>میانگین نمره</strong></p>
+                    <h3 class="text-warning">@(Model.Selections.Any() ? Model.Selections.Average(s => s.Score).ToString("F2") : "N/A")</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Grades Table -->
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">جزئیات نمرات</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>نام درس</th>
+                            <th>استاد</th>
+                            <th>کد درس</th>
+                            <th>تعداد واحد</th>
+                            <th>نمره</th>
+                            <th>وضعیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var selection in Model.Selections.OrderByDescending(s => s.Score))
+                        {
+                            var gradeStatus = selection.Score >= 18 ? ("A", "success") :
+                            selection.Score >= 16 ? ("B", "info") :
+                            selection.Score >= 14 ? ("C", "warning") :
+                            selection.Score >= 12 ? ("D", "danger") : ("F", "dark");
+
+                            <tr>
+                                <td>
+                                    <strong>@selection.Presentation.Lesson.Name</strong>
+                                </td>
+                                <td>
+                                    @selection.Presentation.Master.User.PersonInformation.FirstName
+                                    @selection.Presentation.Master.User.PersonInformation.LastName
+                                </td>
+                                <td>@selection.Presentation.Lesson.Code</td>
+                                <td>
+                                    <span class="badge bg-secondary">@selection.Presentation.Lesson.Unit</span>
+                                </td>
+                                <td>
+                                    <strong>@selection.Score.ToString("F2")</strong>
+                                </td>
+                                <td>
+                                    <span class="badge bg-@gradeStatus.Item2">@gradeStatus.Item1</span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="@Url.Action("Grades")" class="btn btn-secondary">
+            <i class="fas fa-arrow-right"></i>
+            بازگشت به صفحه نمرات
+        </a>
+    </div>
+</div>
+
+<style>
+    body {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .card {
+        border-right: 4px solid #0d6efd;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+</style>

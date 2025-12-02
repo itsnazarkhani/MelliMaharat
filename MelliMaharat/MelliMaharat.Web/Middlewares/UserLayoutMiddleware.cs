@@ -20,7 +20,7 @@ namespace MelliMaharat.Web.Middlewares
         {
             var model = new LayoutUserViewModel
             {
-                FullName = "فلانی",
+                FullName = "کاربر",
                 ProfileImagePath = "/images/default-avatar.jpg",
                 Role = UserRoles.None
             };
@@ -51,30 +51,30 @@ namespace MelliMaharat.Web.Middlewares
                             case UserRoles.Student:
                                 model.NavItems.AddRange(new[]
                                 {
-                                    new LayoutNavItem { Title="دروس ترم", Controller="Student", Action="TermLessons" },
-                                    new LayoutNavItem { Title="انتخاب واحد", Controller="Student", Action="SelectUnits" },
-                                    new LayoutNavItem { Title="نمرات", Controller="Student", Action="Grades" },
-                                    new LayoutNavItem { Title="حضور و غیاب", Controller="Student", Action="Attendance" },
+                                    new LayoutNavItem { Title="واحدهای انتخاب‌شده", Controller="Student", Action="Selections" },
+                                    new LayoutNavItem { Title="انتخاب واحد", Controller="Student", Action="RegisterSelection" },
+                                    new LayoutNavItem { Title="حضور و غیاب", Controller="Student", Action="AttendanceHistory" },
+                                    new LayoutNavItem { Title="نمرات و معدل", Controller="Student", Action="Grades" }
                                 });
                                 break;
 
                             case UserRoles.Master:
                                 model.NavItems.Add(new LayoutNavItem
                                 {
-                                    Title = "دروس ارائه",
+                                    Title = "داشبورد",
                                     Controller = "Master",
-                                    Action = "PresentedLessons"
+                                    Action = "Dashboard"
                                 });
                                 break;
 
                             case UserRoles.Admin:
                                 model.NavItems.AddRange(new[]
                                 {
-                                    new LayoutNavItem { Title="دروس", Controller="admin", Action="Lessons" },
-                                    new LayoutNavItem { Title="اساتید", Controller="admin", Action="Masters" },
-                                    new LayoutNavItem { Title="دانشجویان", Controller="admin", Action="Students" },
-                                    new LayoutNavItem { Title="دروس ارائه شده", Controller="admin", Action="Presentations" },
-                                    new LayoutNavItem { Title="زمان انتخاب واحد", Controller="admin", Action="SelectionEvents" }
+                                    new LayoutNavItem { Title="دروس", Controller="Admin", Action="Lessons" },
+                                    new LayoutNavItem { Title="اساتید", Controller="Admin", Action="Masters" },
+                                    new LayoutNavItem { Title="دانشجویان", Controller="Admin", Action="Students" },
+                                    new LayoutNavItem { Title="ارائه‌ها", Controller="Admin", Action="Presentations" },
+                                    new LayoutNavItem { Title="زمان‌های انتخاب واحد", Controller="Admin", Action="SelectionEvents" }
                                 });
                                 break;
                         }
@@ -83,7 +83,6 @@ namespace MelliMaharat.Web.Middlewares
             }
 
             context.Items["LayoutUser"] = model;
-
             await _next(context);
         }
     }
