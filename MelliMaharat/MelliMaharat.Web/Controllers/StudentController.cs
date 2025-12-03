@@ -37,9 +37,25 @@ namespace MelliMaharat.Web.Controllers
             return Guid.Empty;
         }
 
-        #region Selected Units
         /// <summary>
-        /// Display all units selected by the current student
+        /// Check if current time is within selection time for a specific term
+        /// </summary>
+        private async Task<bool> IsWithinSelectionTimeAsync(Guid termId)
+        {
+            var now = DateTime.Now;
+            var selectionTime = await _unitOfWork.SelectionTimes
+                .GetAll()
+                .FirstOrDefaultAsync(st => st.TermId == termId &&
+                                          st.SelectionStart <= now &&
+                                          now <= st.SelectionEnd &&
+                                          !st.IsDeleted);
+            return selectionTime != null;
+        }
+
+        #region Selected Units
+
+        /// <summary>
+        /// Display all units selected by the current student (read-only view)
         /// </summary>
         public async Task<IActionResult> Selections()
         {
@@ -49,7 +65,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId)
+                .Where(s => s.StudentId == studentId && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Presentation)
@@ -65,7 +81,7 @@ namespace MelliMaharat.Web.Controllers
         }
 
         /// <summary>
-        /// Display selected lessons of a specific semester
+        /// Display selected lessons of a specific semester with deletion capability
         /// </summary>
         public async Task<IActionResult> SemesterSelections(Guid termId)
         {
@@ -75,7 +91,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId && s.TermId == termId)
+                .Where(s => s.StudentId == studentId && s.TermId == termId && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Presentation)
@@ -93,20 +109,30 @@ namespace MelliMaharat.Web.Controllers
             }
 
             var term = selections.First().Term;
+
+            // Check if current time is within selection time
+            var isWithinSelectionTime = await IsWithinSelectionTimeAsync(termId);
+
             var model = new SemesterSelectionsViewModel
             {
                 TermId = termId,
                 TermName = $"{term.Year} - {(term.Type == TermType.Fall ? "پاییز" : "بهار")}",
                 Selections = selections,
                 TotalUnits = selections.Sum(s => s.Presentation.Lesson.Unit),
-                TotalLessons = selections.Count
+                TotalLessons = selections.Count,
+                IsSelectionTime = isWithinSelectionTime,
+                SelectionTimeMessage = isWithinSelectionTime
+                    ? "می‌توانید انتخاب‌های خود را ویرایش کنید"
+                    : "زمان انتخاب واحد برای این ترم به پایان رسیده است"
             };
 
             return View(model);
         }
+
         #endregion
 
         #region Selection Registration
+
         /// <summary>
         /// Show available presentations for student to select from (only during selection time)
         /// </summary>
@@ -116,41 +142,34 @@ namespace MelliMaharat.Web.Controllers
             if (studentId == Guid.Empty)
                 return Unauthorized();
 
-            // Check if current time is within selection time
+            // Check if current time is within selection time for any term
             var now = DateTime.Now;
-            var selectionTime = await _unitOfWork.SelectionTimes
+            var currentSelectionTime = await _unitOfWork.SelectionTimes
                 .GetAll()
-                .FirstOrDefaultAsync(st => st.SelectionStart <= now && now <= st.SelectionEnd);
+                .Include(st => st.Term)
+                .FirstOrDefaultAsync(st => st.SelectionStart <= now &&
+                                          now <= st.SelectionEnd &&
+                                          !st.IsDeleted);
 
-            if (selectionTime == null)
+            if (currentSelectionTime == null)
             {
                 TempData["Error"] = "زمان انتخاب واحد فعال نیست.";
                 return RedirectToAction("Selections");
             }
 
-            // Get current term
-            var currentTerm = await _unitOfWork.Terms
-                .GetAll()
-                .OrderByDescending(t => t.Year)
-                .ThenByDescending(t => t.Type)
-                .FirstOrDefaultAsync();
-
-            if (currentTerm == null)
-            {
-                TempData["Error"] = "هیچ ترم فعالی وجود ندارد.";
-                return RedirectToAction("Selections");
-            }
+            var currentTerm = currentSelectionTime.Term;
 
             // Get already selected presentations for this student in current term
             var studentSelections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId && s.TermId == currentTerm.Id)
+                .Where(s => s.StudentId == studentId && s.TermId == currentTerm.Id && !s.IsDeleted)
                 .Select(s => s.PresentationId)
                 .ToListAsync();
 
-            // Get all presentations
+            // Get all presentations (not soft-deleted)
             var presentations = await _unitOfWork.Presentations
                 .GetAll()
+                .Where(p => !p.IsDeleted)
                 .Include(p => p.Lesson)
                 .Include(p => p.Master)
                 .ThenInclude(m => m.User)
@@ -179,21 +198,22 @@ namespace MelliMaharat.Web.Controllers
             if (studentId == Guid.Empty)
                 return Unauthorized();
 
-            // Verify selection time is active
-            var now = DateTime.Now;
-            var selectionTime = await _unitOfWork.SelectionTimes
-                .GetAll()
-                .FirstOrDefaultAsync(st => st.SelectionStart <= now && now <= st.SelectionEnd);
-
-            if (selectionTime == null)
+            // Verify selection time is active for this term
+            var isWithinSelectionTime = await IsWithinSelectionTimeAsync(termId);
+            if (!isWithinSelectionTime)
             {
-                TempData["Error"] = "زمان انتخاب واحد فعال نیست.";
+                TempData["Error"] = "زمان انتخاب واحد برای این ترم به پایان رسیده است.";
                 return RedirectToAction("RegisterSelection");
             }
 
             // Check if presentation and term exist
-            var presentation = await _unitOfWork.Presentations.GetAsync(presentationId);
-            var term = await _unitOfWork.Terms.GetAsync(termId);
+            var presentation = await _unitOfWork.Presentations
+                .GetAll()
+                .FirstOrDefaultAsync(p => p.Id == presentationId && !p.IsDeleted);
+
+            var term = await _unitOfWork.Terms
+                .GetAll()
+                .FirstOrDefaultAsync(t => t.Id == termId && !t.IsDeleted);
 
             if (presentation == null || term == null)
                 return NotFound();
@@ -203,7 +223,8 @@ namespace MelliMaharat.Web.Controllers
                 .GetAll()
                 .FirstOrDefaultAsync(s => s.StudentId == studentId &&
                                          s.PresentationId == presentationId &&
-                                         s.TermId == termId);
+                                         s.TermId == termId &&
+                                         !s.IsDeleted);
 
             if (existingSelection != null)
             {
@@ -213,10 +234,12 @@ namespace MelliMaharat.Web.Controllers
 
             var selection = new Selection
             {
+                Id = Guid.NewGuid(),
                 StudentId = studentId,
                 PresentationId = presentationId,
                 TermId = termId,
-                Score = 0
+                Score = 0,
+                IsDeleted = false
             };
 
             await _unitOfWork.Selections.AddAsync(selection);
@@ -227,7 +250,7 @@ namespace MelliMaharat.Web.Controllers
         }
 
         /// <summary>
-        /// Remove a selection (if allowed during selection time)
+        /// Remove a selection (only allowed during selection time for that term)
         /// </summary>
         [HttpPost]
         public async Task<IActionResult> RemoveSelection(Guid selectionId)
@@ -236,31 +259,35 @@ namespace MelliMaharat.Web.Controllers
             if (studentId == Guid.Empty)
                 return Unauthorized();
 
-            var selection = await _unitOfWork.Selections.GetAsync(selectionId);
+            var selection = await _unitOfWork.Selections
+                .GetAll()
+                .Include(s => s.Term)
+                .FirstOrDefaultAsync(s => s.Id == selectionId && !s.IsDeleted);
+
             if (selection == null || selection.StudentId != studentId)
                 return NotFound();
 
-            // Check if still within selection time
-            var now = DateTime.Now;
-            var selectionTime = await _unitOfWork.SelectionTimes
-                .GetAll()
-                .FirstOrDefaultAsync(st => st.SelectionStart <= now && now <= st.SelectionEnd);
-
-            if (selectionTime == null)
+            // Check if still within selection time for this term
+            var isWithinSelectionTime = await IsWithinSelectionTimeAsync(selection.TermId);
+            if (!isWithinSelectionTime)
             {
-                TempData["Error"] = "زمان انتخاب واحد منقضی شده است.";
-                return RedirectToAction("Selections");
+                TempData["Error"] = "زمان انتخاب واحد برای این ترم به پایان رسیده است. نمی‌توانید انتخاب‌های خود را حذف کنید.";
+                return RedirectToAction("SemesterSelections", new { termId = selection.TermId });
             }
 
-            _unitOfWork.Selections.Delete(selection);
+            // Soft delete the selection
+            selection.IsDeleted = true;
+            _unitOfWork.Selections.Update(selection);
             await _unitOfWork.CommitChangesAsync();
 
-            TempData["Success"] = "واحد حذف شد.";
-            return RedirectToAction("Selections");
+            TempData["Success"] = "واحد با موفقیت حذف شد.";
+            return RedirectToAction("SemesterSelections", new { termId = selection.TermId });
         }
+
         #endregion
 
         #region Attendance History
+
         /// <summary>
         /// Display attendance history for all selections
         /// </summary>
@@ -272,7 +299,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId)
+                .Where(s => s.StudentId == studentId && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Presentation)
@@ -300,7 +327,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selection = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.Id == selectionId && s.StudentId == studentId)
+                .Where(s => s.Id == selectionId && s.StudentId == studentId && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Presentation)
@@ -323,6 +350,7 @@ namespace MelliMaharat.Web.Controllers
                 DayHold = selection.Presentation.DayHold,
                 TermName = $"{selection.Term.Year} - {(selection.Term.Type == TermType.Fall ? "پاییز" : "بهار")}",
                 Sessions = selection.Sessions
+                    .Where(s => !s.IsDeleted)
                     .OrderBy(s => s.SessionDate)
                     .Select(s => new SessionAttendanceViewModel
                     {
@@ -331,15 +359,17 @@ namespace MelliMaharat.Web.Controllers
                         IsPresent = s.Attendance?.HasAttended ?? false
                     })
                     .ToList(),
-                TotalSessions = selection.Sessions.Count(),
-                PresentSessions = selection.Sessions.Count(s => s.Attendance != null && s.Attendance.HasAttended)
+                TotalSessions = selection.Sessions.Count(s => !s.IsDeleted),
+                PresentSessions = selection.Sessions.Count(s => !s.IsDeleted && s.Attendance != null && s.Attendance.HasAttended)
             };
 
             return View(model);
         }
+
         #endregion
 
         #region Grades
+
         /// <summary>
         /// Display grades summary with GPA by term and overall
         /// </summary>
@@ -351,7 +381,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId && s.Score > 0)
+                .Where(s => s.StudentId == studentId && s.Score > 0 && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Term)
@@ -394,7 +424,7 @@ namespace MelliMaharat.Web.Controllers
 
             var selections = await _unitOfWork.Selections
                 .GetAll()
-                .Where(s => s.StudentId == studentId && s.TermId == termId && s.Score > 0)
+                .Where(s => s.StudentId == studentId && s.TermId == termId && s.Score > 0 && !s.IsDeleted)
                 .Include(s => s.Presentation)
                 .ThenInclude(p => p.Lesson)
                 .Include(s => s.Presentation)
@@ -468,6 +498,7 @@ namespace MelliMaharat.Web.Controllers
                 _ => ("F", "dark")              // Below 12
             };
         }
+
         #endregion
     }
 }

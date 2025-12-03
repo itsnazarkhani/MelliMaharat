@@ -78,7 +78,6 @@
                                     <th>روز برگزاری</th>
                                     <th>ساعت</th>
                                     <th>نمره</th>
-                                    <th>عملیات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -99,21 +98,6 @@
                                             {
                                                 <span class="badge bg-secondary">نیافتاده</span>
                                             }
-                                        </td>
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group">
-                                                <a href="@Url.Action("AttendanceDetails", new { selectionId = selection.Id })"
-                                                   class="btn btn-info" title="حضور و غیاب">
-                                                    <i class="fas fa-calendar-check"></i>
-                                                </a>
-                                                <form method="post" action="@Url.Action("RemoveSelection")" style="display:inline;">
-                                                    <input type="hidden" name="selectionId" value="@selection.Id" />
-                                                    <button type="submit" class="btn btn-danger" title="حذف"
-                                                            onclick="return confirm('آیا مطمئن هستید؟');">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
                                         </td>
                                     </tr>
                                 }
