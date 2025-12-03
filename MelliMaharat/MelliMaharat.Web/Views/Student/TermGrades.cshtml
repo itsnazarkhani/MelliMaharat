@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <p class="mb-2"><strong>معدل ترم</strong></p>
                     <h3 class="text-primary">@Model.GPA.ToString("F2")</h3>
-                    <small class="text-muted">از 4.00</small>
+                    <small class="text-muted">از 20</small>
                 </div>
             </div>
         </div>
@@ -61,44 +61,74 @@
                 <table class="table table-striped table-hover">
                     <thead class="table-light">
                         <tr>
-                            <th>نام درس</th>
-                            <th>استاد</th>
-                            <th>کد درس</th>
-                            <th>تعداد واحد</th>
-                            <th>نمره</th>
-                            <th>وضعیت</th>
+                            <th style="text-align: right;">نام درس</th>
+                            <th style="text-align: right;">استاد</th>
+                            <th style="text-align: center;">کد درس</th>
+                            <th style="text-align: center;">تعداد واحد</th>
+                            <th style="text-align: center;">نمره</th>
+                            <th style="text-align: center;">درجه</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var selection in Model.Selections.OrderByDescending(s => s.Score))
                         {
-                            var gradeStatus = selection.Score >= 18 ? ("A", "success") :
-                            selection.Score >= 16 ? ("B", "info") :
-                            selection.Score >= 14 ? ("C", "warning") :
-                            selection.Score >= 12 ? ("D", "danger") : ("F", "dark");
+                            var gradeInfo = selection.Score switch
+                            {
+                                >= 18 => ("A", "success"),
+                                >= 16 => ("B", "info"),
+                                >= 14 => ("C", "warning"),
+                                >= 12 => ("D", "danger"),
+                                _ => ("F", "dark")
+                            };
 
                             <tr>
-                                <td>
+                                <td style="text-align: right;">
                                     <strong>@selection.Presentation.Lesson.Name</strong>
                                 </td>
-                                <td>
+                                <td style="text-align: right;">
                                     @selection.Presentation.Master.User.PersonInformation.FirstName
                                     @selection.Presentation.Master.User.PersonInformation.LastName
                                 </td>
-                                <td>@selection.Presentation.Lesson.Code</td>
-                                <td>
+                                <td style="text-align: center;">@selection.Presentation.Lesson.Code</td>
+                                <td style="text-align: center;">
                                     <span class="badge bg-secondary">@selection.Presentation.Lesson.Unit</span>
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     <strong>@selection.Score.ToString("F2")</strong>
                                 </td>
-                                <td>
-                                    <span class="badge bg-@gradeStatus.Item2">@gradeStatus.Item1</span>
+                                <td style="text-align: center;">
+                                    <span class="badge bg-@gradeInfo.Item2">@gradeInfo.Item1</span>
                                 </td>
                             </tr>
                         }
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grade Scale Info -->
+    <div class="card mt-4">
+        <div class="card-header bg-light">
+            <h5 class="mb-0">مقیاس درجات</h5>
+        </div>
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col-md-2">
+                    <span class="badge bg-success p-2">A: 18-20</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge bg-info p-2">B: 16-17.99</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge bg-warning p-2">C: 14-15.99</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge bg-danger p-2">D: 12-13.99</span>
+                </div>
+                <div class="col-md-2">
+                    <span class="badge bg-dark p-2">F: <12</span>
+                </div>
             </div>
         </div>
     </div>

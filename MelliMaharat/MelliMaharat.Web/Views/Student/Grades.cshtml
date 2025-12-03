@@ -21,7 +21,7 @@
                 <div class="card-body text-center">
                     <h6 class="card-title mb-3">معدل کل</h6>
                     <h1 class="display-4">@Model.OverallGPA.ToString("F2")</h1>
-                    <p class="card-text">از 4.00</p>
+                    <p class="card-text">از 20</p>
                 </div>
             </div>
         </div>
@@ -54,6 +54,7 @@
                                 <div class="col-6 text-center">
                                     <p class="mb-1"><strong>معدل ترم</strong></p>
                                     <h4 class="text-primary">@termGrade.GPA.ToString("F2")</h4>
+                                    <small class="text-muted">از 20</small>
                                 </div>
                                 <div class="col-6 text-center">
                                     <p class="mb-1"><strong>تعداد واحد</strong></p>
@@ -67,16 +68,24 @@
                             <ul class="list-unstyled">
                                 @foreach (var selection in termGrade.Selections.OrderByDescending(s => s.Score))
                                 {
-                                    var gradeColor = selection.Score >= 18 ? "success" :
-                                    selection.Score >= 16 ? "info" :
-                                    selection.Score >= 14 ? "warning" : "danger";
+                                    var gradeInfo = selection.Score switch
+                                    {
+                                        >= 18 => ("A", "success"),
+                                        >= 16 => ("B", "info"),
+                                        >= 14 => ("C", "warning"),
+                                        >= 12 => ("D", "danger"),
+                                        _ => ("F", "dark")
+                                    };
 
                                     <li class="d-flex justify-content-between align-items-center mb-2">
                                         <span>
                                             @selection.Presentation.Lesson.Name
                                             <small class="text-muted">(@selection.Presentation.Lesson.Unit واحد)</small>
                                         </span>
-                                        <span class="badge bg-@gradeColor">@selection.Score.ToString("F2")</span>
+                                        <div>
+                                            <span class="badge bg-@gradeInfo.Item2 me-2">@gradeInfo.Item1</span>
+                                            <span class="badge bg-secondary">@selection.Score.ToString("F2")</span>
+                                        </div>
                                     </li>
                                 }
                             </ul>
@@ -94,7 +103,7 @@
             }
         </div>
 
-        <!-- Sortable Statistics -->
+        <!-- Statistics -->
         <div class="card mt-4">
             <div class="card-header bg-secondary text-white">
                 <h5 class="mb-0">آمار نمرات</h5>

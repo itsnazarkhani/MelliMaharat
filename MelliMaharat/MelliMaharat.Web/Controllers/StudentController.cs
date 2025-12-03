@@ -422,29 +422,29 @@ namespace MelliMaharat.Web.Controllers
         }
 
         /// <summary>
-        /// Calculate GPA for a list of selections (using 4.0 scale)
+        /// Calculate GPA for a list of selections (using 20 point scale)
+        /// GPA is the weighted average of all grades based on course units
         /// </summary>
         private decimal CalculateGPA(List<Selection> selections)
         {
             if (!selections.Any())
                 return 0;
 
-            decimal totalPoints = 0;
+            decimal totalWeightedScore = 0;
             int totalUnits = 0;
 
             foreach (var selection in selections)
             {
-                int gradePoints = GetGradePoints(selection.Score);
                 int units = selection.Presentation.Lesson.Unit;
-                totalPoints += gradePoints * units;
+                totalWeightedScore += selection.Score * units;
                 totalUnits += units;
             }
 
-            return totalUnits > 0 ? Math.Round(totalPoints / totalUnits, 2) : 0;
+            return totalUnits > 0 ? Math.Round(totalWeightedScore / totalUnits, 2) : 0;
         }
 
         /// <summary>
-        /// Calculate overall GPA from all terms
+        /// Calculate overall GPA from all terms (20 point scale)
         /// </summary>
         private decimal CalculateOverallGPA(List<Selection> allSelections)
         {
@@ -455,17 +455,17 @@ namespace MelliMaharat.Web.Controllers
         }
 
         /// <summary>
-        /// Convert numeric score to grade points (4.0 scale)
+        /// Convert numeric score (0-20) to letter grade
         /// </summary>
-        private int GetGradePoints(decimal score)
+        private (string Grade, string Color) GetLetterGrade(decimal score)
         {
             return score switch
             {
-                >= 18 => 4,  // A
-                >= 16 => 3,  // B
-                >= 14 => 2,  // C
-                >= 12 => 1,  // D
-                _ => 0       // F
+                >= 18 => ("A", "success"),      // 18-20
+                >= 16 => ("B", "info"),         // 16-17.99
+                >= 14 => ("C", "warning"),      // 14-15.99
+                >= 12 => ("D", "danger"),       // 12-13.99
+                _ => ("F", "dark")              // Below 12
             };
         }
         #endregion
