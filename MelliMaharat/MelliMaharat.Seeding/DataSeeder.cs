@@ -8,6 +8,13 @@ public static class DataSeeder
         {
             User admin = new User()
             {
+                PersonInformation = new MelliMaharat.Models.Owned.Person()
+                {
+                    FirstName = "مدیر",
+                    LastName = "سیستم",
+                    NationalCode = "0000000000",
+                    BirthDate = new DateOnly(1990, 1, 1),
+                },
                 Username = "admin",
                 Password = "admin",
                 Email = "admin@example.com",
