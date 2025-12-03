@@ -1,6 +1,7 @@
 ﻿using MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services;
 using MelliMaharat.Models.Enums;
+using MelliMaharat.Models.Helpers;
 using MelliMaharat.Web.Filters;
 using MelliMaharat.Web.ViewModels;
 using MelliMaharat.Web.ViewModels.User;
@@ -32,7 +33,7 @@ namespace MelliMaharat.Web.Controllers
                 return Unauthorized();
             }
 
-            // Fetch user with PersonInformation
+            // Fetch user including PersonInformation
             var user = await _unitOfWork.Users
                 .GetAll()
                 .Include(u => u.PersonInformation)
@@ -41,17 +42,33 @@ namespace MelliMaharat.Web.Controllers
             if (user == null)
                 return NotFound();
 
-            // Map to ViewModel
+            var person = user.PersonInformation;
+
+            // Map to ViewModel with null-safety
             var model = new UserDashboardViewModel
             {
-                FullName = $"{user.PersonInformation.FirstName} {user.PersonInformation.LastName}",
-                PhoneNumber = user.PersonInformation.PhoneNumber,
+                FullName = person != null
+                    ? $"{person.FirstName ?? ""} {person.LastName ?? ""}".Trim()
+                    : "نامشخص",
+
+                PhoneNumber = person?.PhoneNumber ?? "ثبت نشده",
+
                 AvatarId = user.AvatarId,
-                Role = user.Role.ToString()
+
+                Role = user.Role.GetDescription(),
+
+                NationalCode = person?.NationalCode ?? "ثبت نشده",
+
+                Email = user.Email ?? "ثبت نشده",
+
+                BirthDate = person != null
+                    ? person.BirthDate.ToString("yyyy/MM/dd")
+                    : "ثبت نشده"
             };
 
             return View(model);
         }
+
 
         [HttpGet]
         public IActionResult ChangePassword()

@@ -483,22 +483,6 @@ namespace MelliMaharat.Web.Controllers
 
             return CalculateGPA(allSelections);
         }
-
-        /// <summary>
-        /// Convert numeric score (0-20) to letter grade
-        /// </summary>
-        private (string Grade, string Color) GetLetterGrade(decimal score)
-        {
-            return score switch
-            {
-                >= 18 => ("A", "success"),      // 18-20
-                >= 16 => ("B", "info"),         // 16-17.99
-                >= 14 => ("C", "warning"),      // 14-15.99
-                >= 12 => ("D", "danger"),       // 12-13.99
-                _ => ("F", "dark")              // Below 12
-            };
-        }
-
         #endregion
     }
 }
