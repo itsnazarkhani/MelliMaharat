@@ -2,26 +2,126 @@
 
 @{
     ViewData["Title"] = "نمرات و معدل";
+
+    // Define theme colors (New Corporate/Formal Palette)
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var secondaryColor = "#f0f0f0"; // Light Gray Background for sections
+    var successColor = "#28a745"; // Success Green
+    var dangerColor = "#dc3545";  // Danger Red
+    var infoColor = "#17a2b8";    // Standard Info/Teal
+    var warningColor = "#ffc107"; // Standard Warning/Yellow
+    var textDark = "#212529";     // Dark text
+    var backgroundColor = "#e9ecef"; // Very Light Gray Page Background
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h2>
-                <i class="fas fa-graduation-cap"></i>
-                نمرات و معدل
-            </h2>
-        </div>
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+
+        // Handle potential decimal formatting before conversion
+        text = text.Replace(".", "/").Replace(",", "/");
+
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'}
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
+}
+
+<style>
+    body {
+        background-color: @backgroundColor;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .main-header {
+        padding-bottom: 1.0rem;
+        border-bottom: 4px solid @primaryColor; /* Stronger main separator */
+        margin-bottom: 2.5rem;
+    }
+
+    .stat-card {
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ced4da;
+        transition: transform 0.2s, box-shadow 0.2s;
+        background-color: white;
+    }
+
+        .stat-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+    .overall-gpa-card {
+        background: linear-gradient(135deg, @primaryColor, #0056a0); /* Gradient effect */
+        color: white;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .gpa-display {
+        font-weight: 900;
+        font-size: 4.5rem;
+    }
+
+    .term-gpa-display {
+        font-weight: 700;
+    }
+
+    .term-gpa-card {
+        border-right: 4px solid @infoColor;
+    }
+
+    .stat-bar-card {
+        border-left: 4px solid #6c757d; /* Grey accent */
+        background-color: @secondaryColor;
+    }
+
+    .list-unstyled li {
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed #e0e0e0;
+    }
+
+        .list-unstyled li:last-child {
+            border-bottom: none;
+        }
+</style>
+
+<div class="container-xl pt-5 pb-5" dir="rtl">
+
+    <!-- Main Header -->
+    <div class="main-header d-flex justify-content-between align-items-center">
+        <h2 class="fw-bolder" style="color: @textDark;">
+            <i class="fas fa-graduation-cap me-2" style="color: @primaryColor;"></i>
+            گزارش نمرات و معدل دانشجو
+        </h2>
     </div>
 
     <!-- Overall GPA Card -->
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col-md-12">
-            <div class="card bg-primary text-white">
+            <div class="card overall-gpa-card stat-card p-4">
                 <div class="card-body text-center">
-                    <h6 class="card-title mb-3">معدل کل</h6>
-                    <h1 class="display-4">@Model.OverallGPA.ToString("F2")</h1>
-                    <p class="card-text">از 20</p>
+                    <h6 class="card-title mb-3 fw-bold">معدل کل (تاکنون)</h6>
+                    <h1 class="gpa-display">@ToPersianNumber(Model.OverallGPA.ToString("F2"))</h1>
+                    <p class="card-text fs-5">از ۲۰</p>
                 </div>
             </div>
         </div>
@@ -29,72 +129,85 @@
 
     @if (!Model.TermGrades.Any())
     {
-        <div class="alert alert-info" role="alert">
-            <i class="fas fa-info-circle"></i>
+        <div class="alert alert-info border-0 m-4 shadow-sm" role="alert">
+            <i class="fas fa-info-circle me-2"></i>
             هنوز نمره‌ای برای شما ثبت نشده است.
         </div>
     }
     else
     {
+        <!-- Term Grades Section -->
+        <h4 class="fw-bold mb-4 border-bottom pb-2" style="color: @primaryColor;">
+            <i class="fas fa-calendar-alt me-2"></i> سوابق ترم‌ها
+        </h4>
         <div class="row">
-            @foreach (var termGrade in Model.TermGrades)
+            @foreach (var termGrade in Model.TermGrades.OrderByDescending(t => t.Year).ThenByDescending(t => t.Type))
             {
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-header bg-info text-white">
+                var termType = termGrade.Type == TermType.Fall ? "پاییز" : "بهار";
+                var termHeaderColor = termGrade.GPA >= 17 ? successColor : (termGrade.GPA >= 14 ? infoColor : warningColor);
+
+                <div class="col-lg-6 mb-4">
+                    <div class="card h-100 stat-card term-gpa-card" style="border-right-color: @termHeaderColor;">
+                        <div class="card-header text-white fw-bold" style="background-color: @primaryColor; border-radius: 8px 8px 0 0;">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0">
-                                    ترم @termGrade.Year - @(termGrade.Type == TermType.Fall ? "پاییز" : "بهار")
+                                <h5 class="mb-0 fs-6">
+                                    <i class="fas fa-certificate me-1"></i>
+                                    ترم @ToPersianNumber(termGrade.Year) - @termType
                                 </h5>
-                                <span class="badge bg-light text-dark">@termGrade.Selections.Count() درس</span>
+                                <span class="badge text-dark fw-bold p-2" style="background-color: @secondaryColor;">
+                                    @ToPersianNumber(termGrade.Selections.Count()) درس
+                                </span>
                             </div>
                         </div>
+
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-6 text-center">
-                                    <p class="mb-1"><strong>معدل ترم</strong></p>
-                                    <h4 class="text-primary">@termGrade.GPA.ToString("F2")</h4>
-                                    <small class="text-muted">از 20</small>
+                            <!-- Term Summary Stats -->
+                            <div class="row mb-4 text-center">
+                                <div class="col-6 border-left">
+                                    <p class="mb-1 text-muted small">معدل ترم</p>
+                                    <h3 class="term-gpa-display" style="color: @termHeaderColor;">@ToPersianNumber(termGrade.GPA.ToString("F2"))</h3>
+                                    <small class="text-muted">از ۲۰</small>
                                 </div>
-                                <div class="col-6 text-center">
-                                    <p class="mb-1"><strong>تعداد واحد</strong></p>
-                                    <h4 class="text-success">@termGrade.TotalUnits</h4>
+                                <div class="col-6">
+                                    <p class="mb-1 text-muted small">تعداد واحد</p>
+                                    <h3 class="term-gpa-display" style="color: @primaryColor;">@ToPersianNumber(termGrade.TotalUnits)</h3>
                                 </div>
                             </div>
 
-                            <hr>
+                            <hr class="mb-4">
 
-                            <h6 class="mb-3">نمرات درس‌ها:</h6>
+                            <!-- Grade List -->
+                            <h6 class="fw-bold mb-3" style="color: @textDark;">جزئیات نمرات درس‌ها:</h6>
                             <ul class="list-unstyled">
                                 @foreach (var selection in termGrade.Selections.OrderByDescending(s => s.Score))
                                 {
                                     var gradeInfo = selection.Score switch
                                     {
-                                        >= 18 => ("A", "success"),
-                                        >= 16 => ("B", "info"),
-                                        >= 14 => ("C", "warning"),
-                                        >= 12 => ("D", "danger"),
-                                        _ => ("F", "dark")
+                                        >= 18 => ("A+", successColor), // Excellent
+                                        >= 16 => ("B", infoColor),     // Good
+                                        >= 14 => ("C", warningColor),  // Average
+                                        >= 12 => ("D", dangerColor),   // Passed
+                                        _ => ("F", textDark)           // Failed
                                     };
 
-                                    <li class="d-flex justify-content-between align-items-center mb-2">
-                                        <span>
+                                    <li class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-medium">
                                             @selection.Presentation.Lesson.Name
-                                            <small class="text-muted">(@selection.Presentation.Lesson.Unit واحد)</small>
+                                            <small class="text-muted ms-2">(@ToPersianNumber(selection.Presentation.Lesson.Unit) واحد)</small>
                                         </span>
                                         <div>
-                                            <span class="badge bg-@gradeInfo.Item2 me-2">@gradeInfo.Item1</span>
-                                            <span class="badge bg-secondary">@selection.Score.ToString("F2")</span>
+                                            <span class="badge text-white fw-bold me-2" style="background-color: @gradeInfo.Item2;">@gradeInfo.Item1</span>
+                                            <span class="badge fw-bold" style="background-color: @secondaryColor; color: @textDark;">@ToPersianNumber(selection.Score.ToString("F2"))</span>
                                         </div>
                                     </li>
                                 }
                             </ul>
 
-                            <div class="mt-3">
+                            <div class="mt-4">
                                 <a href="@Url.Action("TermGrades", new { termId = termGrade.TermId })"
-                                   class="btn btn-sm btn-outline-primary w-100">
-                                    <i class="fas fa-eye"></i>
-                                    مشاهده جزئیات
+                                   class="btn btn-sm w-100 fw-bold shadow-sm" style="background-color: @primaryColor; color: white;">
+                                    <i class="fas fa-eye me-1"></i>
+                                    مشاهده جزئیات بیشتر
                                 </a>
                             </div>
                         </div>
@@ -103,58 +216,37 @@
             }
         </div>
 
-        <!-- Statistics -->
-        <div class="card mt-4">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">آمار نمرات</h5>
-            </div>
-            <div class="card-body">
-                <div class="row text-center">
-                    <div class="col-md-3">
-                        <p class="mb-1"><strong>تعداد درس‌ها</strong></p>
-                        <h4>@Model.AllSelections.Count()</h4>
-                    </div>
-                    <div class="col-md-3">
-                        <p class="mb-1"><strong>بالاترین نمره</strong></p>
-                        <h4 class="text-success">@(Model.AllSelections.Any() ? Model.AllSelections.Max(s => s.Score).ToString("F2") : "N/A")</h4>
-                    </div>
-                    <div class="col-md-3">
-                        <p class="mb-1"><strong>پایین‌ترین نمره</strong></p>
-                        <h4 class="text-danger">@(Model.AllSelections.Any() ? Model.AllSelections.Min(s => s.Score).ToString("F2") : "N/A")</h4>
-                    </div>
-                    <div class="col-md-3">
-                        <p class="mb-1"><strong>میانگین نمره</strong></p>
-                        <h4 class="text-info">@(Model.AllSelections.Any() ? Model.AllSelections.Average(s => s.Score).ToString("F2") : "N/A")</h4>
-                    </div>
+        <!-- Overall Statistics -->
+        <h4 class="fw-bold mb-4 mt-4 border-bottom pb-2" style="color: @primaryColor;">
+            <i class="fas fa-chart-line me-2"></i> آمار کلی
+        </h4>
+        <div class="card mb-5 stat-bar-card p-4">
+            <div class="row text-center g-4">
+                <div class="col-md-3 col-6">
+                    <p class="mb-2 text-muted small">تعداد کل درس‌ها</p>
+                    <h4 class="fw-bolder" style="color: @primaryColor;">@ToPersianNumber(Model.AllSelections.Count())</h4>
+                </div>
+                <div class="col-md-3 col-6">
+                    <p class="mb-2 text-muted small">بالاترین نمره</p>
+                    <h4 class="fw-bolder" style="color: @successColor;">@(Model.AllSelections.Any() ? ToPersianNumber(Model.AllSelections.Max(s => s.Score).ToString("F2")) : "فاقد نمره")</h4>
+                </div>
+                <div class="col-md-3 col-6">
+                    <p class="mb-2 text-muted small">پایین‌ترین نمره</p>
+                    <h4 class="fw-bolder" style="color: @dangerColor;">@(Model.AllSelections.Any() ? ToPersianNumber(Model.AllSelections.Min(s => s.Score).ToString("F2")) : "فاقد نمره")</h4>
+                </div>
+                <div class="col-md-3 col-6">
+                    <p class="mb-2 text-muted small">میانگین نمره</p>
+                    <h4 class="fw-bolder" style="color: @infoColor;">@(Model.AllSelections.Any() ? ToPersianNumber(Model.AllSelections.Average(s => s.Score).ToString("F2")) : "فاقد نمره")</h4>
                 </div>
             </div>
         </div>
     }
 
     <div class="mt-4">
-        <a href="@Url.Action("Selections")" class="btn btn-secondary">
-            <i class="fas fa-arrow-right"></i>
-            بازگشت
+        <a href="@Url.Action("Selections")" class="btn fw-bold shadow-sm px-4"
+           style="background-color: #6c757d; color: white; border-radius: 6px; transition: all 0.2s;">
+            <i class="fas fa-arrow-right me-1"></i>
+            بازگشت به انتخاب واحد
         </a>
     </div>
 </div>
-
-<style>
-    body {
-        direction: rtl;
-        text-align: right;
-    }
-
-    .card {
-        border-right: 4px solid #0d6efd;
-        transition: all 0.3s ease;
-    }
-
-        .card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-    .display-4 {
-        font-weight: bold;
-    }
-</style>
