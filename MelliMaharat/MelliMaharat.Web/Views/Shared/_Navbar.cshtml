@@ -1,0 +1,104 @@
+﻿@using MelliMaharat.Models.Enums
+@{
+    var userModel = Context.Items["LayoutUser"] as LayoutUserViewModel;
+}
+
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid px-3 px-lg-4">
+
+        <!-- Brand Logo -->
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index" title="دانشکده ملی مهارت چمران">
+            <img src="~/images/uni-logo.png" alt="لوگو دانشکده" class="brand-logo-image" />
+            ملی مهارت چمران
+        </a>
+
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation Content -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+
+            <!-- Navigation Items (Center/Left) -->
+            <ul class="navbar-nav ms-auto">
+                @foreach (var item in userModel?.NavItems ?? new List<LayoutNavItem>())
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="@item.Controller" asp-action="@item.Action"
+                           role="menuitem" aria-label="@item.Title" title="@item.Title">
+                            @item.Title
+                        </a>
+                    </li>
+                }
+            </ul>
+
+            <!-- Profile/Auth Section (Right) -->
+            <div class="profile-section">
+                @if (userModel != null && userModel.Role != UserRoles.None)
+                {
+                    <!-- User Info -->
+                    <div>
+                        <div class="user-greeting">
+                            <i class="fas fa-user-circle me-2"></i>
+                            @userModel.FullName
+                        </div>
+                        <span class="user-role">
+                            @(userModel.Role == UserRoles.Student ? "دانشجو" :
+                                                    userModel.Role == UserRoles.Master ? "استاد" :
+                                                    userModel.Role == UserRoles.Admin ? "مدیر" : "کاربر")
+                        </span>
+                    </div>
+
+                    <!-- Profile Dropdown -->
+                    <div class="nav-item dropdown">
+                        <button class="profile-avatar" id="profileDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-label="Profile menu" title="منو پروفایل">
+                            <img src="@userModel.ProfileImagePath" alt="@userModel.FullName" />
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li>
+                                <a class="dropdown-item" asp-controller="User" asp-action="Dashboard" title="مشاهده پروفایل">
+                                    <i class="fas fa-user"></i>
+                                    پروفایل
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="User" asp-action="EditProfile" title="ویرایش اطلاعات شخصی">
+                                    <i class="fas fa-edit"></i>
+                                    ویرایش پروفایل
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-controller="User" asp-action="ChangePassword" title="تغییر رمز عبور">
+                                    <i class="fas fa-lock"></i>
+                                    تغییر رمز عبور
+                                </a>
+                            </li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li>
+                                <form asp-controller="Authentication" asp-action="Logout" method="post" class="d-contents">
+                                    <button type="submit" class="dropdown-item text-danger" title="خروج از حساب">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        خروج
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                else
+                {
+                    <!-- Login Button for Guests -->
+                    <a class="btn btn-sm btn-login" asp-controller="Authentication" asp-action="Login" title="ورود به سیستم">
+                        <i class="fas fa-sign-in-alt me-2"></i>
+                        ورود
+                    </a>
+                }
+            </div>
+
+        </div>
+    </div>
+</nav>

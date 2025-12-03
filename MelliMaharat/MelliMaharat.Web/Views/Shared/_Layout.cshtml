@@ -8,109 +8,76 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - چمران</title>
+    <title>@ViewData["Title"] - ملی مهارت چمران</title>
 
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <!-- Site Styles -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Navbar Styles -->
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+
+    <style>
+        /* Layout Structure */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            flex-shrink: 0;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            flex-shrink: 0;
+        }
+
+        .container-fluid {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- Header with Navbar -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    دانشکده ملی مهارت چمران
-                </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse justify-content-between" id="mainNavbar">
-
-                    <!-- Auto-generated Navigation -->
-                    <ul class="navbar-nav">
-                        @foreach (var item in userModel?.NavItems ?? new List<LayoutNavItem>())
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="@item.Controller" asp-action="@item.Action">
-                                    @item.Title
-                                </a>
-                            </li>
-                        }
-                    </ul>
-
-                    <!-- Profile Section -->
-                    <div class="d-flex align-items-center">
-
-                        @if (userModel != null && userModel.Role != UserRoles.None)
-                        {
-                            <span class="me-2 fw-semibold">@userModel.FullName</span>
-
-                            <div class="nav-item dropdown">
-                                <a class="nav-link p-0" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
-                                    <img src="@userModel.ProfileImagePath"
-                                         class="rounded-circle"
-                                         style="width:40px; height:40px; object-fit:cover;" />
-                                </a>
-
-                                <ul class="dropdown-menu dropdown-menu-start">
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="User" asp-action="Dashboard">
-                                            پروفایل
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="User" asp-action="EditProfile">
-                                            ویرایش پروفایل
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" asp-controller="User" asp-action="ChangePassword">
-                                            تغییر رمز عبور
-                                        </a>
-                                    </li>
-
-                                    <li><hr class="dropdown-divider" /></li>
-
-                                    <li>
-                                    <li>
-                                        <form asp-controller="Authentication" asp-action="Logout" method="post" class="d-inline">
-                                            <button type="submit" class="dropdown-item text-danger">
-                                                خروج
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
-                        else
-                        {
-                            <a class="btn btn-primary btn-sm" asp-controller="Authentication" asp-action="Login">
-                                ورود
-                            </a>
-                        }
-                    </div>
-
-                </div>
-            </div>
-        </nav>
+        @await Html.PartialAsync("_Navbar")
     </header>
 
+    <!-- Main Content -->
     <div class="container-fluid">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container-fluid">
-            &copy; 1404 ملی مهارت چمران
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-auto py-3">
+        <div class="container-fluid text-center">
+            <p class="mb-0">
+                <i class="fas fa-copyright"></i> 1404
+                <strong>دانشکده ملی مهارت چمران</strong> - تمام حقوق محفوظ است
+            </p>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
