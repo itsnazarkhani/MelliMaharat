@@ -1,37 +1,164 @@
 ﻿@model List<MelliMaharat.Models.Lesson>
 
 @{
+    // Define theme colors
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var successColor = "#28a745"; // Success Green for Add button
+    var textDark = "#212529";     // Dark text
+    var backgroundColor = "#e9ecef"; // Very Light Gray Page Background
+
     ViewData["Title"] = "لیست دروس";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>دروس</h3>
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+        
+        // Handle potential decimal formatting before conversion
+        text = text.Replace(".", "/").Replace(",", "/");
 
-    <a class="btn btn-success"
-       asp-controller="Admin"
-       asp-action="AddLesson">
-        افزودن درس +
-    </a>
-</div>
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'}
+        };
 
-<div style="max-height: 500px; overflow-y: auto;">
-    <table class="table table-bordered table-striped text-center">
-        <thead class="table-dark">
-            <tr>
-                <th>نام درس</th>
-                <th>کد</th>
-                <th>تعداد واحد</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var lesson in Model)
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
             {
-                <tr>
-                    <td>@lesson.Name</td>
-                    <td>@lesson.Code</td>
-                    <td>@lesson.Unit</td>
-                </tr>
+                chars[i] = mapping[chars[i]];
             }
-        </tbody>
-    </table>
+        }
+        return new string(chars);
+    }
+}
+
+<style>
+    .main-header {
+        color: @primaryColor;
+        font-weight: 900;
+        margin-bottom: 25px;
+    }
+    .table-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden; /* Ensure rounded corners clip internal content */
+        border: 1px solid #dee2e6;
+    }
+    .lesson-table {
+        margin-bottom: 0;
+    }
+    .lesson-table thead {
+        background-color: @primaryColor;
+        color: white;
+        position: sticky; /* Keep header visible on scroll */
+        top: 0;
+        z-index: 10;
+    }
+    .lesson-table th, .lesson-table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 0.75rem;
+    }
+    .lesson-table td:first-child {
+        text-align: right;
+        font-weight: bold;
+        color: @textDark;
+    }
+    .btn-success-styled {
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+        font-weight: bold;
+        transition: all 0.2s;
+        border-radius: 6px;
+    }
+    .btn-success-styled:hover {
+        background-color: #1e7e34;
+        border-color: #1e7e34;
+        transform: translateY(-1px);
+    }
+    /* Style for empty state */
+    .empty-state {
+        padding: 40px 20px;
+        color: #6c757d;
+        text-align: center;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+    
+    <!-- Header and Add Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="main-header">
+            <i class="fas fa-clipboard-list me-2"></i>
+            لیست دروس
+        </h3>
+
+        <a class="btn btn-success-styled px-4"
+           asp-controller="Admin"
+           asp-action="AddLesson">
+            <i class="fas fa-plus me-1"></i>
+            افزودن درس جدید
+        </a>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+        <div style="max-height: 500px; overflow-y: auto;">
+            
+            @if (Model == null || !Model.Any())
+            {
+                <div class="empty-state">
+                    <i class="fas fa-box-open fa-3x mb-3"></i>
+                    <h4>هیچ درسی برای نمایش وجود ندارد.</h4>
+                    <p>لطفاً با استفاده از دکمه بالا، درس جدیدی اضافه کنید.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-hover lesson-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">نام درس</th>
+                            <th style="width: 20%;">کد</th>
+                            <th style="width: 15%;">تعداد واحد</th>
+                            <th style="width: 15%;">عملیات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var lesson in Model)
+                        {
+                            <tr>
+                                <td>@lesson.Name</td>
+                                <td>@lesson.Code</td>
+                                <td>
+                                    <span class="badge fw-bold" style="background-color: #e9ecef; color: @textDark;">
+                                        @ToPersianNumber(lesson.Unit)
+                                    </span>
+                                </td>
+                                <td>
+                                    <!-- Placeholder for future actions like Edit/Delete -->
+                                    <a class="btn btn-sm btn-info text-white" title="ویرایش">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-danger" title="حذف">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
 </div>

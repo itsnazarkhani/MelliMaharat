@@ -2,45 +2,199 @@
 
 @{
     ViewData["Title"] = "ترم‌های تحصیلی";
+
+    // Define theme colors for the design, matching the AddNewTerm page
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";  // Slightly darker primary for buttons/hover
+    var textDark = "#212529";     // Dark text
+    var backgroundColor = "#f8f9fa"; // Light background
 }
 
-<div class="container mt-4">
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>لیست ترم‌ها</h2>
-        <a class="btn btn-primary" asp-action="AddNewTerm">
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'}
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
+}
+
+<style>
+    body {
+        background-color: @backgroundColor;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        margin-bottom: 25px;
+    }
+
+    .table-container {
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden; /* Ensure rounded corners clip internal content */
+        border: 1px solid #e9ecef;
+    }
+
+    .term-table {
+        margin-bottom: 0;
+        border-collapse: separate; /* Required for border-radius to show on the table itself */
+    }
+
+        .term-table thead {
+            background-color: @primaryColor;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .term-table th, .term-table td {
+            vertical-align: middle;
+            text-align: right; /* Default to right-align for RTL consistency */
+            padding: 0.9rem 1.2rem;
+            font-size: 1rem;
+        }
+
+            .term-table th:last-child,
+            .term-table td:last-child {
+                text-align: center; /* Center align dates for better readability */
+            }
+
+            .term-table th:nth-child(3),
+            .term-table td:nth-child(3) {
+                text-align: center;
+            }
+
+        .term-table tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: default;
+        }
+
+    /* Style for the Add New Term button */
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: @accentColor;
+            border-color: @accentColor;
+            transform: translateY(-1px);
+        }
+
+    /* Style for empty state */
+    .empty-state {
+        padding: 40px 20px;
+        color: #6c757d;
+        text-align: center;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e9ecef;
+    }
+
+    .badge-term-type {
+        background-color: #e3f2fd; /* Light Blue */
+        color: @primaryColor;
+        font-weight: bold;
+        padding: 5px 12px;
+        border-radius: 6px;
+        display: inline-block;
+        min-width: 80px;
+        text-align: center;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <!-- Header and Add Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-header">
+            <i class="fas fa-calendar-alt ms-2"></i>
+            لیست ترم‌های تحصیلی
+        </h2>
+
+        <a class="btn btn-primary-styled" asp-action="AddNewTerm">
+            <i class="fas fa-plus ms-1"></i>
             افزودن ترم جدید
         </a>
     </div>
 
+    <!-- Content Area -->
     @if (!Model.Any())
     {
-        <div class="alert alert-info text-center">
-            هیچ ترمی تعریف نشده است.
+        <div class="empty-state">
+            <i class="fas fa-search-minus fa-3x mb-3"></i>
+            <h4>هیچ ترمی تعریف نشده است.</h4>
+            <p>برای شروع، لطفاً ترم جدیدی اضافه کنید.</p>
         </div>
     }
     else
     {
-        <table class="table table-bordered table-striped table-hover text-center">
-            <thead class="table-dark">
-                <tr>
-                    <th>نوع ترم</th>
-                    <th>سال</th>
-                    <th>زمان شروع</th>
-                    <th>زمان اتمام</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Type.GetDescription()</td>
-                        <td>@item.Year</td>
-                        <td>@item.StartTime.ToString("yyyy/MM/dd")</td>
-                        <td>@item.EndTime.ToString("yyyy/MM/dd")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="table-container">
+            <div style="max-height: 70vh; overflow-y: auto;">
+                <table class="table term-table">
+                    <thead>
+                        <tr>
+                            <!-- Adjusted width for better fit and alignment -->
+                            <th style="width: 25%;">نوع ترم</th>
+                            <th style="width: 15%;">سال</th>
+                            <th style="width: 30%;">زمان شروع</th>
+                            <th style="width: 30%;">زمان اتمام</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <span class="badge-term-type">
+                                        @item.Type.GetDescription()
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="fw-bold">
+                                        @ToPersianNumber(item.Year)
+                                    </span>
+                                </td>
+                                <td>
+                                    @ToPersianNumber(item.StartTime.ToString("yyyy/MM/dd"))
+                                </td>
+                                <td>
+                                    @ToPersianNumber(item.EndTime.ToString("yyyy/MM/dd"))
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     }
 </div>

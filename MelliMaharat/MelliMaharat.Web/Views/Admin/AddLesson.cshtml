@@ -1,32 +1,121 @@
 ﻿@model MelliMaharat.Models.Lesson
 
 @{
+    // Define theme colors
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var secondaryColor = "#6c757d"; // Secondary Gray
+    var textDark = "#212529";     // Dark text
+    var backgroundColor = "#e9ecef"; // Very Light Gray Page Background
+
     ViewData["Title"] = "افزودن درس";
 }
 
-<h3 class="mb-3">افزودن درس جدید</h3>
+<style>
+    body {
+        background-color: @backgroundColor;
+        font-family: Tahoma, Arial, sans-serif;
+    }
 
-<form method="post" asp-controller="Admin" asp-action="AddLesson" class="card p-4">
+    .form-card {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border-left: 5px solid @primaryColor; /* Thematic border */
+        background-color: white;
+    }
 
-    <div class="mb-3">
-        <label class="form-label">نام درس</label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+    .main-header {
+        color: @primaryColor;
+        font-weight: 900;
+        border-bottom: 2px dashed #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        color: @textDark;
+        font-weight: bold;
+    }
+
+    .form-control:focus {
+        border-color: @primaryColor;
+        box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+    }
+
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        transition: all 0.2s;
+        border-radius: 6px;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: #003366;
+            border-color: #003366;
+            transform: translateY(-1px);
+        }
+
+    .btn-secondary-styled {
+        background-color: @secondaryColor;
+        border-color: @secondaryColor;
+        color: white;
+        font-weight: bold;
+        border-radius: 6px;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-lg-7 col-md-9">
+
+            <!-- Header -->
+            <h3 class="main-header">
+                <i class="fas fa-plus-circle me-2"></i>
+                افزودن درس جدید
+            </h3>
+
+            <!-- Form Card -->
+            <form method="post" asp-controller="Admin" asp-action="AddLesson" class="form-card p-4 p-md-5">
+
+                <!-- Lesson Name -->
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label">
+                        <i class="fas fa-file-signature me-1"></i> نام درس
+                    </label>
+                    <input asp-for="Name" class="form-control" placeholder="مثال: مبانی برنامه‌نویسی" />
+                    <span asp-validation-for="Name" class="text-danger small mt-1"></span>
+                </div>
+
+                <!-- Lesson Code -->
+                <div class="mb-4">
+                    <label asp-for="Code" class="form-label">
+                        <i class="fas fa-barcode me-1"></i> کد درس
+                    </label>
+                    <input asp-for="Code" class="form-control" placeholder="مثال: CS101" />
+                    <span asp-validation-for="Code" class="text-danger small mt-1"></span>
+                </div>
+
+                <!-- Unit Count -->
+                <div class="mb-4">
+                    <label asp-for="Unit" class="form-label">
+                        <i class="fas fa-sort-numeric-up me-1"></i> تعداد واحد
+                    </label>
+                    <input asp-for="Unit" class="form-control" type="number" min="1" max="6" placeholder="مثال: 3" />
+                    <span asp-validation-for="Unit" class="text-danger small mt-1"></span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-end gap-3 mt-4">
+                    <a class="btn btn-secondary-styled px-4" asp-action="Lessons">
+                        <i class="fas fa-arrow-right me-1"></i> بازگشت
+                    </a>
+                    <button type="submit" class="btn btn-primary-styled px-4">
+                        <i class="fas fa-save me-1"></i> ذخیره
+                    </button>
+                </div>
+            </form>
+
+        </div>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">کد درس</label>
-        <input asp-for="Code" class="form-control" />
-        <span asp-validation-for="Code" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">تعداد واحد</label>
-        <input asp-for="Unit" class="form-control" type="number" />
-        <span asp-validation-for="Unit" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">ذخیره</button>
-    <a class="btn btn-secondary" asp-action="Lessons">بازگشت</a>
-
-</form>
+</div>

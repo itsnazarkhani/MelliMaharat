@@ -4,46 +4,170 @@
 
 @{
     ViewData["Title"] = "افزودن رویداد انتخاب واحد";
+
+    // Define theme colors for the design, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";  // Slightly darker primary for hover
+    var secondaryColor = "#6c757d"; // Gray
+    var backgroundColor = "#f8f9fa"; // Light background
 }
 
-<h3 class="mb-3">افزودن رویداد جدید</h3>
+<style>
+    /*
+         * Styling for the body element is avoided as requested.
+         */
 
-<form method="post" asp-controller="Admin" asp-action="AddSelectionEvent" class="card p-4">
+    .form-card {
+        max-width: 600px;
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border: 1px solid #e9ecef;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-    <!-- Term dropdown -->
-    <div class="mb-3">
-        <label class="form-label">ترم</label>
-        <select asp-for="TermId" class="form-select">
-            <option value="">انتخاب ترم</option>
-            @foreach (var term in Model.Terms)
-            {
-                <option value="@term.Id" selected="@(Model.TermId == term.Id ? "selected" : null)">
-                    @term.Year - @term.Type.GetDescription()
-                </option>
-            }
-        </select>
-        <span asp-validation-for="TermId" class="text-danger"></span>
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: @primaryColor;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Input/Select base style */
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    /* Select specific style for RTL custom arrow */
+    .form-select {
+        padding-left: 40px;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: left 0.75rem center;
+        background-size: 16px 12px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+        }
+
+    /* Primary Button Style (Save) */
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: @accentColor;
+            border-color: @accentColor;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Secondary Button Style (Back) */
+    .btn-secondary-styled {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: @secondaryColor;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #dee2e6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <div class="form-card">
+        <h2 class="page-header">
+            <i class="fas fa-calendar-check ms-2"></i>
+            افزودن رویداد انتخاب واحد
+        </h2>
+
+        <form method="post" asp-controller="Admin" asp-action="AddSelectionEvent">
+
+            <!-- Term dropdown -->
+            <div class="mb-4">
+                <label asp-for="TermId" class="form-label">ترم مربوطه</label>
+                <select asp-for="TermId" class="form-select">
+                    <option value="" selected disabled>انتخاب ترم</option>
+                    @foreach (var term in Model.Terms)
+                    {
+                        <option value="@term.Id" selected="@(Model.TermId == term.Id ? "selected" : null)">
+                            @term.Year - @term.Type.GetDescription()
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="TermId" class="text-danger"></span>
+            </div>
+
+            <!-- Selection Start Time -->
+            <div class="mb-4">
+                <label asp-for="SelectionStart" class="form-label">تاریخ و ساعت شروع انتخاب واحد</label>
+                <input asp-for="SelectionStart" type="datetime-local" class="form-control"
+                       value="@Model.SelectionStart.ToString("yyyy-MM-ddTHH:mm")" />
+                <span asp-validation-for="SelectionStart" class="text-danger"></span>
+            </div>
+
+            <!-- Selection End Time -->
+            <div class="mb-5">
+                <label asp-for="SelectionEnd" class="form-label">تاریخ و ساعت پایان انتخاب واحد</label>
+                <input asp-for="SelectionEnd" type="datetime-local" class="form-control"
+                       value="@(Model.SelectionEnd.HasValue? Model.SelectionEnd.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
+                <span asp-validation-for="SelectionEnd" class="text-danger"></span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between pt-3">
+                <a asp-action="SelectionEvents" class="btn btn-secondary-styled">
+                    <i class="fas fa-arrow-right ms-2"></i>
+                    بازگشت
+                </a>
+                <button type="submit" class="btn btn-primary-styled">
+                    <i class="fas fa-save ms-2"></i>
+                    ذخیره رویداد
+                </button>
+            </div>
+        </form>
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">شروع انتخاب واحد</label>
-        <input asp-for="SelectionStart" type="datetime-local" class="form-control"
-               value="@Model.SelectionStart.ToString("yyyy-MM-ddTHH:mm")" />
-        <span asp-validation-for="SelectionStart" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">پایان انتخاب واحد</label>
-        <input asp-for="SelectionEnd" type="datetime-local" class="form-control"
-               value="@(Model.SelectionEnd.HasValue? Model.SelectionEnd.Value.ToString("yyyy-MM-ddTHH:mm") : "")" />
-        <span asp-validation-for="SelectionEnd" class="text-danger"></span>
-    </div>
-
-    <div class="d-flex justify-content-between">
-        <a class="btn btn-secondary" asp-action="SelectionEvents">بازگشت</a>
-        <button type="submit" class="btn btn-primary">ذخیره</button>
-    </div>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
