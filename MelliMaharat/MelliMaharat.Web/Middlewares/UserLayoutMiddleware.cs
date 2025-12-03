@@ -54,7 +54,8 @@ namespace MelliMaharat.Web.Middlewares
                                     new LayoutNavItem { Title="واحدهای انتخاب‌شده", Controller="Student", Action="Selections" },
                                     new LayoutNavItem { Title="انتخاب واحد", Controller="Student", Action="RegisterSelection" },
                                     new LayoutNavItem { Title="حضور و غیاب", Controller="Student", Action="AttendanceHistory" },
-                                    new LayoutNavItem { Title="نمرات و معدل", Controller="Student", Action="Grades" }
+                                    new LayoutNavItem { Title="نمرات و معدل", Controller="Student", Action="Grades" },
+                                    new LayoutNavItem { Title="پروفایل کاربری", Controller="User", Action="Dashboard" }
                                 });
                                 break;
 
@@ -62,7 +63,8 @@ namespace MelliMaharat.Web.Middlewares
                                 model.NavItems.AddRange(new[]
                                 {
                                     new LayoutNavItem { Title="دروس ارائه شده", Controller="Master", Action="PresentedLessons" },
-                                    new LayoutNavItem { Title="مدیریت نمرات", Controller="Master", Action="GradeManagement" }
+                                    new LayoutNavItem { Title="مدیریت نمرات", Controller="Master", Action="GradeManagement" },
+                                    new LayoutNavItem { Title="پروفایل کاربری", Controller="User", Action="Dashboard" }
                                 });
                                 break;
 
@@ -74,7 +76,9 @@ namespace MelliMaharat.Web.Middlewares
                                     new LayoutNavItem { Title="دانشجویان", Controller="Admin", Action="Students" },
                                     new LayoutNavItem { Title="ارائه‌ها", Controller="Admin", Action="Presentations" },
                                     new LayoutNavItem { Title="ترم‌های تحصیلی", Controller="Admin", Action="TermsList" },
-                                    new LayoutNavItem { Title="زمان‌های انتخاب واحد", Controller="Admin", Action="SelectionEvents" }
+                                    new LayoutNavItem { Title="زمان‌های انتخاب واحد", Controller="Admin", Action="SelectionEvents" },
+                                    new LayoutNavItem { Title="پروفایل کاربری", Controller="User", Action="Dashboard" }
+
                                 });
                                 break;
                         }

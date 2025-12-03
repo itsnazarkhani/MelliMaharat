@@ -22,20 +22,35 @@
         <div class="collapse navbar-collapse" id="mainNavbar">
 
             <!-- Navigation Items (Center/Left) -->
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav">
                 @foreach (var item in userModel?.NavItems ?? new List<LayoutNavItem>())
                 {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="@item.Controller" asp-action="@item.Action"
-                           role="menuitem" aria-label="@item.Title" title="@item.Title">
-                            @item.Title
-                        </a>
-                    </li>
+                    @if (item.Controller == "User" && item.Action == "Dashboard")
+                    {
+                        <!-- Dashboard Link - Only visible on mobile -->
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" asp-controller="@item.Controller" asp-action="@item.Action"
+                               role="menuitem" aria-label="@item.Title" title="@item.Title">
+                                <i class="fas fa-user me-2"></i>
+                                @item.Title
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <!-- Other nav items - visible on all screens -->
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="@item.Controller" asp-action="@item.Action"
+                               role="menuitem" aria-label="@item.Title" title="@item.Title">
+                                @item.Title
+                            </a>
+                        </li>
+                    }
                 }
             </ul>
 
             <!-- Profile/Auth Section (Right) -->
-            <div class="profile-section">
+            <div class="profile-section me-auto">
                 @if (userModel != null && userModel.Role != UserRoles.None)
                 {
                     <!-- User Info -->
