@@ -51,21 +51,6 @@ namespace MelliMaharat.Dal.Migrations
                 .Annotation("SqlServer:TemporalPeriodStartColumnName", "ValidFrom");
 
             migrationBuilder.CreateTable(
-                name: "SelectionTimes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SelectionStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SelectionEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SelectionTimes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Terms",
                 columns: table => new
                 {
@@ -103,6 +88,28 @@ namespace MelliMaharat.Dal.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SelectionTimes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SelectionStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SelectionEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TermId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TimeStamp = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectionTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SelectionTimes_Terms_TermId",
+                        column: x => x.TermId,
+                        principalTable: "Terms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -343,6 +350,11 @@ namespace MelliMaharat.Dal.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Selections_TermId",
                 table: "Selections",
+                column: "TermId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SelectionTimes_TermId",
+                table: "SelectionTimes",
                 column: "TermId");
 
             migrationBuilder.CreateIndex(

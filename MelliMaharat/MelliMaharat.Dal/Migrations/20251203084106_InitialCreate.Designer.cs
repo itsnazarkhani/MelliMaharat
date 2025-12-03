@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MelliMaharat.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251130192812_InitialCreate")]
+    [Migration("20251203084106_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -332,12 +332,17 @@ namespace MelliMaharat.Dal.Migrations
                     b.Property<DateTime>("SelectionStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("TermId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("TimeStamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TermId");
 
                     b.ToTable("SelectionTimes");
                 });
@@ -613,6 +618,17 @@ namespace MelliMaharat.Dal.Migrations
                     b.Navigation("Selection");
                 });
 
+            modelBuilder.Entity("MelliMaharat.Models.SelectionTime", b =>
+                {
+                    b.HasOne("MelliMaharat.Models.Term", "Term")
+                        .WithMany("SelectionTimes")
+                        .HasForeignKey("TermId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Term");
+                });
+
             modelBuilder.Entity("MelliMaharat.Models.Session", b =>
                 {
                     b.HasOne("MelliMaharat.Models.Selection", "Selection")
@@ -713,6 +729,8 @@ namespace MelliMaharat.Dal.Migrations
 
             modelBuilder.Entity("MelliMaharat.Models.Term", b =>
                 {
+                    b.Navigation("SelectionTimes");
+
                     b.Navigation("Selections");
                 });
 
