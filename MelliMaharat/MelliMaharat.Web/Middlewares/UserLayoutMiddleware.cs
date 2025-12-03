@@ -51,7 +51,7 @@ namespace MelliMaharat.Web.Middlewares
                             case UserRoles.Student:
                                 model.NavItems.AddRange(new[]
                                 {
-                                    new LayoutNavItem { Title="واحدهای انتخاب‌شده", Controller="Student", Action="Selections" },
+                                    new LayoutNavItem { Title="واحدهای ترم", Controller="Student", Action="Selections" },
                                     new LayoutNavItem { Title="انتخاب واحد", Controller="Student", Action="RegisterSelection" },
                                     new LayoutNavItem { Title="حضور و غیاب", Controller="Student", Action="AttendanceHistory" },
                                     new LayoutNavItem { Title="نمرات و معدل", Controller="Student", Action="Grades" },

@@ -2,13 +2,41 @@
 @using MelliMaharat.Models.Enums
 
 @{
-    ViewData["Title"] = "واحد‌های انتخابی شده";
+    var pageTitle = "واحدهای ترم";
+    ViewData["Title"] = pageTitle;
 
     // Define theme colors
     var primaryColor = "#1e3a8a"; // Dark Blue
     var accentColor = "#f59e0b";  // Orange/Amber
     var textLight = "#ffffff";
     var textDark = "#1f2937";
+}
+
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'}
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
 }
 
 <!-- Changed container to container-xl for a wider desktop layout -->
@@ -18,7 +46,7 @@
     <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
         <h2 class="fw-bold" style="color: @primaryColor;">
             <i class="fas fa-list-alt me-2"></i>
-            واحد‌های انتخابی شده
+            @pageTitle
         </h2>
         <a href="@Url.Action("RegisterSelection")" class="btn btn-lg fw-bold shadow-sm"
            style="background-color: @accentColor; color: @textDark; border: none; border-radius: 8px;">
@@ -71,7 +99,7 @@
                     <div class="d-flex justify-content-between align-items-center py-2">
                         <h5 class="mb-0 fw-bold">
                             <i class="fas fa-calendar-check me-2"></i>
-                            ترم @termGroup.Key.Year - @(termGroup.Key.Type == TermType.Fall ? "پاییز" : "بهار")
+                            ترم @ToPersianNumber(termGroup.Key.Year) - @(termGroup.Key.Type == TermType.Fall ? "پاییز" : "بهار")
                         </h5>
                         <!-- Reduced contrast on button by using primary color and white background -->
                         <a href="@Url.Action("SemesterSelections", new { termId = termGroup.First().TermId })"
@@ -106,19 +134,21 @@
                                         </td>
                                         <td class="py-3 text-center">
                                             <span class="badge" style="background-color: #dee2e6; color: @textDark; border-radius: 20px;">
-                                                @selection.Presentation.Lesson.Unit
+                                                @ToPersianNumber(selection.Presentation.Lesson.Unit)
                                             </span>
                                         </td>
                                         <td class="py-3">
                                             @selection.Presentation.Master.User.PersonInformation.FirstName @selection.Presentation.Master.User.PersonInformation.LastName
                                         </td>
                                         <td class="py-3">@selection.Presentation.DayHold</td>
-                                        <td class="py-3">@selection.Presentation.StartTime.ToString("HH:mm") - @selection.Presentation.EndTime.ToString("HH:mm")</td>
+                                        <td class="py-3">
+                                            @ToPersianNumber(selection.Presentation.StartTime.ToString("HH:mm")) - @ToPersianNumber(selection.Presentation.EndTime.ToString("HH:mm"))
+                                        </td>
                                         <td class="py-3 text-center">
                                             @if (selection.Score > 0)
                                             {
                                                 <span class="badge text-white fw-bold" style="background-color: #28a745; border-radius: 20px;">
-                                                    @selection.Score.ToString("F2")
+                                                    @ToPersianNumber(selection.Score.ToString("F2"))
                                                 </span>
                                             }
                                             else
