@@ -59,11 +59,10 @@ namespace MelliMaharat.Web.Middlewares
                                 break;
 
                             case UserRoles.Master:
-                                model.NavItems.Add(new LayoutNavItem
+                                model.NavItems.AddRange(new[]
                                 {
-                                    Title = "داشبورد",
-                                    Controller = "Master",
-                                    Action = "Dashboard"
+                                    new LayoutNavItem { Title="دروس ارائه شده", Controller="Master", Action="PresentedLessons" },
+                                    new LayoutNavItem { Title="مدیریت نمرات", Controller="Master", Action="GradeManagement" }
                                 });
                                 break;
 

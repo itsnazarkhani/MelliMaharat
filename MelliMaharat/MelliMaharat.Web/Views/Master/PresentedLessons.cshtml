@@ -1,5 +1,64 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<PresentedLessonViewModel>
 @{
+    ViewData["Title"] = "کلاس‌های ارائه شده";
 }
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-primary">
+                <i class="bi bi-book"></i> کلاس‌های ارائه شده
+            </h2>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle"></i> هیچ کلاسی یافت نشد.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="text-align: right;">درس</th>
+                        <th style="text-align: right;">روز</th>
+                        <th style="text-align: right;">ساعت شروع</th>
+                        <th style="text-align: right;">ساعت پایان</th>
+                        <th style="text-align: center;">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var lesson in Model)
+                    {
+                        <tr>
+                            <td style="text-align: right;">
+                                <strong>@lesson.LessonName</strong>
+                            </td>
+                            <td style="text-align: right;">
+                                <span class="badge bg-info">@lesson.DayHold</span>
+                            </td>
+                            <td style="text-align: right;">
+                                @lesson.StartTime
+                            </td>
+                            <td style="text-align: right;">
+                                @lesson.EndTime
+                            </td>
+                            <td style="text-align: center;">
+                                <a class="btn btn-sm btn-primary"
+                                   asp-action="Sessions"
+                                   asp-route-presentationId="@lesson.PresentationId"
+                                   title="مشاهده جلسات">
+                                    <i class="bi bi-calendar2-check"></i> جلسات
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

@@ -1,0 +1,89 @@
+﻿@model List<SessionListViewModel>
+@{
+    ViewData["Title"] = "جلسات";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-primary">
+                <i class="bi bi-calendar3"></i> جلسات
+            </h2>
+        </div>
+        <div class="col-auto">
+            @* Get presentationId from the first session or from query string *@
+            @{
+                var presentationId = Model?.FirstOrDefault()?.PresentationId
+                ?? Guid.Parse(Context.Request.Query["presentationId"].ToString() ?? Guid.Empty.ToString());
+            }
+
+            @if (presentationId != Guid.Empty)
+            {
+                <a class="btn btn-success"
+                   asp-action="CreateSession"
+                   asp-route-presentationId="@presentationId"
+                   title="ایجاد جلسه جدید">
+                    <i class="bi bi-plus-circle"></i> جلسه جدید
+                </a>
+                <a class="btn btn-secondary"
+                   asp-action="PresentedLessons"
+                   title="بازگشت">
+                    <i class="bi bi-arrow-right"></i> بازگشت
+                </a>
+            }
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning" role="alert">
+            <i class="bi bi-exclamation-triangle"></i> هیچ جلسه‌ای یافت نشد.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="text-align: right;">تاریخ جلسه</th>
+                        <th style="text-align: right;">وضعیت حضور و غیاب</th>
+                        <th style="text-align: center;">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var session in Model)
+                    {
+                        <tr>
+                            <td style="text-align: right;">
+                                @session.SessionDate.ToString("yyyy/MM/dd")
+                            </td>
+                            <td style="text-align: right;">
+                                @if (session.HasAttendance)
+                                {
+                                    <span class="badge bg-success">
+                                        <i class="bi bi-check-circle"></i> ثبت شده
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">
+                                        <i class="bi bi-x-circle"></i> ثبت نشده
+                                    </span>
+                                }
+                            </td>
+                            <td style="text-align: center;">
+                                <a class="btn btn-sm btn-warning"
+                                   asp-action="TakeAttendance"
+                                   asp-route-sessionId="@session.SessionId"
+                                   title="ثبت حضور و غیاب">
+                                    <i class="bi bi-pencil-square"></i> حضور و غیاب
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

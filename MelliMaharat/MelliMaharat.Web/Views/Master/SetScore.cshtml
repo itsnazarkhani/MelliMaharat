@@ -1,0 +1,87 @@
+﻿@model SetScoreViewModel
+@{
+    ViewData["Title"] = "ثبت نمره";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="bi bi-star"></i> ثبت نمره
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="SetScore" method="post" class="needs-validation" novalidate>
+                        <input type="hidden" asp-for="SelectionId" />
+
+                        <div class="mb-3">
+                            <label for="studentName" class="form-label">
+                                <strong>نام دانشجو</strong>
+                            </label>
+                            <input type="text"
+                                   id="studentName"
+                                   class="form-control"
+                                   value="@Model.StudentName"
+                                   disabled
+                                   style="text-align: right;" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="currentScore" class="form-label">
+                                <strong>نمره فعلی</strong>
+                            </label>
+                            <input type="text"
+                                   id="currentScore"
+                                   class="form-control"
+                                   value="@Model.CurrentScore"
+                                   disabled
+                                   style="text-align: right;" />
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="NewScore" class="form-label">
+                                <strong>نمره جدید</strong>
+                            </label>
+                            <input asp-for="NewScore"
+                                   type="number"
+                                   step="0.01"
+                                   min="0"
+                                   max="20"
+                                   class="form-control form-control-lg"
+                                   placeholder="نمره را وارد کنید (0-20)"
+                                   required
+                                   style="text-align: right;" />
+                            <small class="form-text text-muted d-block mt-2">
+                                نمره باید بین 0 تا 20 باشد
+                            </small>
+                            <span asp-validation-for="NewScore" class="text-danger"></span>
+                        </div>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                @Html.ValidationSummary(false)
+                            </div>
+                        }
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                                <i class="bi bi-check-circle"></i> ثبت نمره
+                            </button>
+                            <a asp-action="PresentedLessons"
+                               class="btn btn-secondary btn-lg flex-grow-1">
+                                <i class="bi bi-arrow-right"></i> بازگشت
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

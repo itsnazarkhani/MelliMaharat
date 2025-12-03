@@ -1,0 +1,107 @@
+﻿@model List<PresentationGradesStatusViewModel>
+@{
+    ViewData["Title"] = "مدیریت نمرات";
+}
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="text-primary">
+                <i class="bi bi-file-earmark-spreadsheet"></i> مدیریت نمرات
+            </h2>
+            <p class="text-muted">بررسی و ثبت نمرات دانشجویان</p>
+        </div>
+        <div class="col-auto">
+            <a asp-action="PresentedLessons" class="btn btn-secondary">
+                <i class="bi bi-arrow-right"></i> بازگشت
+            </a>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info" role="alert">
+            <i class="bi bi-info-circle"></i> هیچ کلاسی یافت نشد.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var presentation in Model)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="bi bi-book"></i> @presentation.LessonName
+                            </h5>
+                            <p class="card-text text-muted">
+                                <small>@presentation.DayHold</small>
+                            </p>
+
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <small>
+                                        <strong>نمرات ثبت شده</strong>
+                                    </small>
+                                    <small class="text-primary">
+                                        <strong>@presentation.GradedStudents/@presentation.TotalStudents</strong>
+                                    </small>
+                                </div>
+                                <div class="progress" style="height: 8px;">
+                                    <div class="progress-bar @(presentation.IsFullyGraded ? "bg-success" : "bg-warning")"
+                                         role="progressbar"
+                                         style="width: @presentation.PercentageComplete%"
+                                         aria-valuenow="@presentation.PercentageComplete"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <small class="text-muted">
+                                    @presentation.PercentageComplete% تکمیل
+                                </small>
+                            </div>
+
+                            <div class="alert @(presentation.IsFullyGraded ? "alert-success" : "alert-warning") mb-3 py-2">
+                                @if (presentation.IsFullyGraded)
+                                {
+                                    <small>
+                                        <i class="bi bi-check-circle"></i> تمام نمرات ثبت شده‌اند
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small>
+                                        <i class="bi bi-exclamation-circle"></i>
+                                        @(presentation.TotalStudents - presentation.GradedStudents) دانشجو منتظر نمره
+                                    </small>
+                                }
+                            </div>
+
+                            <div class="btn-group w-100" role="group">
+                                <a class="btn btn-sm btn-primary"
+                                   asp-action="SubmitGrades"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="ثبت نمرات">
+                                    <i class="bi bi-pencil"></i> ثبت نمرات
+                                </a>
+                                <a class="btn btn-sm btn-info"
+                                   asp-action="GradesSummary"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="خلاصه نمرات">
+                                    <i class="bi bi-eye"></i> مشاهده
+                                </a>
+                                <a class="btn btn-sm btn-success"
+                                   asp-action="ExportGrades"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="صادرات CSV">
+                                    <i class="bi bi-download"></i> صادرات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
