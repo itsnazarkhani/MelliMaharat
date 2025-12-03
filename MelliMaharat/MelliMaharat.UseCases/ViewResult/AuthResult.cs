@@ -1,7 +1,4 @@
 ﻿using MelliMaharat.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MelliMaharat.UseCases.ViewResult
 {
@@ -11,10 +8,10 @@ namespace MelliMaharat.UseCases.ViewResult
         public string Message { get; set; } = string.Empty;
         public User? User { get; set; }
 
-        public static AuthResult Success(User user) =>
-            new() { IsSuccess = true, User = user, Message = "Login successful" };
+        public static AuthResult Success(User user, string message = "ورود با موفقیت انجام شد.") =>
+            new() { IsSuccess = true, User = user, Message = message };
 
-        public static AuthResult Failure(string message) =>
+        public static AuthResult Failure(string message = "خطایی رخ داده است.") =>
             new() { IsSuccess = false, Message = message, User = null! };
     }
 }
