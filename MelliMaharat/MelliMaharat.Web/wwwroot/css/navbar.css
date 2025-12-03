@@ -212,10 +212,21 @@ body {
     margin-top: 0.5rem !important;
 }
 
-/* RTL Dropdown positioning - align to right side (start) */
-.dropdown-menu-start {
-    right: 0 !important;
-    left: auto !important;
+/* RTL Dropdown positioning - Position on the right side for RTL layout */
+.profile-avatar ~ .dropdown-menu {
+    right: auto !important;
+    left: 0 !important;
+    position: absolute;
+}
+
+/* Ensure dropdown doesn't go off screen */
+.nav-item.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    min-width: 200px;
+    max-width: calc(100vw - 20px);
 }
 
 @keyframes slideDown {

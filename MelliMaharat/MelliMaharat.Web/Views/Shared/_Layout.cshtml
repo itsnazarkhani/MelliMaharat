@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
 
     <style>
-        /* Layout Structure */
+        /* Layout Structure - Sticky Footer */
         html, body {
             height: 100%;
             margin: 0;
@@ -30,26 +30,36 @@
         body {
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         header {
             flex-shrink: 0;
+            width: 100%;
         }
 
         main {
             flex: 1;
+            width: 100%;
             display: flex;
             flex-direction: column;
         }
+
+            main > .container-fluid {
+                flex: 1;
+            }
 
         footer {
             flex-shrink: 0;
+            width: 100%;
+            margin-top: 0 !important;
         }
 
-        .container-fluid {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
+        /* Ensure sections take full width */
+        section {
+            width: 100%;
+            margin: 0;
+            padding: 0;
         }
     </style>
 </head>
@@ -61,14 +71,14 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container-fluid">
-        <main role="main">
+    <main role="main">
+        <div class="container-fluid">
             @RenderBody()
-        </main>
-    </div>
+        </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white mt-auto py-3">
+    <footer class="bg-dark text-white py-3">
         <div class="container-fluid text-center">
             <p class="mb-0">
                 <i class="fas fa-copyright"></i> 1404
