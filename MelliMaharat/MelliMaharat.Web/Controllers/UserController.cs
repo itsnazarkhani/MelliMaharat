@@ -95,7 +95,7 @@ namespace MelliMaharat.Web.Controllers
             }
 
             TempData["SuccessMessage"] = "رمز عبور با موفقیت تغییر یافت.";
-            return RedirectToAction(nameof(Dashboard)); 
+            return RedirectToAction(nameof(Dashboard));
         }
 
         public async Task<IActionResult> EditProfile()
@@ -105,7 +105,7 @@ namespace MelliMaharat.Web.Controllers
                 return Unauthorized();
 
             var user = await _unitOfWork.Users.GetAll()
-                .Include(u => u.PersonInformation) 
+                .Include(u => u.PersonInformation)
                 .FirstOrDefaultAsync(u => u.Username == username);
 
             if (user == null)
@@ -143,6 +143,7 @@ namespace MelliMaharat.Web.Controllers
             // Update only the email
             user.Email = model.Email;
 
+            _unitOfWork.Users.Update(user);
             await _unitOfWork.CommitChangesAsync();
 
             TempData["EditProfileSuccessMessage"] = "ایمیل با موفقیت به‌روزرسانی شد.";

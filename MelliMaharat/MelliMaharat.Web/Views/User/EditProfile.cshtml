@@ -1,52 +1,94 @@
 ﻿@model MelliMaharat.Web.ViewModels.User.EditProfileViewModel
-
 @{
     ViewData["Title"] = "ویرایش پروفایل";
+
+    var primaryColor = "#1e3a8a"; // --primary-color (Dark Blue)
+    var accentColor = "#f59e0b";  // --accent-color (Orange/Amber)
+    var textDark = "#1f2937";    // --text-dark
 }
 
-<h3 class="mb-3">ویرایش پروفایل</h3>
+<div class="container mt-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
 
-@if (TempData["EditProfileSuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["EditProfileSuccessMessage"]
+            <h3 class="mb-4 fw-bold text-center" style="color: @primaryColor;">ویرایش پروفایل</h3>
+
+            @if (TempData["EditProfileSuccessMessage"] != null)
+            {
+                <div class="alert alert-success text-center">
+                    @TempData["EditProfileSuccessMessage"]
+                </div>
+            }
+
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Values.Any(v => v.Errors.Count > 0))
+            {
+                <div class="alert alert-danger" role="alert">
+                    لطفاً خطاهای زیر را اصلاح کنید:
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+
+            <div class="card shadow-lg border-0" style="border-radius: 10px;">
+                <div class="card-header border-0 text-white fw-bold py-3" style="background-color: @primaryColor; border-radius: 10px 10px 0 0;">
+                    <span class="fs-5">اطلاعات شخصی</span>
+                </div>
+
+                <form method="post" asp-controller="User" asp-action="EditProfile" class="card-body p-4">
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small" style="color: @textDark;">نام</label>
+                            <input class="form-control" value="@Model.FirstName" readonly style="background-color: #e9ecef; border-radius: 6px;" />
+                            <input type="hidden" asp-for="FirstName" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small" style="color: @textDark;">نام خانوادگی</label>
+                            <input class="form-control" value="@Model.LastName" readonly style="background-color: #e9ecef; border-radius: 6px;" />
+                            <input type="hidden" asp-for="LastName" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small" style="color: @textDark;">تاریخ تولد</label>
+                            <input class="form-control" value="@Model.BirthDate" readonly style="background-color: #e9ecef; border-radius: 6px;" />
+                            <input type="hidden" asp-for="BirthDate" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small" style="color: @textDark;">کد ملی</label>
+                            <input class="form-control" value="@Model.NationalCode" readonly style="background-color: #e9ecef; border-radius: 6px;" />
+                            <input type="hidden" asp-for="NationalCode" />
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold small" style="color: @textDark;">شماره تماس</label>
+                        <input class="form-control" value="@Model.PhoneNumber" readonly style="background-color: #e9ecef; border-radius: 6px;" />
+                        <input type="hidden" asp-for="PhoneNumber" />
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <div class="mb-4 p-3 border border-warning" style="background-color: #fffbe6; border-radius: 6px;">
+                        <label asp-for="Email" class="form-label fw-bold" style="color: @textDark;">ایمیل (قابل ویرایش)</label>
+                        <input asp-for="Email" class="form-control form-control-lg border-primary" style="border-radius: 6px;" />
+                        <span asp-validation-for="Email" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between gap-3 pt-2">
+                        <a class="btn btn-secondary btn-lg flex-grow-1" asp-controller="User" asp-action="Dashboard" style="border-radius: 6px;">
+                            بازگشت به داشبورد
+                        </a>
+                        <button type="submit" class="btn btn-lg flex-grow-1 fw-bold"
+                                style="background-color: @primaryColor; color: #fff; border-radius: 6px; border: 1px solid @primaryColor;">
+                            به‌روزرسانی ایمیل
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-}
-
-<form method="post" class="card p-4" style="max-width: 500px;">
-    <div class="mb-3">
-        <label class="form-label">نام</label>
-        <input class="form-control" value="@Model.FirstName" readonly style="background-color: #e9ecef;" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">نام خانوادگی</label>
-        <input class="form-control" value="@Model.LastName" readonly style="background-color: #e9ecef;" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">تاریخ تولد</label>
-        <input class="form-control" value="@Model.BirthDate" readonly style="background-color: #e9ecef;" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">کد ملی</label>
-        <input class="form-control" value="@Model.NationalCode" readonly style="background-color: #e9ecef;" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">شماره تماس</label>
-        <input class="form-control" value="@Model.PhoneNumber" readonly style="background-color: #e9ecef;" />
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">ایمیل</label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">به‌روزرسانی</button>
-</form>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
