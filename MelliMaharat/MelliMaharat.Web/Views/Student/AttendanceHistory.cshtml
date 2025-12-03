@@ -3,23 +3,59 @@
 
 @{
     ViewData["Title"] = "سابقه حضور و غیاب";
+
+    // Define theme colors
+    var primaryColor = "#1e3a8a"; // Dark Blue
+    var accentColor = "#f59e0b";  // Orange/Amber
+    var successColor = "#28a745"; // Green
+    var dangerColor = "#dc3545";  // Red
+    var textDark = "#1f2937";
 }
 
-<div class="container-fluid mt-4">
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h2>
-                <i class="fas fa-calendar-check"></i>
-                سابقه حضور و غیاب
-            </h2>
-        </div>
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'},
+            {'.', '/'} // Handle decimal point for scores/percentages
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
+}
+
+<div class="container-xl mt-5" dir="rtl">
+
+    <!-- Header -->
+    <div class="mb-5 border-bottom pb-3">
+        <h2 class="fw-bold" style="color: @primaryColor;">
+            <i class="fas fa-calendar-check me-2"></i>
+            سابقه حضور و غیاب
+        </h2>
+        <p class="text-muted">مشاهده جزئیات حضور و غیاب شما در کلیه دروس و ترم‌های گذشته.</p>
     </div>
 
     @if (!Model.Any())
     {
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info border-0 shadow-sm" role="alert" style="border-right: 5px solid @primaryColor;">
             <i class="fas fa-info-circle me-2"></i>
-            شما هنوز هیچ درسی را انتخاب نکرده‌اید.
+            شما هنوز هیچ درسی را انتخاب نکرده‌اید و سابقه حضوری وجود ندارد.
         </div>
     }
     else
@@ -28,25 +64,30 @@
 
         @foreach (var termGroup in groupedSelections.OrderByDescending(g => g.Key.Year).ThenByDescending(g => g.Key.Type))
         {
-            <div class="card mb-4">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">
+            var termName = termGroup.Key.Type == TermType.Fall ? "پاییز" : "بهار";
+
+            <div class="card mb-5 shadow-lg border-0" style="border-radius: 12px; border-right: 5px solid @successColor;">
+
+                <!-- Term Header -->
+                <div class="card-header border-0 text-white fw-bold" style="background-color: @successColor; border-radius: 7px 7px 0 0;">
+                    <h5 class="mb-0 py-1">
                         <i class="fas fa-calendar-alt me-2"></i>
-                        ترم @termGroup.Key.Year - @(termGroup.Key.Type == TermType.Fall ? "پاییز" : "بهار")
+                        ترم @termName @ToPersianNumber(termGroup.Key.Year)
                     </h5>
                 </div>
-                <div class="card-body">
+
+                <div class="card-body p-0">
                     <div class="table-responsive">
-                        <table class="table table-hover">
-                            <thead class="table-light">
+                        <table class="table table-hover mb-0">
+                            <thead style="background-color: #f8f9fa;">
                                 <tr>
-                                    <th>نام درس</th>
-                                    <th>استاد</th>
-                                    <th>کل جلسات</th>
-                                    <th>حضور</th>
-                                    <th>غیاب</th>
-                                    <th>درصد حضور</th>
-                                    <th>عملیات</th>
+                                    <th class="py-3 text-right">نام درس</th>
+                                    <th class="py-3 text-right">استاد</th>
+                                    <th class="py-3 text-center">کل جلسات</th>
+                                    <th class="py-3 text-center">حضور</th>
+                                    <th class="py-3 text-center">غیاب</th>
+                                    <th class="py-3 text-center">درصد حضور</th>
+                                    <th class="py-3 text-center">جزئیات</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -56,29 +97,52 @@
                                     var presentSessions = selection.Sessions.Count(s => s.Attendance != null && s.Attendance.HasAttended);
                                     var absentSessions = totalSessions - presentSessions;
                                     var attendancePercentage = totalSessions > 0 ? (decimal)presentSessions / totalSessions * 100 : 0;
+                                    var percentageDisplay = attendancePercentage.ToString("F0");
 
                                     <tr>
-                                        <td><strong>@selection.Presentation.Lesson.Name</strong></td>
-                                        <td>
+                                        <td class="py-3 text-right">
+                                            <strong style="color: @primaryColor;">@selection.Presentation.Lesson.Name</strong>
+                                        </td>
+                                        <td class="py-3 text-right">
                                             @selection.Presentation.Master.User.PersonInformation.FirstName
                                             @selection.Presentation.Master.User.PersonInformation.LastName
                                         </td>
-                                        <td><span class="badge bg-primary">@totalSessions</span></td>
-                                        <td><span class="badge bg-success">@presentSessions</span></td>
-                                        <td><span class="badge bg-danger">@absentSessions</span></td>
-                                        <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="progress" style="width: 80px; height: 20px;">
-                                                    <div class="progress-bar bg-success"
-                                                         style="width: @attendancePercentage%;">
+                                        <td class="py-3 text-center">
+                                            <span class="badge" style="background-color: #e9ecef; color: @textDark; border-radius: 20px;">
+                                                @ToPersianNumber(totalSessions)
+                                            </span>
+                                        </td>
+                                        <td class="py-3 text-center">
+                                            <span class="badge text-white fw-bold" style="background-color: @successColor; border-radius: 20px;">
+                                                @ToPersianNumber(presentSessions)
+                                            </span>
+                                        </td>
+                                        <td class="py-3 text-center">
+                                            <span class="badge text-white fw-bold" style="background-color: @dangerColor; border-radius: 20px;">
+                                                @ToPersianNumber(absentSessions)
+                                            </span>
+                                        </td>
+                                        <td class="py-3 text-center">
+                                            <div class="d-flex align-items-center justify-content-center gap-2">
+                                                <div class="progress shadow-sm" style="width: 100px; height: 18px; border-radius: 9px; background-color: #f1f1f1;">
+                                                    <div class="progress-bar"
+                                                         role="progressbar"
+                                                         style="width: @percentageDisplay%; background-color: @(attendancePercentage < 70 ? dangerColor : successColor);"
+                                                         aria-valuenow="@percentageDisplay"
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">
                                                     </div>
                                                 </div>
-                                                <small>@attendancePercentage.ToString("F0")%</small>
+                                                <small class="fw-bold" style="min-width: 40px;">
+                                                    @ToPersianNumber(percentageDisplay)%
+                                                </small>
                                             </div>
                                         </td>
-                                        <td>
+                                        <td class="py-3 text-center">
                                             <a href="@Url.Action("AttendanceDetails", new { selectionId = selection.Id })"
-                                               class="btn btn-sm btn-info">
+                                               class="btn btn-sm text-white shadow-sm"
+                                               style="background-color: @primaryColor; border-radius: 8px;"
+                                               title="مشاهده جلسات">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         </td>
@@ -92,14 +156,3 @@
         }
     }
 </div>
-
-<style>
-    .card {
-        border-right: 4px solid #198754;
-    }
-
-    .badge {
-        padding: 6px 12px;
-        border-radius: 20px;
-    }
-</style>
