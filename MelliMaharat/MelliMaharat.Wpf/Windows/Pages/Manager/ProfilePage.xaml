@@ -7,9 +7,6 @@
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="593"
-      Title="ProfilePage"
-      Background="WhiteSmoke"
-      FontFamily="{StaticResource SFProRounded}"
       Name="Root">
 
     <Grid Margin="15">
@@ -40,11 +37,13 @@
                     <custom:CustomTextBox Tag="National Code:" Hint="2172585466" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox Tag="Phone Number:" Hint="+98 946 254 4687" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox Tag="Username:" Hint="@somefhtis" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox Tag="Is Admin:" Hint="True or False" DockPanel.Dock="Top"/>
 
-                    <DockPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Save Changes"/>
-                        <Button Style="{StaticResource MenuItemButton}" DockPanel.Dock="Bottom" FontSize="15" Foreground="White" Content="Update Picture"/>
-                    </DockPanel>
+                    <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button Content="Change Picture"/>
+                        <Button Content="Update Profile"/>
+                        <Button Content="Delete Account"/>
+                    </WrapPanel>
                 </DockPanel>
             </ScrollViewer>
 
