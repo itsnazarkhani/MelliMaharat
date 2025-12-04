@@ -71,59 +71,19 @@
                             HorizontalAlignment="Center"
                             Margin="0 0 0 10">
 
-                    <Button Style="{StaticResource DialogBoxButton}"
-                            Name="btnStudent"
+                    <Button Height="40"
+                            Width="40"
                             Click="btnStudent_Click"
-                            Margin="0 0 10 0"
-                            Content="Student">
-                        <Button.Effect>
-                            <DropShadowEffect x:Name="RoleSelectionDialogBoxButtonStudentDropShadowEffect"
-                                              ShadowDepth="0"
-                                              Opacity="0"
-                                              BlurRadius="20"
-                                              Color="MediumAquamarine"/>
-                        </Button.Effect>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowBegin}">
+                            Name="btnStudent"
+                            Content="Student"
+                            Margin="15 15 7.5 0"/>
 
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonStudentDropShadowEffectGlowEnd}">
-
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-
-                    <Button Style="{StaticResource DialogBoxButton}"
-                            Name="btnMaster"
+                    <Button Height="40"
+                            Width="50"
                             Click="btnMaster_Click"
-                            Margin="10 0 0 0"
-                            Content="Master">
-                        <Button.Effect>
-                            <DropShadowEffect x:Name="RoleSelectionDialogBoxButtonMasterDropShadowEffect"
-                                              ShadowDepth="0"
-                                              Opacity="0"
-                                              BlurRadius="15"
-                                              Color="MediumAquamarine"/>
-                        </Button.Effect>
-
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowBegin}">
-                        
-                                </BeginStoryboard>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource RoleSelectionDialogBoxButtonMasterDropShadowEffectGlowEnd}">
-                        
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-
+                            Name="btnMaster"
+                            Content="Master"
+                            Margin="7.5 15 15 0"/>
 
                 </StackPanel>
                 

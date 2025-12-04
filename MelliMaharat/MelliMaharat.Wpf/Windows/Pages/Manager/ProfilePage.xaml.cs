@@ -1,4 +1,4 @@
-﻿namespace MelliMaharat.Wpf.Pages;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for ProfilePage.xaml

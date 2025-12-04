@@ -1,0 +1,543 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:CustomControls="clr-namespace:MelliMaharat.Wpf.Resources.UserControls">
+
+    <!-- TextBlocks -->
+    <Style TargetType="TextBlock" x:Key="HintTextBlockStyle">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Gray"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ErrorTextBlockStyle">
+        <Setter Property="Foreground" Value="Red"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+        <Setter Property="Margin" Value="5 0"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="TagTextBlockStyle">
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Margin" Value="5 5 0 4"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="LoginWindowFirstHeader">
+        <Setter Property="Margin" Value="0 20 0 10"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="20"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="LoginWindowSecondHeader">
+        <Setter Property="Margin" Value="0 0 0 10"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Opacity" Value="0.7"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="LoginWindowFooterTextBlock">
+        <Setter Property="FontSize" Value="12.5"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="PageDescriptorTextBlock">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="Margin" Value="25 0 0 0" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="OrderByTextBlock">
+        <Setter Property="Text" Value="Order By:" />
+        <Setter Property="Opacity" Value="0.6" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0 0 10 0" />
+        <Setter Property="FontSize" Value="17.5" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListBoxItem_TextBlock">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListBoxItem_Sub_TextBlock" BasedOn="{StaticResource ListBoxItem_TextBlock}">
+        <Setter Property="Margin" Value="0 10 0 0" />
+        <Setter Property="FontSize" Value="15" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="ListBoxItem_Main_TextBlock" BasedOn="{StaticResource ListBoxItem_TextBlock}">
+        <Setter Property="FontSize" Value="20" />
+    </Style>
+
+    <!-- TextBoxes -->
+    <Style TargetType="TextBox" x:Key="MainTextBoxStyle">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="Auto"/>
+        <Setter Property="Background" Value="Beige"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="IsEnabled" Value="True"/>
+        <Setter Property="Focusable" Value="True"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform Y="0"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBoxBase}">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="True">
+
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="false" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" TargetName="border" Value="0.56"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <!-- Borders -->
+    <Style TargetType="Border" x:Key="CustomBorderStyle">
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Cursor" Value="IBeam"/>
+        <Setter Property="Background" Value="LightGray"/>
+    </Style>
+    <Style TargetType="Border" x:Key="LoginWindowMainBorder">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="MinHeight" Value="370"/>
+        <Setter Property="MinWidth" Value="300"/>
+        <Setter Property="MaxWidth" Value="300"/>
+        <Setter Property="CornerRadius" Value="25"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect BlurRadius="40"
+                              ShadowDepth="0"
+                              Opacity="0.4">
+                </DropShadowEffect>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Border"
+       x:Key="MenuBorder">
+        <Setter Property="Margin" Value="15" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="CornerRadius" Value="25" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                              BlurRadius="30"
+                              Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- UserControls -->
+    <Style TargetType="UserControl" x:Key="CustomTextBoxStyle">
+        <Setter Property="MinHeight" Value="70"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type CustomControls:CustomTextBox}">
+        <Setter Property="Width" Value="250"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Grid -->
+    <Style TargetType="Grid" x:Key="CustomCTextBoxGridStyle">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="MinHeight" Value="20"/>
+    </Style>
+
+    <!-- Controls -->
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Buttons -->
+    <Style x:Key="WindowStateButtonBase" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Width" Value="45"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+    <Style x:Key="MinimizeButton" TargetType="Button" BasedOn="{StaticResource WindowStateButtonBase}">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="true">
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                      Focusable="False"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="Blue"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#550000FF"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ExitButton" TargetType="{x:Type Button}" BasedOn="{StaticResource WindowStateButtonBase}">
+        <Setter Property="Margin" Value="0.5 0 0 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="true">
+
+                        <ContentPresenter x:Name="contentPresenter"
+                                      Focusable="False"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="DarkRed"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#EFFF0000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="Button" x:Key="SignInButton">
+        <Setter Property="Width" Value="175"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="0 0 0 0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="10"/>
+        <Setter Property="FontSize" Value="17.5"/>
+        <Setter Property="Background" Value="{StaticResource Deep Space Blue}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border"
+                    Background="{TemplateBinding Background}"
+                    Height="{TemplateBinding Height}"
+                    Width="{TemplateBinding Width}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    CornerRadius="12.5"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MinHeight="{TemplateBinding MinHeight}">
+                        <Border.Effect>
+                            <DropShadowEffect x:Name="shadowEffect"
+                                          ShadowDepth="0"
+                                          BlurRadius="20"
+                                          Opacity="0"
+                                          Color="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Background, Converter={StaticResource BrushToColorConverter}}"/>
+                        </Border.Effect>
+
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="1"
+                                             Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="shadowEffect"
+                                             Storyboard.TargetProperty="Opacity"
+                                             To="0"
+                                             Duration="0:0:0.2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Button" BasedOn="{StaticResource SignInButton}" x:Key="MenuItemButton">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0 10" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="MinWidth" Value="130" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+    <Style BasedOn="{StaticResource SignInButton}" TargetType="Button" x:Key="DialogBoxButton">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="100" />
+    </Style>
+    <Style BasedOn="{StaticResource MenuItemButton}" TargetType="Button">
+        <Setter Property="FontSize" Value="15" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
+    <!-- Radio Buttons -->
+    <Style TargetType="RadioButton" x:Key="MenuItemRadioButton">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="Margin" Value="0 10" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="MinWidth" Value="140" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect ShadowDepth="0"
+                      BlurRadius="20"
+                      Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="FontSize" Value="17.5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border CornerRadius="15"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}">
+
+
+                        <ContentPresenter Margin="{TemplateBinding Padding}"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background" Value="White"/>
+                            <Setter Property="Foreground" Value="{StaticResource Deep Space Blue}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Windows -->
+    <Style TargetType="Window" x:Key="LoginWindowStyle">
+        <Setter Property="DataContext" Value="{StaticResource AuthenticationViewModel}"/>
+        <Setter Property="Title" Value="AuthenticateWindow"/>
+        <Setter Property="Height" Value="450"/>
+        <Setter Property="MinHeight" Value="450"/>
+        <Setter Property="Width" Value="800"/>
+        <Setter Property="MinWidth" Value="400"/>
+        <Setter Property="WindowStyle" Value="None"/>
+        <Setter Property="FontFamily" Value="{StaticResource SFProRounded}"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        <Setter Property="ResizeMode" Value="NoResize"/>
+        <Setter Property="Background" Value="{StaticResource LoginWindowBackground}"/>
+    </Style>
+    <Style TargetType="Window" x:Key="ManagerWindowStyle">
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="FontFamily" Value="{StaticResource SFProRounded}" />
+        <Setter Property="Background" Value="{StaticResource Deep Space Blue}" />
+        <Setter Property="MinWidth" Value="805" />
+        <Setter Property="Width" Value="805" />
+        <Setter Property="MinHeight" Value="560" />
+        <Setter Property="Height" Value="560" />
+        <Setter Property="Title" Value="ManagerWindow" />
+    </Style>
+
+    <!-- StackPanels -->
+    <Style TargetType="StackPanel" x:Key="LoginWindowBodyStackPanel">
+        <Setter Property="Margin" Value="15 10 15 0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+    </Style>
+    <Style TargetType="StackPanel" x:Key="LoginWindowFooterStackPanel">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+        <Setter Property="Margin" Value="0 0 0 25"/>
+    </Style>
+
+    <!-- Labels -->
+    <Style TargetType="Label" x:Key="LogoLabel">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Content" Value="Melli Maharat" />
+        <Setter Property="FontSize" Value="22" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Margin" Value="0 0 0 20" />
+    </Style>
+
+    <!-- Pages -->
+    <Style TargetType="Page">
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="WhiteSmoke" />
+        <Setter Property="FontFamily" Value="{StaticResource SFProRounded}" />
+    </Style>
+
+    <!-- Ellipses -->
+    <Style TargetType="Ellipse" x:Key="Profile_Ellipse">
+        <Setter Property="Margin" Value="0 0 0 10" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="Profile_Outer_Ellipse" BasedOn="{StaticResource Profile_Ellipse}">
+        <Setter Property="Height" Value="110" />
+        <Setter Property="Width" Value="110" />
+        <Setter Property="Fill" Value="{StaticResource Deep Space Blue}" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="Profile_Inner_Ellipse" BasedOn="{StaticResource Profile_Ellipse}">
+        <Setter Property="Height" Value="100" />
+        <Setter Property="Width" Value="100" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="ListBox_Ellipse">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="ListBox_InnerEllipse" BasedOn="{StaticResource ListBox_Ellipse}">
+        <Setter Property="Height" Value="70" />
+        <Setter Property="Width" Value="70" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="ListBox_OuterEllipse" BasedOn="{StaticResource ListBox_Ellipse}">
+        <Setter Property="Height" Value="80" />
+        <Setter Property="Width" Value="80" />
+        <Setter Property="Fill" Value="{StaticResource Deep Space Blue}" />
+    </Style>
+
+    <!-- ComboBoxes-->
+    <Style TargetType="ComboBox">
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0 0 5 0" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="SelectedIndex" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="17.5" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
+
+    <!-- ListBoxes -->
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    </Style>
+
+    <!-- ListBox Items -->
+    <Style TargetType="ListBoxItem">
+        <Setter Property="Margin" Value="5" />
+        <!-- Remove default highlight -->
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+
+        <!-- Remove selection blue color -->
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border Background="Transparent"
+                                        BorderBrush="Gray"
+                                        BorderThickness="5"
+                                        CornerRadius="10"
+                                        Padding="5"
+                                        x:Name="border">
+                        <ContentPresenter/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="border"  Property="BorderBrush" Value="{StaticResource Deep Space Blue}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

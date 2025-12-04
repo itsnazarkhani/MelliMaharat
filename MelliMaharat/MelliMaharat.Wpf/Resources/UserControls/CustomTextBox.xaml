@@ -12,7 +12,9 @@
              GotFocus="Root_GotFocus"
              LostFocus="Root_LostFocus"
              Style="{StaticResource CustomTextBoxStyle}"
-             FontFamily="{StaticResource SFProRounded}">
+             FontFamily="{StaticResource SFProRounded}"
+             IsEnabled="True">
+             <!--Opacity="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled, Converter=IsEnabledToOpacityConverter}"-->
 
     <StackPanel>
 
@@ -82,7 +84,5 @@
                    ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}"/>
 
     </StackPanel>
-
-
 
 </UserControl>

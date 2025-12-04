@@ -3,17 +3,129 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Student"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="SelectionsPage"
-      Background="WhiteSmoke">
+      d:DesignHeight="1050" d:DesignWidth="800"
+      Name="Root">
 
     <Grid>
-        <TextBlock Text="Selections Page"
-       HorizontalAlignment="Center"
-       VerticalAlignment="Center"
-       FontSize="50"
-       FontFamily="{StaticResource SFProRounded}"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          DataContext="{Binding Master}">
+
+                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+
+                    <Grid DockPanel.Dock="Top">
+                        <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
+                        <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
+                    </Grid>
+
+                    <custom:CustomTextBox InputText="{Binding StudentFirstName}" Tag="Student First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding StudentLastName}" Tag="Student Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" Tag="Master First Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterLastName}" Tag="Master Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Score}" Tag="Score:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding PresentationId}" Tag="Presentation Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding StudentId}" Tag="Student Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Selection Id:" IsEnabled="False" DockPanel.Dock="Top"/>
+
+                    <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button Content="Delete"/>
+                        <Button Content="Add"/>
+                        <Button Content="Update"/>
+                        <Button Content="Change Picture"/>
+                        <Button Content="Clear"/>
+                    </WrapPanel>
+
+                </DockPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0">
+
+                <TextBlock Text="Selections"
+                           Style="{StaticResource PageDescriptorTextBlock}"
+                           DockPanel.Dock="Left"/>
+
+                <ComboBox DockPanel.Dock="Right"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="First Name"/>
+                    <ComboBoxItem Content="Last Name"/>
+                    <ComboBoxItem Content="Age"/>
+                </ComboBox>
+
+                <TextBlock DockPanel.Dock="Right" Style="{StaticResource OrderByTextBlock}"/>
+
+            </DockPanel>
+
+
+            <ListBox Grid.Row="1" Name="listbox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+
+
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left">
+
+                                <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
+
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="WhiteSmoke"/>
+
+                            </Grid>
+
+                            <StackPanel Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="FirstName"/>
+                                            <Binding Path="LastName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+
+                                </TextBlock>
+
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+
+                            </StackPanel>
+                        </Grid>
+
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
+
+        </Grid>
+
     </Grid>
+
 </Page>
