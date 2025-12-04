@@ -6,7 +6,7 @@
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Master"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1100" d:DesignWidth="800"
       Name="Root">
 
     <Grid>
@@ -19,16 +19,16 @@
         <Grid Grid.Column="0">
 
             <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          DataContext="{Binding Master}">
+                          DataContext="{Binding Student}">
 
                 <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
-                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
+                        <Ellipse Fill="{StaticResource StudentIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Age}" Tag="Age:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
@@ -37,7 +37,6 @@
                     <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding IsAdmin}" Tag="Is Admin:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Id}" Opacity="0.5" IsEnabled="False" Tag="Id:" DockPanel.Dock="Top"/>
 
@@ -95,7 +94,7 @@
 
                                 <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
 
-                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource MasterIconBrush}"/>
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource StudentIconBrush}"/>
 
                             </Grid>
 

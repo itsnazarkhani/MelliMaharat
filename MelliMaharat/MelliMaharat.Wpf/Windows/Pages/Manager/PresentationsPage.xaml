@@ -28,13 +28,14 @@
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding MasterName}" Tag="Master:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding MasterName}" Tag="Master:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding DayHold}" Tag="Day Hold:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding StartTime}" Tag="Start Time:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding EndTime}" Tag="End Time:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding MasterId}" Tag="Master Id:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding LessonId}" Tag="Lesson Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Presentation Id:" Opacity="0.5" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>

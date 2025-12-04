@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Manager"
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="1200" d:DesignWidth="800"
       Name="Root">
 
     <Grid>
