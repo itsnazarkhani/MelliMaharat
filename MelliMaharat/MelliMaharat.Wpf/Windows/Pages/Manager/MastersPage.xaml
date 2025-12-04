@@ -6,11 +6,9 @@
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Manager"
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="1100" d:DesignWidth="800"
-      Title="MastersPage"
+      d:DesignHeight="1200" d:DesignWidth="800"
       Loaded="Page_Loaded"
-      Name="Root"
-      Style="{StaticResource Manager_MastersPage}">
+      Name="Root">
 
     <Grid>
 
@@ -43,10 +41,12 @@
                     <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
 
-                    <DockPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button DockPanel.Dock="Bottom"  Content="Save Changes"/>
-                        <Button DockPanel.Dock="Bottom"  Content="Change Picture"/>
-                    </DockPanel>
+                    <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button DockPanel.Dock="Bottom" Content="Delete"/>
+                        <Button DockPanel.Dock="Bottom" Content="Add"/>
+                        <Button DockPanel.Dock="Bottom" Content="Update"/>
+                        <Button DockPanel.Dock="Bottom" Content="Change Picture"/>
+                    </WrapPanel>
 
                 </DockPanel>
             </ScrollViewer>
@@ -128,4 +128,5 @@
         </Grid>
 
     </Grid>
+    
 </Page>

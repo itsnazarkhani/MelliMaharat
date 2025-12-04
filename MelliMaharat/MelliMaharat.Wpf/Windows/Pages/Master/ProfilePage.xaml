@@ -3,10 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Master"
       mc:Ignorable="d" 
       d:DesignHeight="435" d:DesignWidth="580"
-      Title="ProfilePage">
+      Name="Root">
 
     <Grid>
         

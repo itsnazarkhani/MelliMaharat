@@ -3,12 +3,13 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Student"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="SelectionsPage"
-      Background="WhiteSmoke">
-    <Grid ShowGridLines="True">
+      Name="Root">
+
+    <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
@@ -16,36 +17,115 @@
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
-            <TextBlock Text="Entity Information"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="25"
-                   FontFamily="{StaticResource SFProRounded}"/>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          DataContext="{Binding Master}">
+
+                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+
+                    <Grid DockPanel.Dock="Top">
+                        <Ellipse Style="{StaticResource Manager_MastersPage_Profile_Outer_Ellipse}"/>
+                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Manager_MastersPage_Profile_Inner_Ellipse}"/>
+                    </Grid>
+
+                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Age}" Tag="Age:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding IsAdmin}" Tag="Is Admin:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
+
+                    <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                        <Button DockPanel.Dock="Bottom" Content="Delete"/>
+                        <Button DockPanel.Dock="Bottom" Content="Add"/>
+                        <Button DockPanel.Dock="Bottom" Content="Update"/>
+                        <Button DockPanel.Dock="Bottom" Content="Change Picture"/>
+                    </WrapPanel>
+
+                </DockPanel>
+            </ScrollViewer>
         </Grid>
 
-        <Grid Grid.Column="1"
-          ShowGridLines="True">
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <DockPanel Grid.Row="0">
 
-            <TextBlock Text="Entities List Info"
-                   Grid.Row="0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="20"
-                   FontFamily="{StaticResource SFProRounded}"/>
+                <TextBlock Text="Masters"
+                           Style="{StaticResource PageDescriptorTextBlock}"
+                           DockPanel.Dock="Left"/>
 
-            <TextBlock Text="Entities List"
-                   Grid.Row="1"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   FontSize="50"
-                   FontFamily="{StaticResource SFProRounded}"/>
+                <ComboBox DockPanel.Dock="Right"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="First Name"/>
+                    <ComboBoxItem Content="Last Name"/>
+                    <ComboBoxItem Content="Age"/>
+                </ComboBox>
+
+                <TextBlock DockPanel.Dock="Right" Style="{StaticResource OrderByTextBlock}"/>
+
+            </DockPanel>
+
+
+            <ListBox Grid.Row="1" Name="listbox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+
+
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="5*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Left">
+
+                                <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
+
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource MasterIconBrush}"/>
+
+                            </Grid>
+
+                            <StackPanel Grid.Column="1"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="FirstName"/>
+                                            <Binding Path="LastName"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+
+                                </TextBlock>
+
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+
+                            </StackPanel>
+                        </Grid>
+
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+
+            </ListBox>
+
 
         </Grid>
 
     </Grid>
+
 </Page>
