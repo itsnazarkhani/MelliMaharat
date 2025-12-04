@@ -1,4 +1,4 @@
-﻿@model MelliMaharat.Models.Presentation
+﻿@model MelliMaharat.Web.ViewModels.Admin.AddPresentationViewModel
 
 @{
     ViewData["Title"] = "افزودن ارائه";
@@ -106,12 +106,17 @@
             افزودن ارائه جدید
         </h2>
 
-        @if (!ViewData.ModelState.IsValid)
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
         {
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <i class="fas fa-exclamation-circle me-2"></i>
                 <strong>خطا در ثبت ارائه</strong>
-                @Html.ValidationSummary(false)
+                <ul class="mb-0 mt-2">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="بستن"></button>
             </div>
         }
@@ -121,8 +126,8 @@
             <!-- Lesson -->
             <div class="mb-4">
                 <label asp-for="LessonId" class="form-label">درس</label>
-                <select asp-for="LessonId" class="form-select" asp-items="ViewBag.Lessons">
-                    <option value="" disabled selected>انتخاب درس مورد نظر</option>
+                <select asp-for="LessonId" class="form-select" asp-items="Model.Lessons">
+                    <option value="">انتخاب درس مورد نظر</option>
                 </select>
                 <span asp-validation-for="LessonId" class="text-danger d-block mt-1"></span>
             </div>
@@ -130,8 +135,8 @@
             <!-- Master -->
             <div class="mb-4">
                 <label asp-for="MasterId" class="form-label">استاد</label>
-                <select asp-for="MasterId" class="form-select" asp-items="ViewBag.Masters">
-                    <option value="" disabled selected>انتخاب استاد ارائه دهنده</option>
+                <select asp-for="MasterId" class="form-select" asp-items="Model.Masters">
+                    <option value="">انتخاب استاد ارائه دهنده</option>
                 </select>
                 <span asp-validation-for="MasterId" class="text-danger d-block mt-1"></span>
             </div>
@@ -139,8 +144,8 @@
             <!-- Day -->
             <div class="mb-4">
                 <label asp-for="DayHold" class="form-label">روز برگزاری</label>
-                <select asp-for="DayHold" class="form-select" asp-items="ViewBag.PersianWeekDays">
-                    <option value="" disabled selected>انتخاب روز</option>
+                <select asp-for="DayHold" class="form-select" asp-items="Model.PersianWeekDays">
+                    <option value="">انتخاب روز</option>
                 </select>
                 <span asp-validation-for="DayHold" class="text-danger d-block mt-1"></span>
             </div>

@@ -251,124 +251,47 @@ namespace MelliMaharat.Web.Controllers
 
         public async Task<IActionResult> AddPresentation()
         {
-            // Load lessons
-            var lessons = await _unitOfWork.Lessons
-                .GetAll()
-                .OrderBy(l => l.Name)
-                .ToListAsync();
-
-            // Load masters with related person info
-            var masters = await _unitOfWork.Masters
-                .GetAll()
-                .Include(m => m.User)
-                .ThenInclude(u => u.PersonInformation)
-                .OrderBy(m => m.User.PersonInformation.LastName)
-                .ToListAsync();
-
-            // Lessons as SelectList
-            ViewBag.Lessons = new SelectList(
-                lessons.Select(l => new { l.Id, l.Name }),
-                "Id",
-                "Name"
-            );
-
-            // Masters (flatten full name)
-            ViewBag.Masters = new SelectList(
-                masters.Select(m => new
-                {
-                    m.Id,
-                    FullName = $"{m.User.PersonInformation.FirstName} {m.User.PersonInformation.LastName}"
-                }),
-                "Id",
-                "FullName"
-            );
-
-            // Persian weekdays
-            ViewBag.PersianWeekDays = new SelectList(new List<SelectListItem>
-            {
-                new ("شنبه", "شنبه"),
-                new ("یکشنبه", "یکشنبه"),
-                new ("دوشنبه", "دوشنبه"),
-                new ("سه‌شنبه", "سه‌شنبه"),
-                new ("چهارشنبه", "چهارشنبه"),
-                new ("پنج‌شنبه", "پنج‌شنبه"),
-                new ("جمعه", "جمعه"),
-            }, "Value", "Text");
-
-            return View(new Presentation());
+            var vm = await BuildAddPresentationViewModel();
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPresentation(Presentation model)
+        public async Task<IActionResult> AddPresentation(AddPresentationViewModel model)
         {
-            // First validate model state
             if (!ModelState.IsValid)
             {
-                await ReloadPresentationDropdowns(model);
+                model = await BuildAddPresentationViewModel(model);
                 return View(model);
             }
 
-            // Validation: Start time < End time
             if (model.StartTime >= model.EndTime)
             {
                 ModelState.AddModelError("", "زمان شروع باید قبل از زمان پایان باشد.");
-                await ReloadPresentationDropdowns(model);
+                model = await BuildAddPresentationViewModel(model);
                 return View(model);
             }
 
-            // Validation: Lesson exists
-            var lessonExists = await _unitOfWork.Lessons.GetAsync(model.LessonId);
-            if (lessonExists == null)
+            // Map VM → Domain Model
+            var presentation = new Presentation
             {
-                ModelState.AddModelError("LessonId", "درس انتخاب شده معتبر نیست.");
-                await ReloadPresentationDropdowns(model);
-                return View(model);
-            }
+                LessonId = model.LessonId,
+                MasterId = model.MasterId,
+                DayHold = model.DayHold.ToString(),
+                StartTime = model.StartTime,
+                EndTime = model.EndTime,
+                ExamDate = model.ExamDate,
+                ExamStartTime = model.ExamStartTime
+            };
 
-            // Validation: Master exists
-            var masterExists = await _unitOfWork.Masters.GetAsync(model.MasterId);
-            if (masterExists == null)
-            {
-                ModelState.AddModelError("MasterId", "استاد انتخاب شده معتبر نیست.");
-                await ReloadPresentationDropdowns(model);
-                return View(model);
-            }
+            await _unitOfWork.Presentations.AddAsync(presentation);
+            await _unitOfWork.CommitChangesAsync();
 
-            // Validation: Prevent duplicate presentations
-            var exists = await _unitOfWork.Presentations
-                .GetAll()
-                .AnyAsync(p => p.LessonId == model.LessonId &&
-                               p.MasterId == model.MasterId &&
-                               p.DayHold == model.DayHold &&
-                               p.StartTime == model.StartTime &&
-                               !p.IsDeleted);
-
-            if (exists)
-            {
-                ModelState.AddModelError("", "این ارائه قبلاً برای این درس و استاد ثبت شده است.");
-                await ReloadPresentationDropdowns(model);
-                return View(model);
-            }
-
-            try
-            {
-                // Add the presentation
-                await _unitOfWork.Presentations.AddAsync(model);
-                await _unitOfWork.CommitChangesAsync();
-
-                TempData["SuccessMessage"] = "ارائه با موفقیت اضافه شد.";
-                return RedirectToAction(nameof(Presentations));
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", $"خطا در ذخیره ارائه: {ex.Message}");
-                await ReloadPresentationDropdowns(model);
-                return View(model);
-            }
+            TempData["SuccessMessage"] = "ارائه با موفقیت اضافه شد.";
+            return RedirectToAction(nameof(Presentations));
         }
 
-        // Helper method to reload dropdowns if POST validation fails
-        private async Task<IActionResult> ReloadPresentationDropdowns(Presentation model)
+        // Helper to build view model with dropdowns
+        private async Task<AddPresentationViewModel> BuildAddPresentationViewModel(AddPresentationViewModel model = null)
         {
             var lessons = await _unitOfWork.Lessons.GetAll().OrderBy(l => l.Name).ToListAsync();
             var masters = await _unitOfWork.Masters
@@ -378,37 +301,34 @@ namespace MelliMaharat.Web.Controllers
                 .OrderBy(m => m.User.PersonInformation.LastName)
                 .ToListAsync();
 
-            ViewBag.Lessons = new SelectList(
-                lessons.Select(l => new { l.Id, l.Name }),
-                "Id",
-                "Name",
-                model.LessonId
-            );
+            var vm = model ?? new AddPresentationViewModel();
 
-            ViewBag.Masters = new SelectList(
-                masters.Select(m => new
-                {
-                    m.Id,
-                    FullName = $"{m.User.PersonInformation.FirstName} {m.User.PersonInformation.LastName}"
-                }),
-                "Id",
-                "FullName",
-                model.MasterId
-            );
-
-            var persianWeekDays = new List<SelectListItem>
+            vm.Lessons = lessons.Select(l => new SelectListItem
             {
-                new SelectListItem { Value = "شنبه", Text = "شنبه" },
-                new SelectListItem { Value = "یکشنبه", Text = "یکشنبه" },
-                new SelectListItem { Value = "دوشنبه", Text = "دوشنبه" },
-                new SelectListItem { Value = "سه‌شنبه", Text = "سه‌شنبه" },
-                new SelectListItem { Value = "چهارشنبه", Text = "چهارشنبه" },
-                new SelectListItem { Value = "پنج‌شنبه", Text = "پنج‌شنبه" },
-                new SelectListItem { Value = "جمعه", Text = "جمعه" },
-            };
-            ViewBag.PersianWeekDays = new SelectList(persianWeekDays, "Value", "Text", model.DayHold);
+                Value = l.Id.ToString(),
+                Text = l.Name,
+                Selected = (model != null && model.LessonId == l.Id)
+            }).ToList();
 
-            return View(model);
+            vm.Masters = masters.Select(m => new SelectListItem
+            {
+                Value = m.Id.ToString(),
+                Text = $"{m.User.PersonInformation.FirstName} {m.User.PersonInformation.LastName}",
+                Selected = (model != null && model.MasterId == m.Id)
+            }).ToList();
+
+            vm.PersianWeekDays = new List<SelectListItem>
+    {
+        new() { Value = "1", Text = "شنبه", Selected = model?.DayHold == 1 },
+        new() { Value = "2", Text = "یکشنبه", Selected = model?.DayHold == 2 },
+        new() { Value = "3", Text = "دوشنبه", Selected = model?.DayHold == 3 },
+        new() { Value = "4", Text = "سه‌شنبه", Selected = model?.DayHold == 4 },
+        new() { Value = "5", Text = "چهارشنبه", Selected = model?.DayHold == 5 },
+        new() { Value = "6", Text = "پنج‌شنبه", Selected = model?.DayHold == 6 },
+        new() { Value = "7", Text = "جمعه", Selected = model?.DayHold == 7 },
+    };
+
+            return vm;
         }
         #endregion
 
