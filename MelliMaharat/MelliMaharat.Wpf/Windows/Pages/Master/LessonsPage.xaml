@@ -25,7 +25,7 @@
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
-                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
+                        <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
                     <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
@@ -39,6 +39,7 @@
                     <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Id:" Opacity="0.5" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -94,7 +95,7 @@
 
                                 <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
 
-                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource MasterIconBrush}"/>
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="WhiteSmoke"/>
 
                             </Grid>
 
