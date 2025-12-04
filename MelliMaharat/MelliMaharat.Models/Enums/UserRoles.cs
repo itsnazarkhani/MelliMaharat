@@ -1,8 +1,15 @@
-﻿namespace MelliMaharat.Models.Enums;
+﻿using System.ComponentModel;
 
-public enum UserRoles : byte
+namespace MelliMaharat.Models.Enums;
+
+public enum UserRoles
 {
+    [Description("دانشجو")]
     Student,
+    [Description("استاد")]
     Master,
-    Admin
+    [Description("ادمین")]
+    Admin,
+    [Description("مهمان")]
+    None
 }

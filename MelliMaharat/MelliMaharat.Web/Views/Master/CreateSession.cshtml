@@ -1,0 +1,207 @@
+﻿@model CreateSessionViewModel
+@{
+    ViewData["Title"] = "ایجاد جلسه جدید";
+
+    // Define theme colors, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";
+    var successColor = "#28a745"; // Success green for 'Submit' action
+    var successAccent = "#218838";
+    var secondaryColor = "#6c757d"; // Secondary Gray/Blue for Back
+    var secondaryAccent = "#5a6268";
+    var dangerColor = "#dc3545"; // Danger red for validation errors
+    var infoColor = "#17a2b8"; // Info Blue
+}
+
+<style>
+    /* --- General Page Styling --- */
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    /* --- Card Styling (Form Container) --- */
+    .card-styled {
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .card-header-styled {
+        background-color: @primaryColor !important;
+        color: white;
+        padding: 20px 25px;
+        border-bottom: none;
+    }
+
+    /* --- Input Field Styling --- */
+    .form-control-styled {
+        border-radius: 8px;
+        padding: 12px 15px;
+        border: 2px solid #ccc;
+        transition: border-color 0.3s;
+        text-align: right;
+        /* Ensure Persian font is used */
+        font-family: Tahoma, 'B Titr', 'B Nazanin', Arial, sans-serif;
+    }
+
+        .form-control-styled:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+        }
+
+    .form-label strong {
+        color: @primaryColor;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    /* --- Button Styles --- */
+    .btn-base-styled {
+        font-weight: bold;
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        font-size: 1rem;
+    }
+
+    /* Submit Button (Success/Green) */
+    .btn-submit-styled {
+        .btn-base-styled();
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+    }
+
+        .btn-submit-styled:hover {
+            background-color: @successAccent;
+            border-color: @successAccent;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+    /* Back Button (Secondary/Gray-Blue) */
+    .btn-secondary-styled {
+        .btn-base-styled();
+        background-color: @secondaryColor;
+        border-color: @secondaryColor;
+        color: white;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: @secondaryAccent;
+            border-color: @secondaryAccent;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+    /* --- Alert Styles --- */
+    .alert-danger-styled {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: @dangerColor;
+        border-radius: 8px;
+        padding: 15px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .alert-info-styled {
+        background-color: #e2f3ff;
+        border-color: #b8e2f8;
+        color: #004488;
+        border-radius: 10px;
+        padding: 15px;
+        font-weight: 500;
+    }
+
+    /* Styling for validation summary list inside alert */
+    .validation-summary-list {
+        list-style-type: none;
+        padding-right: 0;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-5">
+
+            <h2 class="page-header">
+                <i class="fas fa-calendar-plus ms-2"></i>
+                ایجاد جلسه جدید
+            </h2>
+
+            <div class="card card-styled">
+                <div class="card-header card-header-styled">
+                    <h4 class="mb-0">
+                        <i class="fas fa-calendar-alt ms-2"></i> ثبت تاریخ جلسه
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="CreateSession" method="post" class="needs-validation" novalidate>
+                        <!-- Hidden input for Presentation context -->
+                        <input type="hidden" asp-for="PresentationId" />
+
+                        <div class="mb-4">
+                            <label asp-for="SessionDate" class="form-label">
+                                <strong>تاریخ جلسه</strong>
+                            </label>
+
+                            <input asp-for="SessionDate"
+                                   type="date"
+                                   class="form-control form-control-styled"
+                                   required />
+
+                            <small class="form-text text-muted d-block mt-2" style="font-size: 0.85rem;">
+                                <i class="fas fa-calendar-check ms-1"></i> تاریخ جلسه نمی‌تواند قبل از امروز باشد.
+                            </small>
+
+                            <!-- Validation Message for SessionDate -->
+                            <span asp-validation-for="SessionDate" class="text-danger mt-1 d-block"></span>
+                        </div>
+
+                        <!-- Validation Summary Alert -->
+                        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.Keys.Any(k => ViewData.ModelState[k].Errors.Any()))
+                        {
+                            <div class="alert alert-danger-styled" role="alert">
+                                <i class="fas fa-exclamation-triangle ms-2"></i> خطا در ثبت اطلاعات
+                                <ul class="validation-summary-list">
+                                    @Html.ValidationSummary(false, "", new { @class = "" })
+                                </ul>
+                            </div>
+                        }
+
+                        <div class="d-flex gap-3 pt-3">
+                            <button type="submit" class="btn btn-submit-styled flex-grow-1">
+                                <i class="fas fa-plus-circle ms-2"></i> ایجاد جلسه
+                            </button>
+                            <a asp-action="Sessions"
+                               asp-route-presentationId="@Model.PresentationId"
+                               class="btn btn-secondary-styled flex-grow-1">
+                                <i class="fas fa-arrow-right ms-2"></i> بازگشت
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="mt-4 alert alert-info-styled" role="alert">
+                <i class="fas fa-info-circle ms-2"></i>
+                <strong>توجه:</strong> با ایجاد جلسه، این جلسه برای تمام دانشجویان ثبت‌نام‌شده در این کلاس اضافه خواهد شد.
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

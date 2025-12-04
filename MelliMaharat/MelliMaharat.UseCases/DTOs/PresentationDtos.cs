@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MelliMaharat.UseCases.DTOs
 {
-    public record class PresentationDtos(
+    public record class PresentationDto(
             Guid Id,
             Guid MasterId,
             string MasterName,

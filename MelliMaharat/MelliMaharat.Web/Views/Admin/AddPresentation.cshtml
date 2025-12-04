@@ -1,0 +1,206 @@
+﻿@model MelliMaharat.Models.Presentation
+
+@{
+    ViewData["Title"] = "افزودن ارائه";
+
+    // Define theme colors for the design, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";  // Slightly darker primary for hover
+    var secondaryColor = "#6c757d"; // Gray
+    var backgroundColor = "#f8f9fa"; // Light background (Used only for form card background fallback now)
+}
+
+<style>
+    /*
+         * Styling for the body element has been completely removed as requested.
+         * The appearance now relies entirely on the main application layout/shell.
+         */
+
+    .form-card {
+        max-width: 650px; /* Slightly wider for forms with more fields */
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border: 1px solid #e9ecef;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: @primaryColor;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Input/Select base style, consistent with AddStudent/AddNewTerm */
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-select {
+        padding-left: 40px; /* Space for the custom arrow in RTL */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: left 0.75rem center;
+        background-size: 16px 12px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+        }
+
+    /* Primary Button Style (Save) */
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: @accentColor;
+            border-color: @accentColor;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Secondary Button Style (Back) */
+    .btn-secondary-styled {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: @secondaryColor;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #dee2e6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <div class="form-card">
+        <h2 class="page-header">
+            <i class="fas fa-chalkboard-teacher ms-2"></i>
+            افزودن ارائه جدید
+        </h2>
+
+        <form method="post" asp-controller="Admin" asp-action="AddPresentation">
+
+            <!-- Lesson Select -->
+            <div class="mb-4">
+                <label asp-for="LessonId" class="form-label">درس</label>
+                <select asp-for="LessonId" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Lessons, "Id", "Name"))">
+                    <option value="" selected disabled>انتخاب درس مورد نظر</option>
+                </select>
+                <span asp-validation-for="LessonId" class="text-danger"></span>
+            </div>
+
+            <!-- Master Select -->
+            <div class="mb-4">
+                <label asp-for="MasterId" class="form-label">استاد</label>
+                <select asp-for="MasterId" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Masters, "Id", "User.PersonInformation.FirstName"))">
+                    <option value="" selected disabled>انتخاب استاد ارائه دهنده</option>
+                </select>
+                <span asp-validation-for="MasterId" class="text-danger"></span>
+            </div>
+
+            <!-- Day Hold Select (Fixed typo: <<div to <div) -->
+            <div class="mb-4">
+                <label asp-for="DayHold" class="form-label">روز برگزاری</label>
+                <select asp-for="DayHold" class="form-select" asp-items="ViewBag.PersianWeekDays">
+                    <option value="" selected disabled>انتخاب روز</option>
+                </select>
+                <span asp-validation-for="DayHold" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <!-- Start Time Input -->
+                <div class="col-md-6 mb-4">
+                    <label asp-for="StartTime" class="form-label">ساعت شروع</label>
+                    <input asp-for="StartTime" class="form-control" type="time" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+
+                <!-- End Time Input -->
+                <div class="col-md-6 mb-4">
+                    <label asp-for="EndTime" class="form-label">ساعت پایان</label>
+                    <input asp-for="EndTime" class="form-control" type="time" />
+                    <span asp-validation-for="EndTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <h5 class="text-secondary mb-3">زمان‌بندی امتحان</h5>
+
+            <div class="row">
+                <!-- Exam Date Input -->
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ExamDate" class="form-label">تاریخ امتحان</label>
+                    <input asp-for="ExamDate" class="form-control" type="date" />
+                    <span asp-validation-for="ExamDate" class="text-danger"></span>
+                </div>
+
+                <!-- Exam Start Time Input -->
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ExamStartTime" class="form-label">ساعت شروع امتحان</label>
+                    <input asp-for="ExamStartTime" class="form-control" type="time" />
+                    <span asp-validation-for="ExamStartTime" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between pt-3">
+                <a asp-action="Presentations" class="btn btn-secondary-styled">
+                    <i class="fas fa-arrow-right ms-2"></i>
+                    بازگشت
+                </a>
+                <button type="submit" class="btn btn-primary-styled">
+                    <i class="fas fa-save ms-2"></i>
+                    ذخیره ارائه
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

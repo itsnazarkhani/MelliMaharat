@@ -1,40 +1,25 @@
-﻿namespace MelliMaharat.Models.Owned;
+﻿using MelliMaharat.Models.Enums;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+
+namespace MelliMaharat.Models.Owned;
 
 [Owned]
 public class Person
 {
-    [Required, StringLength(50)]
+    [Required(ErrorMessage = "لطفاً نام را وارد کنید.")]
     public string FirstName { get; set; }
 
-    [Required, StringLength(50)]
+    [Required(ErrorMessage = "لطفاً نام خانوادگی را وارد کنید.")]
+    [StringLength(50, ErrorMessage = "نام خانوادگی نمی‌تواند بیشتر از ۵۰ کاراکتر باشد.")]
     public string LastName { get; set; }
 
-    [Required]
-    public int Age { get; set; }
+    [Required(ErrorMessage = "لطفاً تاریخ تولد را وارد کنید.")]
+    public DateOnly BirthDate { get; set; }
 
-    [StringLength(20, MinimumLength = 20)]
+    [StringLength(10, ErrorMessage = "کد ملی نمی‌تواند بیشتر از ۱۰ رقم باشد.")]
     public string NationalCode { get; set; }
 
-    [StringLength(20, MinimumLength = 7)]
+    [StringLength(11, ErrorMessage = "شماره تلفن نمی‌تواند بیشتر از ۱۱ رقم باشد.")]
     public string PhoneNumber { get; set; }
-
-    [StringLength(50)]
-    public string Email { get; set; }
-
-    [Required, StringLength(500)]
-    public string Password { get; set; }
-
-    public bool IsAdmin { get; set; } = false;
-
-    [Required, StringLength(50)]
-    public string Username { get; set; }
-
-    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-    public string FullName;
-
-    //public UserRoles? Role { get; set; }
-
-    //public bool IsDeleted { get; set; } = false;
-
-    public Guid AvatarId { get; set; } = Guid.Empty;
 }

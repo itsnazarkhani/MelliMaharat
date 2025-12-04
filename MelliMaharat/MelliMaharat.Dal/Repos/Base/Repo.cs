@@ -23,7 +23,7 @@ public class Repo<T> : ViewRepo<T>, IRepo<T> where T : BaseEntity, new()
         return _context.SaveChanges();
     }
 
-    public virtual int Remove(int id)
+    public virtual int Remove(Guid id)
     {
         _table.Remove(GetById(id));
         return _context.SaveChanges();
@@ -53,6 +53,6 @@ public class Repo<T> : ViewRepo<T>, IRepo<T> where T : BaseEntity, new()
         return _context.SaveChanges();
     }
 
-    public virtual T GetById(int id) =>
+    public virtual T GetById(Guid id) =>
         _table.Where(x => x.Id == id).Single();
 }

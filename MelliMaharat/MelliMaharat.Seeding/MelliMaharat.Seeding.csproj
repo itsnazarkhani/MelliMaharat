@@ -2,7 +2,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MelliMaharat.Dal\MelliMaharat.Dal.csproj" />
-    <ProjectReference Include="..\MelliMaharat.Models\MelliMaharat.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

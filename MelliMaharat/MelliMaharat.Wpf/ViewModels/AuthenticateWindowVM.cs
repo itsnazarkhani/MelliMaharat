@@ -1,6 +1,12 @@
-﻿namespace MelliMaharat.Wpf.ViewModels;
+﻿using MelliMaharat.Dal.DbContexts;
+using MelliMaharat.Dal.UnitOfWork;
+using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
+using MelliMaharat.Infrastructure.Services;
+using MelliMaharat.Models.Enums;
 
-public class AuthenticateWindowVM : BaseVM<Person>
+namespace MelliMaharat.Wpf.ViewModels;
+
+public class AuthenticateWindowVM : BaseVM<User>
 {
     #region Constructor
     public AuthenticateWindowVM() : base() { }
@@ -47,15 +53,21 @@ public class AuthenticateWindowVM : BaseVM<Person>
         const string roleKey = "user_role";
         Application.Current.Properties[roleKey] = null;
 
-        var masterRepo = new MasterRepo();
-        var studentRepo = new StudentRepo();
+        //var masterRepo = new MasterRepo();
+        //var studentRepo = new StudentRepo();
+        //bool isStudent = studentRepo.IsUserExist(Username);
+        //bool isMaster = masterRepo.IsUserExist(Username);
 
-        bool isStudent = studentRepo.IsUserExist(Username);
-        bool isMaster = masterRepo.IsUserExist(Username);
+        IUnitOfWork unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        AuthService authService = new AuthService(unitOfWork);
 
-        if (!isStudent && !isMaster)
+
+        var authResult = authService.LoginAsync(Username, Password).GetAwaiter().GetResult();
+
+        // if user credentials wrong
+        if (!authResult.IsSuccess)
         {
-            Show("No account exists with this username.");
+            Show(authResult.Message);
             return;
         }
 
@@ -80,9 +92,12 @@ public class AuthenticateWindowVM : BaseVM<Person>
 
         if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master" or "manager"))
         {
-            Show("This is Demo", $"Sign-In completed as {role}!");
-            new MainWindow().Show();
-            parameter.Close();
+            case UserRoles.Student:
+                Application.Current.Properties[roleKey] = "student";
+                break;
+            case UserRoles.Master:
+                Application.Current.Properties[roleKey] = "master";
+                break;
         }
         else
             Show("Password doesn't match.", "Try again!");

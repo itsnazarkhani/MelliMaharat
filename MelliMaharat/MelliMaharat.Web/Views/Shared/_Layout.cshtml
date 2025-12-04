@@ -1,0 +1,96 @@
+﻿@using MelliMaharat.Models.Enums
+@{
+    var userModel = Context.Items["LayoutUser"] as LayoutUserViewModel;
+}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ملی مهارت چمران</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <!-- Site Styles -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Navbar Styles -->
+    <link rel="stylesheet" href="~/css/navbar.css" asp-append-version="true" />
+
+    <style>
+        /* Layout Structure - Sticky Footer */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            flex-shrink: 0;
+            width: 100%;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+            main > .container-fluid {
+                flex: 1;
+            }
+
+        footer {
+            flex-shrink: 0;
+            width: 100%;
+            margin-top: 0 !important;
+        }
+
+        /* Ensure sections take full width */
+        section {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        @await Html.PartialAsync("_Navbar")
+    </header>
+
+    <!-- Main Content -->
+    <main role="main">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-3">
+        <div class="container-fluid text-center">
+            <p class="mb-0">
+                <i class="fas fa-copyright"></i> 1404
+                <strong>دانشکده ملی مهارت چمران</strong> - تمام حقوق محفوظ است
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

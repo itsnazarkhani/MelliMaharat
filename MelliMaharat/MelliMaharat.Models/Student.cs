@@ -1,10 +1,11 @@
 ﻿namespace MelliMaharat.Models;
 
-[EntityTypeConfiguration(typeof(StudentConfiguration))]
 public class Student : BaseEntity
 {
-    public Person PersonInformation { get; set; } = new Person();
-
-    [InverseProperty(nameof(Selection.StudentNavigation))]
+    [InverseProperty(nameof(Selection.Student))]
     public IEnumerable<Selection> Selections { get; set; } = new List<Selection>();
+
+    [ForeignKey(nameof(UserId))]
+    public User User { get; set; }
+    public Guid UserId { get; set; }
 }

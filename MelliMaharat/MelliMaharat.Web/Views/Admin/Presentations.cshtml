@@ -1,0 +1,173 @@
+﻿@model IEnumerable<MelliMaharat.Models.Presentation>
+
+@{
+    ViewData["Title"] = "لیست ارائه‌ها";
+
+    // Define theme colors for the design, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";  // Slightly darker primary for hover
+    var successColor = "#28a745"; // Success green for 'Add' action
+    var successAccent = "#218838"; // Darker green for hover
+
+    // *******************************************************************
+    // NOTE: This helper function is assumed to be available in the context.
+    // If not, it needs to be defined as a static method or a Razor Helper.
+    // Example C# implementation logic (should be implemented server-side):
+    // public static string ToPersianNumber(string input) { ... }
+    // *******************************************************************
+    string ToPersianNumber(string input)
+    {
+        // Simple mock function for demonstration.
+        // In a real application, this should be a robust extension method.
+        if (string.IsNullOrEmpty(input)) return input;
+        return input.Replace('0', '۰').Replace('1', '۱').Replace('2', '۲')
+                    .Replace('3', '۳').Replace('4', '۴').Replace('5', '۵')
+                    .Replace('6', '۶').Replace('7', '۷').Replace('8', '۸')
+                    .Replace('9', '۹');
+    }
+}
+
+<style>
+    /*
+         * Styling for the body element is avoided as requested.
+         */
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    /* --- Table Styling --- */
+    .table-container {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow-x: auto; /* Ensures responsiveness on small screens */
+        background-color: white;
+        border: 1px solid #e9ecef;
+    }
+
+    .table-styled {
+        margin: 0;
+        width: 100%;
+        min-width: 800px;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table-styled thead {
+            background-color: @primaryColor;
+            color: white;
+        }
+
+        .table-styled th {
+            font-weight: 600;
+            padding: 15px 12px;
+            text-align: right;
+            border: none;
+            vertical-align: middle;
+            font-size: 0.95rem;
+        }
+
+        .table-styled td {
+            padding: 12px;
+            border-top: 1px solid #f1f1f1;
+            text-align: right;
+            vertical-align: middle;
+            white-space: nowrap;
+            /* Ensure Persian font is used for correct rendering */
+            font-family: Tahoma, 'B Titr', 'B Nazanin', Arial, sans-serif;
+        }
+
+        .table-styled tbody tr:hover {
+            background-color: #f7f9fc;
+            cursor: default;
+        }
+
+    /* --- Action Button Styles (Add Presentation) --- */
+    .btn-add-styled {
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+        font-weight: bold;
+        padding: 8px 20px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-add-styled:hover {
+            background-color: @successAccent;
+            border-color: @successAccent;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <h2 class="page-header">
+        <i class="fas fa-list-alt ms-2"></i>
+        لیست ارائه‌ها
+    </h2>
+
+    <div class="d-flex justify-content-end mb-4">
+        <a asp-action="AddPresentation" class="btn btn-add-styled">
+            <i class="fas fa-plus ms-2"></i>
+            افزودن ارائه
+        </a>
+    </div>
+
+    <div class="table-container">
+        <table class="table table-styled">
+            <thead>
+                <tr>
+                    <th>درس</th>
+                    <th>استاد</th>
+                    <th>روز برگزاری</th>
+                    <th>ساعت شروع</th>
+                    <th>ساعت پایان</th>
+                    <th>تاریخ امتحان</th>
+                    <th>ساعت شروع امتحان</th>
+                    <!-- عملیات column removed -->
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var pres in Model)
+                    {
+                        <tr>
+                            <td>@pres.Lesson.Name</td>
+                            <td>@pres.Master.User.PersonInformation.FirstName @pres.Master.User.PersonInformation.LastName</td>
+                            <td>@pres.DayHold</td>
+
+                            <!-- Use ToPersianNumber for Time -->
+                            <td>@ToPersianNumber(pres.StartTime.ToString("HH:mm"))</td>
+                            <td>@ToPersianNumber(pres.EndTime.ToString("HH:mm"))</td>
+
+                            <!-- Use ToPersianNumber for Date -->
+                            <td>@(pres.ExamDate == default ? ToPersianNumber("-") : ToPersianNumber(pres.ExamDate.ToString("yyyy/MM/dd")))</td>
+
+                            <!-- Use ToPersianNumber for Exam Time -->
+                            <td>@(pres.ExamStartTime == default ? ToPersianNumber("-") : ToPersianNumber(pres.ExamStartTime.ToString("HH:mm")))</td>
+                            <!-- Action TD removed -->
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">
+                            هیچ ارائه‌ای برای این ترم یا دوره ثبت نشده است.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

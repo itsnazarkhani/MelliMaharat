@@ -1,0 +1,421 @@
+﻿@model SubmitGradesViewModel
+@{
+    ViewData["Title"] = "ثبت نمرات";
+
+    // Define theme colors for consistency
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var successColor = "#1e8449"; // Success green (for Submit/Positive change)
+    var dangerColor = "#c0392b"; // Danger red (for negative change/error)
+    var warningColor = "#f39c12"; // Warning yellow (for Reset/Percentage)
+    var infoColor = "#2980b9"; // Medium Blue (for current grade/average)
+    var secondaryColor = "#7f8c8d"; // Gray for Back button
+}
+
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'},
+            {'.', '/'} // Handle decimal point for scores
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
+}
+
+<style>
+    /* --- General Styling and Consistent Rounding --- */
+    :root {
+        --mm-border-radius: 10px; /* Consistent rounding value */
+        --primary-color: @primaryColor;
+    }
+
+    .page-header {
+        color: var(--primary-color);
+        font-weight: 800;
+    }
+
+    .lesson-title {
+        color: #555;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+    /* --- Action Buttons (Consistent Rounding) --- */
+    .btn-action-group {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-action {
+        border-radius: var(--mm-border-radius);
+        font-weight: 600;
+        padding: 10px 15px;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* --- Summary Cards (Consistent Rounding and Shadow) --- */
+    .stat-card {
+        border-radius: var(--mm-border-radius);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        border: none;
+        transition: transform 0.2s ease;
+        height: 100%;
+        text-align: center;
+        padding: 15px 10px;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+
+    .stat-title {
+        color: #7f8c8d;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 900;
+        /* Ensure numerical values read correctly from right to left */
+        direction: rtl;
+        unicode-bidi: embed;
+    }
+
+    .text-primary-color {
+        color: @primaryColor;
+    }
+
+    .text-success-color {
+        color: @successColor;
+    }
+
+    .text-info-color {
+        color: @infoColor;
+    }
+
+    .text-warning-color {
+        color: @warningColor;
+    }
+
+    /* --- Table Styling (Consistent Rounding) --- */
+    .card-table-container {
+        border-radius: var(--mm-border-radius);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: none;
+    }
+
+    .card-header-styled {
+        background-color: var(--primary-color) !important;
+        padding: 15px;
+        color: white;
+        border-bottom: none;
+        font-weight: 700;
+    }
+
+    .table-grades {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .table-grades thead th {
+            background-color: #f8f9fa;
+            color: #343a40;
+            font-weight: 700;
+            vertical-align: middle;
+            padding: 12px 15px;
+        }
+
+        .table-grades tbody tr:hover {
+            background-color: #f1f8ff;
+        }
+
+        .table-grades td {
+            vertical-align: middle;
+            padding: 12px 15px;
+        }
+
+    .badge-grade {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        border-radius: 5px;
+        min-width: 60px;
+    }
+
+    .grade-input {
+        max-width: 100px;
+        margin: auto;
+        border-radius: 5px;
+        font-weight: 600;
+        /* Input should be LTR for correct numerical entry and validation */
+        direction: ltr;
+        text-align: center;
+    }
+
+    .btn-lg {
+        border-radius: var(--mm-border-radius);
+        font-weight: 700;
+    }
+
+    .alert {
+        border-radius: var(--mm-border-radius);
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+        <div>
+            <h2 class="page-header">
+                <i class="fas fa-edit ms-2"></i> ثبت نمرات
+            </h2>
+            <p class="lesson-title">
+                درس: <strong>@Model.LessonName</strong>
+            </p>
+        </div>
+
+        <!-- Action Buttons Group (Right Aligned) -->
+        <div class="btn-action-group">
+            <a asp-action="GradeManagement" class="btn btn-action btn-secondary" style="background-color: @secondaryColor; color: white;">
+                <i class="fas fa-arrow-right ms-2"></i> بازگشت
+            </a>
+        </div>
+    </div>
+
+    <!-- Validation Summary -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle ms-2"></i> <strong>خطا در ثبت نمرات</strong>
+            <div class="mt-2">@Html.ValidationSummary(false)</div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="بستن"></button>
+        </div>
+    }
+
+    <!-- Statistics Cards -->
+    <div class="row mb-5">
+
+        <!-- 1. Total Students -->
+        <div class="col-sm-6 col-md-3 mb-3">
+            <div class="card stat-card">
+                <h5 class="stat-title">کل دانشجویان</h5>
+                <h2 class="stat-value text-primary-color">@ToPersianNumber(Model.TotalStudents)</h2>
+            </div>
+        </div>
+
+        <!-- 2. Grades Submitted -->
+        <div class="col-sm-6 col-md-3 mb-3">
+            <div class="card stat-card">
+                <h5 class="stat-title">نمرات ثبت شده</h5>
+                <h2 class="stat-value text-success-color">@ToPersianNumber(Model.GradesSubmitted)</h2>
+            </div>
+        </div>
+
+        <!-- 3. Average Grade -->
+        <div class="col-sm-6 col-md-3 mb-3">
+            <div class="card stat-card">
+                <h5 class="stat-title">میانگین نمرات</h5>
+                <h2 class="stat-value text-info-color">
+                    @ToPersianNumber(Model.AverageGrade.ToString("F2"))
+                </h2>
+            </div>
+        </div>
+
+        <!-- 4. Completion Percentage -->
+        <div class="col-sm-6 col-md-3 mb-3">
+            <div class="card stat-card">
+                <h5 class="stat-title">درصد تکمیل</h5>
+                <h2 class="stat-value text-warning-color">
+                    @{
+                        var percentage = Model.TotalStudents > 0
+                        ? Math.Round((Model.GradesSubmitted * 100m) / Model.TotalStudents, 0)
+                        : 0;
+                    }
+                    @ToPersianNumber(percentage)%
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grades Form -->
+    <form asp-action="SubmitGrades" method="post" class="needs-validation" novalidate>
+        <input type="hidden" asp-for="PresentationId" />
+        <input type="hidden" asp-for="LessonName" />
+
+        <div class="card card-table-container">
+            <div class="card-header card-header-styled">
+                <h5 class="mb-0">
+                    <i class="fas fa-table ms-2"></i> جدول نمرات
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0 table-grades">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="text-align: right; width: 40%;">نام دانشجو</th>
+                                <th style="text-align: center; width: 20%;">نمره فعلی</th>
+                                <th style="text-align: center; width: 20%;">نمره جدید (۰ تا ۲۰)</th>
+                                <th style="text-align: center; width: 20%;">تغییر</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Items != null && Model.Items.Any())
+                            {
+                                @for (int i = 0; i < Model.Items.Count; i++)
+                                {
+                                    <tr>
+                                        <td style="text-align: right; vertical-align: middle;">
+                                            @Model.Items[i].StudentName
+                                            <input asp-for="Items[i].SelectionId" type="hidden" />
+                                            <input asp-for="Items[i].StudentName" type="hidden" />
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <span class="badge badge-grade bg-info text-white" style="background-color: @infoColor!important;">
+                                                @ToPersianNumber(Model.Items[i].CurrentScore.ToString("F2"))
+                                            </span>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <input asp-for="Items[i].NewScore"
+                                                   type="number"
+                                                   step="0.01"
+                                                   min="0"
+                                                   max="20"
+                                                   class="form-control form-control-sm text-center grade-input"
+                                                   placeholder="۰"
+                                                   data-original="@Model.Items[i].CurrentScore" />
+                                            <span asp-validation-for="Items[i].NewScore" class="text-danger small d-block mt-1"></span>
+                                        </td>
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <span class="badge badge-grade bg-secondary grade-status" data-index="@i">
+                                                بدون تغییر
+                                            </span>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-4">
+                                        <i class="fas fa-info-circle ms-2"></i> هیچ دانشجویی یافت نشد.
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex gap-2 justify-content-end">
+            <a asp-action="GradeManagement" class="btn btn-secondary btn-lg" style="background-color: @secondaryColor; border-color: @secondaryColor;">
+                <i class="fas fa-arrow-right ms-2"></i> بازگشت
+            </a>
+            <button type="reset" class="btn btn-warning btn-lg">
+                <i class="fas fa-undo-alt ms-2"></i> تنظیم مجدد
+            </button>
+            <button type="submit" class="btn btn-success btn-lg">
+                <i class="fas fa-save ms-2"></i> ثبت نمرات
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Function to convert English/Latin digits to Persian digits
+        function toPersianNumberJS(input) {
+            if (input === null || input === undefined) return '';
+            let text = String(input);
+            const mapping = {
+                '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴',
+                '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹',
+                '.': '/'
+            };
+            return text.replace(/[0-9.]/g, char => mapping[char] || char);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const gradeInputs = document.querySelectorAll('.grade-input');
+
+            gradeInputs.forEach((input, index) => {
+                const originalValue = parseFloat(input.getAttribute('data-original'));
+                const statusBadge = document.querySelector(`.grade-status[data-index="${index}"]`);
+
+                // Initial state check (in case the input comes pre-filled via postback)
+                updateStatus(input, originalValue, statusBadge);
+
+                // Event listener for changes
+                input.addEventListener('input', function() {
+                    updateStatus(this, originalValue, statusBadge);
+                });
+            });
+
+            function updateStatus(inputElement, originalValue, statusBadgeElement) {
+                const newValue = parseFloat(inputElement.value);
+
+                // Handle empty or invalid input gracefully
+                if (isNaN(newValue) || inputElement.value.trim() === '') {
+                    statusBadgeElement.textContent = 'بدون تغییر';
+                    statusBadgeElement.className = 'badge badge-grade bg-secondary grade-status';
+                    return;
+                }
+
+                if (Math.abs(newValue - originalValue) < 0.001) { // Check for near-equality
+                    statusBadgeElement.textContent = 'بدون تغییر';
+                    statusBadgeElement.className = 'badge badge-grade bg-secondary grade-status';
+                } else if (newValue > originalValue) {
+                    const diff = (newValue - originalValue).toFixed(2);
+                    statusBadgeElement.textContent = `+ ${toPersianNumberJS(diff)}`;
+                    statusBadgeElement.className = 'badge badge-grade bg-success text-white grade-status';
+                    statusBadgeElement.style.backgroundColor = '@successColor';
+                } else {
+                    const diff = (originalValue - newValue).toFixed(2);
+                    statusBadgeElement.textContent = `- ${toPersianNumberJS(diff)}`;
+                    statusBadgeElement.className = 'badge badge-grade bg-danger text-white grade-status';
+                    statusBadgeElement.style.backgroundColor = '@dangerColor';
+                }
+            }
+
+            // Re-apply change logic on form reset (if reset button is used)
+             document.querySelector('button[type="reset"]').addEventListener('click', function() {
+                 setTimeout(() => {
+                    gradeInputs.forEach((input, index) => {
+                        const originalValue = parseFloat(input.getAttribute('data-original'));
+                        const statusBadge = document.querySelector(`.grade-status[data-index="${index}"]`);
+
+                        // Manually reset badge content and style
+                        statusBadge.textContent = 'بدون تغییر';
+                        statusBadge.className = 'badge badge-grade bg-secondary grade-status';
+                        statusBadge.style.backgroundColor = ''; // Clear inline style if set
+                    });
+                 }, 0); // Timeout ensures reset action completes first
+            });
+        });
+    </script>
+}

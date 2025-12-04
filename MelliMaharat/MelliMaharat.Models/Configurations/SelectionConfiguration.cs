@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Reflection.Emit;
 
 namespace MelliMaharat.Models.Configurations;
 
@@ -19,14 +21,22 @@ public class SelectionConfiguration : IEntityTypeConfiguration<Selection>
             .HasConversion(gradeConverter);
 
         builder
-            .HasOne(x => x.StudentNavigation)
-            .WithMany(y => y.Selections)
-            .HasForeignKey(x => x.StudentId);
+            .HasOne(s => s.Student)
+            .WithMany(st => st.Selections)
+            .HasForeignKey(s => s.StudentId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
-            .HasOne(x => x.PresentationNavigation)
-            .WithMany(y => y.Selections)
-            .HasForeignKey(x => x.PresentationId);
+            .HasOne(s => s.Presentation)
+            .WithMany(p => p.Selections)
+            .HasForeignKey(s => s.PresentationId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        builder
+            .HasOne(s => s.Term)
+            .WithMany(t => t.Selections)
+            .HasForeignKey(s => s.TermId)
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder
             .ToTable

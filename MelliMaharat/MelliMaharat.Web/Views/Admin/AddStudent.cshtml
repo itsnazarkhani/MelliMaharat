@@ -1,0 +1,171 @@
+﻿@model AddStudentViewModel
+
+@{
+    ViewData["Title"] = "افزودن دانشجو";
+
+    // Define theme colors for the design, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var accentColor = "#0056b3";  // Slightly darker primary for hover
+    var secondaryColor = "#6c757d"; // Gray
+    var backgroundColor = "#f8f9fa"; // Light background (Used only for form card background fallback now)
+}
+
+<style>
+    /*
+         * Styling for the body element has been completely removed as requested.
+         * The appearance now relies entirely on the main application layout/shell.
+         */
+
+    .form-card {
+        max-width: 600px; /* Slightly wider for the student form */
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border: 1px solid #e9ecef;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+        width: 100%;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: @primaryColor;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* Input/Select base style */
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+        }
+
+    /* Primary Button Style (Save) */
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px; /* Ensure buttons have minimum standard width */
+    }
+
+        .btn-primary-styled:hover {
+            background-color: @accentColor;
+            border-color: @accentColor;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Secondary Button Style (Back) */
+    .btn-secondary-styled {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: @secondaryColor;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #dee2e6;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <div class="form-card">
+        <h2 class="page-header">
+            <i class="fas fa-user-plus ms-2"></i>
+            افزودن دانشجوی جدید
+        </h2>
+
+        <form method="post" asp-controller="Admin" asp-action="AddStudent" enctype="multipart/form-data">
+
+            <!-- First Name Input -->
+            <div class="mb-4">
+                <label asp-for="FirstName" class="form-label">نام</label>
+                <input asp-for="FirstName" class="form-control" placeholder="نام دانشجو" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <!-- Last Name Input -->
+            <div class="mb-4">
+                <label asp-for="LastName" class="form-label">نام خانوادگی</label>
+                <input asp-for="LastName" class="form-control" placeholder="نام خانوادگی دانشجو" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <!-- National Code Input -->
+            <div class="mb-4">
+                <label asp-for="NationalCode" class="form-label">کد ملی</label>
+                <input asp-for="NationalCode" class="form-control" placeholder="کد ملی ۱۰ رقمی" />
+                <span asp-validation-for="NationalCode" class="text-danger"></span>
+            </div>
+
+            <!-- Birth Date Input -->
+            <div class="mb-4">
+                <label asp-for="BirthDate" class="form-label">تاریخ تولد</label>
+                <input asp-for="BirthDate" class="form-control" type="date" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+
+            <!-- Phone Number Input -->
+            <div class="mb-4">
+                <label asp-for="PhoneNumber" class="form-label">شماره تماس</label>
+                <input asp-for="PhoneNumber" class="form-control" placeholder="مثال: 0912xxxxxxx" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Avatar File Input -->
+            <div class="mb-5">
+                <label asp-for="AvatarFile" class="form-label">تصویر پروفایل (اختیاری)</label>
+                <input asp-for="AvatarFile" type="file" class="form-control" />
+                <span class="text-muted d-block mt-1" style="font-size: 0.9rem;">
+                    حداکثر حجم فایل ۲ مگابایت.
+                </span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between pt-3">
+                <a asp-action="Students" class="btn btn-secondary-styled">
+                    <i class="fas fa-arrow-right ms-2"></i>
+                    بازگشت
+                </a>
+                <button type="submit" class="btn btn-primary-styled">
+                    <i class="fas fa-save ms-2"></i>
+                    ذخیره و ثبت دانشجو
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
