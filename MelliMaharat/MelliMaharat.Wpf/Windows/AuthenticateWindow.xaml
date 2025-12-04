@@ -104,11 +104,11 @@
                         </Button.Triggers>
                     </Button>
                     
-                    <TextBlock x:Name="LoginFooter"
+                    <!--<TextBlock x:Name="LoginFooter"
                                Style="{StaticResource LoginWindowFooterTextBlock}">
                         Don't Have An Account?
                         <Hyperlink Command="{Binding ElementName=Root, Path=DataContext.SignUpCommand}">Sign Up</Hyperlink>
-                    </TextBlock>
+                    </TextBlock>-->
 
                 </StackPanel>
 
