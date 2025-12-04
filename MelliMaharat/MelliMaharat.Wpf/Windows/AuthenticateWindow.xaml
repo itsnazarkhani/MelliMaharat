@@ -87,7 +87,7 @@
                             Style="{StaticResource SignInButton}"
                             Command="{Binding ElementName=Root, Path=DataContext.SignInCommand}"
                             CommandParameter="{Binding ElementName=Root}">
-                        <Button.Effect>
+                        <!--<Button.Effect>
                             <DropShadowEffect x:Name="btnSignInGlowAnimation"
                                               BlurRadius="15"
                                               ShadowDepth="0"
@@ -101,7 +101,7 @@
                             <EventTrigger RoutedEvent="MouseLeave">
                                 <BeginStoryboard Storyboard="{StaticResource btnSignInMouseLeaveStoryBoard}"/>
                             </EventTrigger>
-                        </Button.Triggers>
+                        </Button.Triggers>-->
                     </Button>
                     
                     <!--<TextBlock x:Name="LoginFooter"
