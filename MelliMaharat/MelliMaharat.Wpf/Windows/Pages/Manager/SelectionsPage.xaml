@@ -26,20 +26,18 @@
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
-                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
+                        <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
-                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Age}" Tag="Age:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding IsAdmin}" Tag="Is Admin:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding StudentFirstName}" Tag="Student First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding StudentLastName}" Tag="Student Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" Tag="Master First Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterLastName}" Tag="Master Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Score}" Tag="Score:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding PresentationId}" Tag="Presentation Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding StudentId}" Tag="Student Id:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -95,7 +93,7 @@
 
                                 <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
 
-                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource MasterIconBrush}"/>
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="WhiteSmoke"/>
 
                             </Grid>
 
@@ -106,7 +104,7 @@
                                 <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
 
                                     <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
+                                        <MultiBinding StringFormat="Student: {0} {1}">
                                             <Binding Path="FirstName"/>
                                             <Binding Path="LastName"/>
                                         </MultiBinding>
@@ -114,7 +112,9 @@
 
                                 </TextBlock>
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Lesson, StringFormat=Lesson: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding DayHold, StringFormat=DayHold: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Master, StringFormat=Master: {0}}"/>
 
                             </StackPanel>
                         </Grid>

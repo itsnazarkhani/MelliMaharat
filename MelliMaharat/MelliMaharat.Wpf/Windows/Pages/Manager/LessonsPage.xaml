@@ -26,20 +26,12 @@
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
-                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
+                        <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
-                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Age}" Tag="Age:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding IsAdmin}" Tag="Is Admin:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Name}" Tag="Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
+                    <custom:CustomTextBox InputText="{Binding Unit}" Tag="Unit:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Opacity="0.5" Tag="Id:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -95,7 +87,7 @@
 
                                 <Ellipse Style="{StaticResource ListBox_OuterEllipse}"/>
 
-                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="{StaticResource MasterIconBrush}"/>
+                                <Ellipse Style="{StaticResource ListBox_InnerEllipse}" Fill="WhiteSmoke"/>
 
                             </Grid>
 
@@ -103,18 +95,10 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}"
+                                           Text="{Binding Name}"/>
 
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="FirstName"/>
-                                            <Binding Path="LastName"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-
-                                </TextBlock>
-
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Unit: {0}}"/>
 
                             </StackPanel>
                         </Grid>
