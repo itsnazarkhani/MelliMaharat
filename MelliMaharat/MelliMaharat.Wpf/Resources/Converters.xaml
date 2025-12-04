@@ -8,5 +8,6 @@
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converters:BoolToColorConverter x:Key="BoolToColorConverter"/>
     <converters:BrushToColorConverter x:Key="BrushToColorConverter"/>
-
+    <converters:IsEnabledToOpacityConverter x:Key="IsEnabledToOpacityConverter"/>
+    
 </ResourceDictionary>

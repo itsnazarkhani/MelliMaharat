@@ -37,7 +37,7 @@
                     <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding PresentationId}" Tag="Presentation Id:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding StudentId}" Tag="Student Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Selection Id:" IsEnabled="False" Opacity="0.5" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Selection Id:" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>

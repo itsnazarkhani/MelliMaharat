@@ -31,7 +31,7 @@
 
                     <custom:CustomTextBox InputText="{Binding Name}" Tag="Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
                     <custom:CustomTextBox InputText="{Binding Unit}" Tag="Unit:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Opacity="0.5" Tag="Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Tag="Id:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>

@@ -39,7 +39,7 @@
                     <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding ElementName=Root, Path=DataContext}" Tag="Graduation:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Opacity="0.5" Tag="Role:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Tag="Role:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
