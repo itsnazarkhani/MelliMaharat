@@ -1,7 +1,6 @@
-﻿@model MelliMaharat.Models.Master
+﻿@model MelliMaharat.Web.ViewModels.Admin.AddMasterViewModel
 
 @{
-    // Define theme colors
     var primaryColor = "#004488"; // Deep Corporate Blue
     var secondaryColor = "#6c757d"; // Secondary Gray
     var textDark = "#212529";     // Dark text
@@ -11,11 +10,6 @@
 }
 
 <style>
-    body {
-        background-color: @backgroundColor;
-        font-family: Tahoma, Arial, sans-serif;
-    }
-
     .form-card {
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -82,63 +76,59 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10">
 
-            <!-- Main Header -->
-            <h3 class="main-header">
-                <i class="fas fa-chalkboard-teacher me-2"></i>
-                افزودن استاد جدید
-            </h3>
+            <h3 class="main-header"><i class="fas fa-chalkboard-teacher me-2"></i>افزودن استاد جدید</h3>
 
-            <!-- Form Card -->
             <form method="post" asp-controller="Admin" asp-action="AddMaster" class="form-card p-4 p-md-5">
 
-                <!-- ---------------------- PERSONAL INFORMATION ---------------------- -->
-                <h5 class="section-header">
-                    <i class="fas fa-user-circle me-1"></i> اطلاعات شخصی
-                </h5>
+                <!-- PERSONAL INFORMATION -->
+                <h5 class="section-header"><i class="fas fa-user-circle me-1"></i> اطلاعات شخصی</h5>
+
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <label class="form-label"><i class="fas fa-font me-1"></i> نام</label>
-                        <input name="person.FirstName" class="form-control" required placeholder="نام استاد" />
-                        <!-- Assuming Validation Messages are shown via ValidationSummary or Tag Helpers if available -->
+                        <label asp-for="FirstName" class="form-label"><i class="fas fa-font me-1"></i> نام</label>
+                        <input asp-for="FirstName" class="form-control" placeholder="نام استاد" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
-
                     <div class="col-md-6 mb-4">
-                        <label class="form-label"><i class="fas fa-signature me-1"></i> نام خانوادگی</label>
-                        <input name="person.LastName" class="form-control" required placeholder="نام خانوادگی استاد" />
+                        <label asp-for="LastName" class="form-label"><i class="fas fa-signature me-1"></i> نام خانوادگی</label>
+                        <input asp-for="LastName" class="form-control" placeholder="نام خانوادگی استاد" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-4">
-                        <label class="form-label"><i class="fas fa-calendar-alt me-1"></i> تاریخ تولد</label>
-                        <input name="person.BirthDate" type="date" class="form-control" required />
+                        <label asp-for="BirthDate" class="form-label"><i class="fas fa-calendar-alt me-1"></i> تاریخ تولد</label>
+                        <input asp-for="BirthDate" type="date" class="form-control" />
+                        <span asp-validation-for="BirthDate" class="text-danger"></span>
                     </div>
-
                     <div class="col-md-6 mb-4">
-                        <label class="form-label"><i class="fas fa-id-card me-1"></i> کد ملی</label>
-                        <input name="person.NationalCode" class="form-control" required placeholder="۰۱۲۳۴۵۶۷۸۹" />
+                        <label asp-for="NationalCode" class="form-label"><i class="fas fa-id-card me-1"></i> کد ملی</label>
+                        <input asp-for="NationalCode" class="form-control" placeholder="۰۱۲۳۴۵۶۷۸۹" />
+                        <span asp-validation-for="NationalCode" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label"><i class="fas fa-phone me-1"></i> شماره تماس</label>
-                    <input name="person.PhoneNumber" class="form-control" required placeholder="۰۹۱۲۳۴۵۶۷۸۹" />
+                    <label asp-for="PhoneNumber" class="form-label"><i class="fas fa-phone me-1"></i> شماره تماس</label>
+                    <input asp-for="PhoneNumber" class="form-control" placeholder="۰۹۱۲۳۴۵۶۷۸۹" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
-                <!-- ---------------------- MASTER INFORMATION ---------------------- -->
-                <h5 class="section-header">
-                    <i class="fas fa-graduation-cap me-1"></i> اطلاعات استاد
-                </h5>
+                <!-- MASTER INFORMATION -->
+                <h5 class="section-header"><i class="fas fa-graduation-cap me-1"></i> اطلاعات استاد</h5>
 
                 <div class="mb-4">
                     <label asp-for="Graduation" class="form-label"><i class="fas fa-book me-1"></i> رشته تحصیلی</label>
-                    <input asp-for="Graduation" class="form-control" required placeholder="مثال: مهندسی کامپیوتر" />
+                    <input asp-for="Graduation" class="form-control" placeholder="مثال: مهندسی کامپیوتر" />
+                    <span asp-validation-for="Graduation" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
                     <label asp-for="DepartmentId" class="form-label"><i class="fas fa-building me-1"></i> دانشکده</label>
-                    <select asp-for="DepartmentId" class="form-select" required>
+                    <select asp-for="DepartmentId" class="form-select">
                         <option value="">-- انتخاب دانشکده --</option>
                         @if (ViewBag.Departments != null)
                         {
@@ -148,19 +138,20 @@
                             }
                         }
                     </select>
+                    <span asp-validation-for="DepartmentId" class="text-danger"></span>
                 </div>
 
-                <!-- Action Buttons -->
+                <!-- ACTION BUTTONS -->
                 <div class="d-flex justify-content-end gap-3 mt-5">
-                    <a class="btn btn-secondary-styled px-4" asp-action="Masters">
-                        <i class="fas fa-arrow-right me-1"></i> بازگشت
-                    </a>
-                    <button type="submit" class="btn btn-primary-styled px-4">
-                        <i class="fas fa-save me-1"></i> ذخیره اطلاعات
-                    </button>
+                    <a class="btn btn-secondary-styled px-4" asp-action="Masters"><i class="fas fa-arrow-right me-1"></i> بازگشت</a>
+                    <button type="submit" class="btn btn-primary-styled px-4"><i class="fas fa-save me-1"></i> ذخیره اطلاعات</button>
                 </div>
-            </form>
 
+            </form>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
