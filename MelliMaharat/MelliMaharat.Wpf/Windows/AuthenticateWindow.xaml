@@ -86,29 +86,7 @@
                             Content="Sign In"
                             Style="{StaticResource SignInButton}"
                             Command="{Binding ElementName=Root, Path=DataContext.SignInCommand}"
-                            CommandParameter="{Binding ElementName=Root}">
-                        <!--<Button.Effect>
-                            <DropShadowEffect x:Name="btnSignInGlowAnimation"
-                                              BlurRadius="15"
-                                              ShadowDepth="0"
-                                              Opacity="0"
-                                              Color="{Binding ElementName=btnSignIn, Path=Background, Converter={StaticResource BrushToColorConverter}}"/>
-                        </Button.Effect>
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="MouseEnter">
-                                <BeginStoryboard Storyboard="{StaticResource btnSignInMouseEnterStoryBoard}"/>
-                            </EventTrigger>
-                            <EventTrigger RoutedEvent="MouseLeave">
-                                <BeginStoryboard Storyboard="{StaticResource btnSignInMouseLeaveStoryBoard}"/>
-                            </EventTrigger>
-                        </Button.Triggers>-->
-                    </Button>
-                    
-                    <!--<TextBlock x:Name="LoginFooter"
-                               Style="{StaticResource LoginWindowFooterTextBlock}">
-                        Don't Have An Account?
-                        <Hyperlink Command="{Binding ElementName=Root, Path=DataContext.SignUpCommand}">Sign Up</Hyperlink>
-                    </TextBlock>-->
+                            CommandParameter="{Binding ElementName=Root}"/>
 
                 </StackPanel>
 
