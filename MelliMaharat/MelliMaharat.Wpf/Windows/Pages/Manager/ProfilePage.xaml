@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows.Pages.Manager"
       xmlns:custom="clr-namespace:MelliMaharat.Wpf.Resources.UserControls"
       mc:Ignorable="d" 
-      d:DesignHeight="900" d:DesignWidth="593"
+      d:DesignHeight="1000" d:DesignWidth="593"
       Name="Root">
 
     <Grid Margin="15">
@@ -26,8 +26,8 @@
 
                 <DockPanel Margin="15">
                     <Grid DockPanel.Dock="Top">
-                        <Ellipse Height="110" Width="110" Margin="0 0 0 10" Fill="{StaticResource Deep Space Blue}"/>
-                        <Ellipse Height="100" Width="100" Margin="0 0 0 10" Fill="{StaticResource ManagerIconBrush}"/>
+                        <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
+                        <Ellipse Style="{StaticResource Profile_Inner_Ellipse}" Fill="{StaticResource ManagerIconBrush}"/>
                     </Grid>
                     <custom:CustomTextBox Tag="First Name:" Hint="Arthur" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox Tag="Last Name:" Hint="Nancy" DockPanel.Dock="Top"/>

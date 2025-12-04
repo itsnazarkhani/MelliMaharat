@@ -47,3 +47,7 @@
 	- for Manager: Person() 
 	- for Student: Student()
 	- for Master: Master()
+
+* Lessons Icon Missing
+* Presentations Icon Missing
+* Selectins Icon Missing

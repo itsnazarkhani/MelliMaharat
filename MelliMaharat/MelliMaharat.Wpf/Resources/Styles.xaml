@@ -444,16 +444,17 @@
     </Style>
 
     <!-- Ellipses -->
-    <Style TargetType="Ellipse" x:Key="Manager_MastersPage_Profile_Outer_Ellipse">
+    <Style TargetType="Ellipse" x:Key="Profile_Ellipse">
+        <Setter Property="Margin" Value="0 0 0 10" />
+    </Style>
+    <Style TargetType="Ellipse" x:Key="Profile_Outer_Ellipse" BasedOn="{StaticResource Profile_Ellipse}">
         <Setter Property="Height" Value="110" />
         <Setter Property="Width" Value="110" />
-        <Setter Property="Margin" Value="0 0 0 10" />
         <Setter Property="Fill" Value="{StaticResource Deep Space Blue}" />
     </Style>
-    <Style TargetType="Ellipse" x:Key="Manager_MastersPage_Profile_Inner_Ellipse">
+    <Style TargetType="Ellipse" x:Key="Profile_Inner_Ellipse" BasedOn="{StaticResource Profile_Ellipse}">
         <Setter Property="Height" Value="100" />
         <Setter Property="Width" Value="100" />
-        <Setter Property="Margin" Value="0 0 0 10" />
     </Style>
     <Style TargetType="Ellipse" x:Key="ListBox_Ellipse">
         <Setter Property="VerticalAlignment" Value="Center" />

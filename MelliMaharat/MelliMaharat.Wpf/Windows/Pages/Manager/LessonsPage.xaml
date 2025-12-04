@@ -25,8 +25,8 @@
                 <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
-                        <Ellipse Style="{StaticResource Manager_MastersPage_Profile_Outer_Ellipse}"/>
-                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Manager_MastersPage_Profile_Inner_Ellipse}"/>
+                        <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
+                        <Ellipse Fill="{StaticResource MasterIconBrush}" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
                     <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
@@ -42,10 +42,11 @@
                     <custom:CustomTextBox InputText="{Binding Role}" Tag="Role:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button DockPanel.Dock="Bottom" Content="Delete"/>
-                        <Button DockPanel.Dock="Bottom" Content="Add"/>
-                        <Button DockPanel.Dock="Bottom" Content="Update"/>
-                        <Button DockPanel.Dock="Bottom" Content="Change Picture"/>
+                        <Button Content="Delete"/>
+                        <Button Content="Add"/>
+                        <Button Content="Update"/>
+                        <Button Content="Change Picture"/>
+                        <Button Content="Clear"/>
                     </WrapPanel>
 
                 </DockPanel>
@@ -60,7 +61,7 @@
 
             <DockPanel Grid.Row="0">
 
-                <TextBlock Text="Masters"
+                <TextBlock Text="Lessons"
                            Style="{StaticResource PageDescriptorTextBlock}"
                            DockPanel.Dock="Left"/>
 
