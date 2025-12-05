@@ -5,5 +5,5 @@
 /// </summary>
 public partial class StudentWindow : Window
 {
-    public StudentWindow() => InitializeComponent();
+    public StudentWindow(Student? student) => InitializeComponent();
 }

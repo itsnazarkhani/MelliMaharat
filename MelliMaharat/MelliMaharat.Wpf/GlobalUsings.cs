@@ -1,5 +1,6 @@
 ﻿global using MelliMaharat.Models.Owned;
 global using MelliMaharat.Models;
+global using MelliMaharat.Models.Base;
 
 global using MelliMaharat.Dal.Repos;
 global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;
@@ -7,6 +8,8 @@ global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;
 global using MelliMaharat.Wpf.Commands;
 global using MelliMaharat.Wpf.Windows;
 global using MelliMaharat.Wpf.Windows.Dialogs;
+global using static MelliMaharat.Wpf.AppStaticMethods;
+
 
 global using static System.String;
 global using System.Windows;

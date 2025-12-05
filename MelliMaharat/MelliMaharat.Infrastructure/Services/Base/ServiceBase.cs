@@ -10,8 +10,7 @@ namespace MelliMaharat.Infrastructure.Services.Base
     {
         protected readonly IUnitOfWork unitOfWork;
 
-        public ServiceBase(
-            IUnitOfWork unitOfWork)
+        public ServiceBase(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }

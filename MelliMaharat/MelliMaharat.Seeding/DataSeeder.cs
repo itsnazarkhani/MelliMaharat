@@ -6,7 +6,7 @@ public static class DataSeeder
     {
         if (!await context.Users.AnyAsync())
         {
-            User admin = new User()
+            var admin = new User()
             {
                 PersonInformation = new MelliMaharat.Models.Owned.Person()
                 {

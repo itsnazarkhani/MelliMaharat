@@ -5,5 +5,5 @@
 /// </summary>
 public partial class ManagerWindow : Window
 {
-    public ManagerWindow() => InitializeComponent();
+    public ManagerWindow(User user) => InitializeComponent();
 }

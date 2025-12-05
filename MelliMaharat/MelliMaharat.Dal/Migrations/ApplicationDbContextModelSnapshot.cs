@@ -47,7 +47,7 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasIndex("SessionId")
                         .IsUnique();
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Department", b =>
@@ -71,7 +71,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Lesson", b =>
@@ -111,7 +111,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Lessons");
+                    b.ToTable("Lessons", (string)null);
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -157,7 +157,7 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Masters");
+                    b.ToTable("Masters", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Presentation", b =>
@@ -213,7 +213,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasIndex("MasterId");
 
-                    b.ToTable("Presentations");
+                    b.ToTable("Presentations", (string)null);
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -272,7 +272,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasIndex("TermId");
 
-                    b.ToTable("Selections");
+                    b.ToTable("Selections", (string)null);
 
                     b.ToTable(tb => tb.IsTemporal(ttb =>
                             {
@@ -311,7 +311,7 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasIndex("SelectionId")
                         .IsUnique();
 
-                    b.ToTable("SelectionFeedbacks");
+                    b.ToTable("SelectionFeedbacks", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.SelectionTime", b =>
@@ -341,7 +341,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasIndex("TermId");
 
-                    b.ToTable("SelectionTimes");
+                    b.ToTable("SelectionTimes", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Session", b =>
@@ -368,7 +368,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasIndex("SelectionId");
 
-                    b.ToTable("Sessions");
+                    b.ToTable("Sessions", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Student", b =>
@@ -393,7 +393,7 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Term", b =>
@@ -424,7 +424,7 @@ namespace MelliMaharat.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Terms");
+                    b.ToTable("Terms", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.User", b =>
@@ -466,7 +466,7 @@ namespace MelliMaharat.Dal.Migrations
                     b.HasIndex("Username")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("MelliMaharat.Models.Views.LessonInformationView", b =>
@@ -678,7 +678,7 @@ namespace MelliMaharat.Dal.Migrations
 
                             b1.HasKey("UserId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Users", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("UserId");

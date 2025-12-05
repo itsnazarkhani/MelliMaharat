@@ -22,10 +22,7 @@ public partial class App : Application
         }
 
         base.OnStartup(e);
-        string userMode = (e.Args.Length > 0 && e.Args[0].Equals("admin", StringComparison.OrdinalIgnoreCase))
-                              ? "admin" 
-                              : "guest";
 
-        Current.Properties["user_mode"] = userMode;
+        GodMode = (e.Args.Length > 0 && e.Args[0].Equals("admin", StringComparison.OrdinalIgnoreCase));
     }
 }

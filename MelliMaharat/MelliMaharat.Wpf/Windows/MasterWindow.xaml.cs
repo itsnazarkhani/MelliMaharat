@@ -5,5 +5,5 @@
 /// </summary>
 public partial class MasterWindow : Window
 {
-    public MasterWindow() => InitializeComponent();
+    public MasterWindow(Master? master) => InitializeComponent();
 }
