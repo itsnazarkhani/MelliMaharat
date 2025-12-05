@@ -71,18 +71,18 @@ public class AuthenticateWindowVM : BaseVM<User>
             return;
         }
 
-        if (isStudent && studentRepo.IsPasswordMatch(Username, Password))
-        {
-            Application.Current.Properties[roleKey] = "student";
-            Student currentUser = new StudentRepo().GetAll().Where(x => x.PersonInformation.Username == Username).Single();
-            Application.Current.Properties["current_user"] = currentUser;
-        }
-        else if (isMaster && masterRepo.IsPasswordMatch(Username, Password))
-        {
-            Application.Current.Properties[roleKey] = "master";
-            Master currentUser = new MasterRepo().GetAll().Where(x => x.PersonInformation.Username == Username).Single();
-            Application.Current.Properties["current_user"] = currentUser;
-        }
+        //if (isStudent && studentRepo.IsPasswordMatch(Username, Password))
+        //{
+        //    Application.Current.Properties[roleKey] = "student";
+        //    Student currentUser = new StudentRepo().GetAll().Where(x => x.PersonInformation.Username == Username).Single();
+        //    Application.Current.Properties["current_user"] = currentUser;
+        //}
+        //else if (isMaster && masterRepo.IsPasswordMatch(Username, Password))
+        //{
+        //    Application.Current.Properties[roleKey] = "master";
+        //    Master currentUser = new MasterRepo().GetAll().Where(x => x.PersonInformation.Username == Username).Single();
+        //    Application.Current.Properties["current_user"] = currentUser;
+        //}
         //else if (isManager && managerRepo.IsPasswordMatch(Username, Password))
         //{
         //    Application.Current.Properties[roleKey] = "manager";
@@ -90,17 +90,18 @@ public class AuthenticateWindowVM : BaseVM<User>
         //    Application.Current.Properties["current_user"] = currentUser;
         //}
 
-        if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master" or "manager"))
-        {
-            case UserRoles.Student:
-                Application.Current.Properties[roleKey] = "student";
-                break;
-            case UserRoles.Master:
-                Application.Current.Properties[roleKey] = "master";
-                break;
-        }
-        else
-            Show("Password doesn't match.", "Try again!");
+        //if (Application.Current.Properties[roleKey] is string role && (role is "student" or "master" or "manager"))
+        //{
+        //    switch()
+        //    case UserRoles.Student:
+        //        Application.Current.Properties[roleKey] = "student";
+        //        break;
+        //    case UserRoles.Master:
+        //        Application.Current.Properties[roleKey] = "master";
+        //        break;
+        //}
+        //else
+        //    Show("Password doesn't match.", "Try again!");
     }
 
     private CommandRelay? signUpCommand;
