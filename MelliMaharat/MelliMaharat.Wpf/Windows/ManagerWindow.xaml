@@ -43,8 +43,9 @@
         <Border Grid.Column="1"
                 Style="{StaticResource MenuBorder}">
 
-            <Frame Name="MainFrame"
-                       Source="Pages/Manager/MastersPage.xaml"/>
+            <Frame Name="MainFrame"/>
+            
+                       <!--Source="Pages/Manager/ProfilePage.xaml"-->
 
         </Border>
 

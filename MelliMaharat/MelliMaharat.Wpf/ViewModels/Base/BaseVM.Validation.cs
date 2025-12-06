@@ -92,12 +92,24 @@ public partial class BaseVM<TModel> : BaseVM
         var context = new ValidationContext(instance) { MemberName = propertyName };
         var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
         var value = instance.GetType().GetProperty(propertyName)?.GetValue(instance);
-        bool isValid = TryValidateProperty(value, context, results);
-
-        if (!isValid)
+        bool isValid = default;
+        try
         {
-            _errors[propertyName] = [.. results.Select(x => x.ErrorMessage ?? Empty)];
+            isValid = TryValidateProperty(value, context, results);
+        }
+        catch (Exception ex)
+        {
+            _errors[propertyName] = [ex.Message];
             OnErrorsChanged(propertyName);
+            isValid = true;
+        }
+        finally
+        {
+            if (!isValid)
+            {
+                _errors[propertyName] = [.. results.Select(x => x.ErrorMessage ?? Empty)];
+                OnErrorsChanged(propertyName);
+            }
         }
     }
 

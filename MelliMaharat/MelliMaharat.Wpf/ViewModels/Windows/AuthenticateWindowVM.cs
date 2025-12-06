@@ -1,11 +1,4 @@
-﻿using MelliMaharat.Dal.DbContexts;
-using MelliMaharat.Dal.UnitOfWork;
-using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
-using MelliMaharat.Infrastructure.Services;
-using MelliMaharat.Models.Enums;
-using MelliMaharat.UseCases.ViewResult;
-using System.Threading.Channels;
-
+﻿
 namespace MelliMaharat.Wpf.ViewModels.Windows;
 
 public class AuthenticateWindowVM : BaseVM<User>
@@ -83,22 +76,18 @@ public class AuthenticateWindowVM : BaseVM<User>
                 CurrentUser = unitOfWork.Students.GetAll().Where(x => x.User.Username == Username).First();
                 new StudentWindow((Student)CurrentUser).Show();
                 break;
-
             case UserRoles.Master:
                 CurrentUser = unitOfWork.Masters.GetAll().Where(x => x.User.Username == Username).First();
                 new MasterWindow((Master)CurrentUser).Show();
                 break;
-
             case UserRoles.Admin:
                 CurrentUser = unitOfWork.Users.GetAll().Where(x => x.Username == Username).First();
                 new ManagerWindow((User)CurrentUser).Show();
                 break;
-
             default:
                 Show("This User Role Is Undefined!");
                 return;
         }
-        
         parameter.Close();
     }
     #endregion

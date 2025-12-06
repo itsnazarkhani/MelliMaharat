@@ -1,8 +1,4 @@
-﻿using MelliMaharat.Models.Enums;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.EntityFrameworkCore;
-
-namespace MelliMaharat.Models.Owned;
+﻿namespace MelliMaharat.Models.Owned;
 
 [Owned]
 public class Person
