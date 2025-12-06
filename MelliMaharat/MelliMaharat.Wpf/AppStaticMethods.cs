@@ -28,7 +28,7 @@ static class AppStaticMethods
     static object GetProperty(string property)
     {
         var variable = Application.Current.Properties[property];
-        return variable is null ? throw new ArgumentNullException($"there is no Property Named {property} in Application!") : variable;
+        return variable is null ? throw new ArgumentNullException($"there is no Property Named [{property}] in Application!") : variable;
     }
     static void SetProperty(string property, object value)
     {

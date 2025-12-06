@@ -3,6 +3,7 @@ using MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services;
 using MelliMaharat.Models.Enums;
+using MelliMaharat.UseCases.ViewResult;
 using System.Threading.Channels;
 
 namespace MelliMaharat.Wpf.ViewModels.Windows;
@@ -49,16 +50,17 @@ public class AuthenticateWindowVM : BaseVM<User>
     private CommandRelay<Window>? signInCommand = null;
     public CommandRelay<Window> SignInCommand => signInCommand ??= new CommandRelay<Window>(SignIn, CanSignIn);
     bool CanSignIn(Window? parameter) => !HasErrors && !IsNullOrEmpty(Password) && !IsNullOrEmpty(Username);
-    void SignIn(Window parameter)
+    async void SignIn(Window parameter)
     {
         CurrentUserRole = UserRoles.None;
         CurrentUser = new();
 
-        var unitOfWork = new UnitOfWork(new ApplicationDbContext());
+        var unitOfWork = new UnitOfWork(new ApplicationDbContextFactory().CreateDbContext());
         var authService = new AuthService(unitOfWork);
 
 
-        var authResult = authService.LoginAsync(Username, Password).GetAwaiter().GetResult();
+        //AuthResult authResult = authResultTask.GetAwaiter().GetResult();
+        var authResult = await authService.LoginAsync(Username, Password);
         
         // if user credentials wrong
         if (!authResult.IsSuccess)
@@ -78,17 +80,17 @@ public class AuthenticateWindowVM : BaseVM<User>
         switch (CurrentUserRole)
         {
             case UserRoles.Student:
-                CurrentUser = unitOfWork.Students.GetAll().Where(x => x.User.Username == Username);
+                CurrentUser = unitOfWork.Students.GetAll().Where(x => x.User.Username == Username).First();
                 new StudentWindow((Student)CurrentUser).Show();
                 break;
 
             case UserRoles.Master:
-                CurrentUser = unitOfWork.Masters.GetAll().Where(x => x.User.Username == Username);
+                CurrentUser = unitOfWork.Masters.GetAll().Where(x => x.User.Username == Username).First();
                 new MasterWindow((Master)CurrentUser).Show();
                 break;
 
             case UserRoles.Admin:
-                CurrentUser = unitOfWork.Users.GetAll().Where(x => x.Username == Username);
+                CurrentUser = unitOfWork.Users.GetAll().Where(x => x.Username == Username).First();
                 new ManagerWindow((User)CurrentUser).Show();
                 break;
 

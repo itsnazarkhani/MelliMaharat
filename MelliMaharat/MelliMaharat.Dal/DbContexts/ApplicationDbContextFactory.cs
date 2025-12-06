@@ -2,7 +2,7 @@
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    IConfigurationRoot configFile = new ConfigurationBuilder()
+    readonly IConfigurationRoot configFile = new ConfigurationBuilder()
                                             .SetBasePath(GetCurrentDirectory())
                                             .AddJsonFile("appsettings.configuration.json", true, true)
                                             .Build();
