@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MelliMaharat.Wpf.Windows"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Style="{StaticResource ManagerWindowStyle}">
+        Style="{StaticResource ManagerWindowStyle}"
+        Name="Root">
 
 
     <Grid>
@@ -22,36 +23,24 @@
             
             <Separator Opacity="0.5"/>
             
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="ProfileRadioButton"
-                         Content="Profile"
+            <RadioButton Content="Profile"
                          IsChecked="True"
-                         Checked="ProfileRadioButton_Checked"/>
+                         Command="{Binding ProfileCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="MastersRadioButton"
-                         Content="Masters"
-                         Checked="MastersRadioButton_Checked"/>
+            <RadioButton Content="Masters"
+                         Command="{Binding MastersCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="StudentsRadioButton"
-                         Content="Students"
-                         Checked="StudentsRadioButton_Checked"/>
+            <RadioButton Content="Students"
+                         Command="{Binding StudentsCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="LessonsRadioButton"
-                         Content="Lessons"
-                         Checked="LessonsRadioButton_Checked"/>
+            <RadioButton Content="Lessons"
+                         Command="{Binding LessonsCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="PresentationsRadioButton"
-                         Content="Presentations"
-                         Checked="PresentationsRadioButton_Checked"/>
+            <RadioButton Content="Presentations"
+                         Command="{Binding PresentationsCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Name="SelectionsRadioButton"
-                         Content="Selections"
-                         Checked="SelectionsRadioButton_Checked"/>
+            <RadioButton Content="Selections"
+                         Command="{Binding SelectionsCommand}"/>
 
         </StackPanel>
 

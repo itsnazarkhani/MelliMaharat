@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages;
-
-namespace MelliMaharat.Wpf.ViewModels.Windows;
+﻿namespace MelliMaharat.Wpf.ViewModels.Windows;
 
 class ManagerWindowVM : BaseVM<User>
 {
@@ -10,19 +8,21 @@ class ManagerWindowVM : BaseVM<User>
     readonly LessonsPageVM _lessonsPageVM = new();
     readonly PresentationsPageVM _presentationsPageVM = new();
     readonly SelectionsPageVM _selectionsPageVM = new();
-    public Frame _frame;
+    readonly Frame _frame;
+
+    public CommandRelay ProfileCommand => new(() => _frame.Navigate(new ProfilePage(_profilePageVM)));
+    public CommandRelay MastersCommand => new(() => _frame.Navigate(new MastersPage(_mastersPageVM)));
+    public CommandRelay StudentsCommand => new(() => _frame.Navigate(new StudentsPage(_studentsPageVM)));
+    public CommandRelay LessonsCommand => new(() => _frame.Navigate(new LessonsPage(_lessonsPageVM)));
+    public CommandRelay PresentationsCommand => new(() => _frame.Navigate(new PresentationsPage(_presentationsPageVM)));
+    public CommandRelay SelectionsCommand => new(() => _frame.Navigate(new SelectionsPage(_selectionsPageVM)));
 
     public ManagerWindowVM(User user, Frame frame)
     {
         Model = user;
         _profilePageVM = new ProfilePageVM(user);
         _frame = frame;
-    }
 
-    //CommandRelay ProfileRadioButton = new CommandRelay(execute: () => _frame.Navigate(new ProfilePage(_profilePageVM)));
-    //CommandRelay MastersRadioButton = new CommandRelay();
-    //CommandRelay StudentsRadioButton = new CommandRelay();
-    //CommandRelay LessonsRadioButton = new CommandRelay();
-    //CommandRelay PresentationsRadioButton = new CommandRelay();
-    //CommandRelay SelectionsRadioButton = new CommandRelay();
+        _frame.Navigate(new ProfilePage(_profilePageVM));
+    }
 }

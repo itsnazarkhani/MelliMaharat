@@ -23,14 +23,15 @@
             
             <Separator Opacity="0.5"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Profile" IsChecked="True"/>
+            <RadioButton Content="Profile"
+                         IsChecked="True"
+                         Command="{Binding ProfileCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Presentations"/>
+            <RadioButton Content="Presentations"
+                         Command="{Binding PresentationsCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Selections"/>
+            <RadioButton Content="Selections"
+                         Command="{Binding SelectionsCommand}"/>
 
         </StackPanel>
 

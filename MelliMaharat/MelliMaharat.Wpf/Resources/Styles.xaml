@@ -354,7 +354,7 @@
     </Style>
 
     <!-- Radio Buttons -->
-    <Style TargetType="RadioButton" x:Key="MenuItemRadioButton">
+    <Style TargetType="RadioButton">
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="VerticalAlignment" Value="Top"/>
         <Setter Property="Margin" Value="0 10" />

@@ -22,15 +22,18 @@
 
             <Separator Opacity="0.5"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Content="Profile"
-                         IsChecked="True"/>
+            <RadioButton Content="Profile"
+                         IsChecked="True"
+                         Command="{Binding ProfileCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Content="Lessons"/>
+            <RadioButton Content="Lessons"
+                         Command="{Binding LessonsCommand}"/>
 
-            <RadioButton Style="{StaticResource MenuItemRadioButton}"
-                         Content="Presentations"/>
+            <RadioButton Content="Presentations"
+                         Command="{Binding PresentationsCommand}"/>
+            
+            <RadioButton Content="Students"
+                         Command="{Binding StudentsCommand}"/>
 
         </StackPanel>
 
@@ -39,7 +42,7 @@
                 Style="{StaticResource MenuBorder}">
 
             <Frame Name="MainFrame"
-                   Source="Pages/Student/ProfilePage.xaml"/>
+                   NavigationUIVisibility="Hidden"/>
 
         </Border>
 
