@@ -22,7 +22,7 @@ public partial class ManagerWindow : Window
     public ManagerWindow(User user)
     {
         InitializeComponent();
-        _vm = new ManagerWindowVM(user);
+        _vm = new ManagerWindowVM(user, MainFrame);
         DataContext = _vm;
         _profilePageVM = new ProfilePageVM(user);
 

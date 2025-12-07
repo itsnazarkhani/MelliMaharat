@@ -1,9 +1,15 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Student;
+﻿using MelliMaharat.Wpf.ViewModels.Pages;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Student;
 
 /// <summary>
 /// Interaction logic for ProfilePage.xaml
 /// </summary>
 public partial class ProfilePage : Page
 {
-    public ProfilePage() => InitializeComponent();
+    public ProfilePage(ProfilePageVM vm)
+    {
+        InitializeComponent();
+        DataContext = vm;
+    }
 }
