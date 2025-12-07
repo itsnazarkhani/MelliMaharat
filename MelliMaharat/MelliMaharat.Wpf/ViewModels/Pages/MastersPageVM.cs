@@ -1,5 +1,9 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
 
-class MastersPageVM : BaseVM
+public class MastersPageVM : BaseVM
 {
+    public MastersPageVM()
+    {
+        
+    }
 }

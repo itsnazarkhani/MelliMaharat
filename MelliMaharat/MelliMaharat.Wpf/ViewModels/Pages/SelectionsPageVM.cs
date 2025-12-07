@@ -1,5 +1,5 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
 
-class SelectionsPageVM : BaseVM
+public class SelectionsPageVM : BaseVM
 {
 }

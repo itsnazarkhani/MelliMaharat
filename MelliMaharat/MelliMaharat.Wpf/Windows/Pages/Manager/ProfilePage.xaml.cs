@@ -7,9 +7,14 @@ namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 /// </summary>
 public partial class ProfilePage : Page
 {
-    public ProfilePage(User user)
+    //public ProfilePage(User user)
+    //{
+    //    InitializeComponent();
+    //    DataContext = new ProfilePageVM(user);
+    //}
+    public ProfilePage(ProfilePageVM vm)
     {
         InitializeComponent();
-        DataContext = new ProfilePageVM(user);
+        DataContext = vm;
     }
 }

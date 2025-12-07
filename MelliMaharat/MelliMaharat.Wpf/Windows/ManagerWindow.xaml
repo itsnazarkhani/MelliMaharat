@@ -19,34 +19,47 @@
                     Margin="15 30">
 
             <Label Style="{StaticResource LogoLabel}" DockPanel.Dock="Top"/>
+            
             <Separator Opacity="0.5"/>
+            
             <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Profile" IsChecked="True"/>
+                         Name="ProfileRadioButton"
+                         Content="Profile"
+                         IsChecked="True"
+                         Checked="ProfileRadioButton_Checked"/>
 
-                <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Masters"/>
+            <RadioButton Style="{StaticResource MenuItemRadioButton}"
+                         Name="MastersRadioButton"
+                         Content="Masters"
+                         Checked="MastersRadioButton_Checked"/>
 
-                <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Students"/>
+            <RadioButton Style="{StaticResource MenuItemRadioButton}"
+                         Name="StudentsRadioButton"
+                         Content="Students"
+                         Checked="StudentsRadioButton_Checked"/>
 
-                <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Lessons"/>
+            <RadioButton Style="{StaticResource MenuItemRadioButton}"
+                         Name="LessonsRadioButton"
+                         Content="Lessons"
+                         Checked="LessonsRadioButton_Checked"/>
 
-                <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Presentations"/>
+            <RadioButton Style="{StaticResource MenuItemRadioButton}"
+                         Name="PresentationsRadioButton"
+                         Content="Presentations"
+                         Checked="PresentationsRadioButton_Checked"/>
 
-                <RadioButton Style="{StaticResource MenuItemRadioButton}"
-             Content="Selections"/>
+            <RadioButton Style="{StaticResource MenuItemRadioButton}"
+                         Name="SelectionsRadioButton"
+                         Content="Selections"
+                         Checked="SelectionsRadioButton_Checked"/>
 
         </StackPanel>
 
         <Border Grid.Column="1"
                 Style="{StaticResource MenuBorder}">
 
-            <Frame Name="MainFrame"/>
+            <Frame Name="MainFrame" NavigationUIVisibility="Hidden"/>
             
-                       <!--Source="Pages/Manager/ProfilePage.xaml"-->
-
         </Border>
 
     </Grid>

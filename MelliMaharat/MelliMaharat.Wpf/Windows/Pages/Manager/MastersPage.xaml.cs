@@ -1,17 +1,22 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿using MelliMaharat.Wpf.ViewModels.Pages;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for MastersPage.xaml
 /// </summary>
 public partial class MastersPage : Page
 {
-    List<Models.Master>? Masters { get; set; } = [];
-    List<Person> Persons { get; set; } = [];
-    Models.Master? Master { get; set; }
-    ICollectionView? View { get; set; } = default;
-    string Graduation { get; set; } = "Doctorate";
-    public MastersPage()
+    //List<Models.Master>? Masters { get; set; } = [];
+    //List<Person> Persons { get; set; } = [];
+    //Models.Master? Master { get; set; }
+    //ICollectionView? View { get; set; } = default;
+    //string Graduation { get; set; } = "Doctorate";
+    public MastersPage(MastersPageVM vm)
     {
+        InitializeComponent();
+        DataContext = vm;
+
         //new MasterRepo().GetAll().ToList().ForEach(x => Masters?.Add(x));
         //Masters.ForEach(x => Persons.Add(x.PersonInformation));
         //InitializeComponent();

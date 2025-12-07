@@ -1,9 +1,15 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿using MelliMaharat.Wpf.ViewModels.Pages;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for StudentsPage.xaml
 /// </summary>
 public partial class StudentsPage : Page
 {
-    public StudentsPage() => InitializeComponent();
+    public StudentsPage(StudentsPageVM vm)
+    {
+        InitializeComponent();
+        DataContext = vm;
+    }
 }

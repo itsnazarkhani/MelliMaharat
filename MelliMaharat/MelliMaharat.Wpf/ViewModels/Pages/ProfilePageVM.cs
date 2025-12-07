@@ -1,6 +1,6 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
 
-class ProfilePageVM : BaseVM<User>
+public class ProfilePageVM : BaseVM<User>
 {
     #region Constructors
     public ProfilePageVM() : base() { }

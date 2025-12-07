@@ -1,5 +1,5 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
 
-class PresentationsPageVM : BaseVM
+public class PresentationsPageVM : BaseVM
 {
 }
