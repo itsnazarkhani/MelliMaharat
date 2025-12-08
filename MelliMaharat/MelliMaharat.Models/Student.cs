@@ -7,5 +7,6 @@ public class Student : BaseEntity
 
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
+    [Required]
     public Guid UserId { get; set; }
 }

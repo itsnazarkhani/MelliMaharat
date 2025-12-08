@@ -6,4 +6,5 @@ global using System.ComponentModel.DataAnnotations.Schema;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using MelliMaharat.Models.Configurations;
 global using MelliMaharat.Models.Views;
+global using MelliMaharat.Models.Enums;
 global using MelliMaharat.Models.Interfaces;

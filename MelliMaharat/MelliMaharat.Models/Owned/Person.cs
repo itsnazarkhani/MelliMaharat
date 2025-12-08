@@ -3,19 +3,18 @@
 [Owned]
 public class Person
 {
-    [Required(ErrorMessage = "لطفاً نام را وارد کنید.")]
+    [Required]
     public string FirstName { get; set; }
 
-    [Required(ErrorMessage = "لطفاً نام خانوادگی را وارد کنید.")]
-    [StringLength(50, ErrorMessage = "نام خانوادگی نمی‌تواند بیشتر از ۵۰ کاراکتر باشد.")]
+    [Required, StringLength(50)]
     public string LastName { get; set; }
 
-    [Required(ErrorMessage = "لطفاً تاریخ تولد را وارد کنید.")]
+    [Required]
     public DateOnly BirthDate { get; set; }
 
-    [StringLength(10, ErrorMessage = "کد ملی نمی‌تواند بیشتر از ۱۰ رقم باشد.")]
+    [StringLength(10)]
     public string NationalCode { get; set; }
 
-    [StringLength(11, ErrorMessage = "شماره تلفن نمی‌تواند بیشتر از ۱۱ رقم باشد.")]
+    [StringLength(11)]
     public string PhoneNumber { get; set; }
 }

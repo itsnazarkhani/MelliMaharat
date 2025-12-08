@@ -1,23 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-
-namespace MelliMaharat.Models;
+﻿namespace MelliMaharat.Models;
 
 [EntityTypeConfiguration(typeof(LessonConfiguration))]
 public class Lesson : BaseEntity
 {
-    [Required(ErrorMessage = "لطفاً نام درس را وارد کنید.")]
-    [StringLength(50, ErrorMessage = "نام درس نمی‌تواند بیشتر از ۵۰ کاراکتر باشد.")]
+    [Required, StringLength(50)]
     public string Name { get; set; }
 
-    [Required(ErrorMessage = "لطفاً تعداد واحد را وارد کنید.")]
-    [Range(1, 10, ErrorMessage = "تعداد واحد باید بین ۱ تا ۱۰ باشد.")]
+    [Required, Range(1, 10)]
     public int Unit { get; set; }
 
-    [Required(ErrorMessage = "لطفاً کد درس را وارد کنید.")]
+    [Required]
     public int Code { get; set; }
 
     [InverseProperty(nameof(Presentation.Lesson))]

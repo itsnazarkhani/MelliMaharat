@@ -1,29 +1,20 @@
-﻿using MelliMaharat.Models.Enums;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-
-namespace MelliMaharat.Models
+﻿namespace MelliMaharat.Models
 {
     [EntityTypeConfiguration(typeof(UserConfiguration))]
     public class User : BaseEntity
     {
         public Person PersonInformation { get; set; } = new Person();
 
-        [Required(ErrorMessage = "لطفاً نام کاربری را وارد کنید.")]
-        [StringLength(50, ErrorMessage = "نام کاربری نمی‌تواند بیشتر از ۵۰ کاراکتر باشد.")]
+        [Required, StringLength(50)]
         public string Username { get; set; }
 
-        [EmailAddress(ErrorMessage = "ایمیل وارد شده معتبر نیست.")]
+        [EmailAddress]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "لطفاً رمز عبور را وارد کنید.")]
-        [MaxLength(120, ErrorMessage = "رمز عبور نمی‌تواند بیشتر از ۱۲۰ کاراکتر باشد.")]
+        [Required, MaxLength(120)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "لطفاً نقش کاربر را انتخاب کنید.")]
+        [Required]
         public UserRoles Role { get; set; }
 
         public Guid AvatarId { get; set; } = Guid.Empty;
