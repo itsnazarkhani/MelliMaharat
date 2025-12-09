@@ -1,5 +1,4 @@
-﻿
-namespace MelliMaharat.Wpf.ViewModels.Windows;
+﻿namespace MelliMaharat.Wpf.ViewModels.Windows;
 
 public class AuthenticateWindowVM : BaseVM<User>
 {

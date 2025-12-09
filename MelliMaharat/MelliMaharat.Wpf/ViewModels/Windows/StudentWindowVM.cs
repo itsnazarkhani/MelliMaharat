@@ -2,7 +2,7 @@
 
 class StudentWindowVM : BaseVM
 {
-    readonly Student _student;
+    readonly Student? _student;
     readonly Frame _frame;
     readonly PresentationsPageVM _presentationsPageVM = new();
     readonly ProfilePageVM _profilePageVM = new();
@@ -16,5 +16,6 @@ class StudentWindowVM : BaseVM
     {
         _student = student;
         _frame = frame;
+        _frame.Navigate(new ProfilePage(_profilePageVM));
     }
 }
