@@ -3,7 +3,7 @@
 public class BaseTest : IDisposable
 {
     protected readonly ApplicationDbContext _context;
-    IDbContextTransaction _transaction;
+    readonly IDbContextTransaction _transaction;
 
     public BaseTest()
     {

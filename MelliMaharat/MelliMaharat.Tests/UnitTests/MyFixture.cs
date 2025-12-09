@@ -2,5 +2,9 @@
 
 public class MyFixture
 {
-    public MyFixture() => ApplicationDbContext.FactoryMigrate();
+    public MyFixture()
+    {   
+        ApplicationDbContext.FactoryDelete();
+        ApplicationDbContext.FactoryMigrate();
+    }
 }

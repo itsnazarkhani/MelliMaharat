@@ -1,18 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿namespace MelliMaharat.Models;
 
-namespace MelliMaharat.Models
+public class Attendance : BaseEntity
 {
-    public class Attendance : BaseEntity
-    {
-        public bool HasAttended { get; set; } = true;
+    public bool HasAttended { get; set; } = true;
 
-        [Required(ErrorMessage = "جلسه الزامی است.")]
-        [ForeignKey(nameof(SessionId))]
-        public Session Session { get; set; }
+    [Required(ErrorMessage = "جلسه الزامی است.")]
+    [ForeignKey(nameof(SessionId))]
+    public Session Session { get; set; }
 
-        [Required(ErrorMessage = "شناسه جلسه الزامی است.")]
-        public Guid SessionId { get; set; }
-    }
+    [Required(ErrorMessage = "شناسه جلسه الزامی است.")]
+    public Guid SessionId { get; set; }
 }

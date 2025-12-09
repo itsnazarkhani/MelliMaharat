@@ -1,3 +1,4 @@
+# WPF
 * i think is better to Create and Use Custom **List-View** or **Grid-View** for representing Each Entity as Graphical Card, that is, each item has its own default picture/sticker
 	1. Student Picture
 	2. Master Picture
@@ -51,3 +52,18 @@
 * Lessons Icon Missing
 * Presentations Icon Missing
 * Selectins Icon Missing
+
+---
+# Data Seeder
+* Fall Semster
+	* Starts in Sept 20
+	* Ends in Jan 8
+	* Exam date Jan 15 - Jan 31
+* Spring Semster
+	* Starts in Feb 14
+	* Ends in June 18
+	* Exam date Jun 24 - July 9
+* Summer (optional)
+	* Starts in July 10
+	* Ends in Aug 30
+	* Exam date Sept 1 - Sept 7
