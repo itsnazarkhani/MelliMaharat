@@ -6,31 +6,34 @@ public class InitializeDatabase : IClassFixture<MyFixture>
     public async Task IsDatabaseCreated()
     {
         ApplicationDbContext context = new ApplicationDbContextFactory().CreateDbContext();
-        
-        await SeedAsync(context);
+        if (context.Create())
+        {
+            context.Migrate();
+            await SeedAsync(context);
+        }
 
-        var _admin = context.Users.SingleOrDefaultAsync(x => x.Username == "admin");
+        var _admin = await context.Users.SingleOrDefaultAsync(x => x.Username == "admin");
         Assert.NotNull(_admin);
 
-        var studentsCount = context.Students.Count();
+        var studentsCount = await context.Students.CountAsync();
         Assert.NotEqual(0, studentsCount);
 
-        var mastersCount = context.Masters.Count();
+        var mastersCount = await context.Masters.CountAsync();
         Assert.NotEqual(0, mastersCount);
 
-        var departmentCount = context.Departments.Count();
+        var departmentCount = await context.Departments.CountAsync();
         Assert.NotEqual(0, departmentCount);
 
-        var lessonsCount = context.Lessons.Count();
+        var lessonsCount = await context.Lessons.CountAsync();
         Assert.NotEqual(0, lessonsCount);
 
-        var presentationCount = context.Presentations.Count();
+        var presentationCount = await context.Presentations.CountAsync();
         Assert.NotEqual(0, presentationCount);
 
-        var selectionsCount = context.Selections.Count();
+        var selectionsCount = await context.Selections.CountAsync();
         Assert.NotEqual(0, selectionsCount);
 
-        var termsCount = context.Terms.Count();
+        var termsCount = await context.Terms.CountAsync();
         Assert.NotEqual(0, termsCount);
     }
 }

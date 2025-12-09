@@ -5,3 +5,4 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Storage;
 global using MelliMaharat.Models.Owned;
 global using static MelliMaharat.Seeding.DataSeeder;
+global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;

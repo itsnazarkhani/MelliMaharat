@@ -46,6 +46,7 @@ public class ApplicationDbContext : DbContext
     public void Migrate() => Database.Migrate();
     public bool Delete() => Database.EnsureDeleted();
     public static void FactoryMigrate() => new ApplicationDbContextFactory().CreateDbContext().Migrate();
-    public static void FactoryDelete() => new ApplicationDbContextFactory().CreateDbContext().Delete();
+    public static bool FactoryDelete() => new ApplicationDbContextFactory().CreateDbContext().Delete();
+    public static bool FactoryCreate() => new ApplicationDbContextFactory().CreateDbContext().Create();
     #endregion
 }
