@@ -4,7 +4,7 @@ static class StaticMethods
 {
     internal static readonly DateOnly _start_Date_Student = new(2004, 1, 1);
     internal static readonly DateOnly _start_Date_Master = new(2002, 1, 1);
-    internal static readonly IEnumerable<Lesson> _lessons =
+    internal static readonly List<Lesson> _lessons =
     [
         new() {Name = "Circuit Theory I",            Unit = 1, Code = 101},
         new() {Name = "Electromagnetics I",          Unit = 2, Code = 102},
@@ -57,7 +57,8 @@ static class StaticMethods
         Name = Departments.CSE
     };
     internal static readonly List<Departments> _departmentsEnum = [.. Enum.GetValues<Departments>()];
-    internal static readonly List<Department> _departments = [.. _departmentsEnum.Select(x => new Department() { Name = x})];
+    internal static readonly List<Department> _departments = [.. _departmentsEnum.Select(x => new Department() { Name = x })];
+    
     internal static Faker<Models.Owned.Person> PersonFakerGenerator(DateOnly birthDateFrom, string locale)
     {
         return new Faker<Models.Owned.Person>(locale)
@@ -109,20 +110,52 @@ static class StaticMethods
                                           .RuleFor(x => x.ExamStartTime, f => f.Date.BetweenTimeOnly(new(8, 0), new(15, 0)))
                                           .RuleFor(x => x.Master, f => MasterFakerGenerator(locale).Generate());
     }
-    internal static Faker<Term> TermFakerGenerator(string locale)
+    internal static Faker<Term> TermFakerGenerator(string locale, TermType termType)
     {
-        return new Faker<Term>().RuleFor(x => x.Year, f => f.Random.Int(2026, 2030))
-                                 .RuleFor(x => x.Type, f => f.PickRandom<TermType>())
-                                 .RuleFor(x => x.StartTime, (f, x) => f.Date.BetweenDateOnly(new(x.Year, 1, 1), new(x.Year + 10, 1, 1)))
-                                 .RuleFor(x => x.EndTime, (f, x) => x.StartTime.AddMonths(4)); // each term should be 4 month long 
+        DateOnly startTime = new();
+        DateOnly endTime = new();
+
+        switch (termType)
+        {
+            case TermType.Fall:
+                startTime = new DateOnly(2025, 9, 21);
+                endTime = new DateOnly(2026, 1, 8);
+                break;
+            
+            case TermType.Spring:
+                startTime = new DateOnly(2026, 2, 14);
+                endTime = new DateOnly(2026, 6, 18);
+                break;
+            
+            case TermType.Summer:
+                startTime = new DateOnly(2026, 7, 10);
+                endTime = new DateOnly(2026, 8, 30);
+                break;
+        }            
+        
+        return new Faker<Term>(locale).RuleFor(x => x.Year, f => f.Random.Int(2026, 2030))
+                                 .RuleFor(x => x.Type, f => termType)
+                                 .RuleFor(x => x.StartTime, (f, x) => new DateOnly(x.Year, startTime.Month, startTime.Day))
+                                 .RuleFor(x => x.EndTime, (f, x) => new DateOnly(x.Type == TermType.Fall ? x.Year + 1 : x.Year, endTime.Month, endTime.Day));
     } 
-    internal static Faker<Selection> SelectionFakerGenerator(string locale)
+    internal static Faker<Selection> SelectionFakerGenerator(string locale) // termType shouldnt be assigned here!
     {
         return new Faker<Selection>(locale)
                                        .RuleFor(x => x.Score, f => (decimal)f.Random.Float(0.0f, 20f))
                                        .RuleFor(x => x.Student, f => StudentFakerGenerator(locale).Generate())
-                                       .RuleFor(x => x.Presentation, f => PresentationFakerGenerator(locale).Generate())
-                                       .RuleFor(x => x.Term, f => TermFakerGenerator(locale).Generate());
+                                       .RuleFor(x => x.Presentation, f => PresentationFakerGenerator(locale).Generate());
+                                       //.RuleFor(x => x.Term, f => TermFakerGenerator(locale, termType).Generate());
+    }
+    internal static List<Term> AllTermGenerator(string locale, int termsCount)
+    {
+        var allTerms = new List<Term>();
+        var fallTerms = TermFakerGenerator(locale, TermType.Fall).Generate(termsCount / 3);
+        var springTerms = TermFakerGenerator(locale, TermType.Spring).Generate(termsCount / 3);
+        var summerTerms = TermFakerGenerator(locale, TermType.Summer).Generate(termsCount / 3);
+        allTerms.AddRange(fallTerms);
+        allTerms.AddRange(springTerms);
+        allTerms.AddRange(summerTerms);
+        return allTerms;
     }
 
 

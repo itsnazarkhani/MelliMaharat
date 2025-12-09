@@ -7,7 +7,7 @@ public enum TermType
     [Description("ترم پاییز")]
     Fall,
     [Description("ترم زمستان")]
-    Winter,
+    Spring,
     [Description("ترم تابستان")]
     Summer
 }

@@ -39,7 +39,7 @@ public enum Departments
     ECO,    // Economics (اقتصاد)
 
     //Education & Arts
-    EDU ,   // Education (علوم تربیتی)
+    EDU,   // Education (علوم تربیتی)
     FA,     // Fine Arts (هنرهای زیبا)
     MUS,    // Music (موسیقی)
     ARCH,   // Architecture (معماری)
