@@ -4,7 +4,16 @@ public partial class BaseVM { }
 
 public partial class BaseVM<TModel> : BaseVM where TModel : notnull, new()
 {
-    public TModel Model { get; set; }
+    public TModel Model
+    {
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            ValidateProperty(this);
+        }
+    }
     public BaseVM(TModel model) => Model = model ?? throw new ArgumentNullException(nameof(model));
     public BaseVM() => Model = new();   
 }

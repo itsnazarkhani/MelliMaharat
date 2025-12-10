@@ -5,7 +5,7 @@ class StudentWindowVM : BaseVM
     readonly Student? _student;
     readonly Frame _frame;
     readonly PresentationsPageVM _presentationsPageVM = new();
-    readonly ProfilePageVM _profilePageVM = new();
+    readonly ProfilePageVM _profilePageVM = new(new User());
     readonly SelectionsPageVM _selectionsPageVM = new();
 
     public CommandRelay ProfileCommand => new(() => _frame.Navigate(new ProfilePage(_profilePageVM)));

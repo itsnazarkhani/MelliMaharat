@@ -4,7 +4,7 @@ class MasterWindowVM : BaseVM
 {
     readonly LessonsPageVM _lessonsPageVM = new();
     readonly PresentationsPageVM _presentationsPageVM = new();
-    readonly ProfilePageVM _profilePageVM = new();
+    readonly ProfilePageVM _profilePageVM = new(new User());
     readonly StudentsPageVM _studentsPageVM = new();
     readonly Master? _master;
     readonly Frame _frame;

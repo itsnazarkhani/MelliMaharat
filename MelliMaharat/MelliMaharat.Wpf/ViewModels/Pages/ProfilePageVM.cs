@@ -1,13 +1,29 @@
 ﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
 
-public class ProfilePageVM : BaseVM<User>
+public class ProfilePageVM : BaseVM
 {
-    #region Constructors
-    public ProfilePageVM() : base() { }
-    public ProfilePageVM(User user) : base(user) { }
-    #endregion
+    public ProfilePageVM(User user) => Model = user;
 
     #region Properties
+    public User Model
+    {
+        get => field; 
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(Email));
+            OnPropertyChanged(nameof(BirthDate));
+            OnPropertyChanged(nameof(NationalCode));
+            OnPropertyChanged(nameof(PhoneNumber));
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(IsAdmin));
+            OnPropertyChanged(nameof(Id));
+        }
+    }
     public string? FirstName
     {
         get => Model.PersonInformation.FirstName;
@@ -18,7 +34,6 @@ public class ProfilePageVM : BaseVM<User>
             ValidateProperty(Model.PersonInformation);
         }
     }
-
     public string? LastName
     {
         get => Model.PersonInformation.LastName;
