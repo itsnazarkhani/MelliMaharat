@@ -27,16 +27,11 @@
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding StudentFirstName}" Tag="Student First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
-                    <custom:CustomTextBox InputText="{Binding StudentLastName}" Tag="Student Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" Tag="Master First Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding MasterLastName}" Tag="Master Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding StudentFullName}" Tag="Student Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterFullName}" Tag="Master Name:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding Score}" Tag="Score:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Name}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding PresentationId}" Tag="Presentation Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding StudentId}" Tag="Student Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Selection Id:" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -106,18 +101,10 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}" 
+                                           Text="{Binding Presentation.Lesson.Name}"/>
 
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="FirstName"/>
-                                            <Binding Path="LastName"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-
-                                </TextBlock>
-
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Score, StringFormat=Score: {0}}"/>
 
                             </StackPanel>
                         </Grid>

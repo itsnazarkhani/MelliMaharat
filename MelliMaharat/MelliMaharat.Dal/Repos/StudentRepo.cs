@@ -23,4 +23,11 @@ public class StudentRepo : Repo<Student>
             students.Add(selection.Student);
         return students;
     }
+
+    /// <returns>single Student including User and User.PersonInformation</returns>
+    public Student GetSingle(Student student)
+    {
+        return _context.Students.Where(x => x.Id ==  student.Id).Include(x => x.User).ThenInclude(x => x.PersonInformation).SingleOrDefault();
+    }
+
 }
