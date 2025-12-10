@@ -37,7 +37,7 @@
                                           DockPanel.Dock="Top"/>
 
                     <custom:CustomTextBox InputText="{Binding Birthdate}"
-                                          Tag="Birthdate:"
+                                          Tag="Birthday:"
                                           DockPanel.Dock="Top"/>
                     
                     <custom:CustomTextBox InputText="{Binding NationalCode}"

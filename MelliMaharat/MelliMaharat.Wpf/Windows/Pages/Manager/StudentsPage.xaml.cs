@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for StudentsPage.xaml
