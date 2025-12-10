@@ -19,19 +19,23 @@
 
         <Grid Grid.Column="0">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          DataContext="{Binding Master}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+                <DockPanel Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding Name}" Tag="Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
-                    <custom:CustomTextBox InputText="{Binding Unit}" Tag="Unit:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" IsEnabled="False" Tag="Id:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Name}"
+                                          Tag="Name:"
+                                          DockPanel.Dock="Top"
+                                          x:Name="txtFirstName"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding Unit}"
+                                          Tag="Unit:"
+                                          DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -69,7 +73,13 @@
             </DockPanel>
 
 
-            <ListBox Grid.Row="1" Name="listbox">
+            <ListBox Grid.Row="1"
+                     Name="listbox"
+                     ItemsSource="{Binding Models}"
+                     SelectedItem="{Binding Model, Mode=TwoWay}"
+                     ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
 
@@ -98,7 +108,8 @@
                                 <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}"
                                            Text="{Binding Name}"/>
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Unit: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}"
+                                           Text="{Binding Unit, StringFormat=Unit: {0}}"/>
 
                             </StackPanel>
                         </Grid>

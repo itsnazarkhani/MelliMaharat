@@ -19,27 +19,44 @@
 
         <Grid Grid.Column="0">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          DataContext="{Binding Master}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+                <DockPanel Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding StudentFirstName}" Tag="Student First Name:" DockPanel.Dock="Top" x:Name="txtFirstName"/>
-                    <custom:CustomTextBox InputText="{Binding StudentLastName}" Tag="Student Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" Tag="Master First Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding MasterLastName}" Tag="Master Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Score}" Tag="Score:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding PresentationId}" Tag="Presentation Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding StudentId}" Tag="Student Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Selection Id:" IsEnabled="False" DockPanel.Dock="Top"/>
-
+                    <custom:CustomTextBox InputText="{Binding StudentFirstName}"
+                                          Tag="Student First Name:"
+                                          DockPanel.Dock="Top"
+                                          x:Name="txtFirstName"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding StudentLastName}" 
+                                          Tag="Student Last Name:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" 
+                                          Tag="Master First Name:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding MasterLastName}" 
+                                          Tag="Master Last Name:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding Score}" 
+                                          Tag="Score:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding LessonName}" 
+                                          Tag="Lesson Name:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding EducationYear}" 
+                                          Tag="EducationYear:" 
+                                          DockPanel.Dock="Top"/>
+                    
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
@@ -76,7 +93,13 @@
             </DockPanel>
 
 
-            <ListBox Grid.Row="1" Name="listbox">
+            <ListBox Grid.Row="1"
+                     Name="listbox"
+                     SelectedItem="{Binding Model, Mode=TwoWay}"
+                     ItemsSource="{Binding Models}"
+                     ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+
                 <ListBox.ItemTemplate>
                     <DataTemplate>
 
@@ -102,20 +125,11 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}"
+                                           Text="{Binding Presentation.Lesson.Name}"/>
 
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="Student: {0} {1}">
-                                            <Binding Path="FirstName"/>
-                                            <Binding Path="LastName"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-
-                                </TextBlock>
-
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Lesson, StringFormat=Lesson: {0}}"/>
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding DayHold, StringFormat=DayHold: {0}}"/>
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Master, StringFormat=Master: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" 
+                                           Text="{Binding Presentation.DayHold, StringFormat=Day Hold: {0}}"/>
 
                             </StackPanel>
                         </Grid>

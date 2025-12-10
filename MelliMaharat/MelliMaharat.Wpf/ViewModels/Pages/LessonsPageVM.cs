@@ -2,4 +2,43 @@
 
 public class LessonsPageVM : BaseVM
 {
+    public LessonsPageVM()
+    {
+        foreach (var item in _repo.GetAll())
+            Models.Add(item);
+        Model = Models.First();
+    }
+    readonly LessonRepo _repo = new();
+    public ObservableCollection<Lesson> Models { get; set; } = [];
+    public Lesson Model
+    { 
+        get => field; 
+        set
+        {
+            field = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Unit));
+        }
+    }
+    public string Name
+    { 
+        get => Model.Name; 
+        set
+        {
+            Model.Name = value;
+            OnPropertyChanged();
+            ValidateProperty(Model);
+        }
+    }
+    public string Unit
+    { 
+        get => Model.Unit.ToString(); 
+        set
+        {
+            Model.Unit = int.Parse(value);
+            OnPropertyChanged();
+            ValidateProperty(Model);
+        }
+    }
 }
