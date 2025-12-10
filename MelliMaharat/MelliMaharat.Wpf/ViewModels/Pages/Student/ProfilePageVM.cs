@@ -6,6 +6,7 @@ public class ProfilePageVM : BaseVM
     public ProfilePageVM(Models.Student student)
     {
         Model = _repo.GetSingle(student);
+        AvgGrade = _repo.GetAvgGrade(student);
     }
     #endregion
     #region Fields
@@ -116,6 +117,15 @@ public class ProfilePageVM : BaseVM
         set
         {
             throw new ArgumentException("This Field is Read-Only!");
+        }
+    }
+    public decimal AvgGrade
+    { 
+        get => field;
+        set
+        {
+            field = value;
+            OnPropertyChanged();
         }
     }
     #endregion

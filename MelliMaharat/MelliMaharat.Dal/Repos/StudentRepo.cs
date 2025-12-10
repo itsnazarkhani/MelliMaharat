@@ -23,11 +23,33 @@ public class StudentRepo : Repo<Student>
             students.Add(selection.Student);
         return students;
     }
-
     /// <returns>single Student including User and User.PersonInformation</returns>
     public Student GetSingle(Student student)
     {
         return _context.Students.Where(x => x.Id ==  student.Id).Include(x => x.User).ThenInclude(x => x.PersonInformation).SingleOrDefault();
     }
+    public decimal GetAvgGrade(Student student)
+    {
+        var studentEntity = _context.Students
+            .Include(x => x.Selections)
+                .ThenInclude(s => s.Presentation)
+                    .ThenInclude(p => p.Lesson)
+            .FirstOrDefault(x => x.Id == student.Id);
 
+        var selections = studentEntity?.Selections;
+        if (selections == null || !selections.Any())
+            return 0m;
+
+        var weighted = selections.Select
+                                    (
+                                        s => new
+                                        {
+                                            Grade = s.Score,
+                                            Unit = s.Presentation.Lesson.Unit
+                                        }
+                                    );
+
+        var totalUnits = weighted.Sum(w => w.Unit);
+        return totalUnits == 0 ? 0m : weighted.Sum(w => w.Grade * w.Unit) / totalUnits;
+    }
 }
