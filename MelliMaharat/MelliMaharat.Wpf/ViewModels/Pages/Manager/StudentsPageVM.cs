@@ -1,34 +1,42 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
-public class MastersPageVM : BaseVM
+public class StudentsPageVM : BaseVM
 {
-    readonly MasterRepo _repo = new();
-
-    #region Properties
-    public ObservableCollection<Master> Models { get; set; } = [];
-    public Master Model
+    #region Constructors
+    public StudentsPageVM()
     {
-        get => field;
+        foreach(var item in _repo.GetAll())
+            Models.Add(item);
+        Model = Models.First();
+    }
+    #endregion
+    #region Fields
+    readonly StudentRepo _repo = new();
+    #endregion
+    #region Properties
+    public ObservableCollection<Models.Student> Models { get; set; } = [];
+    public Models.Student Model
+    {
+        get => field; 
         set
         {
             field = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
-            OnPropertyChanged(nameof(Birthdate));
+            OnPropertyChanged(nameof(BirthDate));
             OnPropertyChanged(nameof(NationalCode));
             OnPropertyChanged(nameof(PhoneNumber));
             OnPropertyChanged(nameof(Email));
             OnPropertyChanged(nameof(Password));
             OnPropertyChanged(nameof(IsAdmin));
             OnPropertyChanged(nameof(Username));
-            OnPropertyChanged(nameof(Graduation));
             OnPropertyChanged(nameof(Role));
             OnPropertyChanged(nameof(Id));
         }
     }
     public string FirstName
-    {
+    { 
         get => Model.User.PersonInformation.FirstName;
         set
         {
@@ -37,9 +45,9 @@ public class MastersPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string LastName
+    public string LastName 
     {
-        get => Model.User.PersonInformation.LastName; 
+        get => Model.User.PersonInformation.LastName;
         set
         {
             Model.User.PersonInformation.LastName = value;
@@ -47,9 +55,9 @@ public class MastersPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string Birthdate
+    public string BirthDate 
     {
-        get => Model.User.PersonInformation.BirthDate.ToString();
+        get => Model.User.PersonInformation.BirthDate.ToString(); 
         set
         {
             Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
@@ -78,8 +86,8 @@ public class MastersPageVM : BaseVM
         }
     }
     public string Email 
-    {
-        get => Model.User.Email;
+    { 
+        get => Model.User.Email; 
         set
         {
             Model.User.Email = value;
@@ -88,8 +96,8 @@ public class MastersPageVM : BaseVM
         }
     }
     public string Password 
-    {
-        get => Model.User.Password;
+    { 
+        get => Model.User.Password; 
         set
         {
             Model.User.Password = value;
@@ -99,10 +107,10 @@ public class MastersPageVM : BaseVM
     }
     public bool IsAdmin 
     { 
-        get => Model.User.Role == UserRoles.Admin;
+        get => Model.User.Role == UserRoles.Admin; 
         set
         {
-            throw new ArgumentException("this Value Should not be set; its soppused to be readonly!");
+            throw new ArgumentException("This Value Should Not Be Set!");
         }
     }
     public string Username 
@@ -113,16 +121,6 @@ public class MastersPageVM : BaseVM
             Model.User.Username = value;
             OnPropertyChanged();
             ValidateProperty(Model.User);
-        }
-    }
-    public string Graduation 
-    { 
-        get => Model.Graduation.ToString(); 
-        set
-        {
-            Model.Graduation = Enum.Parse<Graduations>(value);
-            OnPropertyChanged();
-            ValidateProperty(Model);
         }
     }
     public string Role 
@@ -137,28 +135,8 @@ public class MastersPageVM : BaseVM
     }
     public string Id 
     { 
-        get => Model.Id.ToString(); 
-        set => throw new ArgumentException("this Value Should not be set; its soppused to be readonly!");
-    }
-    public string? Department
-    { 
-        get => Model.Department.Name.ToString();
-        set
-        {
-            if (value is not null)
-            {
-                Model.Department.Name = Enum.Parse<Departments>(value);
-                OnPropertyChanged();
-                ValidateProperty(Model.Department);
-            }
-        }
+        get => Model.Id.ToString();
+        set => throw new ArgumentException("Id Should Not Be Able To Set By User!"); 
     }
     #endregion
-
-    public MastersPageVM()
-    {
-        foreach(var m in _repo.GetAll())
-            Models.Add(m);
-        Model = Models.First();
-    }
 }

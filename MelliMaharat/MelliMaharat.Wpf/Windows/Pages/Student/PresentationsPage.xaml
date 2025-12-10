@@ -18,10 +18,9 @@
 
         <Grid Grid.Column="0">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          DataContext="{Binding Master}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+                <DockPanel Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
@@ -73,7 +72,13 @@
             </DockPanel>
 
 
-            <ListBox Grid.Row="1" Name="listbox">
+            <ListBox Grid.Row="1"
+                     Name="listbox"
+                     ItemsSource="{Binding Models}"
+                     SelectedItem="{Binding Model, Mode=TwoWay}"
+                     ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
 

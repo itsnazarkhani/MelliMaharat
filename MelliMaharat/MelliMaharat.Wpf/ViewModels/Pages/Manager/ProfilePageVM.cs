@@ -1,9 +1,10 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class ProfilePageVM : BaseVM
 {
+    #region Constructors
     public ProfilePageVM(User user) => Model = user;
-
+    #endregion
     #region Properties
     public User Model
     {

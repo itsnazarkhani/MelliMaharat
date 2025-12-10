@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for LessonsPage.xaml

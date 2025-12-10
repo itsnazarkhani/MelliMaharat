@@ -1,15 +1,19 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class PresentationsPageVM : BaseVM
 {
+    #region Constructors
     public PresentationsPageVM()
     {
         foreach (var item in _repo.GetAll())
             Models.Add(item);
         Model = Models.First();
     }
+    #endregion
+    #region Fields
     readonly PresentationRepo _repo = new();
-
+    #endregion
+    #region Properties
     public ObservableCollection<Presentation> Models { get; set; } = [];
     public Presentation Model
     {
@@ -73,4 +77,5 @@ public class PresentationsPageVM : BaseVM
             ValidateProperty(Model);
         }
     }
+    #endregion
 }

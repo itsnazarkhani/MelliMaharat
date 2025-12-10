@@ -17,6 +17,9 @@ global using static MelliMaharat.Wpf.AppStaticMethods;
 global using MelliMaharat.Wpf.ViewModels.Windows;
 global using MelliMaharat.Wpf.ViewModels.Pages;
 global using MelliMaharat.Wpf.Windows.Pages.Manager;
+global using MelliMaharat.Wpf.ViewModels.Pages.Master;
+global using MelliMaharat.Wpf.ViewModels.Pages.Manager;
+
 
 global using static System.String;
 global using System.Windows;

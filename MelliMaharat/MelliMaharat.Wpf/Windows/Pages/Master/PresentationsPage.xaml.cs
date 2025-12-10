@@ -1,4 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages;
+﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 namespace MelliMaharat.Wpf.Windows.Pages.Master;
 
@@ -7,7 +7,7 @@ namespace MelliMaharat.Wpf.Windows.Pages.Master;
 /// </summary>
 public partial class PresentationsPage : Page
 {
-    public PresentationsPage(PresentationsPageVM vm)
+    public PresentationsPage(ViewModels.Pages.Master.PresentationsPageVM vm)
     {
         InitializeComponent();
         DataContext = vm;

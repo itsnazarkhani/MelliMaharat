@@ -1,4 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages;
+﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 namespace MelliMaharat.Wpf.Windows.Pages.Student;
 
@@ -7,7 +7,7 @@ namespace MelliMaharat.Wpf.Windows.Pages.Student;
 /// </summary>
 public partial class SelectionsPage : Page
 {
-    public SelectionsPage(SelectionsPageVM vm)
+    public SelectionsPage(ViewModels.Pages.Student.SelectionsPageVM vm)
     {
         InitializeComponent();
         DataContext = vm;

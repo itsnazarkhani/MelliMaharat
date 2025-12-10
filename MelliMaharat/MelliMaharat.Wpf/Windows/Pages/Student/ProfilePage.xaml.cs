@@ -1,4 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages;
+﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 namespace MelliMaharat.Wpf.Windows.Pages.Student;
 
@@ -7,7 +7,7 @@ namespace MelliMaharat.Wpf.Windows.Pages.Student;
 /// </summary>
 public partial class ProfilePage : Page
 {
-    public ProfilePage(ProfilePageVM vm)
+    public ProfilePage(ViewModels.Pages.Student.ProfilePageVM vm)
     {
         InitializeComponent();
         DataContext = vm;

@@ -1,15 +1,19 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class SelectionsPageVM : BaseVM
 {
+    #region Constructors
     public SelectionsPageVM()
     {
         foreach (var item in _repo.GetAll())
             Models.Add(item);
         Model = Models.First();
     }
-
+    #endregion
+    #region Fields
     readonly SelectionRepo _repo = new();
+    #endregion
+    #region Properties
     public ObservableCollection<Selection> Models { get; set; } = [];
     public Selection Model
     { 
@@ -97,4 +101,5 @@ public class SelectionsPageVM : BaseVM
             ValidateProperty(Model.Term);
         }
     }
+    #endregion
 }

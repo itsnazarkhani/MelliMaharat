@@ -114,7 +114,7 @@ namespace MelliMaharat.Web.Controllers
             var master = new Master
             {
                 UserId = user.Id,
-                Graduation = model.Graduation,
+                //Graduation = model.Graduation,
                 DepartmentId = model.DepartmentId
             };
 

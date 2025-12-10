@@ -18,10 +18,9 @@
 
         <Grid Grid.Column="0">
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          DataContext="{Binding Master}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
 
-                <DockPanel DataContext="{Binding ElementName=listbox, Path=SelectedItem}" Margin="10" LastChildFill="False">
+                <DockPanel Margin="10" LastChildFill="False">
 
                     <Grid DockPanel.Dock="Top">
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
@@ -33,9 +32,6 @@
                     <custom:CustomTextBox InputText="{Binding DayHold}" Tag="Day Hold:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding StartTime}" Tag="Start Time:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding EndTime}" Tag="End Time:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding MasterId}" Tag="Master Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding LessonId}" Tag="Lesson Id:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Presentation Id:" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
@@ -73,7 +69,13 @@
             </DockPanel>
 
 
-            <ListBox Grid.Row="1" Name="listbox">
+            <ListBox Grid.Row="1"
+                     Name="listbox"
+                     ItemsSource="{Binding Models}"
+                     SelectedItem="{Binding Model, Mode=TwoWay}"
+                     ScrollViewer.CanContentScroll="False"
+                     ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                
                 <ListBox.ItemTemplate>
                     <DataTemplate>
 
@@ -99,18 +101,10 @@
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center">
 
-                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}">
+                                <TextBlock Style="{StaticResource ListBoxItem_Main_TextBlock}" Text="{Binding Lesson.Name}"/>
 
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} {1}">
-                                            <Binding Path="FirstName"/>
-                                            <Binding Path="LastName"/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
 
-                                </TextBlock>
-
-                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding Age, StringFormat=Age: {0}}"/>
+                                <TextBlock Style="{StaticResource ListBoxItem_Sub_TextBlock}" Text="{Binding DayHold, StringFormat=DayHold: {0}}"/>
 
                             </StackPanel>
                         </Grid>

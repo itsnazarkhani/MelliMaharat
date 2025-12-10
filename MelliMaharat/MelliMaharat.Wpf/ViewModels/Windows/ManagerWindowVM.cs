@@ -2,11 +2,11 @@
 
 class ManagerWindowVM : BaseVM<User>
 {
-    readonly ProfilePageVM _profilePageVM;
+    readonly Pages.Manager.ProfilePageVM _profilePageVM;
     readonly MastersPageVM _mastersPageVM = new();
-    readonly StudentsPageVM _studentsPageVM = new();
+    readonly Pages.Manager.StudentsPageVM _studentsPageVM = new();
     readonly LessonsPageVM _lessonsPageVM = new();
-    readonly PresentationsPageVM _presentationsPageVM = new();
+    readonly Pages.Manager.PresentationsPageVM _presentationsPageVM = new();
     readonly SelectionsPageVM _selectionsPageVM = new();
     readonly Frame _frame;
 
@@ -20,7 +20,7 @@ class ManagerWindowVM : BaseVM<User>
     public ManagerWindowVM(User user, Frame frame)
     {
         Model = user;
-        _profilePageVM = new ProfilePageVM(user);
+        _profilePageVM = new Pages.Manager.ProfilePageVM(user);
         _frame = frame;
 
         _frame.Navigate(new ProfilePage(_profilePageVM));

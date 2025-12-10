@@ -1,11 +1,13 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for ProfilePage.xaml
 /// </summary>
 public partial class ProfilePage : Page
 {
-    public ProfilePage(ProfilePageVM vm)
+    public ProfilePage(ViewModels.Pages.Manager.ProfilePageVM vm)
     {
         InitializeComponent();
         DataContext = vm;

@@ -29,17 +29,17 @@
                         <Ellipse Style="{StaticResource Profile_Outer_Ellipse}"/>
                         <Ellipse Style="{StaticResource Profile_Inner_Ellipse}" Fill="{StaticResource MasterIconBrush}"/>
                     </Grid>
-                    <custom:CustomTextBox Tag="First Name:" Hint="Arthur" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Last Name:" Hint="Nancy" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Password:" Hint="********" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Email:" Hint="bradely.oniz@gmail.com" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Age:" Hint="21" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="National Code:" Hint="2172585466" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Phone Number:" Hint="+98 946 254 4687" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Username:" Hint="@somefhtis" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Is Admin:" Hint="True or False" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Graduation:" Hint="Doctorate" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox Tag="Id:" Hint="1" IsEnabled="False" DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding BirthDate}" Tag="Birthday:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Graduation}" Tag="Graduation:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Id:" IsEnabled="False" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Change Picture"/>
