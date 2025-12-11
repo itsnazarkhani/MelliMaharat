@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for MastersPage.xaml
@@ -11,6 +9,5 @@ public partial class MastersPage : Page
     {
         InitializeComponent();
         DataContext = vm;
-        listbox.SelectedIndex = 0;
     }
 }

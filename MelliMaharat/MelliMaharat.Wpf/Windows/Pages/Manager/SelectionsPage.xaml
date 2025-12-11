@@ -28,32 +28,26 @@
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding StudentFirstName}"
-                                          Tag="Student First Name:"
+                    <custom:CustomTextBox InputText="{Binding Student}"
+                                          Tag="Student Name:"
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding Master}" 
+                                          Tag="Master Name:" 
                                           DockPanel.Dock="Top"
-                                          x:Name="txtFirstName"/>
+                                          IsEnabled="False"/>
                     
-                    <custom:CustomTextBox InputText="{Binding StudentLastName}" 
-                                          Tag="Student Last Name:" 
-                                          DockPanel.Dock="Top"/>
-                    
-                    <custom:CustomTextBox InputText="{Binding MasterFirstName}" 
-                                          Tag="Master First Name:" 
-                                          DockPanel.Dock="Top"/>
-                    
-                    <custom:CustomTextBox InputText="{Binding MasterLastName}" 
-                                          Tag="Master Last Name:" 
-                                          DockPanel.Dock="Top"/>
-                    
-                    <custom:CustomTextBox InputText="{Binding Score}" 
+                    <custom:CustomTextBox InputText="{Binding Score, UpdateSourceTrigger=LostFocus}" 
                                           Tag="Score:" 
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding LessonName}" 
-                                          Tag="Lesson Name:" 
+                    <custom:CustomTextBox InputText="{Binding Name}" 
+                                          Tag="Lesson Name:"
+                                          IsEnabled="False"
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding EducationYear}" 
+                    <custom:CustomTextBox InputText="{Binding Year}" 
                                           Tag="EducationYear:" 
                                           DockPanel.Dock="Top"/>
                     

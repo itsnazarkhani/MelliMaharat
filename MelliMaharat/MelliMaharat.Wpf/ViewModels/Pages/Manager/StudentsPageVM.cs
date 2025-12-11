@@ -5,9 +5,9 @@ public class StudentsPageVM : BaseVM
     #region Constructors
     public StudentsPageVM()
     {
+        Model = EmptyStudent;
         foreach(var item in _repo.GetAll())
             Models.Add(item);
-        Model = Models.First();
     }
     #endregion
     #region Fields
@@ -28,10 +28,7 @@ public class StudentsPageVM : BaseVM
             OnPropertyChanged(nameof(NationalCode));
             OnPropertyChanged(nameof(PhoneNumber));
             OnPropertyChanged(nameof(Email));
-            OnPropertyChanged(nameof(Password));
-            OnPropertyChanged(nameof(IsAdmin));
             OnPropertyChanged(nameof(Username));
-            OnPropertyChanged(nameof(Role));
             OnPropertyChanged(nameof(Id));
         }
     }
@@ -57,10 +54,20 @@ public class StudentsPageVM : BaseVM
     }
     public string BirthDate 
     {
-        get => Model.User.PersonInformation.BirthDate.ToString(); 
+        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString(); 
         set
         {
-            Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            try
+            {
+                Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.User.PersonInformation.BirthDate = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
@@ -95,24 +102,6 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User);
         }
     }
-    public string Password 
-    { 
-        get => Model.User.Password; 
-        set
-        {
-            Model.User.Password = value;
-            OnPropertyChanged();
-            ValidateProperty(Model.User);
-        }
-    }
-    public bool IsAdmin 
-    { 
-        get => Model.User.Role == UserRoles.Admin; 
-        set
-        {
-            throw new ArgumentException("This Value Should Not Be Set!");
-        }
-    }
     public string Username 
     { 
         get => Model.User.Username; 
@@ -123,20 +112,15 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User);
         }
     }
-    public string Role 
-    { 
-        get => Model.User.Role.ToString(); 
-        set
-        {
-            Model.User.Role = Enum.Parse<UserRoles>(value);
-            OnPropertyChanged();
-            ValidateProperty(Model.User);
-        }
-    }
     public string Id 
     { 
-        get => Model.Id.ToString();
-        set => throw new ArgumentException("Id Should Not Be Able To Set By User!"); 
+        get => Model.Id == default ? Empty : Model.Id.ToString();
+        set
+        {
+            Show("Id Should Not Be Able To Set By User!");
+            Model.Id = default;
+            return;
+        }
     }
     #endregion
 }

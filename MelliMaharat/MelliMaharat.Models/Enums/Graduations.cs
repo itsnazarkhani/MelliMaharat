@@ -5,5 +5,6 @@ public enum Graduations
     Doctorate,
     Master,
     Bachelor,
-    Associate
+    Associate,
+    None
 }

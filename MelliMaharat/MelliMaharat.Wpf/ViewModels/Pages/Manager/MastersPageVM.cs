@@ -51,10 +51,20 @@ public class MastersPageVM : BaseVM
     }
     public string Birthdate
     {
-        get => Model.User.PersonInformation.BirthDate.ToString();
+        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString();
         set
         {
-            Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            try
+            {
+                Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                OnPropertyChanged();
+                AddError(ex.Message);
+                Model.User.PersonInformation.BirthDate = default;
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
@@ -99,12 +109,13 @@ public class MastersPageVM : BaseVM
             ValidateProperty(Model.User);
         }
     }
-    public bool IsAdmin 
+    public string IsAdmin 
     { 
-        get => Model.User.Role == UserRoles.Admin;
+        get => Model.User.Role == UserRoles.None ? Empty : (Model.User.Role == UserRoles.Admin).ToString();
         set
         {
-            throw new ArgumentException("this Value Should not be set; its soppused to be readonly!");
+            Show("this Value Should not be set; its soppused to be readonly!");
+            OnPropertyChanged();
         }
     }
     public string Username 
@@ -119,35 +130,69 @@ public class MastersPageVM : BaseVM
     }
     public string Graduation 
     { 
-        get => Model.Graduation.ToString(); 
+        get => Model.Graduation == Graduations.None ? Empty : Model.Graduation.ToString(); 
         set
         {
-            Model.Graduation = Enum.Parse<Graduations>(value);
+            try
+            {
+                Model.Graduation = Enum.Parse<Graduations>(value);
+            }
+            catch (Exception ex)
+            {
+                Model.Graduation = Graduations.None;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
+
             OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string Role 
     { 
-        get => Model.User.Role.ToString(); 
+        get => Model.User.Role == UserRoles.None ? Empty : Model.User.Role.ToString(); 
         set
         {
-            Model.User.Role = Enum.Parse<UserRoles>(value);
+            try
+            {
+                Model.User.Role = Enum.Parse<UserRoles>(value);
+            }
+            catch (Exception ex)
+            {
+                OnPropertyChanged();
+                AddError(ex.Message);
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
-    public string Id 
-    { 
-        get => Model.Id.ToString(); 
-        set => throw new ArgumentException("this Value Should not be set; its soppused to be readonly!");
+    public string Id
+    {
+        get => Model.Id == default ? Empty : Model.Id.ToString();
+        set 
+        {
+            Show("this Value Should not be set; its soppused to be readonly!");
+            OnPropertyChanged();
+        } 
     }
     public string Department
     { 
-        get => Model.Department.Name.ToString();
+        get => Model.Department.Name == Departments.None ? Empty : Model.Department.Name.ToString();
         set
         {
-            Model.Department.Name = Enum.Parse<Departments>(value);
+            try
+            {
+                Model.Department.Name = Enum.Parse<Departments>(value);
+            }
+            catch (Exception ex)
+            {
+                AddError(ex.Message);
+                OnPropertyChanged();
+                Model.Department.Name = Departments.None;
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.Department);
         }
@@ -156,9 +201,9 @@ public class MastersPageVM : BaseVM
     #region Constructors
     public MastersPageVM()
     {
+        Model = EmptyMaster;
         foreach(var m in _repo.GetAll())
             Models.Add(m);
-        Model = Models.First();
     }
     #endregion
 }

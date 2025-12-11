@@ -29,14 +29,13 @@
 
                     <custom:CustomTextBox InputText="{Binding FirstName}"
                                           Tag="First Name:"
-                                          DockPanel.Dock="Top"
-                                          x:Name="txtFirstName"/>
+                                          DockPanel.Dock="Top"/>
                     
                     <custom:CustomTextBox InputText="{Binding LastName}"
                                           Tag="Last Name:"
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding BirthDate}"
+                    <custom:CustomTextBox InputText="{Binding BirthDate, UpdateSourceTrigger=LostFocus}"
                                           Tag="Birth Date:"
                                           DockPanel.Dock="Top"/>
                     
@@ -52,32 +51,24 @@
                                           Tag="Email:"
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding Password}"
-                                          Tag="Password:"
-                                          DockPanel.Dock="Top"/>
-                    
-                    <custom:CustomTextBox InputText="{Binding IsAdmin}"
-                                          Tag="Is Admin:"
-                                          DockPanel.Dock="Top"/>
-                    
                     <custom:CustomTextBox InputText="{Binding Username}"
                                           Tag="Username:"
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding Role}"
-                                          Tag="Role:"
-                                          DockPanel.Dock="Top"/>
-                    
                     <custom:CustomTextBox InputText="{Binding Id}"
                                           IsEnabled="False"
-                                          Tag="Role:"
+                                          Tag="Id:"
                                           DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox IsEnabled="False"
+                                          Tag="Avg Grade:"
+                                          DockPanel.Dock="Top"
+                                          x:Name="GradeTextBox"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
                         <Button Content="Update"/>
-                        <Button Content="Change Picture"/>
                         <Button Content="Clear"/>
                     </WrapPanel>
 
@@ -110,7 +101,8 @@
 
 
             <ListBox Grid.Row="1"
-                     Name="listbox"
+                     Name="MyListbox"
+                     SelectionChanged="MyListbox_SelectionChanged"
                      ItemsSource="{Binding Models}"
                      SelectedItem="{Binding Model, Mode=TwoWay}"
                      ScrollViewer.CanContentScroll="False"

@@ -28,22 +28,24 @@
                     </Grid>
 
                     <custom:CustomTextBox InputText="{Binding MasterName}"
-                                          Tag="Master:" 
+                                          Tag="Master:"
+                                          IsEnabled="False"
                                           DockPanel.Dock="Top"/>
                     
-                    <custom:CustomTextBox InputText="{Binding LessonName}"
-                                          Tag="Lesson:" 
+                    <custom:CustomTextBox InputText="{Binding Name}"
+                                          Tag="Lesson:"
+                                          IsEnabled="False"
                                           DockPanel.Dock="Top"/>
 
                     <custom:CustomTextBox InputText="{Binding DayHold}" 
                                           Tag="Day Hold:" 
                                           DockPanel.Dock="Top"/>
 
-                    <custom:CustomTextBox InputText="{Binding StartTime}" 
+                    <custom:CustomTextBox InputText="{Binding StartTime, UpdateSourceTrigger=LostFocus}" 
                                           Tag="Start Time:" 
                                           DockPanel.Dock="Top"/>
 
-                    <custom:CustomTextBox InputText="{Binding EndTime}" 
+                    <custom:CustomTextBox InputText="{Binding EndTime, UpdateSourceTrigger=LostFocus}" 
                                           Tag="End Time:" 
                                           DockPanel.Dock="Top"/>
 

@@ -5,9 +5,9 @@ public class SelectionsPageVM : BaseVM
     #region Constructors
     public SelectionsPageVM()
     {
+        Model = EmptySelection;
         foreach (var item in _repo.GetAll())
             Models.Add(item);
-        Model = Models.First();
     }
     #endregion
     #region Fields
@@ -22,66 +22,60 @@ public class SelectionsPageVM : BaseVM
         {
             field = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(StudentFirstName));
-            OnPropertyChanged(nameof(StudentLastName));
-            OnPropertyChanged(nameof(MasterFirstName));
-            OnPropertyChanged(nameof(MasterLastName));
+            OnPropertyChanged(nameof(Student));
+            OnPropertyChanged(nameof(Master));
             OnPropertyChanged(nameof(Score));
-            OnPropertyChanged(nameof(LessonName));
-            OnPropertyChanged(nameof(EducationYear));
+            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(Year));
         }
     }
-    public string StudentFirstName
+    public string Student
     { 
-        get => Model.Student.User.PersonInformation.FirstName; 
+        get
+        {
+            var result = Model.Student.User.PersonInformation.FirstName + " " + Model.Student.User.PersonInformation.LastName; 
+            return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
+        }
         set
         {
-            Model.Student.User.PersonInformation.FirstName = value;
+            Show("This Field Is Read-Only!");
             OnPropertyChanged();
-            ValidateProperty(Model.Student.User.PersonInformation);
         }
     }
-    public string StudentLastName 
+    public string Master
     { 
-        get => Model.Student.User.PersonInformation.LastName; 
-        set
+        get 
         {
-            Model.Student.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
-            ValidateProperty(Model.Student.User.PersonInformation);
+            var result = Model.Presentation.Master.User.PersonInformation.FirstName + " " + Model.Presentation.Master.User.PersonInformation.LastName; 
+            return IsNullOrWhiteSpace(result.Trim()) || IsNullOrEmpty(result.Trim()) ? Empty : result;
         }
-    }
-    public string MasterFirstName 
-    { 
-        get => Model.Presentation.Master.User.PersonInformation.FirstName; 
         set
         {
-            Model.Presentation.Master.User.PersonInformation.FirstName = value;
+            Show("This Field Is Read-Only!");
             OnPropertyChanged();
-            ValidateProperty(Model.Presentation.Master.User.PersonInformation);
-        }
-    }
-    public string MasterLastName 
-    { 
-        get => Model.Presentation.Master.User.PersonInformation.LastName;
-        set
-        {
-            Model.Presentation.Master.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
-            ValidateProperty(Model.Presentation.Master.User.PersonInformation);
         }
     }
     public string Score 
     { 
-        get => Model.Score.ToString(); 
+        get => Model.Score == default ? Empty : Model.Score.ToString(); 
         set
         {
-            Model.Score = decimal.Parse(value);
+            try
+            {
+                Model.Score = decimal.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                AddError(ex.Message);
+                OnPropertyChanged();
+                Model.Score = default;
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
-    public string LessonName 
+    public string Name // Lesson Name
     { 
         get => Model.Presentation.Lesson.Name; 
         set
@@ -91,12 +85,22 @@ public class SelectionsPageVM : BaseVM
             ValidateProperty(Model.Presentation.Lesson);
         }
     }
-    public string EducationYear 
+    public string Year // Education Year
     { 
-        get => Model.Term.Year.ToString(); 
+        get => Model.Term.Year == default ? Empty : Model.Term.Year.ToString(); 
         set
         {
-            Model.Term.Year = int.Parse(value);
+            try
+            {
+                Model.Term.Year = int.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.Term.Year = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.Term);
         }

@@ -41,7 +41,7 @@
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
                         <Button Content="Update"/>
-                        <Button Content="Change Picture"/>
+                        <!--<Button Content="Change Picture"/>-->
                         <Button Content="Clear"/>
                     </WrapPanel>
 

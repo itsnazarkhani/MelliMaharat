@@ -1,47 +1,84 @@
 ﻿namespace MelliMaharat.Models.Enums;
 
-public enum Departments
+public enum Departments : byte
 {
     // Engineering & Technology
-    CE,     // Civil Engineering (مهندسی عمران)
-    ME,     // Mechanical Engineering (مهندسی مکانیک)
-    EE,     // Electrical Engineering (مهندسی برق)
-    ChE,    // Chemical Engineering (مهندسی شیمی)
-    IE,     // Industrial Engineering (مهندسی صنایع)
-    CSE,    // Computer Science & Engineering (مهندسی کامپیوتر)
-    IT,     // Information Technology (فناوری اطلاعات)
-    AE,     // Aerospace Engineering (مهندسی هوافضا)
-    MSE,    // Materials Science and Engineering (مهندسی مواد)
+    ///<summary>Civil Engineering (مهندسی عمران)</summary>
+    CE,      
+    ///<summary>Mechanical Engineering (مهندسی مکانیک)</summary>
+    ME,      
+    ///<summary>Electrical Engineering (مهندسی برق)</summary>
+    EE,      
+    ///<summary>Chemical Engineering (مهندسی شیمی)</summary>
+    ChE,     
+    ///<summary>Industrial Engineering (مهندسی صنایع)</summary>
+    IE,      
+    ///<summary>Computer Science & Engineering (مهندسی کامپیوتر)</summary>
+    CSE,     
+    ///<summary>Information Technology (فناوری اطلاعات)</summary>
+    IT,      
+    ///<summary>Aerospace Engineering (مهندسی هوافضا)</summary>
+    AE,      
+    ///<summary>Materials Science and Engineering (مهندسی مواد)</summary>
+    MSE,     
 
     // Science
-    PHYS,   // Physics (فیزیک)
-    CHEM,   // Chemistry (شیمی)
-    BIO,    // Biology (زیست‌شناسی)
-    MATH,   // Mathematics (ریاضیات)
-    STAT,   // Statistics (آمار)
-    GEO,    // Geology (زمین‌شناسی)
+    ///<summary>Physics (فیزیک)</summary>
+    PHYS,    
+    ///<summary>Chemistry (شیمی)</summary>
+    CHEM,    
+    ///<summary>Biology (زیست‌شناسی)</summary>
+    BIO,     
+    ///<summary>Mathematics (ریاضیات)</summary>
+    MATH,    
+    ///<summary>Statistics (آمار)</summary>
+    STAT,    
+    ///<summary>Geology (زمین‌شناسی)</summary>
+    GEO,     
 
     //Humanities & Social Sciences
-    PSY,    // Psychology (روان‌شناسی)
-    SOC,    // Sociology (جامعه‌شناسی)
-    PHIL,   // Philosophy (فلسفه)
-    HIS,    // History (تاریخ)
-    LIT,    // Literature (ادبیات)
-    LAW,    // Law (حقوق)
-    POLSCI, // Political Science (علوم سیاسی)
-    IR,     // International Relations (روابط بین‌الملل)
+    ///<summary>Psychology (روان‌شناسی)</summary>
+    PSY,     
+    ///<summary>Sociology (جامعه‌شناسی)</summary>
+    SOC,     
+    ///<summary>Philosophy (فلسفه)</summary>
+    PHIL,    
+    ///<summary>History (تاریخ)</summary>
+    HIS,     
+    ///<summary>Literature (ادبیات)</summary>
+    LIT,     
+    ///<summary>Law (حقوق)</summary>
+    LAW,     
+    ///<summary>Political Science (علوم سیاسی)</summary>
+    POLSCI,  
+    ///<summary>International Relations (روابط بین‌الملل)</summary>
+    IR,      
 
     //Business & Management
-    MBA,    // Master of Business Administration (مدیریت اجرایی)
-    MGT,    // Management (مدیریت)
-    ACC,    // Accounting (حسابداری)
-    FIN,    // Finance (مالی)
-    ECO,    // Economics (اقتصاد)
+    ///<summary>Master of Business Administration (مدیریت اجرایی)</summary>
+    MBA,    
+    ///<summary>Management (مدیریت)</summary>
+    MGT,     
+    ///<summary>Accounting (حسابداری)</summary>
+    ACC,   
+    ///<summary>Finance (مالی)</summary>
+    FIN,    
+    ///<summary>Economics (اقتصاد)</summary>
+    ECO,    
 
     //Education & Arts
-    EDU,   // Education (علوم تربیتی)
-    FA,     // Fine Arts (هنرهای زیبا)
-    MUS,    // Music (موسیقی)
-    ARCH,   // Architecture (معماری)
-    URP,    // Urban and Regional Planning (برنامه‌ریزی شهری و منطقه‌ای)
+    /// <summary>Education (علوم تربیتی)</summary>
+    EDU,   
+    /// <summary>Fine Arts (هنرهای زیبا)</summary>
+    FA,     
+    /// <summary>Music (موسیقی)</summary>
+    MUS,    
+    /// <summary>Architecture (معماری)</summary>
+    ARCH,
+    /// <summary>Urban and Regional Planning (برنامه‌ریزی شهری و منطقه‌ای)</summary>
+    URP,
+
+    //None
+    /// <summary>None</summary>
+    None
 }

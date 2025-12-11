@@ -65,13 +65,19 @@ public class ProfilePageVM : BaseVM
             ValidateProperty(Model);
         }
     }
-    public DateOnly BirthDate
+    public string BirthDate
     {
-        get => Model.PersonInformation.BirthDate;
+        get => Model.PersonInformation.BirthDate.ToString();
         set
         {
-            // should convert string to value.
-            //Model.PersonInformation.BirthDate = value;
+            try
+            {
+                Model.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Show(ex.Message);
+            }
             OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
@@ -109,21 +115,12 @@ public class ProfilePageVM : BaseVM
     public bool? IsAdmin
     { 
         get => Model.Role == UserRoles.Admin; 
-        set
-        {
-            // should create converter.
-            OnPropertyChanged();
-            ValidateProperty(Model);
-        }
+        set => Show("This Field Is Read-Only!");
     }
-    public Guid Id 
+    public string Id 
     { 
-        get => Model.Id; 
-        set
-        {
-            OnPropertyChanged();
-            ValidateProperty(Model);
-        }
+        get => Model.Id.ToString();
+        set => Show("This Field Is Read-Only!");
     }
     #endregion
 }

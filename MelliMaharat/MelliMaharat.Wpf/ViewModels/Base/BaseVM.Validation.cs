@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Wpf.ViewModels;
+﻿using Accessibility;
+
+namespace MelliMaharat.Wpf.ViewModels;
 
 public partial class BaseVM : INotifyDataErrorInfo
 {
@@ -16,6 +18,21 @@ public partial class BaseVM : INotifyDataErrorInfo
         else
             return _errors.TryGetValue(propertyName, out var errorMessages) ? errorMessages : [];
     }
+    protected void AddErrors(List<string> Errors, [CallerMemberName] string propertyName = "")
+    {
+        if (!_errors.ContainsKey(propertyName))
+            _errors[propertyName] = [];
+        _errors[propertyName] = Errors;
+        OnErrorsChanged(propertyName);
+    }
+    protected void AddError(string Error, [CallerMemberName] string propertyName = "")
+    {
+        if (!_errors.ContainsKey(propertyName))
+            _errors[propertyName] = [];
+        _errors[propertyName].Add(Error);
+        OnErrorsChanged(propertyName);
+    }
+
 
     /// <summary>
     /// Non-Generic Property Validator
@@ -36,7 +53,16 @@ public partial class BaseVM : INotifyDataErrorInfo
         var context = new ValidationContext(instance) { MemberName = propertyName };
         var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
         var value = instance.GetType().GetProperty(propertyName)?.GetValue(instance);
-        bool isValid = TryValidateProperty(value, context, results);
+        bool isValid = false;
+        try
+        {
+            isValid = TryValidateProperty(value, context, results);
+        }
+        catch (Exception ex)
+        {
+            _errors[propertyName] = [ex.Message];
+            OnErrorsChanged(propertyName);
+        }
 
         if (!isValid)
         {
@@ -139,4 +165,6 @@ public partial class BaseVM<TModel> : BaseVM
         }
         return isValid;
     }
+    
+
 }
