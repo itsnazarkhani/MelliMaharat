@@ -73,8 +73,8 @@
                                           DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button Content="Update Profile"/>
-                        <Button Content="Delete Account"/>
+                        <Button Content="Update Profile" Command="{Binding UpdateCommand}"/>
+                        <Button Content="Delete Account" Command="{Binding DeleteCommand}"/>
                     </WrapPanel>
                 </DockPanel>
             </ScrollViewer>

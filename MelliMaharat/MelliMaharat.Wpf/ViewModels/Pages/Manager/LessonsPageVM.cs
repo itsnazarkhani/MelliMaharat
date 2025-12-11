@@ -76,7 +76,7 @@ public class LessonsPageVM : BaseVM
     },
     HasError);
     public CommandRelay UpdateCommand => field ??= new( () => { });
-    public CommandRelay AddComand => field ??= new(() => { });
+    public CommandRelay AddComand => field ??= new(() => _repo.Add(Model), HasError);
 
     bool HasError() => !HasErrors;
     #endregion
