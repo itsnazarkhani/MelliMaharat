@@ -27,17 +27,19 @@
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding StudentFullName}" Tag="Student Name:" DockPanel.Dock="Top"/>
                     <custom:CustomTextBox InputText="{Binding MasterFullName}" Tag="Master Name:" DockPanel.Dock="Top"/>
+
                     <custom:CustomTextBox InputText="{Binding Score}" Tag="Score:" DockPanel.Dock="Top"/>
+
                     <custom:CustomTextBox InputText="{Binding Name}" Tag="Lesson Name:" DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Unit}" Tag="Lesson Unit:" DockPanel.Dock="Top"/>
+
                     <custom:CustomTextBox InputText="{Binding EducationYear}" Tag="EducationYear:" DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
-                        <Button Content="Update"/>
-                        <Button Content="Change Picture"/>
                         <Button Content="Clear"/>
                     </WrapPanel>
 

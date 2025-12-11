@@ -27,17 +27,34 @@
                         <Ellipse Fill="WhiteSmoke" Style="{StaticResource Profile_Inner_Ellipse}"/>
                     </Grid>
 
-                    <custom:CustomTextBox InputText="{Binding MasterName}" Tag="Master:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding LessonName}" Tag="Lesson:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding DayHold}" Tag="Day Hold:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding StartTime}" Tag="Start Time:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding EndTime}" Tag="End Time:" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding MasterName}" 
+                                          Tag="Master:" 
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding LessonName}" 
+                                          Tag="Lesson:" 
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding DayHold}" 
+                                          Tag="Day Hold:" 
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding StartTime, UpdateSourceTrigger=LostFocus}" 
+                                          Tag="Start Time:"
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding EndTime, UpdateSourceTrigger=LostFocus}" 
+                                          Tag="End Time:" 
+                                          IsEnabled="False"
+                                          DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
-                        <Button Content="Update"/>
-                        <Button Content="Change Picture"/>
                         <Button Content="Clear"/>
                     </WrapPanel>
 

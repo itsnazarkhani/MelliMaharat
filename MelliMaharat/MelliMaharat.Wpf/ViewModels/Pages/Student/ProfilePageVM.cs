@@ -76,7 +76,16 @@ public class ProfilePageVM : BaseVM
         get => Model.User.PersonInformation.BirthDate.ToString();
         set
         {
-            Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            try
+            {
+                Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Show(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
@@ -114,9 +123,10 @@ public class ProfilePageVM : BaseVM
     public string Id 
     { 
         get => Model.Id.ToString(); 
-        set
+        set 
         {
-            throw new ArgumentException("This Field is Read-Only!");
+            Show("This Field is Read-Only!");
+            OnPropertyChanged();
         }
     }
     public decimal AvgGrade

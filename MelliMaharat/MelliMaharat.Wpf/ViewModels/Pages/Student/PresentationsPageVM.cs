@@ -5,13 +5,9 @@ public class PresentationsPageVM : BaseVM
     #region Constructors
     public PresentationsPageVM(Models.Student student)
     {
+        Model = EmptyPresentation; 
         foreach (var item in _repo.GetAll(student))
             Models.Add(item);
-        //if (Models.Count != 0)
-        //    Model = Models.First();
-        //else
-        //    Model = new();
-        Model = Models.Count != 0 ? Models.First() : new() { Lesson = new() { Name = "" } ,Master = new() { User = new() { PersonInformation = new() { FirstName = "", LastName = ""} } } };
     }
     #endregion
     #region Fields
@@ -37,31 +33,18 @@ public class PresentationsPageVM : BaseVM
     { 
         get
         {
-            try
-            {
-                return Model.Master.User.PersonInformation.FirstName + " " + Model.Master.User.PersonInformation.LastName; 
-            }
-            catch
-            {
-                return Empty;
-            }
-
+            var result = Model.Master.User.PersonInformation.FirstName + " " + Model.Master.User.PersonInformation.LastName;
+            return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
         }
-        set => throw new ArgumentException("This Property Should Not Be Touched!");
+        set
+        {
+            Show("This Property Should Not Be Touched!");
+            OnPropertyChanged();
+        }
     }
     public string LessonName 
     {
-        get
-        {
-            try
-            {
-                return Model.Lesson.Name;
-            }
-            catch
-            {
-                return Empty;
-            }
-        }
+        get => Model.Lesson.Name;
         set
         {
             Model.Lesson.Name = value;
@@ -71,17 +54,7 @@ public class PresentationsPageVM : BaseVM
     }
     public string DayHold 
     {
-        get
-        {
-            try
-            {
-                return Model.DayHold;
-            }
-            catch
-            {
-                return Empty;
-            }
-        }
+        get => Model.DayHold;
         set
         {
             Model.DayHold = value;
@@ -91,41 +64,40 @@ public class PresentationsPageVM : BaseVM
     }
     public string StartTime 
     {
-        get
+        get => Model.StartTime == default ? Empty : Model.StartTime.ToString();
+        set
         {
             try
             {
-                return Model.StartTime == new TimeOnly() ? Empty : Model.StartTime.ToString();
+                Model.StartTime = TimeOnly.Parse(value);
             }
-            catch
+            catch (Exception ex)
             {
-                return Empty;
+                Model.StartTime = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
             }
-        }
-        set
-        {
-            Model.StartTime = TimeOnly.Parse(value);
             OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string EndTime 
     {
-        get
+        get => Model.EndTime == default ? Empty : Model.EndTime.ToString();
+        set
         {
             try
             {
-                return Model.EndTime == new TimeOnly() ? Empty : Model.EndTime.ToString();
-            }                
-
-            catch
-            {
-                return Empty;
+                Model.EndTime = TimeOnly.Parse(value);
             }
-        }
-        set
-        {
-            Model.EndTime = TimeOnly.Parse(value);
+            catch (Exception ex)
+            {
+                Model.EndTime = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }
