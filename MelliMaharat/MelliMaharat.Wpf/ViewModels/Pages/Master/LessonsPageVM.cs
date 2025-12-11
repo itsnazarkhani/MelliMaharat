@@ -56,4 +56,10 @@ public class LessonPageVM : BaseVM
         }
     }
     #endregion
+    #region Commands
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyLesson);
+    public CommandRelay DeleteCommand;
+    public CommandRelay UpdateCommand;
+    public CommandRelay AddCommand;
+    #endregion
 }

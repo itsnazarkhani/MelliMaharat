@@ -101,6 +101,12 @@ public class PresentationsPageVM : BaseVM
             OnPropertyChanged();
             ValidateProperty(Model);
         }
-    } 
+    }
+    #endregion
+    #region Commands
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyPresentation);
+    public CommandRelay DeleteCommand;
+    public CommandRelay UpdateCommand;
+    public CommandRelay AddCommand;
     #endregion
 }

@@ -55,7 +55,7 @@
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
-                        <Button Content="Clear"/>
+                        <Button Content="Clear" Command="{Binding ClearCommand}"/>
                     </WrapPanel>
 
                 </DockPanel>

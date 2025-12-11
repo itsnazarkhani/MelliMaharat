@@ -23,7 +23,10 @@ public class LessonRepo : TemporalRepo<Lesson>
                                .Presentations
                                .Select(x => x.Lesson);
     }
-
+    //public override IEnumerable<Lesson> GetAll()
+    //{
+        //return _context.Lessons.Include();
+    //}
     public string GetNotPresentedLessonsQuery() =>
         _table
             .Include(x => x.Presentations)

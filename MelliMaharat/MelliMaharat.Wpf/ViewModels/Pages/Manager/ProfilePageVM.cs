@@ -123,4 +123,9 @@ public class ProfilePageVM : BaseVM
         set => Show("This Field Is Read-Only!");
     }
     #endregion
+    #region Commands
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyUser);
+    public CommandRelay DeleteCommand;
+    public CommandRelay UpdateCommand;
+    #endregion
 }

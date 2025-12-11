@@ -69,7 +69,7 @@
                         <Button Content="Delete"/>
                         <Button Content="Add"/>
                         <Button Content="Update"/>
-                        <Button Content="Clear"/>
+                        <Button Content="Clear" Command="{Binding ClearCommand}"/>
                     </WrapPanel>
 
                 </DockPanel>

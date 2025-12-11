@@ -148,4 +148,10 @@ public class ProfilePageVM : BaseVM
         }
     }
     #endregion
+    #region Commands
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyMaster);
+    public CommandRelay DeleteCommand;
+    public CommandRelay UpdateCommand;
+    public CommandRelay AddCommand;
+    #endregion
 }

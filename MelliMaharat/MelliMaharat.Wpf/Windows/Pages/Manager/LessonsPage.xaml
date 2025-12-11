@@ -38,11 +38,10 @@
                                           DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button Content="Delete"/>
-                        <Button Content="Add"/>
-                        <Button Content="Update"/>
-                        <!--<Button Content="Change Picture"/>-->
-                        <Button Content="Clear"/>
+                        <Button Content="Delete" Command="{Binding DeleteCommand}"/>
+                        <Button Content="Add" Command="{Binding AddComand}"/>
+                        <Button Content="Update" Command="{Binding UpdateCommand}"/>
+                        <Button Content="Clear" Command="{Binding ClearCommand}"/>
                     </WrapPanel>
 
                 </DockPanel>

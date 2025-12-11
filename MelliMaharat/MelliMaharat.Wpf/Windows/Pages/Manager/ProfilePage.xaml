@@ -71,7 +71,6 @@
                                           DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button Content="Change Picture"/>
                         <Button Content="Update Profile"/>
                         <Button Content="Delete Account"/>
                     </WrapPanel>

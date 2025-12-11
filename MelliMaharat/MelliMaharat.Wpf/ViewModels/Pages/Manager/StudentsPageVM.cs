@@ -123,4 +123,10 @@ public class StudentsPageVM : BaseVM
         }
     }
     #endregion
+    #region Commands
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyStudent);
+    public CommandRelay DeleteCommand;
+    public CommandRelay UpdateCommand;
+    public CommandRelay AddCommand;
+    #endregion
 }

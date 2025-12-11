@@ -24,16 +24,18 @@ public class LessonsPageVM : BaseVM
             OnPropertyChanged();
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Unit));
+            DeleteCommand.NotifyCanExecuteChanged();
         }
     }
     public string Name
     { 
-        get => Model.Name; 
+        get =>  Model.Name; 
         set
         {
             Model.Name = value;
             OnPropertyChanged();
             ValidateProperty(Model);
+            //DeleteCommand.NotifyCanExecuteChanged();
         }
     }
     public string Unit
@@ -56,5 +58,26 @@ public class LessonsPageVM : BaseVM
             ValidateProperty(Model);
         }
     }
+    #endregion
+    #region Commands
+
+    //CommandRelay? _clearCommand = null;
+    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyLesson);
+    public CommandRelay DeleteCommand => field ??= new(() => 
+    { 
+        _repo.Remove(Model);
+
+        Models.Clear();
+        foreach (var item in _repo.GetAll())
+            Models.Add(item);
+
+        Model = EmptyLesson;
+        Show("Lesson Deleted!");
+    },
+    HasError);
+    public CommandRelay UpdateCommand => field ??= new( () => { });
+    public CommandRelay AddComand => field ??= new(() => { });
+
+    bool HasError() => !HasErrors;
     #endregion
 }
