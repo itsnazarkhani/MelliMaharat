@@ -5,9 +5,9 @@ public class StudentsPageVM : BaseVM
     #region Constructors
     public StudentsPageVM(Models.Master master)
     {
+        Model = EmptyStudent;
         foreach (var item in _repo.GetAll(master))
             Models.Add(item);
-        Model = Models.First();
     }
     #endregion
     #region Fields
@@ -53,7 +53,7 @@ public class StudentsPageVM : BaseVM
     }
     public string BirthDate 
     {
-        get => Model.User.PersonInformation.BirthDate.ToString(); 
+        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString(); 
         set
         {
             Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);

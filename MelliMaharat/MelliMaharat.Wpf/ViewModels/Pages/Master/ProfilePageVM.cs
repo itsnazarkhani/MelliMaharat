@@ -70,10 +70,20 @@ public class ProfilePageVM : BaseVM
     }
     public string BirthDate 
     {
-        get => Model.User.PersonInformation.BirthDate.ToString();
+        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString();
         set
         {
-            Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            try
+            {
+                Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.User.PersonInformation.BirthDate = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
@@ -100,20 +110,31 @@ public class ProfilePageVM : BaseVM
     }
     public string Graduation 
     { 
-        get => Model.Graduation.ToString(); 
+        get => Model.Graduation == Graduations.None ? Empty : Model.Graduation.ToString(); 
         set
         {
-            Model.Graduation = Enum.Parse<Graduations>(value);
+            try
+            {
+                Model.Graduation = Enum.Parse<Graduations>(value);
+            }
+            catch (Exception ex)
+            {
+                Model.Graduation = Graduations.None;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string Id 
     { 
-        get => Model.Id.ToString(); 
+        get => Model.Id == default ? Empty : Model.Id.ToString(); 
         set
         {
-            throw new Exception("This Property is Read Only!");
+            Show("This Property is Read Only!");
+            OnPropertyChanged();
         }
     }
     public string PhoneNumber 

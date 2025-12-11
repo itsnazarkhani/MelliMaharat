@@ -29,8 +29,7 @@
 
                     <custom:CustomTextBox InputText="{Binding Name}"
                                           Tag="Name:"
-                                          DockPanel.Dock="Top"
-                                          x:Name="txtFirstName"/>
+                                          DockPanel.Dock="Top"/>
 
                     <custom:CustomTextBox InputText="{Binding Unit}"
                                           Tag="Unit:" 

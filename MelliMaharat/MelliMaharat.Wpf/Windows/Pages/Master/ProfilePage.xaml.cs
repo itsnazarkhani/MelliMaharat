@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Master;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Master;
 
 /// <summary>
 /// Interaction logic for ProfilePage.xaml

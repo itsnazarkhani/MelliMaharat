@@ -5,9 +5,9 @@ public class LessonPageVM : BaseVM
     #region Constructors
     public LessonPageVM(Models.Master master)
     {
+        Model = EmptyLesson;
         foreach (var item in _repo.GetAll(master))
             Models.Add(item);
-        Model = Models.First();
     }
     #endregion
     #region Fields
@@ -38,10 +38,19 @@ public class LessonPageVM : BaseVM
     }
     public string Unit 
     { 
-        get => Model.Unit.ToString(); 
+        get => Model.Unit == default ? Empty : Model.Unit.ToString(); 
         set
         {
-            Model.Unit = int.Parse(value);
+            try
+            {
+                Model.Unit = int.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.Unit = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }

@@ -5,9 +5,9 @@ public class PresentationsPageVM : BaseVM
     #region Constructors
     public PresentationsPageVM(Models.Master master)
     {
+        Model = EmptyPresentation;
         foreach (var item in _repo.GetAll(master))
             Models.Add(item);
-        Model = Models.First();
     }
     #endregion
     #region Fields
@@ -23,7 +23,7 @@ public class PresentationsPageVM : BaseVM
             field = value;
             OnPropertyChanged();
             OnPropertyChanged(nameof(MasterName));
-            OnPropertyChanged(nameof(LessonName));
+            OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(DayHold));
             OnPropertyChanged(nameof(StartTime));
             OnPropertyChanged(nameof(EndTime));
@@ -31,13 +31,18 @@ public class PresentationsPageVM : BaseVM
     }
     public string MasterName 
     { 
-        get => Model.Master.User.PersonInformation.FirstName + " " + Model.Master.User.PersonInformation.LastName; 
+        get
+        {
+            var result = Model.Master.User.PersonInformation.FirstName + " " + Model.Master.User.PersonInformation.LastName;
+            return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
+        }
         set
         {
-            throw new ArgumentException("Master Name Should Not Be Changed!");
+            Show("Master Name Should Not Be Changed!");
+            OnPropertyChanged();
         }
     }
-    public string LessonName 
+    public string Name 
     { 
         get => Model.Lesson.Name; 
         set
@@ -58,21 +63,41 @@ public class PresentationsPageVM : BaseVM
         }
     }
     public string StartTime 
-    { 
-        get => Model.StartTime.ToString(); 
+    {
+        get => Model.StartTime == default ? Empty : Model.StartTime.ToString(); 
         set
         {
-            Model.StartTime = TimeOnly.Parse(value);
+            try
+            {
+                Model.StartTime = TimeOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.StartTime = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string EndTime 
     { 
-        get => Model.EndTime.ToString(); 
+        get => Model.EndTime == default ? Empty : Model.EndTime.ToString(); 
         set
         {
-            Model.EndTime = TimeOnly.Parse(value);
+            try
+            {
+                Model.EndTime = TimeOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Model.EndTime = default;
+                AddError(ex.Message);
+                OnPropertyChanged();
+                return;
+            }
             OnPropertyChanged();
             ValidateProperty(Model);
         }

@@ -14,7 +14,6 @@
 
         <Grid>
 
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
@@ -30,19 +29,48 @@
                         <Ellipse Style="{StaticResource Profile_Inner_Ellipse}" Fill="{StaticResource MasterIconBrush}"/>
                     </Grid>
                     
-                    <custom:CustomTextBox InputText="{Binding FirstName}" Tag="First Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding LastName}" Tag="Last Name:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Password}" Tag="Password:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Email}" Tag="Email:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding BirthDate}" Tag="Birthday:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding NationalCode}" Tag="National Code:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" Tag="Phone Number:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Username}" Tag="Username:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Graduation}" Tag="Graduation:" DockPanel.Dock="Top"/>
-                    <custom:CustomTextBox InputText="{Binding Id}" Tag="Id:" IsEnabled="False" DockPanel.Dock="Top"/>
+                    <custom:CustomTextBox InputText="{Binding FirstName}" 
+                                          Tag="First Name:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding LastName}" 
+                                          Tag="Last Name:" 
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Password}" 
+                                          Tag="Password:" 
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Email}" 
+                                          Tag="Email:" 
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding BirthDate, UpdateSourceTrigger=LostFocus}" 
+                                          Tag="Birthday:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding NationalCode}" 
+                                          Tag="National Code:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding PhoneNumber}" 
+                                          Tag="Phone Number:" 
+                                          DockPanel.Dock="Top"/>
+                    
+                    <custom:CustomTextBox InputText="{Binding Username}" 
+                                          Tag="Username:" 
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Graduation, UpdateSourceTrigger=LostFocus}" 
+                                          Tag="Graduation:" 
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Id}" 
+                                          Tag="Id:" 
+                                          IsEnabled="False" 
+                                          DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <Button Content="Change Picture"/>
                         <Button Content="Update Profile"/>
                         <Button Content="Delete Account"/>
                     </WrapPanel>

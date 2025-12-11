@@ -15,7 +15,7 @@ public partial class StudentsPage : Page
 
     private void MyListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {   
-        if (MyListbox.SelectedItem is Models.Student s)
+        if (sender is ListBox l && l.SelectedItems is not null && l.SelectedItem is Models.Student s)
             GradeTextBox.InputText = _repo.GetAvgGrade(s).ToString(); 
     }
 }
