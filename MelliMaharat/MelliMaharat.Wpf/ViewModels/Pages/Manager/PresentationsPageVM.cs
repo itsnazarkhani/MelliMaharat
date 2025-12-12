@@ -106,10 +106,21 @@ public class PresentationsPageVM : BaseVM
     #endregion
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
-    public CommandRelay UpdateCommand => field ??= new(() => { });
+    public CommandRelay UpdateCommand => field ??= new(Update);
     public CommandRelay AddCommand => field ??= new(Add);
 
     void Delete() => Models.Remove(Model);
     void Add() => Models.Add(Model);
+    void Update()
+    {
+        var selected = Model;
+        var index = Models.IndexOf(selected);
+
+        if (index >= 0)
+        {
+            Models[index] = null!;
+            Models[index] = selected;
+        }
+    }
     #endregion
 }

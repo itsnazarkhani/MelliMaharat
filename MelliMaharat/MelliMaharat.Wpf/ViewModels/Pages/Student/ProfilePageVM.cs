@@ -142,8 +142,11 @@ public class ProfilePageVM : BaseVM
     #endregion
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
-    public CommandRelay UpdateCommand => field ??= new(() => { });
+    public CommandRelay UpdateCommand => field ??= new(Update);
 
     void Delete() => Model = default!;
+    void Update()
+    {
+    }
     #endregion
 }

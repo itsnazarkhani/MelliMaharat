@@ -69,16 +69,17 @@ public class LessonsPageVM : BaseVM
     void Remove()
     {
         Models.Remove(Model);
-        //Models.Clear();
-        //_repo.GetAll().ToList().ForEach(Models.Add);
     }
     void Update()
     {
-        int i = Models.IndexOf(Model);
-        Models[i] = Model;
-        Model = Models[i];
-        OnPropertyChanged(nameof(Models));
-        //Models.
+        var selected = Model;
+        var index = Models.IndexOf(selected);
+
+        if (index >= 0)
+        {
+            Models[index] = null!;
+            Models[index] = selected;
+        }
     }
     void Add()
     {
