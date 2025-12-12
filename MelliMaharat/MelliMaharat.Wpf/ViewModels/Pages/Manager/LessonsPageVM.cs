@@ -82,14 +82,7 @@ public class LessonsPageVM : BaseVM
     }
     void Add()
     {
-        try
-        {
-            _ = Models.IndexOf(Model);
-        }
-        catch 
-        {
-            Models.Add(Model);
-        }
+        Models.Add(Model);
     }
 
     #endregion

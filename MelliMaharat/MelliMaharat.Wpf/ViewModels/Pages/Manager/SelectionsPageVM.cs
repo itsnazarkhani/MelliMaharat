@@ -110,8 +110,9 @@ public class SelectionsPageVM : BaseVM
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
     public CommandRelay UpdateCommand => field ??= new(() => { });
-    public CommandRelay AddCommand => field ??= new(() => { });
+    public CommandRelay AddCommand => field ??= new(Add);
 
     void Delete() => Models.Remove(Model);
+    void Add() => Models.Add(Model);
     #endregion
 }
