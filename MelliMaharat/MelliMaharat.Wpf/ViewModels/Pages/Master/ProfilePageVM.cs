@@ -152,8 +152,14 @@ public class ProfilePageVM : BaseVM
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
     public CommandRelay UpdateCommand => field ??= new(Update);
-    
-    void Delete() => Model = default!;
+
+    void Delete()
+    {
+        if (_repo.Remove(Model) > 0)
+            Model = default!;
+        else
+            Show("Delete Operation Failed!");
+    }
     void Update()
     {
     }

@@ -19,8 +19,9 @@ public class Repo<T> : ViewRepo<T>, IRepo<T> where T : BaseEntity, new()
 
     public virtual int Remove(T entity)
     {
-        _table.Remove(entity);
+        _table.Where(x => x.Id == entity.Id).SingleOrDefault().IsDeleted = true;
         return _context.SaveChanges();
+        //_table.Remove(entity);
     }
 
     public virtual int Remove(Guid id)

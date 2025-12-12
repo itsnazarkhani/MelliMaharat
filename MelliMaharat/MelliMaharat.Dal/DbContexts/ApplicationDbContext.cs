@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Dal.DbContexts;
+﻿using Microsoft.IdentityModel.Abstractions;
+
+namespace MelliMaharat.Dal.DbContexts;
 
 public class ApplicationDbContext : DbContext
 {
@@ -29,6 +31,14 @@ public class ApplicationDbContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
 
+        modelBuilder.Entity<Lesson>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Master>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Student>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Term>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Selection>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Department>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<Presentation>().HasQueryFilter(x => !x.IsDeleted);
+        modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
         base.OnModelCreating(modelBuilder);
     }
     #endregion

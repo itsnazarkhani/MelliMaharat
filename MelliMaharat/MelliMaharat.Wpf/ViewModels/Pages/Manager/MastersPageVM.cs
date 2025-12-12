@@ -213,7 +213,13 @@ public class MastersPageVM : BaseVM
     public CommandRelay AddCommand => field ??= new(Add);
 
 
-    void Delete() => Models.Remove(Model);
+    void Delete()
+    {
+        if (_repo.Remove(Model) > 0)
+            Models.Remove(Model);
+        else
+            Show("Delete Operation Failed!");
+    }
     void Add() => Models.Add(Model);
     void Update()
     {

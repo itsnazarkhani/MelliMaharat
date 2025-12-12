@@ -61,14 +61,17 @@ public class LessonsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay DeleteCommand => field ??= new(Remove);
+    public CommandRelay DeleteCommand => field ??= new(Delete);
     public CommandRelay UpdateCommand => field ??= new(Update);
     public CommandRelay AddComand => field ??= new(Add);
 
     bool HasError() => !HasErrors;
-    void Remove()
+    void Delete()
     {
-        Models.Remove(Model);
+        if (_repo.Remove(Model) > 0)    
+            Models.Remove(Model);
+        else
+            Show("Delete Operation Failed!");
     }
     void Update()
     {
