@@ -61,21 +61,36 @@ public class LessonsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay DeleteCommand => field ??= new(() => 
-    { 
-        _repo.Remove(Model);
-
-        Models.Clear();
-        foreach (var item in _repo.GetAll())
-            Models.Add(item);
-
-        Model = EmptyLesson;
-        Show("Lesson Deleted!");
-    },
-    HasError);
-    public CommandRelay UpdateCommand => field ??= new( () => { });
-    public CommandRelay AddComand => field ??= new(() => _repo.Add(Model), HasError);
+    public CommandRelay DeleteCommand => field ??= new(Remove);
+    public CommandRelay UpdateCommand => field ??= new(Update);
+    public CommandRelay AddComand => field ??= new(Add);
 
     bool HasError() => !HasErrors;
+    void Remove()
+    {
+        Models.Remove(Model);
+        //Models.Clear();
+        //_repo.GetAll().ToList().ForEach(Models.Add);
+    }
+    void Update()
+    {
+        int i = Models.IndexOf(Model);
+        Models[i] = Model;
+        Model = Models[i];
+        OnPropertyChanged(nameof(Models));
+        //Models.
+    }
+    void Add()
+    {
+        try
+        {
+            _ = Models.IndexOf(Model);
+        }
+        catch 
+        {
+            Models.Add(Model);
+        }
+    }
+
     #endregion
 }

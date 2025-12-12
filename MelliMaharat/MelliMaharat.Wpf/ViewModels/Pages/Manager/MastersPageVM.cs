@@ -208,8 +208,11 @@ public class MastersPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay DeleteCommand => field ??= new(() => { });
+    public CommandRelay DeleteCommand => field ??= new(Delete);
     public CommandRelay UpdateCommand => field ??= new(() => { });
-    public CommandRelay AddCommand => field ??= new(() => { }); 
+    public CommandRelay AddCommand => field ??= new(() => { });
+
+
+    void Delete() => Models.Remove(Model);
     #endregion
 }

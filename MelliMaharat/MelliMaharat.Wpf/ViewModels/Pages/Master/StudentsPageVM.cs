@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Master;
+﻿using System.Security.Cryptography;
+
+namespace MelliMaharat.Wpf.ViewModels.Pages.Master;
 
 public class StudentsPageVM : BaseVM
 {
@@ -16,8 +18,8 @@ public class StudentsPageVM : BaseVM
     #region Properties
     public ObservableCollection<Models.Student> Models { get; set; } = [];
     public Models.Student Model
-    { 
-        get => field; 
+    {
+        get => field;
         set
         {
             field = value;
@@ -32,9 +34,9 @@ public class StudentsPageVM : BaseVM
             OnPropertyChanged(nameof(Username));
         }
     }
-    public string FirstName 
-    { 
-        get => Model.User.PersonInformation.FirstName; 
+    public string FirstName
+    {
+        get => Model.User.PersonInformation.FirstName;
         set
         {
             Model.User.PersonInformation.FirstName = value;
@@ -42,7 +44,7 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string LastName 
+    public string LastName
     {
         get => Model.User.PersonInformation.LastName;
         set
@@ -52,9 +54,9 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string BirthDate 
+    public string BirthDate
     {
-        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString(); 
+        get => Model.User.PersonInformation.BirthDate == default ? Empty : Model.User.PersonInformation.BirthDate.ToString();
         set
         {
             Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
@@ -62,9 +64,9 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string NationalCode 
-    { 
-        get => Model.User.PersonInformation.NationalCode; 
+    public string NationalCode
+    {
+        get => Model.User.PersonInformation.NationalCode;
         set
         {
             Model.User.PersonInformation.NationalCode = value;
@@ -72,7 +74,7 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string PhoneNumber 
+    public string PhoneNumber
     {
         get => Model.User.PersonInformation.PhoneNumber;
         set
@@ -82,7 +84,7 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User.PersonInformation);
         }
     }
-    public string Email 
+    public string Email
     {
         get => Model.User.Email;
         set
@@ -92,7 +94,7 @@ public class StudentsPageVM : BaseVM
             ValidateProperty(Model.User);
         }
     }
-    public string Username 
+    public string Username
     {
         get => Model.User.Username;
         set
@@ -104,8 +106,10 @@ public class StudentsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay DeleteCommand => field ??= new(() => { });
+    public CommandRelay DeleteCommand => field ??= new(Delete);
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });
+
+    void Delete() => Models.Remove(Model);
     #endregion
 }
