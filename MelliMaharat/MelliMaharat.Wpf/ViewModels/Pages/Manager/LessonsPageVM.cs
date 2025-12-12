@@ -75,14 +75,19 @@ public class LessonsPageVM : BaseVM
     }
     void Update()
     {
-        var selected = Model;
-        var index = Models.IndexOf(selected);
-
-        if (index >= 0)
+        if (_repo.Update(Model) > 0)
         {
-            Models[index] = null!;
-            Models[index] = selected;
+            var selected = Model;
+            var index = Models.IndexOf(selected);
+
+            if (index >= 0)
+            {
+                Models[index] = null!;
+                Models[index] = selected;
+            }
         }
+        else
+            Show("Update Operation Failed!");
     }
     void Add()
     {

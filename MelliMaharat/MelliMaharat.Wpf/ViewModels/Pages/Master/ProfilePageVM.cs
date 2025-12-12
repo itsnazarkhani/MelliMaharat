@@ -162,6 +162,10 @@ public class ProfilePageVM : BaseVM
     }
     void Update()
     {
+        if (_repo.Update(Model) > 0)
+            Show("Update Operation Successful");
+        else
+            Show("Update Operation Failed!");
     }
     #endregion
 }

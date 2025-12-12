@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
+﻿using MelliMaharat.Dal.Repos.Base;
+
+namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class ProfilePageVM : BaseVM
 {
@@ -124,11 +126,18 @@ public class ProfilePageVM : BaseVM
         set => Show("This Field Is Read-Only!");
     }
     #endregion
+    #region Fields
+    readonly Repo<User> _repo = new();
+    #endregion
     #region Commands
     public CommandRelay UpdateCommand => field ??= new(Update);
 
     void Update()
     {
+        if (_repo.Update(Model) > 0)
+            Show("Update Operation Successful");
+        else
+            Show("Update Operation Failed!");
     }
     #endregion
 }
