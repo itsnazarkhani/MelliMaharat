@@ -6,13 +6,10 @@ public class InitializeDatabase : IClassFixture<MyFixture>
     public async Task IsDatabaseCreated()
     {
         ApplicationDbContext context = new ApplicationDbContextFactory().CreateDbContext();
-        if (context.Create())
-        {
-            context.Migrate();
-            await SeedAsync(context);
-        }
+        
+        await SeedAsync(context);
 
-        var _admin = await context.Users.SingleOrDefaultAsync(x => x.Username == "admin");
+        var _admin = await context.Users.Include(x => x.PersonInformation).SingleOrDefaultAsync(x => x.Username == "admin");
         Assert.NotNull(_admin);
 
         var studentsCount = await context.Students.CountAsync();

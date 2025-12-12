@@ -8,3 +8,4 @@ global using MelliMaharat.Models.Configurations;
 global using MelliMaharat.Models.Views;
 global using MelliMaharat.Models.Enums;
 global using MelliMaharat.Models.Interfaces;
+global using System.ComponentModel;

@@ -10,4 +10,6 @@ public partial class LessonsPage : Page
         InitializeComponent();
         DataContext = vm;
     }
+
+    private void Clear_Button_Click(object sender, RoutedEventArgs e) => listbox.UnselectAll();
 }

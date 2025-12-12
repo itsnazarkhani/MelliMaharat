@@ -15,6 +15,7 @@ public class ProfilePageVM : BaseVM
         set
         {
             field = value;
+            field ??= EmptyMaster;
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -149,7 +150,6 @@ public class ProfilePageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyMaster);
     public CommandRelay DeleteCommand => field ??= new(() => { });
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });

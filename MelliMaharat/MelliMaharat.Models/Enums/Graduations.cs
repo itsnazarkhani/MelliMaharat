@@ -2,9 +2,9 @@
 
 public enum Graduations
 {
+    None,
     Doctorate,
     Master,
     Bachelor,
-    Associate,
-    None
+    Associate
 }

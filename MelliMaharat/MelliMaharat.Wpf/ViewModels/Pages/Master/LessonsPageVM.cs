@@ -21,6 +21,7 @@ public class LessonPageVM : BaseVM
         set
         {
             field = value;
+            field ??= EmptyLesson;
             OnPropertyChanged();
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Unit));
@@ -57,7 +58,6 @@ public class LessonPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyLesson);
     public CommandRelay DeleteCommand => field ??= new(() => { });
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });

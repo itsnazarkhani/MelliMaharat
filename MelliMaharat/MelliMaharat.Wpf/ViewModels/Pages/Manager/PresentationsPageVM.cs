@@ -21,6 +21,7 @@ public class PresentationsPageVM : BaseVM
         set
         {
             field = value;
+            field ??= EmptyPresentation;
             OnPropertyChanged();
             OnPropertyChanged(nameof(MasterName));
             OnPropertyChanged(nameof(Name));
@@ -104,7 +105,6 @@ public class PresentationsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyPresentation);
     public CommandRelay DeleteCommand => field ??= new(() => { });
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });

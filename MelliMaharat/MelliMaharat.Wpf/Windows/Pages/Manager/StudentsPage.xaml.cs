@@ -1,4 +1,6 @@
-﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿using System.Windows.Controls;
+
+namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for StudentsPage.xaml
@@ -12,6 +14,7 @@ public partial class StudentsPage : Page
         DataContext = vm;
         _repo = new();
     }
+    private void Clear_Button_Click(object sender, RoutedEventArgs e) => MyListbox.UnselectAll();
 
     private void MyListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {   

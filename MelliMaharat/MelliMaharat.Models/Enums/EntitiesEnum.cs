@@ -2,6 +2,7 @@
 
 public enum EntitiesEnum : byte
 {
+    None,
     BaseEntity,
     Attendance,
     Department,

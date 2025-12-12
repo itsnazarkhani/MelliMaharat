@@ -1,9 +1,8 @@
-﻿using System.ComponentModel;
-
-namespace MelliMaharat.Models.Enums;
+﻿namespace MelliMaharat.Models.Enums;
 
 public enum TermType
 {
+    None,
     [Description("ترم پاییز")]
     Fall,
     [Description("ترم زمستان")]

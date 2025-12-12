@@ -21,6 +21,7 @@ public class SelectionsPageVM : BaseVM
         set
         {
             field = value;
+            field ??= EmptySelection;
             OnPropertyChanged();
             OnPropertyChanged(nameof(Student));
             OnPropertyChanged(nameof(Master));
@@ -107,7 +108,6 @@ public class SelectionsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay ClearCommand => field ??= new(() => Model = EmptySelection);
     public CommandRelay DeleteCommand => field ??= new(() => { });
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });

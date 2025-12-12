@@ -2,5 +2,9 @@
 
 public class MyFixture
 {
-    public MyFixture() { }
+    public MyFixture()
+    {
+        FactoryDelete();
+        FactoryMigrate();
+    }
 }

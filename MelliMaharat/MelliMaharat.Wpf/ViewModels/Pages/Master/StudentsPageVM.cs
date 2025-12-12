@@ -21,6 +21,7 @@ public class StudentsPageVM : BaseVM
         set
         {
             field = value;
+            field ??= EmptyStudent;
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -103,7 +104,6 @@ public class StudentsPageVM : BaseVM
     }
     #endregion
     #region Commands
-    public CommandRelay ClearCommand => field ??= new(() => Model = EmptyStudent);
     public CommandRelay DeleteCommand => field ??= new(() => { });
     public CommandRelay UpdateCommand => field ??= new(() => { });
     public CommandRelay AddCommand => field ??= new(() => { });

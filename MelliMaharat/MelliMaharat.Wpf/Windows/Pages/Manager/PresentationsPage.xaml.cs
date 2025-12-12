@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for PresentationsPage.xaml
@@ -12,4 +10,5 @@ public partial class PresentationsPage : Page
         InitializeComponent();
         DataContext = vm;
     }
+    private void Clear_Button_Click(object sender, RoutedEventArgs e) => listbox.UnselectAll();
 }
