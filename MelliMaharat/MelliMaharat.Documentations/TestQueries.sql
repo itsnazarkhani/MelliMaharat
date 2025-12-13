@@ -40,7 +40,9 @@ SELECT * FROM Departments ORDER BY Name
 SELECT * FROM Lessons
 
 -- Presentations
-SELECT 
+SELECT
+    u.Username,
+    u.[Password],
     p.Id as 'Presentation-Id',
     u.PersonInformation_FirstName as 'First Name',
     u.PersonInformation_LastName as 'Last Name',
