@@ -7,7 +7,7 @@ public class PresentationUnitTest : BaseTest
     [Fact]
     public void Get()
     {
-        var presentations = Repo.GetAll().ToList();
+        var presentations = Repo.GetAll();
         var presentationsCount= presentations.Count();
         Assert.Equal(50, presentationsCount);
     }
@@ -37,7 +37,7 @@ public class PresentationUnitTest : BaseTest
     {
         var presentation = Repo.GetFirst();
         presentation.DayHold = "Sunday";
-        var (result, message) = Repo.Update(presentation);
+        var (result, _) = Repo.Update(presentation);
         Assert.Equal(1, result);
     }
 }
