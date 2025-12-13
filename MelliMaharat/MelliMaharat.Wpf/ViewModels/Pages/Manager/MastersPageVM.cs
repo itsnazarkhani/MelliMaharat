@@ -215,27 +215,41 @@ public class MastersPageVM : BaseVM
 
     void Delete()
     {
-        if (_repo.Remove(Model) > 0)
-            Models.Remove(Model);
+        var (result, message) = _repo.Remove(Model);
+        
+        if (result <= 0)
+            Show(message);
         else
-            Show("Delete Operation Failed!");
+            Models.Remove(Model);
     }
-    void Add() => Models.Add(Model);
+    void Add()
+    {
+        var (result, message) = _repo.Add(Model);
+
+        if (result <= 0)
+            Show(message);
+        else
+            Models.Add(Model);
+    }
     void Update()
     {
-        if (_repo.Update(Model) > 0)
+        var (result, message) = _repo.Update(Model);
+
+        if (result <= 0)
+        {
+            Show(message);
+        }
+        else
         {
             var selected = Model;
             var index = Models.IndexOf(selected);
-
+        
             if (index >= 0)
             {
                 Models[index] = null!;
                 Models[index] = selected;
             }
         }
-        else
-            Show("Update Operation Failed!");
     }
     #endregion
 }

@@ -1,6 +1,7 @@
 ﻿namespace MelliMaharat.Dal.Repos.Base;
 
-public class TemporalRepo<T> : Repo<T>, ITemporalRepo<T> where T : BaseEntity, new()
+//public class TemporalRepo<T> : Repo<T>, ITemporalRepo<T> where T : BaseEntity, new()
+public class TemporalRepo<T> : Repo<T> where T : BaseEntity, new()
 {
     public TemporalRepo() : base() { }
     public TemporalRepo(ApplicationDbContext context) : base(context) { }

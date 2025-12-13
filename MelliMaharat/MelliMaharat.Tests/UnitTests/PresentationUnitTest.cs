@@ -37,7 +37,7 @@ public class PresentationUnitTest : BaseTest
     {
         var presentation = Repo.GetFirst();
         presentation.DayHold = "Sunday";
-        int result = Repo.Update(presentation);
+        var (result, message) = Repo.Update(presentation);
         Assert.Equal(1, result);
     }
 }

@@ -28,6 +28,8 @@ public class PresentationsPageVM : BaseVM
             OnPropertyChanged(nameof(DayHold));
             OnPropertyChanged(nameof(StartTime));
             OnPropertyChanged(nameof(EndTime));
+            OnPropertyChanged(nameof(NationalCode));
+            OnPropertyChanged(nameof(Id));
         }
     }
     public string MasterName
@@ -49,8 +51,8 @@ public class PresentationsPageVM : BaseVM
         set
         {
             Model.Lesson.Name = value;
-            OnPropertyChanged();
             ValidateProperty(Model.Lesson);
+            OnPropertyChanged();
         }
     }
     public string DayHold 
@@ -103,6 +105,44 @@ public class PresentationsPageVM : BaseVM
             ValidateProperty(Model);
         }
     }
+    public string NationalCode // Master National-Code
+    { 
+        get => Model.Master.User.PersonInformation.NationalCode; 
+        set
+        {
+            Model.Master.User.PersonInformation.NationalCode = value;
+
+            if (IsNullOrEmpty(value.Trim()) || IsNullOrWhiteSpace(value.Trim()))
+            {
+
+                AddError("Master National Code Is Required!");
+                //OnPropertyChanged();
+                return;
+            }
+            
+            ValidateProperty(Model.Master.User.PersonInformation);
+            OnPropertyChanged();
+        }
+    }
+    public string Id 
+    { 
+        get => Model.Id.ToString(); 
+        set
+        {
+            try
+            {
+                Model.Id = Guid.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Show(ex.Message, "Try Not To Touch This!");
+                return;
+            }
+            //Show("This Field Is Read-Only!");
+            ValidateProperty(Model);
+            //OnPropertyChanged();
+        }
+    }
     #endregion
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
@@ -111,15 +151,28 @@ public class PresentationsPageVM : BaseVM
 
     void Delete()
     {
-        if (_repo.Remove(Model) > 0)
-            Models.Remove(Model);
+        var (result, message) = _repo.Remove(Model);
+        
+        if ( result <= 0)
+            Show(message);
         else
-            Show("Delete Operation Failed!");
+            Models.Remove(Model);
     }
-    void Add() => Models.Add(Model);
+    void Add()
+    {
+        var (result, message) = _repo.Add(Model, NationalCode, Name);
+
+        if (result <= 0)
+            Show(message);
+        else
+            Models.Add(Model);
+    }
     void Update()
     {
-        if (_repo.Update(Model) > 0)
+        var (result, message) = _repo.Update(Model);
+        if (result <= 0)
+            Show(message);
+        else
         {
             var selected = Model;
             var index = Models.IndexOf(selected);
@@ -130,8 +183,6 @@ public class PresentationsPageVM : BaseVM
                 Models[index] = selected;
             }
         }
-        else
-            Show("Update Operation Failed!");
     }
     #endregion
 }

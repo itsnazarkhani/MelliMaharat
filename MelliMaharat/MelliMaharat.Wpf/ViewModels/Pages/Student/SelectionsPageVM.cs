@@ -124,15 +124,19 @@ public class SelectionsPageVM : BaseVM
 
     void Delete()
     {
-        if (_repo.Remove(Model) > 0)
-            Models.Remove(Model);
+        var (result, message) = _repo.Remove(Model);
+        if (result > 0)
+            Show(message, "Delete Operation Failed!");
         else
-            Show("Delete Operation Failed!");
+            Models.Remove(Model);
     }
     void Add() => Models.Add(Model);
     void Update()
     {
-        if (_repo.Update(Model) > 0)
+        var (result, message) = _repo.Update(Model);
+        if (result <= 0)
+            Show(message, "Update Operation Failed!");
+        else
         {
             var selected = Model;
             var index = Models.IndexOf(selected);
@@ -143,8 +147,6 @@ public class SelectionsPageVM : BaseVM
                 Models[index] = selected;
             }
         }
-        else
-            Show("Update Operation Failed!");
     }
     #endregion
 }

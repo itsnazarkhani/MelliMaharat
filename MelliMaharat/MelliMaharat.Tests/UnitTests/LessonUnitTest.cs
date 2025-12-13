@@ -7,7 +7,7 @@ public class LessonUnitTest : BaseTest
     public void Add()
     {
         Lesson lesson = new Lesson() { Name = "bar", Unit = 2 };
-        int result = Repo.Add(lesson);
+        var (result, message)= Repo.Add(lesson);
         Assert.Equal(1, result);
         Assert.Equal(31, Repo.GetAll().Count());
     }
@@ -15,7 +15,7 @@ public class LessonUnitTest : BaseTest
     public void Remove()
     {
         Lesson lesson = Repo.GetWhere(x => x.Name.Equals("Electromagnetics I")).First();
-        int result = Repo.Remove(lesson);
+        var (result, message) = Repo.Remove(lesson);
         int count = Repo.GetAll().Count();
         Assert.Equal(1, result);
         Assert.Equal(29, count);

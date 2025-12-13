@@ -155,17 +155,19 @@ public class ProfilePageVM : BaseVM
 
     void Delete()
     {
-        if (_repo.Remove(Model) > 0)
-            Model = default!;
+        var (result, message) = _repo.Remove(Model);
+        if (result <= 0)
+            Show(message, "Delete Operation Failed!");
         else
-            Show("Delete Operation Failed!");
+            Model = default!;
     }
     void Update()
     {
-        if (_repo.Update(Model) > 0)
-            Show("Update Operation Successful");
+        var (result, message) = _repo.Update(Model);
+        if (result <= 0)
+            Show(message, "Update Operation Failed!");
         else
-            Show("Update Operation Failed!");
+            Show("Update Operation Successful");
     }
     #endregion
 }

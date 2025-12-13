@@ -134,10 +134,11 @@ public class ProfilePageVM : BaseVM
 
     void Update()
     {
-        if (_repo.Update(Model) > 0)
-            Show("Update Operation Successful");
+        var (result, message) = _repo.Update(Model);
+        if  (result <= 0)
+            Show(message, "Update Operation Failed!");
         else
-            Show("Update Operation Failed!");
+            Show("Update Operation Successful");
     }
     #endregion
 }

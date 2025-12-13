@@ -28,6 +28,41 @@ public class SelectionsPageVM : BaseVM
             OnPropertyChanged(nameof(Score));
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Year));
+            OnPropertyChanged(nameof(Id));
+            OnPropertyChanged(nameof(NationalCode));
+        }
+    }
+    public string Id // Presentation Id
+    {
+        get => Model.Presentation.Id == default ? Empty : Model.Presentation.Id.ToString(); 
+        set
+        {
+            try
+            {
+                Model.Presentation.Id = Guid.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Show(ex.Message, "Dont Touch This!");
+                return;
+            }
+            ValidateProperty(Model.Presentation);
+        }
+    }
+    public string NationalCode // Student National Code
+    { 
+        get => Model.Student.User.PersonInformation.NationalCode; 
+        set
+        {
+            Model.Student.User.PersonInformation.NationalCode = value;
+
+            if (IsNullOrEmpty(value.Trim()) || IsNullOrWhiteSpace(value.Trim()))
+            {
+                AddError("This Field Is Required!");
+                return;
+            }
+
+            ValidateProperty(Model.Student.User.PersonInformation);
         }
     }
     public string Student
@@ -114,15 +149,30 @@ public class SelectionsPageVM : BaseVM
 
     void Delete()
     {
-        if (_repo.Remove(Model) > 0)
-            Models.Remove(Model);
+        var (result, message) = _repo.Remove(Model);
+        if (result <= 0)
+            Show(message, "Delete Operation Failed!");
         else
-            Show("Delete Operation Failed!");
+            Models.Remove(Model);
     }
-    void Add() => Models.Add(Model);
+    void Add()
+    {
+        var (result, message) = _repo.Add(Model, NationalCode, Guid.Parse(Id));
+        
+        if (result == 0)
+            Show(message, "An Unknown Error Happend!");
+        else if (result <= 0)
+            Show(message);
+        else
+            Models.Add(Model);
+    }
     void Update()
     {
-        if (_repo.Update(Model) > 0)
+        var (result, message) = _repo.Update(Model);
+     
+        if (result <= 0)
+            Show(message);
+        else
         {
             var selected = Model;
             var index = Models.IndexOf(selected);
@@ -133,8 +183,6 @@ public class SelectionsPageVM : BaseVM
                 Models[index] = selected;
             }
         }
-        else
-            Show("Update Operation Failed!");
     }
     #endregion
 }

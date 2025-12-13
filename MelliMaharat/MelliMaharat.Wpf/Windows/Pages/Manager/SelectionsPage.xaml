@@ -50,7 +50,15 @@
                     <custom:CustomTextBox InputText="{Binding Year}" 
                                           Tag="EducationYear:" 
                                           DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding NationalCode}" 
+                      Tag="Student National Code:" 
+                      DockPanel.Dock="Top"/>
                     
+                    <custom:CustomTextBox InputText="{Binding Id}" 
+                      Tag="Presentation Id:" 
+                      DockPanel.Dock="Top"/>
+
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete" Command="{Binding DeleteCommand}"/>
                         <Button Content="Add" Command="{Binding AddCommand}"/>

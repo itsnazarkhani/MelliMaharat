@@ -20,17 +20,19 @@ public partial class BaseVM : INotifyDataErrorInfo
     }
     protected void AddErrors(List<string> Errors, [CallerMemberName] string propertyName = "")
     {
-        if (!_errors.ContainsKey(propertyName))
-            _errors[propertyName] = [];
+        //if (!_errors.ContainsKey(propertyName))
+        _errors[propertyName] = [];
         _errors[propertyName] = Errors;
         OnErrorsChanged(propertyName);
+        OnPropertyChanged(propertyName);
     }
     protected void AddError(string Error, [CallerMemberName] string propertyName = "")
     {
-        if (!_errors.ContainsKey(propertyName))
-            _errors[propertyName] = [];
+        //if (!_errors.ContainsKey(propertyName))
+        _errors[propertyName] = [];
         _errors[propertyName].Add(Error);
         OnErrorsChanged(propertyName);
+        OnPropertyChanged(propertyName);
     }
 
 
@@ -42,6 +44,7 @@ public partial class BaseVM : INotifyDataErrorInfo
     /// <example>in setter: ValidateProperty(new PersonsObservableCollection().First(), new PersonsObservableCollection().First().Username)</example>
     protected virtual void ValidateProperty(object? instance = default, [CallerMemberName] string? propertyName = null)
     {
+        //OnPropertyChanged(propertyName ??= "");
         if (instance is null)
             return;
         if (IsNullOrEmpty(propertyName))
@@ -69,6 +72,7 @@ public partial class BaseVM : INotifyDataErrorInfo
             _errors[propertyName] = [.. results.Select(x => x.ErrorMessage ?? Empty)];
             OnErrorsChanged(propertyName);
         }
+        OnPropertyChanged(propertyName);
     }
     /// <summary>
     /// Non-Generic Validator for All Properties of inserting object
@@ -99,6 +103,7 @@ public partial class BaseVM : INotifyDataErrorInfo
                 OnErrorsChanged(memberName);
             }
         }
+        OnPropertyChanged();
         return isValid;
     }
 }
@@ -136,6 +141,7 @@ public partial class BaseVM<TModel> : BaseVM
                 _errors[propertyName] = [.. results.Select(x => x.ErrorMessage ?? Empty)];
                 OnErrorsChanged(propertyName);
             }
+            OnPropertyChanged();
         }
     }
 
@@ -146,7 +152,6 @@ public partial class BaseVM<TModel> : BaseVM
             _errors.Remove(propertyName);
             OnErrorsChanged(propertyName);
         }
-
         var context = new ValidationContext(Model);
         var results = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
 
@@ -163,6 +168,7 @@ public partial class BaseVM<TModel> : BaseVM
                 OnErrorsChanged(memberName);
             }
         }
+        OnPropertyChanged();
         return isValid;
     }
     

@@ -31,10 +31,15 @@
                                           Tag="Master:"
                                           IsEnabled="False"
                                           DockPanel.Dock="Top"/>
-                    
+
+                    <custom:CustomTextBox InputText="{Binding NationalCode}"
+                                          Tag="Master National-Code:"
+                                          IsEnabled="True"
+                                          DockPanel.Dock="Top"/>
+
                     <custom:CustomTextBox InputText="{Binding Name}"
                                           Tag="Lesson:"
-                                          IsEnabled="False"
+                                          IsEnabled="True"
                                           DockPanel.Dock="Top"/>
 
                     <custom:CustomTextBox InputText="{Binding DayHold}" 
@@ -48,6 +53,10 @@
                     <custom:CustomTextBox InputText="{Binding EndTime, UpdateSourceTrigger=LostFocus}" 
                                           Tag="End Time:" 
                                           DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Id, UpdateSourceTrigger=LostFocus}" 
+                                          Tag="Presentation Id:" 
+                                          DockPanel.Dock="Top" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=InputText}"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
                         <Button Content="Delete" Command="{Binding DeleteCommand}"/>
