@@ -14,6 +14,7 @@ public class MastersPageVM : BaseVM
         {
             field = value;
             field ??= EmptyMaster;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -36,7 +37,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.FirstName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -46,7 +46,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -61,12 +60,10 @@ public class MastersPageVM : BaseVM
             }
             catch (Exception ex)
             {
-                OnPropertyChanged();
-                AddError(ex.Message);
                 Model.User.PersonInformation.BirthDate = default;
+                AddError(ex.Message);
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -76,7 +73,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -86,7 +82,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -96,7 +91,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -106,7 +100,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.Password = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -125,7 +118,6 @@ public class MastersPageVM : BaseVM
         set
         {
             Model.User.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -142,11 +134,8 @@ public class MastersPageVM : BaseVM
             {
                 Model.Graduation = Graduations.None;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -161,11 +150,9 @@ public class MastersPageVM : BaseVM
             }
             catch (Exception ex)
             {
-                OnPropertyChanged();
                 AddError(ex.Message);
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -190,11 +177,9 @@ public class MastersPageVM : BaseVM
             catch (Exception ex)
             {
                 AddError(ex.Message);
-                OnPropertyChanged();
                 Model.Department.Name = Departments.None;
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.Department);
         }
     }
@@ -202,7 +187,7 @@ public class MastersPageVM : BaseVM
     #region Constructors
     public MastersPageVM()
     {
-        Model = EmptyMaster;
+        Model = default!;
         foreach(var m in _repo.GetAll())
             Models.Add(m);
     }

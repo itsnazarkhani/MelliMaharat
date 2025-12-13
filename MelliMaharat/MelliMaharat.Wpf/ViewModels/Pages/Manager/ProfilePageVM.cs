@@ -15,6 +15,7 @@ public class ProfilePageVM : BaseVM
         {
             field = value;
             field ??= EmptyUser;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -34,7 +35,6 @@ public class ProfilePageVM : BaseVM
         set 
         {
             Model.PersonInformation.FirstName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
     }
@@ -44,7 +44,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.PersonInformation.LastName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
     }
@@ -54,7 +53,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.Password = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -64,7 +62,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -81,7 +78,6 @@ public class ProfilePageVM : BaseVM
             {
                 Show(ex.Message);
             }
-            OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
     }
@@ -91,7 +87,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
     }
@@ -101,7 +96,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.PersonInformation);
         }
     }
@@ -111,7 +105,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }

@@ -52,4 +52,11 @@ public class StudentRepo : Repo<Student>
         var totalUnits = weighted.Sum(w => w.Unit);
         return totalUnits == 0 ? 0m : weighted.Sum(w => w.Grade * w.Unit) / totalUnits;
     }
+    public Student GetSingle(string username)
+    {
+        return _table.Where(x => x.User.Username == username)
+                     .Include(x => x.User)
+                         .ThenInclude(x => x.PersonInformation)
+                     .SingleOrDefault();
+    }
 }

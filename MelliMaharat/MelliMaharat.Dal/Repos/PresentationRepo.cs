@@ -28,8 +28,8 @@ public class PresentationRepo : TemporalRepo<Presentation>
                 return (-1, "This Master Does Not Exist!\nGo Add It.");
             if (!lessonQuery.Any())
                 return (-2, "This Lesson Does Not Exist!\nGo Add It.");
-            if (!presentationQuery.Any())
-                return (-3, "This Presentation Does Not Exist!\nGo Add It.");
+            if (presentationQuery.Any())
+                return (-3, "This Presentation Already Exist!");
 
             presentation.Master = masterQuery.SingleOrDefault();
             presentation.Lesson = lessonQuery.FirstOrDefault();

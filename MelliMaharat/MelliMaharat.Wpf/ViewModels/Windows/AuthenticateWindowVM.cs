@@ -1,4 +1,7 @@
-﻿namespace MelliMaharat.Wpf.ViewModels.Windows;
+﻿using MelliMaharat.Dal.Repos.Base;
+using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
+
+namespace MelliMaharat.Wpf.ViewModels.Windows;
 
 public class AuthenticateWindowVM : BaseVM<User>
 {
@@ -47,9 +50,13 @@ public class AuthenticateWindowVM : BaseVM<User>
         CurrentUserRole = UserRoles.None;
         CurrentUser = new();
 
-        var unitOfWork = new UnitOfWork(new ApplicationDbContextFactory().CreateDbContext());
-        var authService = new AuthService(unitOfWork);
-
+        //var unitOfWork = new UnitOfWork(new ApplicationDbContextFactory().CreateDbContext());
+        //var authService = new AuthService(unitOfWork);
+        var context = new ApplicationDbContextFactory().CreateDbContext();
+        var authService = new AuthService(context);
+        var studentRepo = new StudentRepo();
+        var masterRepo = new MasterRepo();
+        var managerRepo = new UserRepo();
 
         //AuthResult authResult = authResultTask.GetAwaiter().GetResult();
         var authResult = await authService.LoginAsync(Username, Password);
@@ -61,31 +68,36 @@ public class AuthenticateWindowVM : BaseVM<User>
             return;
         }
 
-        // current user 
-        //_ = authResult.User;
-
-        // current user role
-        //_ = authResult.User!.Role;
-
         CurrentUserRole = authResult.User!.Role;
-
-        switch (CurrentUserRole)
+        try
         {
-            case UserRoles.Student:
-                CurrentUser = unitOfWork.Students.GetAll().Where(x => x.User.Username == Username).First();
-                new StudentWindow((Student)CurrentUser).Show();
-                break;
-            case UserRoles.Master:
-                CurrentUser = unitOfWork.Masters.GetAll().Where(x => x.User.Username == Username).First();
-                new MasterWindow((Master)CurrentUser).Show();
-                break;
-            case UserRoles.Admin:
-                CurrentUser = unitOfWork.Users.GetAll().Where(x => x.Username == Username).First();
-                new ManagerWindow((User)CurrentUser).Show();
-                break;
-            default:
-                Show("This User Role Is Undefined!");
-                return;
+
+            switch (CurrentUserRole)
+            {
+                case UserRoles.Student:
+                    //CurrentUser = unitOfWork.Students.GetAll().Where(x => x.User.Username == Username).First();
+                    CurrentUser = studentRepo.GetSingle(Username);
+                    new StudentWindow((Student)CurrentUser).Show();
+                    break;
+                case UserRoles.Master:
+                    //CurrentUser = unitOfWork.Masters.GetAll().Where(x => x.User.Username == Username).First();
+                    CurrentUser = masterRepo.GetSingle(Username);
+                    new MasterWindow((Master)CurrentUser).Show();
+                    break;
+                case UserRoles.Admin:
+                    //CurrentUser = unitOfWork.Users.GetAll().Where(x => x.Username == Username).First();
+                    CurrentUser = managerRepo.GetSingle(Username);
+                    new ManagerWindow((User)CurrentUser).Show();
+                    break;
+                default:
+                    Show("This User Role Is Undefined!");
+                    return;
+            }
+        }
+        catch (Exception ex)
+        {
+            Show(ex.Message, "An Error Occured During Authentication!");
+            return;
         }
         parameter.Close();
     }

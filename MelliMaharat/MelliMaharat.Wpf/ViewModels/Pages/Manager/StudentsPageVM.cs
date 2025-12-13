@@ -22,6 +22,7 @@ public class StudentsPageVM : BaseVM
         {
             field = value;
             field ??= EmptyStudent;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -66,10 +67,8 @@ public class StudentsPageVM : BaseVM
             {
                 Model.User.PersonInformation.BirthDate = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -79,7 +78,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -89,7 +87,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -99,7 +96,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -109,19 +105,13 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
     public string Id 
     { 
         get => Model.Id == default ? Empty : Model.Id.ToString();
-        set
-        {
-            Show("Id Should Not Be Able To Set By User!");
-            Model.Id = default;
-            return;
-        }
+        set => Show("Id Should Not Be Able To Set By User!");
     }
     #endregion
     #region Commands

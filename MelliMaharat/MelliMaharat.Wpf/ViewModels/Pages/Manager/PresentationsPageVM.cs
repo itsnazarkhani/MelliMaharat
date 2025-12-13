@@ -5,7 +5,7 @@ public class PresentationsPageVM : BaseVM
     #region Constructors
     public PresentationsPageVM()
     {
-        Model = EmptyPresentation;
+        Model = default!;
         foreach (var item in _repo.GetAll())
             Models.Add(item);
     }
@@ -22,6 +22,7 @@ public class PresentationsPageVM : BaseVM
         {
             field = value;
             field ??= EmptyPresentation;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(MasterName));
             OnPropertyChanged(nameof(Name));
@@ -52,7 +53,6 @@ public class PresentationsPageVM : BaseVM
         {
             Model.Lesson.Name = value;
             ValidateProperty(Model.Lesson);
-            OnPropertyChanged();
         }
     }
     public string DayHold 
@@ -61,7 +61,6 @@ public class PresentationsPageVM : BaseVM
         set
         {
             Model.DayHold = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -78,10 +77,8 @@ public class PresentationsPageVM : BaseVM
             {
                 Model.StartTime = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -98,30 +95,26 @@ public class PresentationsPageVM : BaseVM
             {
                 Model.EndTime = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string NationalCode // Master National-Code
     { 
-        get => Model.Master.User.PersonInformation.NationalCode; 
+        get => Model.Master.User.PersonInformation.NationalCode;
+        //set => Show("This Field Is Read-Only!");
         set
         {
             Model.Master.User.PersonInformation.NationalCode = value;
 
             if (IsNullOrEmpty(value.Trim()) || IsNullOrWhiteSpace(value.Trim()))
             {
-
                 AddError("Master National Code Is Required!");
-                //OnPropertyChanged();
                 return;
             }
-            
+
             ValidateProperty(Model.Master.User.PersonInformation);
-            OnPropertyChanged();
         }
     }
     public string Id 
@@ -138,9 +131,7 @@ public class PresentationsPageVM : BaseVM
                 Show(ex.Message, "Try Not To Touch This!");
                 return;
             }
-            //Show("This Field Is Read-Only!");
             ValidateProperty(Model);
-            //OnPropertyChanged();
         }
     }
     #endregion
@@ -169,6 +160,7 @@ public class PresentationsPageVM : BaseVM
     }
     void Update()
     {
+        //var m = Model
         var (result, message) = _repo.Update(Model);
         if (result <= 0)
             Show(message);

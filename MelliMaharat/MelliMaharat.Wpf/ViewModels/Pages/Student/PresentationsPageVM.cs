@@ -5,7 +5,7 @@ public class PresentationsPageVM : BaseVM
     #region Constructors
     public PresentationsPageVM(Models.Student student)
     {
-        Model = EmptyPresentation; 
+        Model = default!; 
         foreach (var item in _repo.GetAll(student))
             Models.Add(item);
     }
@@ -22,6 +22,7 @@ public class PresentationsPageVM : BaseVM
         {
             field = value;
             field ??= EmptyPresentation;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(MasterName));
             OnPropertyChanged(nameof(LessonName));
@@ -37,11 +38,7 @@ public class PresentationsPageVM : BaseVM
             var result = Model.Master.User.PersonInformation.FirstName + " " + Model.Master.User.PersonInformation.LastName;
             return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
         }
-        set
-        {
-            Show("This Property Should Not Be Touched!");
-            OnPropertyChanged();
-        }
+        set => Show("This Property Should Not Be Touched!");
     }
     public string LessonName 
     {
@@ -49,7 +46,6 @@ public class PresentationsPageVM : BaseVM
         set
         {
             Model.Lesson.Name = value;
-            OnPropertyChanged();
             ValidateProperty(Model.Lesson);
         }
     }
@@ -59,7 +55,6 @@ public class PresentationsPageVM : BaseVM
         set
         {
             Model.DayHold = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -76,10 +71,8 @@ public class PresentationsPageVM : BaseVM
             {
                 Model.StartTime = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -96,10 +89,8 @@ public class PresentationsPageVM : BaseVM
             {
                 Model.EndTime = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }

@@ -20,6 +20,7 @@ public class ProfilePageVM : BaseVM
         {
             field = value;
             field ??= EmptyStudent;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -30,6 +31,7 @@ public class ProfilePageVM : BaseVM
             OnPropertyChanged(nameof(PhoneNumber));
             OnPropertyChanged(nameof(Username));
             OnPropertyChanged(nameof(Id));
+            AvgGrade = _repo.GetAvgGrade(Model);
         }
     }
     public string FirstName 
@@ -38,7 +40,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.FirstName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -48,7 +49,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -58,7 +58,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Password = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -68,7 +67,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -84,10 +82,8 @@ public class ProfilePageVM : BaseVM
             catch (Exception ex)
             {
                 Show(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -97,7 +93,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -107,7 +102,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -117,18 +111,13 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
     public string Id 
     { 
         get => Model.Id.ToString(); 
-        set 
-        {
-            Show("This Field is Read-Only!");
-            OnPropertyChanged();
-        }
+        set => Show("This Field is Read-Only!");
     }
     public decimal AvgGrade
     { 

@@ -16,6 +16,7 @@ public class ProfilePageVM : BaseVM
         {
             field = value;
             field ??= EmptyMaster;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -35,7 +36,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.FirstName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -45,7 +45,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -55,7 +54,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Password = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -65,7 +63,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -82,10 +79,8 @@ public class ProfilePageVM : BaseVM
             {
                 Model.User.PersonInformation.BirthDate = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -95,7 +90,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -105,7 +99,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -122,21 +115,15 @@ public class ProfilePageVM : BaseVM
             {
                 Model.Graduation = Graduations.None;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
     public string Id 
     { 
         get => Model.Id == default ? Empty : Model.Id.ToString(); 
-        set
-        {
-            Show("This Property is Read Only!");
-            OnPropertyChanged();
-        }
+        set => Show("This Property is Read Only!");
     }
     public string PhoneNumber 
     { 
@@ -144,7 +131,6 @@ public class ProfilePageVM : BaseVM
         set
         {
             Model.User.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }

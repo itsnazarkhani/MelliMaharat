@@ -5,7 +5,7 @@ public class LessonsPageVM : BaseVM
     #region Constructors
     public LessonsPageVM()
     {
-        Model = EmptyLesson;
+        Model = default!;
         foreach (var item in _repo.GetAll())
             Models.Add(item);
     }
@@ -22,6 +22,7 @@ public class LessonsPageVM : BaseVM
         {
             field = value;
             field ??= EmptyLesson;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(Name));
             OnPropertyChanged(nameof(Unit));
@@ -34,9 +35,7 @@ public class LessonsPageVM : BaseVM
         set
         {
             Model.Name = value;
-            OnPropertyChanged();
             ValidateProperty(Model);
-            //DeleteCommand.NotifyCanExecuteChanged();
         }
     }
     public string Unit
@@ -50,12 +49,10 @@ public class LessonsPageVM : BaseVM
             }
             catch (Exception x)
             {
-                OnPropertyChanged();
-                AddError(x.Message);
                 Model.Unit = default;
+                AddError(x.Message);
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }

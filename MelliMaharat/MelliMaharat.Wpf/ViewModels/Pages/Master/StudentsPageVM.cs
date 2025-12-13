@@ -1,13 +1,11 @@
-﻿using System.Security.Cryptography;
-
-namespace MelliMaharat.Wpf.ViewModels.Pages.Master;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Master;
 
 public class StudentsPageVM : BaseVM
 {
     #region Constructors
     public StudentsPageVM(Models.Master master)
     {
-        Model = EmptyStudent;
+        Model = default!;
         foreach (var item in _repo.GetAll(master))
             Models.Add(item);
     }
@@ -24,6 +22,7 @@ public class StudentsPageVM : BaseVM
         {
             field = value;
             field ??= EmptyStudent;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(FirstName));
             OnPropertyChanged(nameof(LastName));
@@ -40,7 +39,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.FirstName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -50,7 +48,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.LastName = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -60,7 +57,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.BirthDate = DateOnly.Parse(value);
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -70,7 +66,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.NationalCode = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -80,7 +75,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.PersonInformation.PhoneNumber = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User.PersonInformation);
         }
     }
@@ -90,7 +84,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.Email = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }
@@ -100,7 +93,6 @@ public class StudentsPageVM : BaseVM
         set
         {
             Model.User.Username = value;
-            OnPropertyChanged();
             ValidateProperty(Model.User);
         }
     }

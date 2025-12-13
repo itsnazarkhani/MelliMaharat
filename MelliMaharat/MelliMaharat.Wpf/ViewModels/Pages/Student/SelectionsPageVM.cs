@@ -5,7 +5,7 @@ public class SelectionsPageVM : BaseVM
     #region Constructors
     public SelectionsPageVM(Models.Student student)
     {
-        Model = EmptySelection;
+        Model = default!;
         foreach (var item in _repo.GetAll(student))
             Models.Add(item);
     }
@@ -22,6 +22,7 @@ public class SelectionsPageVM : BaseVM
         {
             field = value;
             field ??= EmptySelection;
+            ValidateAllProperties(this);
             OnPropertyChanged();
             OnPropertyChanged(nameof(StudentFullName));
             OnPropertyChanged(nameof(MasterFullName));
@@ -34,11 +35,7 @@ public class SelectionsPageVM : BaseVM
     public string Unit 
     { 
         get => Model.Presentation.Lesson.Unit == default ? Empty : Model.Presentation.Lesson.Unit.ToString(); 
-        set
-        {
-            Show("This Field Is Read-Only!");
-            OnPropertyChanged();
-        }
+        set => Show("This Field Is Read-Only!");
     }
     public string StudentFullName 
     {
@@ -47,11 +44,7 @@ public class SelectionsPageVM : BaseVM
             var result = Model.Student.User.PersonInformation.FirstName + " " + Model.Student.User.PersonInformation.LastName;
             return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
         }
-        set
-        {
-            Show("This Field Is Read-Only!");
-            OnPropertyChanged();
-        }
+        set => Show("This Field Is Read-Only!");
     }
     public string MasterFullName
     {
@@ -60,11 +53,7 @@ public class SelectionsPageVM : BaseVM
             var result = Model.Presentation.Master.User.PersonInformation.FirstName + " " + Model.Presentation.Master.User.PersonInformation.LastName;
             return IsNullOrEmpty(result.Trim()) || IsNullOrWhiteSpace(result.Trim()) ? Empty : result;
         }
-        set
-        {
-            Show("This Field Is Read-Only!");
-            OnPropertyChanged();
-        }
+        set => Show("This Field Is Read-Only!");
     }
     public string Score 
     {
@@ -79,10 +68,8 @@ public class SelectionsPageVM : BaseVM
             {
                 Model.Score = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model);
         }
     }
@@ -92,7 +79,6 @@ public class SelectionsPageVM : BaseVM
         set
         {
             Model.Presentation.Lesson.Name = value;
-            OnPropertyChanged();
             ValidateProperty(Model.Presentation.Lesson);
         }
     }
@@ -109,10 +95,8 @@ public class SelectionsPageVM : BaseVM
             {
                 Model.Term.Year = default;
                 AddError(ex.Message);
-                OnPropertyChanged();
                 return;
             }
-            OnPropertyChanged();
             ValidateProperty(Model.Term);
         }
     }

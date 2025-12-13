@@ -21,5 +21,12 @@ public class MasterRepo : Repo<Master>
                    .Include(x => x.User).ThenInclude(x => x.PersonInformation)
                    .SingleOrDefault();
     }
+    public Master GetSingle(string username)
+    {
+        return _table.Where(x => x.User.Username == username)
+                     .Include(x => x.User)
+                         .ThenInclude(x => x.PersonInformation)
+                     .SingleOrDefault();
+    }
         
 }
