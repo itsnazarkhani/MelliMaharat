@@ -5,7 +5,7 @@ public class SelectionsPageVM : BaseVM
     #region Constructors
     public SelectionsPageVM()
     {
-        Model = EmptySelection;
+        Model = default!;
         foreach (var item in _repo.GetAll())
             Models.Add(item);
     }

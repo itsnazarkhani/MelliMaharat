@@ -23,6 +23,6 @@ public partial class App : Application
 
         base.OnStartup(e);
 
-        GodMode = (e.Args.Length > 0 && e.Args[0].Equals("admin", StringComparison.OrdinalIgnoreCase));
+        //GodMode = (e.Args.Length > 0 && e.Args[0].Equals("admin", StringComparison.OrdinalIgnoreCase));
     }
 }

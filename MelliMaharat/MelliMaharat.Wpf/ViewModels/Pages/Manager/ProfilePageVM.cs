@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Dal.Repos.Base;
-
-namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class ProfilePageVM : BaseVM
 {

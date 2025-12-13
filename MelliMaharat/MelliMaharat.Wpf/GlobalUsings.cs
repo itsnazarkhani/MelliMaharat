@@ -5,17 +5,15 @@ global using MelliMaharat.Models.Enums;
 
 global using MelliMaharat.Infrastructure.Services;
 
+global using MelliMaharat.Dal.Repos.Base;
 global using MelliMaharat.Dal.Repos;
 global using MelliMaharat.Dal.DbContexts;
 global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;
-global using MelliMaharat.Dal.UnitOfWork.MelliMaharat.Dal.UnitOfWork;
 
 global using MelliMaharat.Wpf.Commands;
 global using MelliMaharat.Wpf.Windows;
-global using MelliMaharat.Wpf.Windows.Dialogs;
 global using static MelliMaharat.Wpf.AppStaticMethods;
 global using MelliMaharat.Wpf.ViewModels.Windows;
-global using MelliMaharat.Wpf.ViewModels.Pages;
 global using MelliMaharat.Wpf.Windows.Pages.Manager;
 global using MelliMaharat.Wpf.ViewModels.Pages.Master;
 global using MelliMaharat.Wpf.ViewModels.Pages.Manager;

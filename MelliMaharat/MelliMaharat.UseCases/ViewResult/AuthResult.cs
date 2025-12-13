@@ -8,6 +8,7 @@ namespace MelliMaharat.UseCases.ViewResult
         public string Message { get; set; } = string.Empty;
         public User? User { get; set; }
 
+
         public static AuthResult Success(User user, string message = "ورود با موفقیت انجام شد.") =>
             new() { IsSuccess = true, User = user, Message = message };
 

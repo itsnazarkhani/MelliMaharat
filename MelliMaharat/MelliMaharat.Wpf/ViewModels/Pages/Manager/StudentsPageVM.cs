@@ -5,7 +5,7 @@ public class StudentsPageVM : BaseVM
     #region Constructors
     public StudentsPageVM()
     {
-        Model = EmptyStudent;
+        Model = default!;
         foreach(var item in _repo.GetAll())
             Models.Add(item);
     }

@@ -8,20 +8,18 @@ public partial class CustomTextBox : UserControl
     public static readonly DependencyProperty InputTextProperty;
     public static readonly DependencyProperty HintProperty;
     #endregion
-
     #region properties
     public string InputText
     {
-        get { return (string)GetValue(InputTextProperty); }
-        set { SetValue(InputTextProperty, value); }
+        get => (string)GetValue(InputTextProperty);
+        set => SetValue(InputTextProperty, value); 
     }
     public string Hint
     {
-        get { return (string)GetValue(HintProperty); }
-        set { SetValue(HintProperty, value); }
+        get => (string)GetValue(HintProperty); 
+        set => SetValue(HintProperty, value); 
     }
     #endregion
-
     #region constructors
     public CustomTextBox() => InitializeComponent();
 
@@ -31,7 +29,6 @@ public partial class CustomTextBox : UserControl
         HintProperty = DependencyProperty.Register(nameof(Hint), typeof(string), typeof(CustomTextBox), new PropertyMetadata(""));
     }
     #endregion
-
     #region events
     private void Root_GotFocus(object sender, RoutedEventArgs e) =>
         SetTargetForStoryBoard("lblTagFadeOut", lblHint);
@@ -39,7 +36,6 @@ public partial class CustomTextBox : UserControl
         _ = IsNullOrEmpty(txtInput.Text) && SetTargetForStoryBoard("lblTagFadeIn", lblHint);
     private void mainBorder_MouseDown(object sender, MouseButtonEventArgs e) => txtInput.Focus();
     #endregion
-
     #region helper methods
     bool SetTargetForStoryBoard(string storyboardName, DependencyObject value)
     {

@@ -85,7 +85,6 @@ static class AppStaticMethods
         set => SetProperty(_currentUser, value);
     }
 
-
     static object GetProperty(string property)
     {
         var variable = Application.Current.Properties[property];
@@ -96,5 +95,4 @@ static class AppStaticMethods
         ArgumentNullException.ThrowIfNull(value);
         Application.Current.Properties[property] = value;
     }
-    
 }

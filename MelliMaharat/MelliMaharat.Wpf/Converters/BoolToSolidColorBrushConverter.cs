@@ -4,8 +4,8 @@ public class BoolToSolidColorBrushConverter : IValueConverter
 {
     public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        SolidColorBrush? brush = new BrushConverter().ConvertFrom("#1B263B") as SolidColorBrush;
-        if (brush == null ) throw new ArgumentNullException(nameof(brush));
+        if (new BrushConverter().ConvertFrom("#1B263B") is not SolidColorBrush brush) 
+            throw new ArgumentNullException(nameof(brush));
 
         if (value is not bool hasError)
             return new SolidColorBrush(Transparent);

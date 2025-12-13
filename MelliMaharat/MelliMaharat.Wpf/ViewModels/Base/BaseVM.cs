@@ -10,7 +10,6 @@ public partial class BaseVM<TModel> : BaseVM where TModel : notnull, new()
         set
         {
             field = value;
-            OnPropertyChanged();
             ValidateProperty(this);
         }
     }

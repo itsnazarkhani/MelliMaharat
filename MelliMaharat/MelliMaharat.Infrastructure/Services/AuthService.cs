@@ -1,4 +1,5 @@
-﻿using MelliMaharat.Dal.DbContexts;
+﻿using Bogus;
+using MelliMaharat.Dal.DbContexts;
 using MelliMaharat.Dal.UnitOfWork;
 using MelliMaharat.Infrastructure.Services.Base;
 using MelliMaharat.Models;
@@ -32,18 +33,41 @@ namespace MelliMaharat.Infrastructure.Services
             try
             {
                 User? user = null;
-            
+
                 if (unitOfWork is not null)
                     user = await unitOfWork.Users.GetAll().FirstOrDefaultAsync(u => u.Username == username);
-                else if(_context is not null)
-                    user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
-            
+                else if (_context is not null)
+                    user = await _context.Users.Include(x => x.PersonInformation).FirstOrDefaultAsync(u => u.Username == username);   
+
                 if (user == null)
                     return AuthResult.Failure("نام کاربری یا رمز عبور اشتباه است.");
-            
+
                 if (user.Password != password)
                     return AuthResult.Failure("رمز عبور اشتباه است.");
                 
+                if (_context is not null)
+                {
+                    switch (user.Role)
+                    {
+                        case Models.Enums.UserRoles.Admin:
+                            return AuthResult.Success(user, "ورود با موفقیت انجام شد.");
+                 
+                        case Models.Enums.UserRoles.Master:
+                            _context.Entry(user).Reference(x => x.Master).Load();
+                            if (user.Master is null)
+                                return AuthResult.Failure("Master Does Not Exist!");
+                            return AuthResult.Success(user, "ورود با موفقیت انجام شد.");
+
+                        case Models.Enums.UserRoles.Student:
+                            _context.Entry(user).Reference(x => x.Student).Load();
+                            if (user.Student is null)
+                                return AuthResult.Failure("Student Does Not Exist!");
+                            return AuthResult.Success(user, "ورود با موفقیت انجام شد.");
+
+                        default:
+                            return AuthResult.Failure("User Role Undefined!");
+                    }
+                }
                 return AuthResult.Success(user, "ورود با موفقیت انجام شد.");
             }
             catch (Exception ex)

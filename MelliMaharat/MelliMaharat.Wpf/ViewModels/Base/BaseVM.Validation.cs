@@ -1,6 +1,4 @@
-﻿using Accessibility;
-
-namespace MelliMaharat.Wpf.ViewModels;
+﻿namespace MelliMaharat.Wpf.ViewModels;
 
 public partial class BaseVM : INotifyDataErrorInfo
 {
@@ -13,14 +11,13 @@ public partial class BaseVM : INotifyDataErrorInfo
 
     public IEnumerable GetErrors([CallerMemberName] string? propertyName = "")
     {
-        if (IsNullOrEmpty(propertyName))
-            return _errors.SelectMany(x => x.Value).ToList();
-        else
-            return _errors.TryGetValue(propertyName, out var errorMessages) ? errorMessages : [];
+        propertyName ??= Empty;
+        var allErrors = _errors.SelectMany(x => x.Value).ToList();
+        var specificErrors = _errors.TryGetValue(propertyName, out var errorMessages) ? errorMessages : [];
+        return IsNullOrEmpty(propertyName) ? allErrors : specificErrors;
     }
     protected void AddErrors(List<string> Errors, [CallerMemberName] string propertyName = "")
     {
-        //if (!_errors.ContainsKey(propertyName))
         _errors[propertyName] = [];
         _errors[propertyName] = Errors;
         OnErrorsChanged(propertyName);
@@ -28,14 +25,11 @@ public partial class BaseVM : INotifyDataErrorInfo
     }
     protected void AddError(string Error, [CallerMemberName] string propertyName = "")
     {
-        //if (!_errors.ContainsKey(propertyName))
         _errors[propertyName] = [];
         _errors[propertyName].Add(Error);
         OnErrorsChanged(propertyName);
         OnPropertyChanged(propertyName);
     }
-
-
     /// <summary>
     /// Non-Generic Property Validator
     /// </summary>
@@ -44,7 +38,6 @@ public partial class BaseVM : INotifyDataErrorInfo
     /// <example>in setter: ValidateProperty(new PersonsObservableCollection().First(), new PersonsObservableCollection().First().Username)</example>
     protected virtual void ValidateProperty(object? instance = default, [CallerMemberName] string? propertyName = null)
     {
-        //OnPropertyChanged(propertyName ??= "");
         if (instance is null)
             return;
         if (IsNullOrEmpty(propertyName))
@@ -144,7 +137,6 @@ public partial class BaseVM<TModel> : BaseVM
             OnPropertyChanged();
         }
     }
-
     public bool ValidateAllProperties()
     {
         foreach (var propertyName in _errors.Keys.ToList())
@@ -171,6 +163,4 @@ public partial class BaseVM<TModel> : BaseVM
         OnPropertyChanged();
         return isValid;
     }
-    
-
 }

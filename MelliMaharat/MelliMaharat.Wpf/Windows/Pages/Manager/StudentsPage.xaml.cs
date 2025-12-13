@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Manager;
 
 /// <summary>
 /// Interaction logic for StudentsPage.xaml
@@ -17,8 +15,10 @@ public partial class StudentsPage : Page
     private void Clear_Button_Click(object sender, RoutedEventArgs e) => MyListbox.UnselectAll();
 
     private void MyListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {   
-        if (sender is ListBox l && l.SelectedItems is not null && l.SelectedItem is Models.Student s)
-            GradeTextBox.InputText = _repo.GetAvgGrade(s).ToString(); 
+    {
+        GradeTextBox.InputText =
+            (sender is ListBox l && l.SelectedItems is not null && l.SelectedItem is Models.Student s)
+                ? _repo.GetAvgGrade(s).ToString()
+                : Empty;
     }
 }

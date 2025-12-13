@@ -1,6 +1,4 @@
-﻿using MelliMaharat.Wpf.ViewModels.Pages.Manager;
-
-namespace MelliMaharat.Wpf.Windows.Pages.Master;
+﻿namespace MelliMaharat.Wpf.Windows.Pages.Master;
 
 /// <summary>
 /// Interaction logic for StudentsPage.xaml
@@ -16,7 +14,9 @@ public partial class StudentsPage : Page
 
     private void MyListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (sender is ListBox l && l.SelectedItem is not null && l.SelectedItem is Models.Student s)
-            GradeTextBox.InputText = _repo.GetAvgGrade(s).ToString();
+        GradeTextBox.InputText =
+            (sender is ListBox l && l.SelectedItem is not null && l.SelectedItem is Models.Student s)
+                ? GradeTextBox.InputText = _repo.GetAvgGrade(s).ToString()
+                : Empty;
     }
 }
