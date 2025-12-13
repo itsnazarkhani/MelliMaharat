@@ -157,44 +157,4 @@ static class StaticMethods
         allTerms.AddRange(summerTerms);
         return allTerms;
     }
-
-
-
-    //var masterPersonFaker = PersonFakerGenerator(_startDateMaster);
-    //var studentPersonFaker = PersonFakerGenerator(_startDateStudent);
-    //var userFaker; we need one manager so dont need this.
-    //IEnumerable<Graduations> graduations = [Graduations.Doctorate, Graduations.Master, Graduations.Bachelor, Graduations.Associate];
-    //IEnumerable<Lesson> lessons = 
-    //[
-    //    new() {Name = "Circuit Theory I",            Unit = 1, Code = 101},
-    //    new() {Name = "Electromagnetics I",          Unit = 2, Code = 102},
-    //    new() {Name = "Digital Logic Design",        Unit = 3, Code = 103},
-    //    new() {Name = "Signals and Systems",         Unit = 1, Code = 104},
-    //    new() {Name = "Electronics I",               Unit = 2, Code = 105},
-    //    new() {Name = "Electrical Machines I",       Unit = 3, Code = 106},
-    //    new() {Name = "Power Systems Analysis",      Unit = 3, Code = 107},
-    //    new() {Name = "Control Systems",             Unit = 2, Code = 108},
-    //    new() {Name = "Microprocessors",             Unit = 3, Code = 109},
-    //    new() {Name = "Engineering Mathematics",     Unit = 1, Code = 110},
-    //    new() {Name = "Introduction to Programming", Unit = 1, Code = 201},
-    //    new() {Name = "Data Structures",             Unit = 2, Code = 202},
-    //    new() {Name = "Computer Architecture",       Unit = 3, Code = 203},
-    //    new() {Name = "Operating Systems",           Unit = 2, Code = 204},
-    //    new() {Name = "Database Systems",            Unit = 1, Code = 205},
-    //    new() {Name = "Software Engineering",        Unit = 3, Code = 206},
-    //    new() {Name = "Computer Networks",           Unit = 1, Code = 207},
-    //    new() {Name = "Artificial Intelligence",     Unit = 3, Code = 208},
-    //    new() {Name = "Theory of Computation",       Unit = 1, Code = 209},
-    //    new() {Name = "Discrete Mathematics",        Unit = 3, Code = 210},
-    //    new() {Name = "Statics",                     Unit = 2, Code = 301},
-    //    new() {Name = "Mechanics of Materials",      Unit = 2, Code = 302},
-    //    new() {Name = "Fluid Mechanics",             Unit = 3, Code = 303},
-    //    new() {Name = "Structural Analysis I",       Unit = 1, Code = 304},
-    //    new() {Name = "Concrete Structures I",       Unit = 3, Code = 305},
-    //    new() {Name = "Soil Mechanics",              Unit = 3, Code = 306},
-    //    new() {Name = "Transportation Engineering",  Unit = 2, Code = 307},
-    //    new() {Name = "Hydraulics",                  Unit = 3, Code = 308},
-    //    new() {Name = "Construction Management",     Unit = 1, Code = 309},
-    //    new() {Name = "Engineering Geology",         Unit = 1, Code = 310},
-    //];
 }
