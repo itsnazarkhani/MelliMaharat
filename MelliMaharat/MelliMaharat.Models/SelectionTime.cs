@@ -8,8 +8,7 @@ public class SelectionTime : BaseEntity
     [Required(ErrorMessage = "لطفاً زمان پایان انتخاب واحد را وارد کنید.")]
     public DateTime SelectionEnd { get; set; }
 
-    [Required(ErrorMessage = "لطفاً ترم مربوطه را انتخاب کنید.")]
-    [ForeignKey(nameof(TermId))]
+    [Required(ErrorMessage = "لطفاً ترم مربوطه را انتخاب کنید."), ForeignKey(nameof(TermId))]
     public Term Term { get; set; }
 
     [Required(ErrorMessage = "شناسه ترم الزامی است.")]

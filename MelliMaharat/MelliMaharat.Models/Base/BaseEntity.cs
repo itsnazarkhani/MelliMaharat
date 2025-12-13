@@ -6,7 +6,7 @@ public class BaseEntity
     public Guid Id { get; set; }
 
     [Timestamp]
-    public byte[] TimeStamp { get; set; } = Array.Empty<byte>();
+    public byte[] TimeStamp { get; set; } = [];
 
     [Required]
     public bool IsDeleted { get; set; } = false;

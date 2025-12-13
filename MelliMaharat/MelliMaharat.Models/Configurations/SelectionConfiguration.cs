@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using System.Reflection.Emit;
-
+﻿
 namespace MelliMaharat.Models.Configurations;
 
 public class SelectionConfiguration : IEntityTypeConfiguration<Selection>

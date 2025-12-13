@@ -9,3 +9,5 @@ global using MelliMaharat.Models.Views;
 global using MelliMaharat.Models.Enums;
 global using MelliMaharat.Models.Interfaces;
 global using System.ComponentModel;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

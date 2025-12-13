@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MelliMaharat.Models.Configurations
+﻿namespace MelliMaharat.Models.Configurations
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
