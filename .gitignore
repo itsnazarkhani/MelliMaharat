@@ -61,4 +61,4 @@ nunit-*.xml
 /MelliMaharat/MelliMaharat.Web/wwwroot/images/uploads/avatars
 
 # Obsidian Markdown
-.obsidian
+.obsidian/
