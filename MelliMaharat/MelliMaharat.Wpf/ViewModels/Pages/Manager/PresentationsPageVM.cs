@@ -1,5 +1,4 @@
-﻿
-namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
 
 public class PresentationsPageVM : BaseVM
 {
@@ -9,6 +8,8 @@ public class PresentationsPageVM : BaseVM
         Model = default!;
         foreach (var item in _repo.GetAll())
             Models.Add(item);
+        ModelsView = CollectionViewSource.GetDefaultView(Models);
+        SelectedOrderBy = nameof(Name);
     }
     #endregion
     #region Fields
@@ -135,6 +136,19 @@ public class PresentationsPageVM : BaseVM
             ValidateProperty(Model);
         }
     }
+    public IReadOnlyList<string> OrderByOptions => [nameof(Name), nameof(DayHold), nameof(StartTime), nameof(EndTime)];
+    public ICollectionView ModelsView { get; }
+    public string SelectedOrderBy
+    {
+        get => field;
+        set
+        {
+            if (field == value)
+                return;
+            field = value;
+            ApplySort(value);
+        }
+    }
     #endregion
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
@@ -155,27 +169,58 @@ public class PresentationsPageVM : BaseVM
         var (result, message) = _repo.Add(Model, NationalCode, Name);
 
         if (result <= 0)
+        {
             Show(message);
-        else
-            Models.Add(Model);
+            return;
+        }
+            
+        Models.Add(Model);
+        OnPropertyChanged(nameof(Model));
+        OnPropertyChanged(nameof(Id));
     }
     void Update()
     {
-        //var m = Model
         var (result, message) = _repo.Update(Model);
         if (result <= 0)
-            Show(message);
-        else
         {
-            var selected = Model;
-            var index = Models.IndexOf(selected);
-
-            if (index >= 0)
-            {
-                Models[index] = null!;
-                Models[index] = selected;
-            }
+            Show(message);
+            return;
         }
+
+
+        var selected = Model;
+        var index = Models.IndexOf(selected);
+
+        if (index >= 0)
+        {
+            Models[index] = null!;
+            Models[index] = selected;
+        }
+        OnPropertyChanged(nameof(Model));
+        OnPropertyChanged(nameof(Id));
+    }
+    #endregion
+    #region Methods
+    void ApplySort(string propertyName, [CallerMemberName] string caller = "")
+    {
+        var prop = propertyName switch
+        {
+            nameof(Name) => "Lesson.Name",
+            nameof(DayHold) => nameof(DayHold),
+            nameof(StartTime) => nameof(StartTime),
+            nameof(EndTime) => nameof(EndTime),
+            _ => null
+        };
+
+        if (prop == null) return;
+
+        using (ModelsView.DeferRefresh())
+        {
+            ModelsView.SortDescriptions.Clear();
+            var sortDescription = new SortDescription(prop, ListSortDirection.Ascending);
+            ModelsView.SortDescriptions.Add(sortDescription);
+        }
+        OnPropertyChanged(caller);
     }
     #endregion
 }

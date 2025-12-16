@@ -8,6 +8,8 @@ public class LessonPageVM : BaseVM
         Model = default!;
         foreach (var item in _repo.GetAll(master))
             Models.Add(item);
+        ModelsView = CollectionViewSource.GetDefaultView(Models);
+        SelectedOrderBy = nameof(Name);
     }
     #endregion
     #region Fields
@@ -52,6 +54,19 @@ public class LessonPageVM : BaseVM
             ValidateProperty(Model);
         }
     }
+    public IReadOnlyList<string> OrderByOptions => [nameof(Name), nameof(Unit)];
+    public ICollectionView ModelsView { get; }
+    public string SelectedOrderBy
+    {
+        get => field;
+        set
+        {
+            if (field == value)
+                return;
+            field = value;
+            ApplySort(value);
+        }
+    }
     #endregion
     #region Commands
     public CommandRelay DeleteCommand => field ??= new(Delete);
@@ -83,6 +98,27 @@ public class LessonPageVM : BaseVM
                 Models[index] = selected;
             }
         }
+    }
+    #endregion
+    #region Methods
+    void ApplySort(string propertyName, [CallerMemberName] string caller = "")
+    {
+        var prop = propertyName switch
+        {
+            nameof(Name) => nameof(Name),
+            nameof(Unit) => nameof(Unit),
+            _ => null
+        };
+
+        if (prop is null) return;
+
+        using (ModelsView.DeferRefresh())
+        {
+            ModelsView.SortDescriptions.Clear();
+            var sortDescription = new SortDescription(prop, ListSortDirection.Ascending);
+            ModelsView.SortDescriptions.Add(sortDescription);
+        }
+        OnPropertyChanged(caller);
     }
     #endregion
 }

@@ -12,7 +12,14 @@ public partial class App : Application
     {
         try
         {
-            FactoryMigrate();
+            var context = AppDbContext;
+            context.Migrate();
+
+            if (context.Users.Any())
+                return;
+            
+            context.Users.Add(Admin);
+            context.SaveChanges();
         }
         catch (Exception ex)
         {
@@ -20,9 +27,6 @@ public partial class App : Application
             Shutdown();
             return;
         }
-
         base.OnStartup(e);
-
-        //GodMode = (e.Args.Length > 0 && e.Args[0].Equals("admin", StringComparison.OrdinalIgnoreCase));
     }
 }

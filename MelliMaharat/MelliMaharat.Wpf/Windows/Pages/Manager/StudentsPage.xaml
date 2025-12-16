@@ -50,14 +50,22 @@
                     <custom:CustomTextBox InputText="{Binding Email}"
                                           Tag="Email:"
                                           DockPanel.Dock="Top"/>
-                    
+
                     <custom:CustomTextBox InputText="{Binding Username}"
                                           Tag="Username:"
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Password}"
+                                          Tag="Password:"
                                           DockPanel.Dock="Top"/>
                     
                     <custom:CustomTextBox InputText="{Binding Id}"
                                           IsEnabled="False"
                                           Tag="Id:"
+                                          DockPanel.Dock="Top"/>
+
+                    <custom:CustomTextBox InputText="{Binding Role, UpdateSourceTrigger=LostFocus}"
+                                          Tag="Role:"
                                           DockPanel.Dock="Top"/>
 
                     <custom:CustomTextBox IsEnabled="False"
@@ -89,11 +97,9 @@
                            DockPanel.Dock="Left"/>
 
                 <ComboBox DockPanel.Dock="Right"
-                          SelectedIndex="0">
-                    <ComboBoxItem Content="First Name"/>
-                    <ComboBoxItem Content="Last Name"/>
-                    <ComboBoxItem Content="Age"/>
-                </ComboBox>
+                          ItemsSource="{Binding OrderByOptions}"
+                          SelectedItem="{Binding SelectedOrderBy, Mode=TwoWay}"
+                          SelectedIndex="0"/>
 
                 <TextBlock DockPanel.Dock="Right" Style="{StaticResource OrderByTextBlock}"/>
 

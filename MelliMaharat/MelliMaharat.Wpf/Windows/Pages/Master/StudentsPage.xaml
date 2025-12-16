@@ -84,11 +84,9 @@
                            DockPanel.Dock="Left"/>
 
                 <ComboBox DockPanel.Dock="Right"
-                          SelectedIndex="0">
-                    <ComboBoxItem Content="First Name"/>
-                    <ComboBoxItem Content="Last Name"/>
-                    <ComboBoxItem Content="Age"/>
-                </ComboBox>
+                          ItemsSource="{Binding OrderByOptions}"
+                          SelectedItem="{Binding SelectedOrderBy, Mode=TwoWay}"
+                          SelectedIndex="0"/>
 
                 <TextBlock DockPanel.Dock="Right" Style="{StaticResource OrderByTextBlock}"/>
 

@@ -183,6 +183,19 @@ public class MastersPageVM : BaseVM
             ValidateProperty(Model.Department);
         }
     }
+    public IReadOnlyList<string> OrderByOptions => [nameof(FirstName), nameof(LastName), nameof(Department)];
+    public ICollectionView ModelsView { get; }
+    public string SelectedOrderBy
+    {
+        get => field;
+        set
+        {
+            if (field == value)
+                return;
+            field = value;
+            ApplySort(value);
+        }
+    }
     #endregion
     #region Constructors
     public MastersPageVM()
@@ -190,6 +203,8 @@ public class MastersPageVM : BaseVM
         Model = default!;
         foreach(var m in _repo.GetAll())
             Models.Add(m);
+        ModelsView = CollectionViewSource.GetDefaultView(Models);
+        SelectedOrderBy = nameof(FirstName);
     }
     #endregion
     #region Commands
@@ -212,9 +227,13 @@ public class MastersPageVM : BaseVM
         var (result, message) = _repo.Add(Model);
 
         if (result <= 0)
+        {
             Show(message);
-        else
-            Models.Add(Model);
+            return;
+        }
+        Models.Add(Model);
+        OnPropertyChanged(nameof(Model));
+        OnPropertyChanged(nameof(Id));
     }
     void Update()
     {
@@ -223,18 +242,41 @@ public class MastersPageVM : BaseVM
         if (result <= 0)
         {
             Show(message);
+            return;
         }
-        else
-        {
-            var selected = Model;
-            var index = Models.IndexOf(selected);
         
-            if (index >= 0)
-            {
-                Models[index] = null!;
-                Models[index] = selected;
-            }
+        var selected = Model;
+        var index = Models.IndexOf(selected);
+        
+        if (index >= 0)
+        {
+            Models[index] = null!;
+            Models[index] = selected;
         }
+        OnPropertyChanged(nameof(Model));
+        OnPropertyChanged(nameof(Id));
+    }
+    #endregion
+    #region Methods
+    void ApplySort(string propertyName, [CallerMemberName] string caller = "")
+    {
+        string? prop = propertyName switch
+        {
+            nameof(FirstName) => "User.PersonInformation.FirstName",
+            nameof(LastName) => "User.PersonInformation.LastName",
+            nameof(Department) => "Department.Name",
+            _ => null
+        };
+        
+        if (prop == null) return;
+
+        using (ModelsView.DeferRefresh())
+        {
+            ModelsView.SortDescriptions.Clear();
+            var sortDescription = new SortDescription(prop, ListSortDirection.Ascending);
+            ModelsView.SortDescriptions.Add(sortDescription);
+        }
+        OnPropertyChanged(caller);
     }
     #endregion
 }

@@ -39,7 +39,7 @@ public class AuthenticateWindowVM : BaseVM<User>
     bool CanSignIn(Window? parameter) => !HasErrors && !IsNullOrEmpty(Password) && !IsNullOrEmpty(Username);
     async void SignIn(Window parameter)
     {
-        var authService = new AuthService(new ApplicationDbContextFactory().CreateDbContext());
+        var authService = new AuthService(AppDbContext);
         var authResult = await authService.LoginAsync(Username, Password);
         
         // if user credentials wrong
