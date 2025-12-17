@@ -127,3 +127,7 @@ WHERE m.Id = 'b88fb030-3fb1-4d89-0db0-08de371ef142'
 # لایسنس
 
 این پروژه تحت لایسنس [GPL](/LICENSE) ارائه شده است.
+
+# اجرا
+برای اجرای نسخه کامپایل و پابلیش شده میتوانید بعد از کلون کردن پروژه روی سیستم خود، روی این لینک کلیک کنید:
+[app.exe](./MelliMaharat/MelliMaharat.Wpf/PublishJIT/MelliMaharat.Wpf.exe)

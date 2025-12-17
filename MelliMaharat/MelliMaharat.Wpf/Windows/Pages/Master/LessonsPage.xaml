@@ -36,9 +36,6 @@
                                           DockPanel.Dock="Top"/>
 
                     <WrapPanel HorizontalAlignment="Center" DockPanel.Dock="Bottom">
-                        <!--<Button Content="Delete" Command="{Binding DeleteCommand}"/>
-                        <Button Content="Add" Command="{Binding AddCommand}"/>
-                        <Button Content="Update" Command="{Binding UpdateCommand}"/>-->
                         <Button Content="Clear" Click="Clear_Button_Click"/>
                     </WrapPanel>
 

@@ -59,3 +59,6 @@ nunit-*.xml
 # Visual Studio Code
 .vscode/
 /MelliMaharat/MelliMaharat.Web/wwwroot/images/uploads/avatars
+
+# Obsidian Markdown
+.obsidian
