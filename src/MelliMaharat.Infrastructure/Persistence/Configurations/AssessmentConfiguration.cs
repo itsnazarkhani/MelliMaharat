@@ -17,10 +17,14 @@ namespace MelliMaharat.Infrastructure.Persistence.Configurations
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.Property(x => x.MaxScore)
+    ;
             builder.Property(x => x.Weight)
+                .HasPrecision(5, 2)
                 .IsRequired();
 
             builder.Property(x => x.MaxScore)
+                .HasPrecision(5, 2)
                 .IsRequired();
 
             builder.HasOne(x => x.CourseOffering)

@@ -14,6 +14,7 @@ namespace MelliMaharat.Infrastructure.Persistence.Configurations
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Score)
+                .HasPrecision(5, 2)
                 .IsRequired();
 
             builder.HasOne(x => x.Enrollment)
