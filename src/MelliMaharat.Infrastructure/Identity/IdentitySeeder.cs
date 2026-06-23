@@ -39,7 +39,8 @@ namespace MelliMaharat.Infrastructure.Identity
                 UserName = username,
                 Email = email,
                 EmailConfirmed = true,
-                FullName = "System Administrator"
+                FirstName = "System",
+                LastName = "Administrator"
             };
 
             var result = await userManager.CreateAsync(adminUser, password);
