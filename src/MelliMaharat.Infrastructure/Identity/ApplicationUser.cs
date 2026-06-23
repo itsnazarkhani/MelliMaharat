@@ -7,7 +7,8 @@ namespace MelliMaharat.Infrastructure.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? FullName { get; set; }
+        public string FirstName { get; set; } = null!;
+        public string LastName { get; set; } = null!;
         public string? AvatarUrl { get; set; }
     }
 }
