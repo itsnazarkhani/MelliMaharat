@@ -5,9 +5,9 @@ using System.Text;
 
 namespace MelliMaharat.Domain.Entities
 {
-    public class Instructor : BaseEntity
+    public class Department : BaseEntity
     {
-        public string EmployeeNumber { get; set; } = null!;
-        public string UserId { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string Code { get; set; } = null!;
     }
 }
