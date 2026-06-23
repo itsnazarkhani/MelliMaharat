@@ -62,8 +62,10 @@ app.UseRouting();
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
     await IdentitySeeder.SeedRolesAsync(roleManager);
+    await IdentitySeeder.SeedAdminUserAsync(userManager);
 }
 
 app.UseAuthentication();
