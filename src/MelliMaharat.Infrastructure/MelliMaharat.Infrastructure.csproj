@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MelliMaharat.Application\MelliMaharat.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Configurations\" />
+  </ItemGroup>
+
 </Project>
