@@ -1,4 +1,6 @@
+using MelliMaharat.Application.Common;
 using MelliMaharat.Infrastructure.Data;
+using MelliMaharat.Infrastructure.Data.Repositories;
 using MelliMaharat.Infrastructure.Identity;
 using MelliMaharat.Infrastructure.Persistence.Interceptors;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +15,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<AuditableEntityInterceptor>();
+
+// Repositories
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 #endregion
 
