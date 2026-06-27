@@ -1,4 +1,4 @@
-﻿using MelliMaharat.Application.Common;
+﻿using MelliMaharat.Application.Common.Interfaces.Repositories;
 using MelliMaharat.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using System;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace MelliMaharat.Application.Common
+namespace MelliMaharat.Application.Common.Interfaces.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {

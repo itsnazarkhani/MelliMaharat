@@ -1,4 +1,4 @@
-using MelliMaharat.Application.Common;
+using MelliMaharat.Application.Common.Interfaces.Repositories;
 using MelliMaharat.Infrastructure.Data;
 using MelliMaharat.Infrastructure.Data.Repositories;
 using MelliMaharat.Infrastructure.Identity;
@@ -18,6 +18,7 @@ builder.Services.AddScoped<AuditableEntityInterceptor>();
 
 // Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 #endregion
 
