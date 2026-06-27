@@ -10,4 +10,14 @@
     <ProjectReference Include="..\MelliMaharat.Domain\MelliMaharat.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Students\DTOs\" />
+    <Folder Include="Features\Students\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.1.0" />
+  </ItemGroup>
+
 </Project>

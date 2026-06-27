@@ -1,4 +1,7 @@
+using FluentValidation;
+using MelliMaharat.Application.Common.Interfaces;
 using MelliMaharat.Application.Common.Interfaces.Repositories;
+using MelliMaharat.Application.Features.Students.Commands.CreateStudent;
 using MelliMaharat.Infrastructure.Data;
 using MelliMaharat.Infrastructure.Data.Repositories;
 using MelliMaharat.Infrastructure.Identity;
@@ -9,12 +12,15 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Database
+builder.Services.AddScoped<AuditableEntityInterceptor>();
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<AuditableEntityInterceptor>();
+
+builder.Services.AddScoped<IApplicationDbContext>(provider =>
+    provider.GetRequiredService<AppDbContext>());
 
 // Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -53,6 +59,11 @@ builder.Services.AddAuthorization(options =>
 #endregion
 
 #region Core Services
+
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(CreateStudentCommand).Assembly));
+
+builder.Services.AddValidatorsFromAssembly(typeof(CreateStudentCommand).Assembly);
 
 // MVC
 builder.Services.AddControllersWithViews();

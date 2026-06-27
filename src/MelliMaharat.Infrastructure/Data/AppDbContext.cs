@@ -1,4 +1,5 @@
-﻿using MelliMaharat.Domain.Common;
+﻿using MelliMaharat.Application.Common.Interfaces;
+using MelliMaharat.Domain.Common;
 using MelliMaharat.Domain.Entities;
 using MelliMaharat.Infrastructure.Identity;
 using MelliMaharat.Infrastructure.Persistence.Interceptors;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace MelliMaharat.Infrastructure.Data
 {
-    public class AppDbContext : IdentityDbContext<ApplicationUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         private readonly AuditableEntityInterceptor _auditableInterceptor;
 
