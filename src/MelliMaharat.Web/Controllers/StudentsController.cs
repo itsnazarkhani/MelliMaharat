@@ -20,5 +20,11 @@ namespace MelliMaharat.Web.Controllers
 
             return RedirectToAction(nameof(Details), new { id });
         }
+
+        [HttpGet]
+        public IActionResult Details(Guid id)
+        {
+            return View();
+        }
     }
 }
