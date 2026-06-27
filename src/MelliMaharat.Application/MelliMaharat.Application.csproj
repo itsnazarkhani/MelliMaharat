@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Departments\DTOs\" />
+    <Folder Include="Features\Departments\Queries\GetDepartments\" />
     <Folder Include="Features\Students\DTOs\" />
     <Folder Include="Features\Students\Queries\" />
   </ItemGroup>

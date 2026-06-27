@@ -1,6 +1,7 @@
 using FluentValidation;
 using MelliMaharat.Application.Common.Interfaces;
 using MelliMaharat.Application.Common.Interfaces.Repositories;
+using MelliMaharat.Application.Features.Departments.Commands.CreateDepartment;
 using MelliMaharat.Application.Features.Students.Commands.CreateStudent;
 using MelliMaharat.Infrastructure.Data;
 using MelliMaharat.Infrastructure.Data.Repositories;
@@ -61,9 +62,9 @@ builder.Services.AddAuthorization(options =>
 #region Core Services
 
 builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssembly(typeof(CreateStudentCommand).Assembly));
+    cfg.RegisterServicesFromAssembly(typeof(CreateDepartmentCommand).Assembly));
 
-builder.Services.AddValidatorsFromAssembly(typeof(CreateStudentCommand).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(CreateDepartmentCommand).Assembly);
 
 // MVC
 builder.Services.AddControllersWithViews();
