@@ -1,19 +1,28 @@
-﻿namespace MelliMaharat.Dal.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+
+namespace MelliMaharat.Dal.DbContexts;
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    IConfigurationRoot configFile = new ConfigurationBuilder()
-                                            .SetBasePath(GetCurrentDirectory())
-                                            .AddJsonFile("appsettings.configuration.json", true, true)
-                                            .Build();
-
-    public ApplicationDbContext CreateDbContext(string[] args = null)
+    public ApplicationDbContext CreateDbContext(string[] args)
     {
-        string connectionString = configFile.GetConnectionString("MelliMaharat");
-        DbContextOptionsBuilder<ApplicationDbContext> optionsBuilder = new();
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Path.Combine(
+                Directory.GetCurrentDirectory(),
+                "../MelliMaharat.Web"
+            ))
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        var connectionString =
+            configuration.GetConnectionString("MelliMaharat");
+
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+
         optionsBuilder.UseSqlServer(connectionString);
-        DbContextOptions<ApplicationDbContext> options = optionsBuilder.Options;
-        WriteLine($"Your Connection String:\n\t{connectionString}\n");
-        return new ApplicationDbContext(options);
+
+        return new ApplicationDbContext(optionsBuilder.Options);
     }
 }

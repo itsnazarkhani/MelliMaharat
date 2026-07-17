@@ -6,9 +6,5 @@
     <Project Path="MelliMaharat.Seeding/MelliMaharat.Seeding.csproj" />
     <Project Path="MelliMaharat.UseCases/MelliMaharat.UseCases.csproj" Id="0bb01bf1-4b16-41e9-bf46-c610a5de6f00" />
     <Project Path="MelliMaharat.Web/MelliMaharat.Web.csproj" Id="e3ef0c05-a6ad-4f29-914b-4647819cab41" />
-    <Project Path="MelliMaharat.Wpf/MelliMaharat.Wpf.csproj" />
-  </Folder>
-  <Folder Name="/test/">
-    <Project Path="MelliMaharat.Tests/MelliMaharat.Tests.csproj" />
   </Folder>
 </Solution>

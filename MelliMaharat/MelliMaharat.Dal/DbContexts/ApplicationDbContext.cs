@@ -1,8 +1,11 @@
-﻿namespace MelliMaharat.Dal.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MelliMaharat.Dal.DbContexts;
 
 public class ApplicationDbContext : DbContext
 {
     #region Tables
+
     public virtual DbSet<Master> Masters { get; set; }
     public virtual DbSet<Lesson> Lessons { get; set; }
     public virtual DbSet<Presentation> Presentations { get; set; }
@@ -17,34 +20,50 @@ public class ApplicationDbContext : DbContext
     public virtual DbSet<SelectionFeedback> SelectionFeedbacks { get; set; }
     public virtual DbSet<LessonInformationView> LessonInformationViews { get; set; }
     public virtual DbSet<SelectedLessonsInformationView> SelectedLessonsInformationViews { get; set; }
+
     #endregion
 
     #region Constructors
-    public ApplicationDbContext(): base() { }
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+    public ApplicationDbContext() : base()
+    {
+    }
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+
     #endregion
 
     #region ApplyConfigurations
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(UserConfiguration).Assembly);
 
         base.OnModelCreating(modelBuilder);
     }
+
     #endregion
 
     #region Conventions
+
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
         configurationBuilder.IgnoreAny<INonPersisted>();
         configurationBuilder.Properties<string>().HaveMaxLength(50);
     }
+
     #endregion
 
     #region CustomMethods
+
     public bool Create() => Database.EnsureCreated();
+
     public void Migrate() => Database.Migrate();
+
     public bool Delete() => Database.EnsureDeleted();
-    public static void FactoryMigrate() => new ApplicationDbContextFactory().CreateDbContext().Migrate();
+
     #endregion
 }

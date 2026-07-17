@@ -1,5 +1,4 @@
-﻿using MelliMaharat.Dal.Repos;
-using MelliMaharat.Dal.UnitOfWork;
+﻿using MelliMaharat.Dal.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Text;
