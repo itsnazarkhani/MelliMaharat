@@ -1,0 +1,201 @@
+﻿@model MelliMaharat.Web.ViewModels.Admin.AddPresentationViewModel
+
+@{
+    ViewData["Title"] = "افزودن ارائه";
+
+    var primaryColor = "#004488";
+    var accentColor = "#0056b3";
+    var secondaryColor = "#6c757d";
+}
+
+<style>
+    .form-card {
+        max-width: 650px;
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        padding: 30px;
+        border: 1px solid #e9ecef;
+        margin: 0 auto;
+    }
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: @primaryColor;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-select {
+        padding-left: 40px;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: left 0.75rem center;
+        background-size: 16px 12px;
+        appearance: none;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0,68,136,0.25);
+        }
+
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: @accentColor;
+            border-color: @accentColor;
+            transform: translateY(-1px);
+        }
+
+    .btn-secondary-styled {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: @secondaryColor;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+        min-width: 120px;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #dee2e6;
+            transform: translateY(-1px);
+        }
+
+    .text-danger {
+        font-size: 0.85rem;
+    }
+
+    .alert {
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+    <div class="form-card">
+        <h2 class="page-header">
+            <i class="fas fa-chalkboard-teacher ms-2"></i>
+            افزودن ارائه جدید
+        </h2>
+
+        @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                <strong>خطا در ثبت ارائه</strong>
+                <ul class="mb-0 mt-2">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="بستن"></button>
+            </div>
+        }
+
+        <form method="post" asp-controller="Admin" asp-action="AddPresentation" class="needs-validation" novalidate>
+
+            <!-- Lesson -->
+            <div class="mb-4">
+                <label asp-for="LessonId" class="form-label">درس</label>
+                <select asp-for="LessonId" class="form-select" asp-items="Model.Lessons">
+                    <option value="">انتخاب درس مورد نظر</option>
+                </select>
+                <span asp-validation-for="LessonId" class="text-danger d-block mt-1"></span>
+            </div>
+
+            <!-- Master -->
+            <div class="mb-4">
+                <label asp-for="MasterId" class="form-label">استاد</label>
+                <select asp-for="MasterId" class="form-select" asp-items="Model.Masters">
+                    <option value="">انتخاب استاد ارائه دهنده</option>
+                </select>
+                <span asp-validation-for="MasterId" class="text-danger d-block mt-1"></span>
+            </div>
+
+            <!-- Day -->
+            <div class="mb-4">
+                <label asp-for="DayHold" class="form-label">روز برگزاری</label>
+                <select asp-for="DayHold" class="form-select" asp-items="Model.PersianWeekDays">
+                    <option value="">انتخاب روز</option>
+                </select>
+                <span asp-validation-for="DayHold" class="text-danger d-block mt-1"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label asp-for="StartTime" class="form-label">ساعت شروع</label>
+                    <input asp-for="StartTime" type="time" class="form-control" required />
+                    <span asp-validation-for="StartTime" class="text-danger d-block mt-1"></span>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label asp-for="EndTime" class="form-label">ساعت پایان</label>
+                    <input asp-for="EndTime" type="time" class="form-control" required />
+                    <span asp-validation-for="EndTime" class="text-danger d-block mt-1"></span>
+                </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <h5 class="text-secondary mb-3">زمان‌بندی امتحان (اختیاری)</h5>
+
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ExamDate" class="form-label">تاریخ امتحان</label>
+                    <input asp-for="ExamDate" type="date" class="form-control" />
+                    <span asp-validation-for="ExamDate" class="text-danger d-block mt-1"></span>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                    <label asp-for="ExamStartTime" class="form-label">ساعت شروع امتحان</label>
+                    <input asp-for="ExamStartTime" type="time" class="form-control" />
+                    <span asp-validation-for="ExamStartTime" class="text-danger d-block mt-1"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between pt-3 gap-2">
+                <a asp-action="Presentations" class="btn btn-secondary-styled">
+                    <i class="fas fa-arrow-right ms-2"></i> بازگشت
+                </a>
+
+                <button type="submit" class="btn btn-primary-styled">
+                    <i class="fas fa-save ms-2"></i> ذخیره ارائه
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

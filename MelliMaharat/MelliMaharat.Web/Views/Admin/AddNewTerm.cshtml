@@ -1,0 +1,187 @@
+﻿@model MelliMaharat.Web.ViewModels.Admin.TermViewModel
+
+@{
+    ViewData["Title"] = "افزودن ترم جدید";
+
+    // Define theme colors for the design
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var secondaryColor = "#6c757d"; // Gray
+    var dangerColor = "#dc3545"; // Red for validation
+    var backgroundColor = "#f8f9fa"; // Light background
+}
+
+<style>
+    .form-card {
+        max-width: 550px; /* Limit width for focus */
+        width: 100%;
+        background-color: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        border: 1px solid #e9ecef;
+    }
+
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        border-bottom: 3px solid @primaryColor;
+        padding-bottom: 10px;
+        margin-bottom: 30px;
+        display: inline-block;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: @primaryColor;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    /* 1. Base style for text inputs */
+    .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding: 10px 15px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    /* 2. Specific style for select dropdown (FIX for RTL arrow clutter) */
+    .form-select {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-right: 15px; /* Keep space on the right for text start */
+        padding-left: 40px; /* Increased padding on the left to clear the dropdown arrow */
+        transition: border-color 0.2s, box-shadow 0.2s;
+        /* Force custom appearance and position the arrow on the left (RTL default) */
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: left 0.75rem center; /* Position indicator on the left */
+        background-size: 16px 12px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: @primaryColor;
+            box-shadow: 0 0 0 0.25rem rgba(0, 68, 136, 0.25);
+        }
+
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: darken( @primaryColor, 10%);
+            border-color: darken( @primaryColor, 10%);
+            transform: translateY(-1px);
+        }
+
+    .btn-secondary-styled {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: @secondaryColor;
+        font-weight: bold;
+        padding: 10px 25px;
+        border-radius: 8px;
+        transition: all 0.2s;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #dee2e6;
+            transform: translateY(-1px);
+        }
+
+    .validation-summary {
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid @dangerColor;
+        background-color: #f8d7da;
+        color: @dangerColor;
+        font-weight: bold;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <div class="form-card mx-auto">
+        <h2 class="page-header">
+            <i class="fas fa-calendar-alt me-2"></i>
+            افزودن ترم جدید
+        </h2>
+
+        <form method="post" asp-action="AddNewTerm">
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="validation-summary">
+                    <i class="fas fa-exclamation-circle ms-2"></i>
+                    لطفاً خطاهای زیر را بررسی کنید و فیلدهای اجباری را تکمیل نمایید.
+                </div>
+            }
+
+            <!-- Year Input -->
+            <div class="mb-4">
+                <label asp-for="Year" class="form-label">سال</label>
+                <input asp-for="Year" class="form-control" placeholder="مثال: ۱۴۰۳" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <!-- Term Type Select -->
+            <div class="mb-4">
+                <label asp-for="Type" class="form-label">نوع ترم</label>
+                <select asp-for="Type" class="form-select">
+                    @foreach (var item in Enum.GetValues(typeof(TermType)).Cast<TermType>())
+                    {
+                        // Assuming GetDescription() is available and TermType is defined in the model context
+                        <option value="@item"
+                                selected="@(Model?.Type == item ? "selected" : null)">
+                            @item.GetDescription()
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <!-- Start Date Input -->
+            <div class="mb-4">
+                <label asp-for="StartTime" class="form-label">زمان شروع</label>
+                <input asp-for="StartTime" class="form-control" type="date" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <!-- End Date Input -->
+            <div class="mb-5">
+                <label asp-for="EndTime" class="form-label">زمان پایان</label>
+                <input asp-for="EndTime" class="form-control" type="date" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-between">
+                <a asp-action="TermsList" class="btn btn-secondary-styled">
+                    <i class="fas fa-arrow-right ms-2"></i>
+                    بازگشت
+                </a>
+                <button type="submit" class="btn btn-primary-styled">
+                    <i class="fas fa-save ms-2"></i>
+                    ثبت ترم
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
