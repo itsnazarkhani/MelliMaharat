@@ -1,0 +1,13 @@
+﻿global using Microsoft.EntityFrameworkCore;
+global using System.ComponentModel.DataAnnotations;
+global using MelliMaharat.Models.Base;
+global using MelliMaharat.Models.Owned;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using MelliMaharat.Models.Configurations;
+global using MelliMaharat.Models.Views;
+global using MelliMaharat.Models.Enums;
+global using MelliMaharat.Models.Interfaces;
+global using System.ComponentModel;
+global using System.Reflection;
+global using Microsoft.EntityFrameworkCore.Storage.ValueConversion;

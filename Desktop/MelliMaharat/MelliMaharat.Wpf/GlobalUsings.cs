@@ -1,0 +1,46 @@
+﻿global using MelliMaharat.Models.Owned;
+global using MelliMaharat.Models;
+global using MelliMaharat.Models.Base;
+global using MelliMaharat.Models.Enums;
+
+global using MelliMaharat.Infrastructure.Services;
+
+global using MelliMaharat.Dal.Repos.Base;
+global using MelliMaharat.Dal.Repos;
+global using MelliMaharat.Dal.DbContexts;
+global using static MelliMaharat.Dal.DbContexts.ApplicationDbContext;
+
+global using MelliMaharat.Wpf.Commands;
+global using MelliMaharat.Wpf.Windows;
+global using static MelliMaharat.Wpf.AppStaticMethods;
+global using MelliMaharat.Wpf.ViewModels.Windows;
+global using MelliMaharat.Wpf.Windows.Pages.Manager;
+global using MelliMaharat.Wpf.ViewModels.Pages.Master;
+global using MelliMaharat.Wpf.ViewModels.Pages.Manager;
+
+
+global using static System.String;
+global using System.Windows;
+global using System.Windows.Controls;
+global using System.Windows.Data;
+global using System.Windows.Media;
+global using System.Windows.Media.Animation;
+global using static System.Windows.Media.Animation.Storyboard;
+global using static System.Windows.Media.Colors;
+global using static System.Windows.Visibility;
+global using System.Windows.Input;
+global using static System.Windows.FrameworkPropertyMetadataOptions;
+global using static System.Windows.MessageBox;
+
+global using System.ComponentModel;
+global using System.ComponentModel.DataAnnotations;
+global using static System.ComponentModel.DataAnnotations.Validator;
+
+global using System.Globalization;
+
+global using System.Runtime.CompilerServices;
+
+global using System.Collections;
+global using System.Collections.ObjectModel;
+
+global using Microsoft.IdentityModel.Tokens;
