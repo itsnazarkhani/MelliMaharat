@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:MelliMaharat.Wpf.ViewModels"
+                    xmlns:WindowsVM="clr-namespace:MelliMaharat.Wpf.ViewModels.Windows"
+                    xmlns:DialogsVM="clr-namespace:MelliMaharat.Wpf.ViewModels.Dialogs"
+                    xmlns:PagesVM="clr-namespace:MelliMaharat.Wpf.ViewModels.Pages.Manager">
+    
+    <WindowsVM:AuthenticateWindowVM x:Key="AuthenticationViewModel"/>
+    <!--<WindowsVM:ManagerWindowVM x:Key="ManagerWindowViewModel"/>
+    <WindowsVM:MasterWindowVM x:Key="MasterWindowViewModel"/>
+    <WindowsVM:StudentWindowVM x:Key="StudentWindowViewModel"/>-->
+    
+    <DialogsVM:MasterDialogVM x:Key="MasterDialogViewModel"/>
+    <DialogsVM:StudentDialogVM x:Key="StudentDialogViewModel"/>
+    <DialogsVM:PresentationDialogVM x:Key="PresentationDialogViewModel"/>
+    <DialogsVM:SelectionDialogVM x:Key="SelectionDialogViewModel"/>
+
+    <!--<PagesVM:LessonsPageVM x:Key="LessonsPageViewModel"/>
+    <PagesVM:MastersPageVM x:Key="MastersPageViewModel"/>
+    <PagesVM:PresentationsPageVM x:Key="PresentationsPageViewModel"/>
+    <PagesVM:ProfilePageVM x:Key="ProfilePageViewModel"/>
+    <PagesVM:SelectionsPageVM x:Key="SelectionsPageViewModel"/>
+    <PagesVM:StudentsPageVM x:Key="StudentsPageViewModel"/>-->
+
+
+</ResourceDictionary>

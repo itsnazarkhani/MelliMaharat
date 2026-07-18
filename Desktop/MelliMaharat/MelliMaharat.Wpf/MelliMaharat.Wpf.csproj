@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <None Remove="Resources\appsettings.configuration.json" />
+    <None Remove="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Bold.ttf" />
+    <None Remove="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
+    <None Remove="Resources\Images\icons8-close-48.png" />
+    <None Remove="Resources\Images\icons8-minus-48.png" />
+    <None Remove="Resources\Images\Manager.jpg" />
+    <None Remove="Resources\Images\Master.jpg" />
+    <None Remove="Resources\Images\Student.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\appsettings.configuration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MelliMaharat.Infrastructure\MelliMaharat.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Bold.ttf" />
+    <Resource Include="Resources\Fonts\FontsFree-Net-SF-Pro-Rounded-Regular.ttf" />
+    <Resource Include="Resources\Images\icons8-close-48.png" />
+    <Resource Include="Resources\Images\icons8-minus-48.png" />
+    <Resource Include="Resources\Images\Manager.jpg" />
+    <Resource Include="Resources\Images\Master.jpg" />
+    <Resource Include="Resources\Images\Student.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.1" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+</Project>
