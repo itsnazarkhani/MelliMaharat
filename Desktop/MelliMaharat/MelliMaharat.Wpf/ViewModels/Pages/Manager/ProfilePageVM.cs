@@ -1,0 +1,135 @@
+﻿namespace MelliMaharat.Wpf.ViewModels.Pages.Manager;
+
+public class ProfilePageVM : BaseVM
+{
+    #region Constructors
+    public ProfilePageVM(User user) => Model = user;
+    #endregion
+    #region Properties
+    public User Model
+    {
+        get => field; 
+        set
+        {
+            field = value;
+            field ??= EmptyUser;
+            ValidateAllProperties(this);
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(FirstName));
+            OnPropertyChanged(nameof(LastName));
+            OnPropertyChanged(nameof(Password));
+            OnPropertyChanged(nameof(Email));
+            OnPropertyChanged(nameof(BirthDate));
+            OnPropertyChanged(nameof(NationalCode));
+            OnPropertyChanged(nameof(PhoneNumber));
+            OnPropertyChanged(nameof(Username));
+            OnPropertyChanged(nameof(IsAdmin));
+            OnPropertyChanged(nameof(Id));
+        }
+    }
+    public string? FirstName
+    {
+        get => Model.PersonInformation.FirstName;
+        set 
+        {
+            Model.PersonInformation.FirstName = value;
+            ValidateProperty(Model.PersonInformation);
+        }
+    }
+    public string? LastName
+    {
+        get => Model.PersonInformation.LastName;
+        set
+        {
+            Model.PersonInformation.LastName = value;
+            ValidateProperty(Model.PersonInformation);
+        }
+    }
+    public string? Password
+    {
+        get => Model.Password;
+        set
+        {
+            Model.Password = value;
+            ValidateProperty(Model);
+        }
+    }
+    public string? Email
+    {
+        get => Model.Email;
+        set
+        {
+            Model.Email = value;
+            ValidateProperty(Model);
+        }
+    }
+    public string BirthDate
+    {
+        get => Model.PersonInformation.BirthDate.ToString();
+        set
+        {
+            try
+            {
+                Model.PersonInformation.BirthDate = DateOnly.Parse(value);
+            }
+            catch (Exception ex)
+            {
+                Show(ex.Message);
+            }
+            ValidateProperty(Model.PersonInformation);
+        }
+    }
+    public string? NationalCode
+    {
+        get => Model.PersonInformation.NationalCode;
+        set
+        {
+            Model.PersonInformation.NationalCode = value;
+            ValidateProperty(Model.PersonInformation);
+        }
+    }
+    public string? PhoneNumber
+    { 
+        get => Model.PersonInformation.PhoneNumber; 
+        set
+        {
+            Model.PersonInformation.PhoneNumber = value;
+            ValidateProperty(Model.PersonInformation);
+        }
+    }
+    public string? Username 
+    {
+        get => Model.Username; 
+        set
+        {
+            Model.Username = value;
+            ValidateProperty(Model);
+        }
+    }
+    public bool? IsAdmin
+    { 
+        get => Model.Role == UserRoles.Admin; 
+        set => Show("This Field Is Read-Only!");
+    }
+    public string Id 
+    { 
+        get => Model.Id.ToString();
+        set => Show("This Field Is Read-Only!");
+    }
+    #endregion
+    #region Fields
+    readonly Repo<User> _repo = new();
+    #endregion
+    #region Commands
+    public CommandRelay UpdateCommand => field ??= new(Update);
+
+    void Update()
+    {
+        var (result, message) = _repo.Update(Model);
+        if  (result <= 0)
+            Show(message, "Update Operation Failed!");
+        else
+            Show("Update Operation Successful");
+    }
+    #endregion
+}
