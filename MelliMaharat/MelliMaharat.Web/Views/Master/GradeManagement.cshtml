@@ -1,0 +1,264 @@
+﻿@model List<PresentationGradesStatusViewModel>
+@{
+    ViewData["Title"] = "مدیریت نمرات";
+
+    // Define theme colors, consistent with other Admin pages
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var successColor = "#1e8449"; // Slightly darker, richer Success green
+    var warningColor = "#f39c12"; // Vibrant Warning yellow/amber
+    var infoColor = "#2980b9"; // Medium Blue for info/view actions
+    var secondaryColor = "#7f8c8d"; // Gray for Back button
+}
+
+<style>
+    /* --- General Page Styling --- */
+    .page-header {
+        color: @primaryColor;
+        font-weight: 800;
+        /* Ensure the title stands out */
+    }
+
+    /* --- Rounding Variable for Consistency --- */
+    :root {
+        --mm-border-radius: 10px; /* Consistent rounding value */
+    }
+
+    /* --- Card Styling for Presentations (Consistent Rounding) --- */
+    .card-presentation {
+        border-radius: var(--mm-border-radius);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); /* Slightly more prominent shadow */
+    }
+
+        .card-presentation:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+    .card-title-styled {
+        color: @primaryColor;
+        font-weight: 700;
+        border-bottom: 2px solid #f1f1f1;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+
+    /* --- Progress Bar Customization (Consistent Rounding) --- */
+    .progress-bar-styled {
+        height: 10px; /* Slightly thicker bar */
+        border-radius: 5px; /* Half of the main radius for a sleek look */
+        overflow: hidden;
+    }
+
+    /* --- Status Alert Customization (Consistent Rounding) --- */
+    .alert-status {
+        border-radius: var(--mm-border-radius);
+        font-weight: 500;
+        font-size: 0.9rem;
+        padding: 10px 15px; /* Adjusted padding */
+    }
+
+        .alert-status.alert-warning-custom {
+            background-color: #fff3cd; /* Lighter warning */
+            color: #856404; /* Darker warning text */
+            border-color: #ffeeba;
+        }
+
+        .alert-status.alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+    /* --- Button Group Styling (Consistent Rounding and Alignment) --- */
+    .btn-group .btn {
+        font-size: 0.95rem; /* Slightly larger text */
+        font-weight: 600;
+        padding: 10px 12px; /* Better padding for smaller buttons */
+        transition: all 0.2s;
+        border-radius: 0; /* Resetting default border radius for group */
+    }
+
+        /* Applying rounding to the ends of the group */
+        .btn-group .btn:first-child {
+            border-top-right-radius: var(--mm-border-radius);
+            border-bottom-right-radius: var(--mm-border-radius);
+        }
+
+        .btn-group .btn:last-child {
+            border-top-left-radius: var(--mm-border-radius);
+            border-bottom-left-radius: var(--mm-border-radius);
+        }
+
+    /* Primary for Submit/Edit */
+    .btn-primary-styled {
+        background-color: @primaryColor;
+        border-color: @primaryColor;
+        color: white;
+    }
+
+        .btn-primary-styled:hover {
+            background-color: #003366;
+            border-color: #003366;
+            z-index: 1; /* Ensure border doesn't clip on hover */
+        }
+
+    /* Info for View */
+    .btn-info-styled {
+        background-color: @infoColor;
+        border-color: @infoColor;
+        color: white;
+    }
+
+        .btn-info-styled:hover {
+            background-color: #21618c;
+            border-color: #21618c;
+            z-index: 1;
+        }
+
+    /* Success for Export */
+    .btn-success-styled {
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+    }
+
+        .btn-success-styled:hover {
+            background-color: #1a6f3b;
+            border-color: #1a6f3b;
+            z-index: 1;
+        }
+
+    /* Back Button (Larger, fully rounded) */
+    .btn-secondary-styled {
+        background-color: @secondaryColor;
+        border-color: @secondaryColor;
+        color: white;
+        font-weight: 600;
+        padding: 10px 20px;
+        border-radius: var(--mm-border-radius); /* Full rounding */
+        transition: all 0.2s;
+    }
+
+        .btn-secondary-styled:hover {
+            background-color: #6c7a81;
+            border-color: #6c7a81;
+        }
+
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
+        <h2 class="page-header">
+            <i class="fas fa-file-invoice-dollar ms-2"></i> مدیریت نمرات
+        </h2>
+
+        <a asp-action="PresentedLessons" class="btn btn-secondary-styled">
+            <i class="fas fa-arrow-right ms-2"></i> بازگشت
+        </a>
+    </div>
+
+    <!-- Empty State -->
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-info py-4 text-center border-0 shadow-sm" style="background-color: #e2f3fd; color: @primaryColor; border-radius: var(--mm-border-radius);">
+            <i class="fas fa-info-circle fa-2x mb-3"></i>
+            <p class="mb-0 fs-5 fw-bold">هیچ کلاسی برای مدیریت نمرات شما یافت نشد.</p>
+        </div>
+    }
+    else
+    {
+        <!-- Classes Grid -->
+        <div class="row">
+            @foreach (var presentation in Model)
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                    <div class="card card-presentation h-100">
+                        <div class="card-body">
+                            <!-- Lesson Name -->
+                            <h5 class="card-title card-title-styled">
+                                <i class="fas fa-book-open ms-2"></i> @presentation.LessonName
+                            </h5>
+
+                            <!-- Day Hold Info -->
+                            <p class="card-text text-muted mb-4">
+                                <small><i class="fas fa-clock ms-1"></i> @presentation.DayHold</small>
+                            </p>
+
+                            <!-- Progress Section -->
+                            <div class="mb-4">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <small class="text-secondary">
+                                        <strong>وضعیت نمره‌دهی</strong>
+                                    </small>
+                                    <small class="text-secondary fw-bold">
+                                        @presentation.GradedStudents/@presentation.TotalStudents
+                                    </small>
+                                </div>
+
+                                <div class="progress progress-bar-styled">
+                                    @{
+                                        var progressBarClass = presentation.IsFullyGraded ? "bg-success" : "bg-warning";
+                                    }
+                                    <div class="progress-bar @progressBarClass"
+                                         role="progressbar"
+                                         style="width: @presentation.PercentageComplete%; background-color: @(presentation.IsFullyGraded? successColor : warningColor);"
+                                         aria-valuenow="@presentation.PercentageComplete"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+
+                                <small class="text-muted d-block mt-1" style="font-size: 0.8rem;">
+                                    @presentation.PercentageComplete% تکمیل شده
+                                </small>
+                            </div>
+
+                            <!-- Status Alert -->
+                            <div class="alert alert-status @(presentation.IsFullyGraded ? "alert-success" : "alert-warning-custom") mb-4">
+                                @if (presentation.IsFullyGraded)
+                                {
+                                    <small>
+                                        <i class="fas fa-check-circle ms-2"></i> تمام نمرات ثبت شده‌اند.
+                                    </small>
+                                }
+                                else
+                                {
+                                    <small>
+                                        <i class="fas fa-exclamation-circle ms-2"></i>
+                                        @(presentation.TotalStudents - presentation.GradedStudents) دانشجو منتظر نمره هستند.
+                                    </small>
+                                }
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="btn-group w-100" role="group">
+                                <a class="btn btn-sm btn-primary-styled"
+                                   asp-action="SubmitGrades"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="ثبت یا ویرایش نمرات">
+                                    <i class="fas fa-pencil-alt ms-1"></i> ثبت نمرات
+                                </a>
+                                <a class="btn btn-sm btn-info-styled"
+                                   asp-action="GradesSummary"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="مشاهده خلاصه نمرات">
+                                    <i class="fas fa-eye ms-1"></i> مشاهده
+                                </a>
+                                <a class="btn btn-sm btn-success-styled"
+                                   asp-action="ExportGrades"
+                                   asp-route-presentationId="@presentation.PresentationId"
+                                   title="صادرات لیست نمرات به CSV">
+                                    <i class="fas fa-download ms-1"></i> صادرات
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

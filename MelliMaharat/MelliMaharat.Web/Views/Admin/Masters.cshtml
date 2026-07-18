@@ -1,0 +1,173 @@
+﻿@model List<MelliMaharat.Models.Master>
+
+@{
+    // Define theme colors
+    var primaryColor = "#004488"; // Deep Corporate Blue
+    var successColor = "#28a745"; // Success Green for Add button
+    var textDark = "#212529";     // Dark text
+    var backgroundColor = "#e9ecef"; // Very Light Gray Page Background
+
+    ViewData["Title"] = "لیست اساتید";
+}
+
+@functions {
+    /// <summary>
+    /// Converts Latin (English) numerals in a string to Persian (Farsi) numerals.
+    /// </summary>
+    public string ToPersianNumber(object input)
+    {
+        if (input == null) return string.Empty;
+        string text = input.ToString();
+
+        // Handle potential decimal formatting before conversion
+        text = text.Replace(".", "/").Replace(",", "/");
+
+        Dictionary<char, char> mapping = new Dictionary<char, char>
+        {
+            {'0', '۰'}, {'1', '۱'}, {'2', '۲'}, {'3', '۳'}, {'4', '۴'},
+            {'5', '۵'}, {'6', '۶'}, {'7', '۷'}, {'8', '۸'}, {'9', '۹'}
+        };
+
+        char[] chars = text.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {
+            if (mapping.ContainsKey(chars[i]))
+            {
+                chars[i] = mapping[chars[i]];
+            }
+        }
+        return new string(chars);
+    }
+}
+
+<style>
+    .main-header {
+        color: @primaryColor;
+        font-weight: 900;
+        margin-bottom: 25px;
+    }
+
+    .table-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden; /* Ensure rounded corners clip internal content */
+        border: 1px solid #dee2e6;
+    }
+
+    .master-table {
+        margin-bottom: 0;
+    }
+
+        .master-table thead {
+            background-color: @primaryColor;
+            color: white;
+            position: sticky; /* Keep header visible on scroll */
+            top: 0;
+            z-index: 10;
+        }
+        /* Updated Alignment: Headers are right-aligned */
+        .master-table th {
+            vertical-align: middle;
+            text-align: right; /* Headers are right aligned */
+            padding: 0.75rem;
+        }
+        /* Updated Alignment: Data cells are right-aligned */
+        .master-table td {
+            vertical-align: middle;
+            text-align: right; /* Data cells aligned right for RTL consistency */
+            padding: 0.75rem;
+        }
+            /* Override for the first cell to ensure padding/style consistency */
+            .master-table td:first-child {
+                text-align: right; /* Already right-aligned */
+                font-weight: bold;
+                color: @textDark;
+            }
+
+        .master-table tbody tr:hover {
+            background-color: #f8f9fa; /* Light hover effect */
+        }
+
+    .btn-success-styled {
+        background-color: @successColor;
+        border-color: @successColor;
+        color: white;
+        font-weight: bold;
+        transition: all 0.2s;
+        border-radius: 6px;
+    }
+
+        .btn-success-styled:hover {
+            background-color: #1e7e34;
+            border-color: #1e7e34;
+            transform: translateY(-1px);
+        }
+    /* Style for empty state */
+    .empty-state {
+        padding: 40px 20px;
+        color: #6c757d;
+        text-align: center;
+    }
+</style>
+
+<div class="container py-5" dir="rtl">
+
+    <!-- Header and Add Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="main-header">
+            <i class="fas fa-users-cog me-2"></i>
+            لیست اساتید
+        </h3>
+
+        <a class="btn btn-success-styled px-4"
+           asp-controller="Admin"
+           asp-action="AddMaster">
+            <i class="fas fa-user-plus me-1"></i>
+            افزودن استاد جدید
+        </a>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-container">
+        <div style="max-height: 600px; overflow-y: auto;">
+
+            @if (Model == null || !Model.Any())
+            {
+                <div class="empty-state">
+                    <i class="fas fa-user-times fa-3x mb-3"></i>
+                    <h4>هیچ استادی برای نمایش وجود ندارد.</h4>
+                    <p>لطفاً با استفاده از دکمه بالا، استاد جدیدی اضافه کنید.</p>
+                </div>
+            }
+            else
+            {
+                <table class="table table-hover master-table">
+                    <thead>
+                        <tr>
+                            <!-- Adjusted widths after removing 'عملیات' column -->
+                            <th style="width: 30%;">نام و نام خانوادگی</th>
+                            <th style="width: 15%;">کد ملی</th>
+                            <th style="width: 15%;">شماره تماس</th>
+                            <th style="width: 25%;">رشته تحصیلی</th>
+                            <th style="width: 15%;">دانشکده</th>
+                            <!-- Removed: <th>عملیات</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var master in Model)
+                        {
+                            <tr>
+                                <td>@master.User.PersonInformation.FirstName @master.User.PersonInformation.LastName</td>
+                                <td>@ToPersianNumber(master.User.PersonInformation.NationalCode)</td>
+                                <td>@ToPersianNumber(master.User.PersonInformation.PhoneNumber)</td>
+                                <td>@master.Graduation</td>
+                                <td>@master.Department?.Name</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
