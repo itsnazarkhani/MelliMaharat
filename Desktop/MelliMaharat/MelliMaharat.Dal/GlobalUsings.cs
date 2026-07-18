@@ -6,8 +6,6 @@ global using MelliMaharat.Models.Interfaces;
 global using MelliMaharat.Models.Views;
 global using MelliMaharat.Models.Base;
 global using MelliMaharat.Dal.DbContexts;
-global using MelliMaharat.Dal.Repos.Interfaces;
-global using MelliMaharat.Dal.Repos.Base;
 global using static System.TimeZoneInfo;
 global using Microsoft.Extensions.Configuration;
 global using static System.Console;

@@ -6,8 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MelliMaharat.Seeding\MelliMaharat.Seeding.csproj" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<ProjectReference Include="..\MelliMaharat.Models\MelliMaharat.Models.csproj" />
+	</ItemGroup>
 </Project>
